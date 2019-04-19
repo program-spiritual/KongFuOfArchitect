@@ -22,4 +22,4 @@
 
 ### [part5 | 资源汇总](./part5/README.md)
 
-### [part6 | 何为道？](./part6/README.md)
+### [part6 | 大道至简](./part6/README.md)
