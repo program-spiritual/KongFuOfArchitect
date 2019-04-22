@@ -81,21 +81,61 @@
 
 ## 目录
 
-### [part1 | 架构基础](./part1/README.md)
+- [part1 | 架构基础](./part1/README.md)
 
-### [part2 | 算法与数据](./part2/README.md)
+- [part2 | 算法与数据](./part2/README.md)
 
-### [part3 | 范式编程](./part3/README.md)
+- [part3 | 范式编程](./part3/README.md)
 
-### [part4 | 高效成长](./part4/README.md)
+- [part4 | 高效成长](./part4/README.md)
 
-### [part5 | 资源汇总](./part5/README.md)
+- [part5 | 资源汇总](./part5/README.md)
 
-### [part6 | 大道至简](./part6/README.md)
+- [part6 | 大道至简](./part6/README.md)
 
 
-## 订阅和分叉
+感谢你的支持,如果想查阅支持者列表请见如下：
 
-### [订阅](https://github.com/xiaomiwujiecao/KongFuOfArchitect/stargazers)
+## 订阅和分叉列表
 
-### [分叉](https://github.com/xiaomiwujiecao/KongFuOfArchitect/members)
+### [订阅列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/stargazers)
+
+### [分叉列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/network/members)
+
+## 大纲描述
+
+-  架构基础
+  - 大部分`架构`基础知识
+- 算法与数据
+  - 常用的`算法`与数据结构
+- 范式编程
+  - 如何认知编程的`本质`
+- 高效成长
+  - 作为技术人 如何高效`自学成才`
+- 资源汇总
+  - 整理架构相关的`资源`
+- 大道至简
+  - 如何提高自身的认知和逻辑`思维层次`  
+
+## 参与核心贡献
+
+如果您有意愿参与任何一部分的贡献,请直接通过邮箱方式联系作者
+
+邮箱：
+
+```
+xiaomiwujiecao@gmail.com
+```
+
+## TODO LIST
+
+- [ ] 第 `1` 部分 架构基础
+- [ ] 第 `2` 部分 算法与数据
+- [ ] 第 `3` 部分 范式编程
+- [ ] 第 `4` 部分 高效成长
+- [ ] 第 `5` 部分 资源汇总
+- [ ] 第 `6` 部分 大道至简
+
+## ISSUES 问题管理
+
+如果您有任何建议和错误反馈，例如发现了错别字，请在 `ISSUES` 中直接指出，谢谢！
