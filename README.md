@@ -3,7 +3,8 @@
 ![架构师的功夫](./img/架构师的功夫1.png)
 
 架构师的功夫（包含思想指引、学习资源汇总、范式编程、高效成长、必备算法、等等，为想成为架构师的人铺路）
-
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 ## 引言
 
 > 无名，天下之始；有名，天下之母  -- 《道德经》
