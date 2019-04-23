@@ -7,3 +7,5 @@
 https://geek.thickink.com/page/927
 
 感谢阅读，勘误和建议可以通过Issues和文章下方的评论，感谢！
+
+极客时间版权所有 https://time.geekbang.org/column/article/91007
