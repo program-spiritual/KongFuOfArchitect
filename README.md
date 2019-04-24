@@ -128,6 +128,11 @@ xiaomiwujiecao@gmail.com
 ```
 2. 参照 [ISSUES](https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/1) 页面的方式，`fork` 之后按照格式提交
 
+## 贡献者
+
+[贡献者列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/graphs/contributors)
+
+
 ## TODO LIST
 
 - [ ] 第 `1` 部分 架构基础
