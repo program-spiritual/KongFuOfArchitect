@@ -10,5 +10,8 @@
 
 [04 | 编程语言的进化](https://geek.thickink.com/page/934)
 
+[05 | 如何实现可自我迭代的计算机？](https://geek.thickink.com/page/935)
+
+
 
 ## TODO
