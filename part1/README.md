@@ -12,6 +12,8 @@
 
 [05 | 如何实现可自我迭代的计算机？](https://geek.thickink.com/page/935)
 
+[06 | 操作系统进场](https://geek.thickink.com/page/936)
 
+[07 | 软件运行机制及内存管理](https://geek.thickink.com/page/937)
 
 ## TODO
