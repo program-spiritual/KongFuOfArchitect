@@ -16,4 +16,5 @@
 
 [07 | 软件运行机制及内存管理](https://geek.thickink.com/page/937)
 
+[08 | 操作系统内核与编程接口-笔记](https://geek.thickink.com/page/939)
 ## TODO
