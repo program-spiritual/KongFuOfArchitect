@@ -20,4 +20,5 @@
 
 [09 | 外存管理与文件系统-笔记](https://geek.thickink.com/page/940)
 
+[10 | 输入和输出设备：交互的演进-笔记](https://geek.thickink.com/page/945)
 ## TODO
