@@ -23,4 +23,7 @@
 [10 | 输入和输出设备：交互的演进-笔记](https://geek.thickink.com/page/945)
 
 [11 | 多任务：进程、线程与协程-笔记](https://geek.thickink.com/page/946)
+
+[12 | 进程内协同：同步、互斥与通讯-笔记](https://geek.thickink.com/page/947)
+
 ## TODO
