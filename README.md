@@ -128,6 +128,8 @@ xiaomiwujiecao@gmail.com
 ```
 2. 参照 [ISSUES](https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/1) 页面的方式，`fork` 之后按照格式提交
 
+
+
 ## 贡献者
 
 [贡献者列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/graphs/contributors)
@@ -144,4 +146,5 @@ xiaomiwujiecao@gmail.com
 
 ## ISSUES 问题管理
 
-如果您有任何建议和错误反馈，例如发现了错别字，请在 `ISSUES` 中直接指出，谢谢！
+1. 如果您有任何建议和错误反馈，例如发现了错别字，请在 `ISSUES` 中直接指出，谢谢！
+2. 也可以在博客文章详情下方进行上述操作，我会在看到后的第一时间进行修改
