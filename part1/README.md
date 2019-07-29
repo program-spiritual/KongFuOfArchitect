@@ -26,4 +26,5 @@
 
 [12 | 进程内协同：同步、互斥与通讯-笔记](https://geek.thickink.com/page/947)
 
+[13 | 进程间的同步互斥、资源共享与通讯-笔记](https://geek.thickink.com/page/950)
 ## TODO
