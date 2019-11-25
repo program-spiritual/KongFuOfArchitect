@@ -1,7 +1,8 @@
 ## javaProgramming
 
-通过实例直接理解基础语法，这需要您一些语法基础
+> 通过实例直接理解基础语法，这需要您一些语法基础
  
+### 基础 
 -  [新建对象](./Dog.java)
 - [实例化对象](./Puppy.java)
 - [访问实例变量和方法](./Puppy.java)
@@ -25,5 +26,28 @@
 - [正则实例1](./RegexMatchesDemo.java)
 - [正则实例2](./RegexMatchesDemo2.java)
 - [正则实例3](./RegexMatchesDemo3.java)
-- [函数实例1](./ExampleMinNumberDemo.java)
-- [函数实例2](./ExampleVoidDemo.java)
+- [函数实例1-最小数](./ExampleMinNumberDemo.java)
+- [函数实例2-不返回值](./ExampleVoidDemo.java)
+- [函数实例3-交换数值](./swappingExample.java)
+- [函数实例4-命令行参数](./CommandLine.java)
+- [函数实例5-this关键字](./thisKeywordUsage.java)
+- [函数实例6-this关键字使用实例](./thisKeywordUsage.java)
+- [函数实例7-可变参数](./VarargsDemo.java)
+- [文件读写和流-复制文件1-字节流](./CopyFile.java)
+- [文件读写和流-复制文件2-字符流](./CopyFile2.java)
+- [文件读写和流-复制文件3-标准流](./CopyFile3.java)
+- [文件读写和流-复制文件4-文件流](./fileStreamTest.java)
+- [文件读写和流-复制文件5-文件流](./fileStreamTest.java)
+- [Exception-异常测试1](./ExcepTest.java)
+- [Exception-异常测试2-多个异常捕获](./Except2.java)
+- [Exception-异常测试3-finally](./Except3.java)
+- [Exception-异常测试4-处理资源](./Except3.java)
+- [嵌套classes](./Outer_Demo.java)
+- [嵌套classes-获取private属性](./My_class2.java)
+- [嵌套classes-方法本地嵌套类](./Outerclass.java)
+- [嵌套classes-匿名嵌套类](./AnonymousInnerClass.java)
+- [嵌套classes-匿名嵌套类](./AnonymousInnerClass.java)
+- [嵌套classes-匿名嵌套类作为参数](./AnonymousInnerClassAsArgument.java)
+- [嵌套classes-静态嵌套类](./StaticNestedClass.java)
+
+### 进阶
