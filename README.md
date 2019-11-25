@@ -86,7 +86,7 @@
 - [part2 | 算法与数据](./part2/README.md)
 
 - [part3 | 范式编程](./part3/README.md)
-  - [第一章 `JAVA` 技术栈](./part5/java/README.md)
+  - [第一章 `JAVA` 技术栈](./part3/java/README.md)
 - [part4 | 高效成长](./part4/README.md)
 
 - [part5 | 资源汇总](./part5/README.md)
