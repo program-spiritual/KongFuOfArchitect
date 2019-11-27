@@ -1,5 +1,7 @@
+package packageDemo;
+
 import java.io.*;
-public class Employee {
+public class Employee2 {
 
     String name;
     int age;
@@ -7,7 +9,7 @@ public class Employee {
     double salary;
 
     // This is the constructor of the class Employee
-    public Employee(String name) {
+    public Employee2(String name) {
         this.name = name;
     }
 
