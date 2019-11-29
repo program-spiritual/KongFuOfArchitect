@@ -148,3 +148,13 @@ xiaomiwujiecao@gmail.com
 
 1. 如果您有任何建议和错误反馈，例如发现了错别字，请在 `ISSUES` 中直接指出，谢谢！
 2. 也可以在博客文章详情下方进行上述操作，我会在看到后的第一时间进行修改
+
+## 问题讨论 
+
+请移步：https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/3
+
+## 贡献
+
+`fork` 此项目并 `pull request` 你新增的源码
+
+
