@@ -20,18 +20,18 @@ func main() {
 	//210f          /* Illegal: no decimal or exponent */
 	//.e55          /* Illegal: missing integer or fraction */
 
-//	转义序列
-//	\\	\ character
-//	\'	' character
-//	\"	" character
-//	\?	? character
-//	\a	Alert or bell
-//	\b	Backspace
-//	\f	Form feed
-//	\n	Newline
-//	\r	Carriage return
-//	\t	Horizontal tab
-//	\v	Vertical tab
-//	\ooo	Octal number of one to three digits
-//	\xhh . . .	Hexadecimal number of one or more digits
+	//	转义序列
+	//	\\	\ character
+	//	\'	' character
+	//	\"	" character
+	//	\?	? character
+	//	\a	Alert or bell
+	//	\b	Backspace
+	//	\f	Form feed
+	//	\n	Newline
+	//	\r	Carriage return
+	//	\t	Horizontal tab
+	//	\v	Vertical tab
+	//	\ooo	Octal number of one to three digits
+	//	\xhh . . .	Hexadecimal number of one or more digits
 }

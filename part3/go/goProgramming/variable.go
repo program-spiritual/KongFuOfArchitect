@@ -23,7 +23,7 @@ func main() {
 	fmt.Printf("b is of type %T\n", b)
 	fmt.Printf("c is of type %T\n", c)
 
-//	您可以使用const前缀来声明具有特定类型的常量，如下所示-
+	//	您可以使用const前缀来声明具有特定类型的常量，如下所示-
 
 	const LENGTH int = 10
 	const WIDTH int = 5
