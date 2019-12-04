@@ -10,3 +10,10 @@ go get -v -u github.com/gpmgo/gopm
 
 https://github.com/goproxy/goproxy.cn/blob/master/README.zh-CN.md
 
+### 3.`Error: Package "C:\\xxx\\xxx\\xxx-xxx-xxx" not a go package or not in GOPATH.`
+
+请检查系统环境变量是否存在 `GOPATH` 路径冲突
+
+### 4.`go get` 安装一个特定版本的包失败解决方法
+
+https://studygolang.com/articles/15950?fr=sidebar
