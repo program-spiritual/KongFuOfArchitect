@@ -17,3 +17,7 @@ https://github.com/goproxy/goproxy.cn/blob/master/README.zh-CN.md
 ### 4.`go get` 安装一个特定版本的包失败解决方法
 
 https://studygolang.com/articles/15950?fr=sidebar
+
+### 5. `golang` 的包机制是怎么样的？
+
+https://www.jianshu.com/p/bc2bcfaf2a0f
