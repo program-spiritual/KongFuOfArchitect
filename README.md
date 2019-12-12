@@ -82,16 +82,17 @@
 ## 目录
 
 - [part1 | 架构基础](./part1/README.md)
-
 - [part2 | 算法与数据](./part2/README.md)
-
 - [part3 | 范式编程](./part3/README.md)
   - [第一章 `JAVA` 技术栈](./part3/java/README.md)
+  - [第二章 `GO` 技术栈](./part3/go/README.md)
+  - [第三章 `Scala` 技术栈](./part3/scala/README.md)
 - [part4 | 高效成长](./part4/README.md)
-
 - [part5 | 资源汇总](./part5/README.md)
   - [第一章 `EcmaScript` 与 `Nodejs`](./part5/js/README.md)
 - [part6 | 大道至简](./part6/README.md)
+- [part7 | AI与区块链](./part7/README.md)
+- [part8 | 服务与自动化](./part8/README.md)
 
 
 感谢你的支持,如果想查阅支持者列表请见如下：
