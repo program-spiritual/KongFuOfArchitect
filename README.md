@@ -92,16 +92,8 @@
   - [第一章 `EcmaScript` 与 `Nodejs`](./part5/js/README.md)
 - [part6 | 大道至简](./part6/README.md)
 - [part7 | AI与区块链](./part7/README.md)
-- [part8 | 服务与自动化](./part8/README.md)
-
-
-感谢你的支持,如果想查阅支持者列表请见如下：
-
-## 订阅和分叉列表
-
-### [订阅列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/stargazers)
-
-### [分叉列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/network/members)
+- [part8 | 微服务与自动化](./part8/README.md)
+- [part9 | 负载均衡](./part9/README.md)
 
 ## 大纲描述
 
@@ -117,6 +109,16 @@
   - 整理架构相关的`资源`
 - 大道至简
   - 如何提高自身的认知和逻辑`思维层次`  
+  
+  
+  
+感谢你的支持,如果想查阅支持者列表请见如下：
+
+## 订阅和分叉列表
+
+### [订阅列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/stargazers)
+
+### [分叉列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/network/members)
 
 ## 参与核心贡献
 
