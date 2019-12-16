@@ -2,7 +2,14 @@
 
 ![架构师的功夫](./img/架构师的功夫1.png)
 
+## 项目主旨
+
 架构师的功夫（包含思想指引、学习资源汇总、范式编程、高效成长、必备算法、等等，为想成为架构师的人铺路）
+此项目包含 范式编程、数据结构、架构思想、机器学习、区块链等等教程合集、文章合集
+本项目长期维护 LTS
+
+## 遵循协议
+
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
