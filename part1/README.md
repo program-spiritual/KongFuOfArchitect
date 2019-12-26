@@ -4,6 +4,13 @@
 
 ![许式伟的架构课](https://static.nodejs7.com/2019/12/2816275967.jpeg!750_375)
 
+
+## 版权声明
+
+笔记引用所有内容归[极客邦-极客时间](https://time.geekbang.org/)所有 
+
+
+
 ## 目录
 
 - [01 | 架构设计的宏观视角-笔记](01/README.md)
@@ -92,7 +99,7 @@
 
 - [62 | 重新认识开闭原则 (OCP)](https://ai.nodejs7.com/2019/12/24/42.html)
 
-
+- [63 | 接口设计的准则](https://ai.nodejs7.com/2019/12/26/47.html)
 ### 关注 AI、区块链 等新技术，请收藏：
 
 - [疯狂的AI](https://ai.nodejs7.com/)
