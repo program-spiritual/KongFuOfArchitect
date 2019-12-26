@@ -1,5 +1,9 @@
 ##  第一部分 许式伟的架构课详细笔记
 
+## 扫码购买课程后再看笔记，效果最佳哦~
+
+![许式伟的架构课](./img/xushiweijiagouke.jpeg)
+
 ## 目录
 
 - [01 | 架构设计的宏观视角-笔记](01/README.md)
@@ -80,10 +84,16 @@
 
 - [58 | 如何判断架构设计的优劣？](https://ai.nodejs7.com/2019/12/23/33.html)
 
-## 更多目录
+- [59 | 少谈点框架，多谈点业务](https://ai.nodejs7.com/2019/12/24/37.html)
 
-- [极客点子/架构与道](https://geek.thickink.com/category/71.html)
+- [60 | 架构分解：边界，不断重新审视边界](https://ai.nodejs7.com/2019/12/24/39.html)
 
-### AI、区块链 等新技术
+- [61 | 全局性功能的架构设计](https://ai.nodejs7.com/2019/12/24/41.html)
+
+- [62 | 重新认识开闭原则 (OCP)](https://ai.nodejs7.com/2019/12/24/42.html)
+
+
+### 关注 AI、区块链 等新技术，请收藏：
 
 - [疯狂的AI](https://ai.nodejs7.com/)
+- [极客点子/架构与道](https://geek.thickink.com/category/71.html)
