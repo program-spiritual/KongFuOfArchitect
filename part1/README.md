@@ -2,7 +2,7 @@
 
 ## 扫码购买课程后再看笔记，效果最佳哦~
 
-![许式伟的架构课](./img/xushiweijiagouke.jpeg)
+![许式伟的架构课](https://static.nodejs7.com/2019/12/2816275967.jpeg)
 
 ## 目录
 
