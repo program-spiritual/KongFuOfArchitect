@@ -98,6 +98,7 @@
 - [part7 | AI与区块链](./part7/README.md)
 - [part8 | 微服务与自动化](./part8/README.md)
 - [part9 | 负载均衡](./part9/README.md)
+- [part10 | 编译原理](part10/README.md)
 
 ## 大纲描述
 
