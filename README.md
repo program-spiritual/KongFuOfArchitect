@@ -1,4 +1,6 @@
-# KongFuOfArchitect(架构师的功夫)
+# 《 架构师的功夫》
+
+>  英文 《KongFuOfArchitect》
 
 ![架构师的功夫](./img/架构师的功夫1.png)
 
