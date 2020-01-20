@@ -64,10 +64,15 @@ gcc version 8.1.0 (x86_64-posix-seh-rev0, Built by MinGW-W64 project)
 ```
 
 ### 目录
-- [基础知识脑图](./algorithms_basics.md)
-- [渐进分析脑图](img/asymptotic_analysis.md)
-- [贪婪算法](./greedy_algorithms.md)
-- [分而治之](divide_and_conquer.md)
+- 算法
+    - [基础知识脑图](./algorithms_basics.md)
+    - [渐进分析脑图](img/asymptotic_analysis.md)
+    - [贪婪算法](./greedy_algorithms.md)
+    - [分而治之](divide_and_conquer.md)
+    - [动态编程](dynamic_programming.md)
+- 数据结构
+    - [基本术语](data_structures_basics.md)
+    - [数组数据结构](array_data_structure.md)
 ## 好书推荐
 
 ### 《C Primer Plus》
