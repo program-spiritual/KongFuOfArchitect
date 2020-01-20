@@ -31,3 +31,5 @@
 - [06 | 编译器前端工具（一）：用Antlr生成词法、语法分析器 ](https://ai.nodejs7.com/2020/01/02/70.html)
 - [07 | 编译器前端工具（二）：用Antlr重构脚本语言 - 疯狂的AI](https://ai.nodejs7.com/2020/01/03/72.html)
 - [08 | 作用域和生存期：实现块作用域和函数 - 疯狂的AI](https://ai.nodejs7.com/2020/01/03/75.html)
+- [09 | 面向对象：实现数据和方法的封装 - 疯狂的AI](https://ai.nodejs7.com/2020/01/13/111.html)
+- [10 理解闭包原理 - 疯狂的AI](https://ai.nodejs7.com/2020/01/20/129.html)
