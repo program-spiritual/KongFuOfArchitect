@@ -100,6 +100,13 @@
 - [62 | 重新认识开闭原则 (OCP)](https://ai.nodejs7.com/2019/12/24/42.html)
 
 - [63 | 接口设计的准则](https://ai.nodejs7.com/2019/12/26/47.html)
+- [64 | 不断完善的架构范式 - 疯狂的AI](https://ai.nodejs7.com/2019/12/31/48.html)
+- [66 | 架构老化与重构 - 疯狂的AI](https://ai.nodejs7.com/2020/01/02/56.html)
+- [68 | 软件工程的宏观视角 - 疯狂的AI](https://ai.nodejs7.com/2020/01/02/60.html)
+- [69 | 团队的共识管理 - 疯狂的AI](https://ai.nodejs7.com/2020/01/02/63.html)
+- [70 | 怎么写设计文档？ - 疯狂的AI](https://ai.nodejs7.com/2020/01/06/90.html)
+- [71 | 如何阅读别人的代码？ - 疯狂的AI](https://ai.nodejs7.com/2020/01/09/95.html)
+- [72 | 发布单元与版本管理 - 疯狂的AI](https://ai.nodejs7.com/2020/01/13/109.html)
 ### 关注 AI、区块链 等新技术，请收藏：
 
 - [疯狂的AI](https://ai.nodejs7.com/)
