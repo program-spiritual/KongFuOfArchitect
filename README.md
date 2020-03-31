@@ -37,6 +37,12 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
+## CHANGE LOG
+
+- 2020年04月01日
+
+  增加廖雪峰博客`JAVA`教程笔记
+
 ## 引言
 
 > 无名，天下之始；有名，天下之母  -- 《道德经》
