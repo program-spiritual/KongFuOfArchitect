@@ -69,3 +69,13 @@
   - [switch 多重选择- 多个case执行同一句块](SwitchCaseDemo2.java)  
   - [语句赋值](SwitchCaseDemo3.java)  
   - [yield](SwitchCaseDemo4.java)  
+  
+- [while循环](WhileLoopDemo1.java)  
+- [do...while循环](DoWhileLoopDemo1.java)  
+- [for循环](ForLoopDemo1.java)  
+  - [for循环-数组求和](ForLoopDemo2.java)  
+  - [for循环-访问指定索引](ForLoopDemo3.java)  
+  - [for循环-灵活使用](ForLoopDemo4.java)  
+  - [for循环- for each](ForLoopDemo5.java)  
+  - [for循环- break , continue](ForLoopDemo6.java)  
+  - [for循环- continue](ForLoopDemo7.java)  
