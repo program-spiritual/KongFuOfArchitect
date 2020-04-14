@@ -84,3 +84,7 @@
 
 - [遍历数组](ForEachArrayDemo1.java)  
   - [遍历数组- 打印数组内容](ForEachArrayDemo2.java)  
+  - [遍历数组- 数组排序](ForEachArrayDemo3.java)  
+  - [遍历数组- 自带排序-升序](ForEachArrayDemo4.java)  
+  - [遍历数组- 自带排序-降序](ForEachArrayDemo5.java)  
+  - [遍历数组- 自带排序-降序-使用Comparator](ForEachArrayDemo6.java)  
