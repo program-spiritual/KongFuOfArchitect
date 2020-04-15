@@ -87,4 +87,67 @@
   - [遍历数组- 数组排序](ForEachArrayDemo3.java)  
   - [遍历数组- 自带排序-升序](ForEachArrayDemo4.java)  
   - [遍历数组- 自带排序-降序](ForEachArrayDemo5.java)  
-  - [遍历数组- 自带排序-降序-使用Comparator](ForEachArrayDemo6.java)  
+  - [遍历数组- 自带排序-降序-使用Comparator](ForEachArrayDemo6.java)
+  
+- [多维数组](MultidimensionalArraysDemo1.java)    
+  - [多维数组-获取二维数组个项](MultidimensionalArraysDemo2.java)    
+  - [多维数组-打印二维数组](MultidimensionalArraysDemo3.java)    
+  - [多维数组-三维数组](MultidimensionalArraysDemo4.java)  
+  - [多维数组-练习](MultidimensionalArraysDemo5.java)  
+  
+- [命令行参数](CommandLineDemo1.java)  
+  - [命令行参数-命令行传参](CommandLineDemo2.java)  
+  
+
+# 面向对象编程
+
+## 面向对象基础
+- [类](ClassBasicDemo1.java)
+  - [练习](ClassBasicDemo2.java)
+- [方法](ClassMethodDemo1.java)
+  - [方法-this变量](ClassMethodDemo2.java)
+  - [方法-参数](ClassMethodDemo3.java)
+  - [方法-可变参数](ClassMethodDemo4.java)
+  - [方法-传递引用参数](ClassMethodDemo5.java)
+- [构造方法](ConstructMethodDemo1.java)
+  - [构造方法-初始化和构造函数初始化](ConstructMethodDemo2.java)
+- [方法重载]()
+- [继承]()
+- [多态]()
+- [抽象类]()
+- [抽象类]()
+- [接口]()
+- [静态字段和静态方法]()
+- [包]()
+- [作用域]()
+- [classpath 和 jar]()
+- [模块]()
+
+## Java核心类
+
+
+# 异常处理
+# 反射
+# 注解
+# 泛型
+# 集合
+# IO
+# 日期与时间
+# 单元测试
+# 正则表达式
+# 加密与安全
+# 多线程
+# Maven 基础
+# 网络编程
+# XML 与 JSON
+# JDBC 编程
+# 函数式编程
+# 设计模式
+# Web 开发
+# Spring 开发  
+
+
+
+# 引用版权声明
+
+【廖雪峰java教程笔记】引用内容版权归[廖雪峰的官方网站](https://www.liaoxuefeng.com)所有
