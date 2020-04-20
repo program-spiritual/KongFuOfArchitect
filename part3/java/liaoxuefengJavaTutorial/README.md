@@ -139,9 +139,19 @@
   - [接口的静态字段](StaticFieldAndMethodDemo3.java)
 - [包](PackageDemo1.java)
   - [包-包作用域](PackageDemo2.java)
-- [作用域]()
-- [classpath 和 jar]()
-- [模块]()
+  - [包-import](PackageDemo3.md)
+  - [包-错误示范](PackageDemo4.java)
+  - [包-最佳实践](PackageDemo5.md)
+- [作用域](ScopeDemo1.java)
+  - [作用域-嵌套类](ScopeDemo2.java)
+  - [作用域-包](ScopeDemo3.java)
+  - [作用域-局部变量](ScopeDemo4.java)
+  - [作用域-final](ScopeDemo5.java)
+- [classpath 和 jar](ClassPathAndJar.md)
+  - [classpath  ](ClassPathAndJar.md)
+  - [jar包](ClassPathAndJar2.md)
+- [模块](MoudleDemo1.java)
+  - [模块](MoudleDemo1.md)
 
 ## Java核心类
 
