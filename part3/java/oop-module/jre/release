@@ -1,0 +1,2 @@
+JAVA_VERSION="14"
+MODULES="java.base java.xml hello.world"

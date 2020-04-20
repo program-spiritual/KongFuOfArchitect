@@ -151,10 +151,21 @@
   - [classpath  ](ClassPathAndJar.md)
   - [jar包](ClassPathAndJar2.md)
 - [模块](MoudleDemo1.java)
-  - [模块](MoudleDemo1.md)
+  - [模块-实验](MoudleDemo1.md)
+  - [模块-运行](MoudleDemo2.md)
+  - [模块-打包JRE](MoudleDemo3.md)
+  - [模块-访问权限](MoudleDemo4.md)
 
 ## Java核心类
-
+- [字符串和编码]()
+- [StringBuilder]()
+- [StringJoiner]()
+- [包装类型]()
+- [JavaBean]()
+- [枚举类]()
+- [BigInteger]()
+- [BigDecimal]()
+- [常用工具类]()
 
 # 异常处理
 # 反射
