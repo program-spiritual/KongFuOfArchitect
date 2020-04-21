@@ -191,8 +191,26 @@
   - [BigDecimal-比较BigDecimal](BigDecimalDemo5.java)
 - [常用工具类-Math](CommonToolsDemo1.java)
   - [生成一个区间在 ( MIN, MAX ) 的随机数](CommonToolsDemo2.java)
+  - [生成伪随机数](CommonToolsDemo3.java)
+  - [生成真随机数](CommonToolsDemo4.java)
     
 # 异常处理
+## Java的异常
+- [方法1](JavaExceptionDemo1.java)
+- [方法2](JavaExceptionDemo2.java)
+- [捕获异常](JavaExceptionDemo3.java)
+## 捕获异常
+- [多catch语句](MultipleCatchStatementsDemo1.java)
+- [finally 语句](FinallyStatementsDemo1.java)
+- [捕获多个异常](CatchMultipleExceptionsDemo1.java)
+## 抛出异常
+## 自定义异常
+## 空指针异常
+## 断言
+## JDK Logging
+## Common Logging
+## Log4j
+## SLF4J . Logback
 # 反射
 # 注解
 # 泛型
