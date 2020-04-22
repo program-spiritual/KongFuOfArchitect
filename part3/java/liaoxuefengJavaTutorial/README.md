@@ -204,6 +204,9 @@
 - [finally 语句](FinallyStatementsDemo1.java)
 - [捕获多个异常](CatchMultipleExceptionsDemo1.java)
 ## 抛出异常
+- [异常的传播](ThrowExceptionDemo1.java)
+- [异常的传播-原始的异常](ThrowExceptionDemo2.java)
+- [异常的传播-finally执行顺序](ThrowExceptionDemo3.java)
 ## 自定义异常
 ## 空指针异常
 ## 断言
