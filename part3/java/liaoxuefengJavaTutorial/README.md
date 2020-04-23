@@ -207,9 +207,18 @@
 - [异常的传播](ThrowExceptionDemo1.java)
 - [异常的传播-原始的异常](ThrowExceptionDemo2.java)
 - [异常的传播-finally执行顺序](ThrowExceptionDemo3.java)
+
 ## 自定义异常
+
+- [自定义异常](CustomException.md)
+- [自定义异常-构建自定义异常](CustomExceptionDemo1.java)
+
 ## 空指针异常
+- [空指针异常示例1](NullPointerExceptionDemo1.java)
+- [处理NullPointerException](NullPointerExceptionDemo2.java)
+- [定位NullPointerException](NullPointerExceptionDemo3.java)
 ## 断言
+- [断言示例1](AssertionDemo1.java)
 ## JDK Logging
 ## Common Logging
 ## Log4j
