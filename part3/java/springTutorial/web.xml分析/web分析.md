@@ -82,7 +82,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 
 
 
-### 3、**<icon>Web应用图标**
+### 3、<icon>Web应用图标
 
 ```xml
 <icon>
