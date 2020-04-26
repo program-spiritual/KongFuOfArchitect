@@ -1,0 +1,4 @@
+16:21:08.474 [main] ERROR Student12 - got exception!
+java.lang.UnsupportedOperationException: null
+	at Student12.testLogError(SLF4JAndLogbackDemo1.java:37)
+	at SLF4JAndLogbackDemo1.main(SLF4JAndLogbackDemo1.java:22)

@@ -220,10 +220,16 @@
 ## 断言
 - [断言示例1](AssertionDemo1.java)
 ## JDK Logging
+- [使用JDK Logging](JDKLoggingDemo1.java)
 ## Common Logging
+- [使用Commons Logging](CommonsLoggingDemo1.java)
+- [使用Commons Logging-实例方法](CommonsLoggingDemo2.java)
 ## Log4j
+- [使用 Log4j](Log4jDemo1.java)
 ## SLF4J . Logback
+- [示例1](SLF4JAndLogbackDemo1.java)
 # 反射
+- [Class类](ReflectClassDemo1.java)
 # 注解
 # 泛型
 # 集合

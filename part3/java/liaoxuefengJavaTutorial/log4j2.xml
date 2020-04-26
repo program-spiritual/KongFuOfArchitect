@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <!-- 定义日志格式 -->
+        <Property name="log.pattern">%d{MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}%n%msg%n%n</Property>
+        <!-- 定义文件名变量 -->
+        <Property name="file.err.filename">log/err.log</Property>
+        <Property name="file.err.pattern">log/err.%i.log.gz</Property>
+    </Properties>
+    <!-- 定义Appender，即目的地 -->
+    <Appenders>
+        <!-- 定义输出到屏幕 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <!-- 日志格式引用上面定义的log.pattern -->
+            <PatternLayout pattern="${log.pattern}"/>
+        </Console>
+        <!-- 定义输出到文件,文件名引用上面定义的file.err.filename -->
+        <RollingFile name="err" bufferedIO="true" fileName="${file.err.filename}" filePattern="${file.err.pattern}">
+            <PatternLayout pattern="${log.pattern}"/>
+            <Policies>
+                <!-- 根据文件大小自动切割日志 -->
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <!-- 保留最近10份 -->
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <!-- 对info级别的日志，输出到console -->
+            <AppenderRef ref="console" level="info"/>
+            <!-- 对error级别的日志，输出到err，即上面定义的RollingFile -->
+            <AppenderRef ref="err" level="error"/>
+        </Root>
+    </Loggers>
+</Configuration>
