@@ -40,6 +40,20 @@ hong ──────>│Person instance   │
 class Person{
     public String name;
     public Integer age;
+
+    public Person(String name) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public Person() {
+
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
 //    public是用来修饰字段的，它表示这个字段可以被外部访问。
 }
 

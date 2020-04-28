@@ -230,6 +230,12 @@
 - [示例1](SLF4JAndLogbackDemo1.java)
 # 反射
 - [Class类](ReflectClassDemo1.java)
+  - [动态加载](DynamicLoadingDemo1.java)
+  - [动态加载-示例2](DynamicLoadingDemo2.java)
+  - [访问字段](AccessFieldsDemo1.java)  
+    - [访问字段-获取字段值](AccessFieldsDemo2.java)  
+    - [访问字段-设置字段值](AccessFieldsDemo3.java)  
+  - [调用方法](CallMethodDemo1.java)  
 # 注解
 # 泛型
 # 集合
