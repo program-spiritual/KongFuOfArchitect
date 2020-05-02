@@ -236,8 +236,18 @@
     - [访问字段-获取字段值](AccessFieldsDemo2.java)  
     - [访问字段-设置字段值](AccessFieldsDemo3.java)  
   - [调用方法](CallMethodDemo1.java)  
+  - [调用构造方法](CallMethodDemo2.java)  
+  - [获取继承关系](CallMethodDemo3.java)  
+  - [动态代理](CallMethodDemo4.java)  
 # 注解
+- [使用注解](UseAnnotationDemo1.java)
+- [定义注解](UseAnnotationDemo2.java)
+- [定义注解2](UseAnnotationDemo3.java)
+- [处理注解1](HandleAnnotationDemo1.java)
 # 泛型
+- [什么是泛型](GenericDemo1.java)
+- [使用泛型](GenericDemo2.java)
+  - [泛型接口](GenericDemo3.java)
 # 集合
 # IO
 # 日期与时间
