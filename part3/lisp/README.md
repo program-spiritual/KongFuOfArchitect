@@ -16,7 +16,10 @@ LISP程序可以在解释器上运行，也可以作为已编译的代码运行�
 
 ### windows clisp 
 
-您可以从此处获取最新的Windows CLISP- https: //sourceforge.net/projects/clisp/files/latest/download
+您可以从此处获取最新的 Windows CLISP- 
+
+[windows CLISP](https://sourceforge.net/projects/clisp/files/latest/download)
+
 
 ### mac clisp
 
@@ -39,3 +42,7 @@ clisp hello.lisp
 [程序结构](./programConstruct/README.md)
 
 [基础文法](./lisp_basic_syntax/README.md)
+
+[宏](./lisp_macros/README.md)
+
+[变量](./lisp_variables/README.md)
