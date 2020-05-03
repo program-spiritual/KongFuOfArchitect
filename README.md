@@ -131,6 +131,7 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
   - [第一章 `JAVA` 技术栈](./part3/java/README.md)
   - [第二章 `GO` 技术栈](./part3/go/README.md)
   - [第三章 `Scala` 技术栈](./part3/scala/README.md)
+  - [第三章 `LISP`编程 ](./part3/lisp/README.md)
 - [part4 | 高效成长](./part4/README.md)
 - [part5 | 资源汇总](./part5/README.md)
   - [第一章 `EcmaScript` 与 `Nodejs`](./part5/js/README.md)
