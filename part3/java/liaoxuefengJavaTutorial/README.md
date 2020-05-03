@@ -248,6 +248,8 @@
 - [什么是泛型](GenericDemo1.java)
 - [使用泛型](GenericDemo2.java)
   - [泛型接口](GenericDemo3.java)
+- [泛型接口](GenericDemo3.java)
+
 # 集合
 # IO
 # 日期与时间
