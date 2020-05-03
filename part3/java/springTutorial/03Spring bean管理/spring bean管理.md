@@ -183,3 +183,238 @@ public abstract class AbstractBeanFactory implements ConfigurableBeanFactory{
 ```
 
 既不是饿汉式也不是懒汉式，而是通过注册表的形式来进行管理。
+
+
+
+### 2、原型模式 
+
+```xml
+<bean id="accountService" class="com.foo.DefaultAccountService" scope="prototype"/>
+```
+
+在web.xml中这样进行配置时，注入的bean就会是原型模式
+
+####         什么是原型模式？
+
+​	原型模式就是将一个对象克隆出一个对象，即将这个对象完完整整的复制出一份。这样就可以保存这个对象在某个时间的状态。
+
+#### 	对象克隆的代码实现
+
+```java
+public interface ICloneable<T> extends Cloneable {
+    public T copy();
+}
+```
+
+```java
+public class Message implements ICloneable<Message>{
+
+    int what;
+    String descriotion;
+
+    @Override
+    public Message copy() {
+        Message clone = null;
+        try {
+            clone = (Message) clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        return clone;
+    }
+}
+```
+
+​	需要注意的是：
+
+​		这里的clone方法默认是浅拷贝，基本类型数据会被复制到新对象中，但是引用对象类型只是把指针复制过去（这一块是自己理解）。一个对象的引用对象被改变了另外的克隆对象也会被改变。因为他们的指针是一致的。通过深拷贝就可以将这种问题解决。
+
+#### 	深拷贝
+
+​		第一种实现方式(通过实现Cloneable接口)
+
+```java
+public class Cruiser implements Cloneable
+{
+    String name;
+    ClonePilot pilot;
+    Cruiser(String name, ClonePilot pilot)
+    {
+        this.name = name;
+        this.pilot = pilot;
+    }
+
+    //Object.clone方法是protected修饰的，无法在外部调用。所以这里需要重载clone方法，改为public修饰，并且处理成员变量浅拷贝的问题。
+    public Cruiser clone()
+    {
+        try
+        {
+            Cruiser dest = (Cruiser)super.clone();
+            dest.pilot = this.pilot.clone();
+            return dest;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+```
+
+```java
+public class ClonePilot implements Serializable,Cloneable
+{
+    String name;
+    String sex;
+    ClonePilot(String name, String sex)
+    {
+        this.name = name;
+        this.sex = sex;
+    }
+    //因为所有成员变量都是基本类型，所以只需要调用Object.clone()即可
+    public ClonePilot clone()
+    {
+        try
+        {
+            ClonePilot dest = (ClonePilot)super.clone();
+            return dest;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+```
+
+**如果是复杂对象，就需要将其成员变量是引用类型变量实现Cloneable接口。**
+
+```java
+//测试
+public static void main(String[] args)
+{
+        Cruiser cruiser = new Cruiser("VNI", new ClonePilot("Alex", "male"));
+        System.out.println(cruiser);
+        Cruiser cloneCruiser = cruiser.clone();
+        System.out.println(cloneCruiser);
+        System.out.println(cruiser.pilot);
+        System.out.println(cloneCruiser.pilot);
+        System.out.println(cruiser.pilot.name);
+        System.out.println(cloneCruiser.pilot.name);
+}
+//执行结果：
+	//cloneObject.Cruiser@1eba861
+	//cloneObject.Cruiser@1480cf9
+	//cloneObject.ClonePilot@1496d9f
+	//cloneObject.ClonePilot@3279cf
+	//Alex
+	//Alex
+```
+
+​		第二种实现方式(通过对象序列化的形式)
+
+```java 
+public class CloneObjUtils{
+	public static Object cloneObjBySerialization(Serializable src)
+      {
+          Object dest = null;
+          try
+          {
+              ByteArrayOutputStream bos = null;
+              ObjectOutputStream oos = null;
+              try
+              {
+                  bos = new ByteArrayOutputStream();
+                  oos = new ObjectOutputStream(bos);
+                  oos.writeObject(src);
+                  oos.flush();
+              }
+              finally
+              {
+                  oos.close();
+              }
+              byte[] bytes = bos.toByteArray();
+              ObjectInputStream ois = null;
+              try
+              {
+                  ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
+                  dest = ois.readObject();
+              }
+              finally
+              {
+                  ois.close();
+              }
+          }
+          catch(Exception e)
+          {
+              e.printStackTrace();//克隆失败
+          }
+          return dest;
+      }
+ }
+```
+
+```java
+import java.io.Serializable;
+
+public class BattleShip implements Serializable
+{
+    String name;
+    ClonePilot pilot;
+    BattleShip(String name, ClonePilot pilot)
+    {
+        this.name = name;
+        this.pilot = pilot;
+    }
+}
+//ClonePilot类型实现了Cloneable接口，不过这对通过Serializable方式拷贝对象没有影响
+public class ClonePilot implements Serializable,Cloneable
+{
+    String name;
+    String sex;
+    ClonePilot(String name, String sex)
+    {
+        this.name = name;
+        this.sex = sex;
+    }
+    public ClonePilot clone()
+    {
+        try
+        {
+            ClonePilot dest = (ClonePilot)super.clone();
+            return dest;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+```
+
+​	**需要注意的是：和实现Cloneable接口一样，引用数据类型对象也需要去实现Serializable接口**
+
+```java
+public static void main(String[] args)
+{
+        BattleShip bs = new BattleShip("Dominix", new ClonePilot("Alex", "male"));
+        System.out.println(bs);
+        System.out.println(bs.name + " "+bs.pilot.name);
+        BattleShip cloneBs = (BattleShip)CloneObjUtils.cloneObjBySerialization(bs);
+        System.out.println(cloneBs);
+        System.out.println(cloneBs.name + " "+cloneBs.pilot.name);
+}
+//console--output--
+
+  //cloneObject.BattleShip@154617c
+  //Dominix Alex
+  //cloneObject.BattleShip@cbcfc0
+  //Dominix Alex
+  //cloneObject.ClonePilot@a987ac
+  //cloneObject.ClonePilot@1184fc6
+```
+
