@@ -1,4 +1,3 @@
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -44,7 +43,7 @@ class PersonGeneric implements Comparable<PersonGeneric> {
     }
 
     @Override
-    public int compareTo(@NotNull PersonGeneric o) {
+    public int compareTo( PersonGeneric o) {
         return this.name.compareTo(o.name);
 
     }
