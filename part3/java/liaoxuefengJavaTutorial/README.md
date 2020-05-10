@@ -252,6 +252,15 @@
   - [多个泛型类型](WriteGenericsDemo2.java)
 - [擦拭法](WipingMethodDemo1.java)  
   - [泛型继承](WipingMethodDemo2.java)  
+- [extends 通配符](extendsWildcardDemo1.java)
+  - [extends通配符的作用](extendsWildcardDemo2.java)
+  - [使用extends限定T类型](extendsWildcardDemo3.java)
+- [super通配符](superWildcard/Main.java)
+  - [PECS原则](superWildcard/Collections.java)
+  - [无限定通配符](superWildcard/UnlimitedWildcard.java)
+  
+-[泛型和反射](GenericsAndReflections/Main.java)  
+  -[谨慎使用泛型可变参数](GenericsAndReflections/WrongDemo.java)
 # 集合
 # IO
 # 日期与时间
