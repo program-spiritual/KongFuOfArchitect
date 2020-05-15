@@ -263,7 +263,12 @@
   -[谨慎使用泛型可变参数](GenericsAndReflections/WrongDemo.java)
 # 集合
 - [使用List](collection/useList/Main.java)
-  - [使用List](collection/useList/Main.java)
+  - [迭代器遍历](collection/useList/Iterator.java)
+  - [List和Array转换](collection/useList/ToArray.java)
+  - [Array转List](collection/useList/Array2List.java)
+- [编写equals方法](collection/theEqualsMethod/Main.java)  
+  - [测试equals](collection/theEqualsMethod/ActorEquals.java)
+  - [编写 equals 方法](collection/theEqualsMethod/ActorEquals.java)
 # IO
 # 日期与时间
 # 单元测试
