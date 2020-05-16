@@ -491,6 +491,29 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 #### 	2、属性赋值
 
-#### 	3、初始化
+```java
+protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
 
-#### 	4、销毁
+   // Give any InstantiationAwareBeanPostProcessors the opportunity to modify the
+   // state of the bean before properties are set. This can be used, for example,
+   // to support styles of field injection.
+   boolean continueWithPropertyPopulation = true;
+    // InstantiationAwareBeanPostProcessor#postProcessAfterInstantiation()
+    // 方法作为属性赋值的前置检查条件，在属性赋值之前执行，能够影响是否进行属性赋值！
+   if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
+      for (BeanPostProcessor bp : getBeanPostProcessors()) {
+         if (bp instanceof InstantiationAwareBeanPostProcessor) {
+            InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+            if (!ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) {
+               continueWithPropertyPopulation = false;
+               break;
+            }
+         }
+      }
+   }
+
+   // 忽略后续的属性赋值操作代码
+}
+```
+
+#### 	3、销毁
