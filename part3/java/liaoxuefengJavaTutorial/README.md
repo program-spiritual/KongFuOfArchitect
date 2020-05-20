@@ -306,6 +306,9 @@
   - [缓冲](io/inputstream/InputStreamDemo2.java)  
   - [阻塞](io/inputstream/InputStreamDemo3.java)  
   - [ByteArrayInputStream](io/inputstream/InputStreamDemo4.java)  
+- [输出流](io/outputstream/Main.java)  
+  - [ByteArrayOutputStream](io/outputstream/OutputStreamDemo1.java)
+- [编写FilterInputStream](io/filterinputstream/Main.java)  
 # 日期与时间
 # 单元测试
 # 正则表达式
