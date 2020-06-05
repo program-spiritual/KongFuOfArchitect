@@ -352,6 +352,9 @@
 - [参数化测试](unittest/junit/Parametric.java)
 # 正则表达式
 # 加密与安全
+- [编码算法](encryptionAndSecurity/urlEncode/Main.java)
+  - [Base64编码](encryptionAndSecurity/base64Encode/Main.java)
+  - [Base64编码-针对URL](encryptionAndSecurity/base64Encode/Main.java)
 # 多线程
 # Maven 基础
 # 网络编程
