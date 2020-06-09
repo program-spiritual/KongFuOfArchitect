@@ -365,6 +365,19 @@
 - [编码算法](encryptionAndSecurity/urlEncode/Main.java)
   - [Base64编码](encryptionAndSecurity/base64Encode/Main.java)
   - [Base64编码-针对URL](encryptionAndSecurity/base64Encode/Main.java)
+  - [哈希算法](encryptionAndSecurity/digest/Main.java)
+    - [哈希碰撞](encryptionAndSecurity/digest/Collision.java)
+    - [SHA-1](encryptionAndSecurity/digest/SHA1Demo.java)
+- [BouncyCastle](encryptionAndSecurity/bouncyCastle/Main.java)    
+- [Hmac算法](encryptionAndSecurity/Hmac/Main.java)    
+    - [Hmac算法- 恢复](encryptionAndSecurity/Hmac/SecretkeyRecovery.java)    
+- [对称加密算法](encryptionAndSecurity/symmetric/Main.java)
+    - [对称加密算法-AES](encryptionAndSecurity/symmetric/AESDemo.java)
+    - [对称加密算法-AES-CBC模式](encryptionAndSecurity/symmetric/CBCMode.java)
+- [口令加密算法](encryptionAndSecurity/PasswordEncryption/Main.java)    
+- [密钥交换算法](encryptionAndSecurity/DiffieHellman/Main.java)    
+- [非对称加密算法](encryptionAndSecurity/Asymmetric/Main.java)  
+- [签名算法](encryptionAndSecurity/signature/Main.java)  
 # 多线程
 # Maven 基础
 # 网络编程
