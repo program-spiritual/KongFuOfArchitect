@@ -351,7 +351,17 @@
 - [条件测试](unittest/junit/Config.java)
 - [参数化测试](unittest/junit/Parametric.java)
 # 正则表达式
-# 加密与安全
+- [匹配非数字](regex/notNumber/Main.java)
+- [复杂匹配规则](regex/complex/Main.java)
+- [分组匹配](regex/group/Main.java)
+- [分组匹配-模式](regex/group/PatternDemo.java)
+- [非贪婪匹配](regex/NonGreedyMatching/Main.java)
+- [搜索和替换](regex/searchAndReplace/Main.java)
+- [搜索和替换](regex/searchAndReplace/Main.java)
+  - [搜索和替换-搜索](regex/searchAndReplace/SearchDemo.java)
+  - [搜索和替换-替换](regex/searchAndReplace/ReplaceDemo.java)
+  - [搜索和替换-反向引用](regex/searchAndReplace/ReverseRef.java)
+# 加密与安全- 
 - [编码算法](encryptionAndSecurity/urlEncode/Main.java)
   - [Base64编码](encryptionAndSecurity/base64Encode/Main.java)
   - [Base64编码-针对URL](encryptionAndSecurity/base64Encode/Main.java)
