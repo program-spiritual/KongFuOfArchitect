@@ -415,6 +415,8 @@
 - [使用Fork/Join](multithreads/forkAndJoin/Main.java)
 - [使用ThreadLocal](multithreads/threadLocal/Main.java)
 # Maven 基础
+- [模块管理](multiple-project)
+- [使用mvnw](multiple-project)
 # 网络编程
 # XML 与 JSON
 # JDBC 编程
