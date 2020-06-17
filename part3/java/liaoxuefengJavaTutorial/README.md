@@ -422,7 +422,10 @@
 - [UDP编程](udpProgram)
 - [发送Email](sendEmail)
 - [接受Email](recieveEmail)
+- [http编程](httpProgram)
+- [RMI远程调用](rmiRPC)
 # XML 与 JSON
+- [使用DOM...](useDOM)
 # JDBC 编程
 # 函数式编程
 # 设计模式
