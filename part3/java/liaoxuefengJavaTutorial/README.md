@@ -425,9 +425,11 @@
 - [http编程](httpProgram)
 - [RMI远程调用](rmiRPC)
 # XML 与 JSON
-- [使用DOM...](useDOM)
+- [ XML 与 JSON...](useDOM)
 # JDBC 编程
+- [JDBC 编程](jdbcProgram)
 # 函数式编程
+- [函数式编程](funcProgram)
 # 设计模式
 # Web 开发
 # Spring 开发  
