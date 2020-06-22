@@ -431,6 +431,7 @@
 # 函数式编程
 - [函数式编程](funcProgram)
 # 设计模式
+- [设计模式](designPatterns)
 # Web 开发
 # Spring 开发  
 

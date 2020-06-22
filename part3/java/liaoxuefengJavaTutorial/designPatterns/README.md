@@ -1,0 +1,2 @@
+- 创造模式
+  - [工厂方法](src/main/java/com/learnjava/www/createPatterns/factoryMethod/Main.java)
