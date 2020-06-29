@@ -52,3 +52,5 @@ clisp hello.lisp
 [条件语句](./lisp_decisions/README.md)
 
 [函数](./lisp_function/)
+
+[断言](./lisp_predicates/)
