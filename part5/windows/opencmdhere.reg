@@ -1,0 +1,21 @@
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Directory\shell\OpenCmdHere]
+@="OpenCmdHere"
+"Icon"="cmd.exe"
+[HKEY_CLASSES_ROOT\Directory\shell\OpenCmdHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process cmd.exe\""
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenCmdHere]
+@="OpenCmdHere"
+"Icon"="cmd.exe"
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenCmdHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process cmd.exe\""
+[HKEY_CLASSES_ROOT\Drive\shell\OpenCmdHere]
+@="OpenCmdHere"
+"Icon"="cmd.exe"
+[HKEY_CLASSES_ROOT\Drive\shell\OpenCmdHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process cmd.exe\""
+[HKEY_CLASSES_ROOT\LibraryFolder\background\shell\OpenCmdHere]
+@="OpenCmdHere"
+"Icon"="cmd.exe"
+[HKEY_CLASSES_ROOT\LibraryFolder\background\shell\OpenCmdHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process cmd.exe\""

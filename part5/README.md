@@ -12,5 +12,11 @@
  - [《高德技术-2019年刊合辑》](files/46a2ae997f5ef395a78c9ab751b6d942.pdf)
 
 
+## 工具
 
+### windows 
 
+#### shell
+
+[右键从当前文件夹打开 cmd ](windows/opencmdhere.reg)
+[右键从当前文件夹打开 powershell ](windows/openpowsershellhere.reg)

@@ -1,0 +1,21 @@
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Directory\shell\OpenPowershellHere]
+@="OpenPowershellHere"
+"Icon"="powershell.exe"
+[HKEY_CLASSES_ROOT\Directory\shell\OpenPowershellHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process powershell.exe\""
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenPowershellHere]
+@="OpenPowershellHere"
+"Icon"="powershell.exe"
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenPowershellHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process powershell.exe\""
+[HKEY_CLASSES_ROOT\Drive\shell\OpenPowershellHere]
+@="OpenPowershellHere"
+"Icon"="powershell.exe"
+[HKEY_CLASSES_ROOT\Drive\shell\OpenPowershellHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process powershell.exe\""
+[HKEY_CLASSES_ROOT\LibraryFolder\background\shell\OpenPowershellHere]
+@="OpenPowershellHere"
+"Icon"="powershell.exe"
+[HKEY_CLASSES_ROOT\LibraryFolder\background\shell\OpenPowershellHere\command]
+@="PowerShell -windowstyle hidden -Command \"Start-Process powershell.exe\""
