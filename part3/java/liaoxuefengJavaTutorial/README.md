@@ -430,7 +430,7 @@
 - [JDBC 编程](jdbcProgram)
 # 函数式编程
 - [函数式编程](funcProgram)
-# 设计模式
+# 设计模式readme
 - [设计模式](designPatterns)
 # Web 开发
 - [Web 开发](webdev)
