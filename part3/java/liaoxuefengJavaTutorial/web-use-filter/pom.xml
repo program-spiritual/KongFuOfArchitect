@@ -4,17 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.itranswarp.learnjava</groupId>
-    <artifactId>web-servlet-embedded</artifactId>
+    <groupId>org.example</groupId>
+    <artifactId>web-use-filter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <java.version>8</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
         <tomcat.version>9.0.36</tomcat.version>
     </properties>
 
@@ -32,4 +32,5 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
 </project>

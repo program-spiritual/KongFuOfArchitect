@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MVC</title>
+    <script src="/static/js/jquery.js"></script>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+  </head>
+  <body style="font-size:16px">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">Home</a></h5>
+      <nav class="my-2 mr-md-3">
+        <a class="p-2 text-dark" target="_blank" href="https://www.liaoxuefeng.com/wiki/1252599548343744">Learn</a>
+        <a class="p-2 text-dark" target="_blank" href="#">Source</a>
+      </nav>
+      {% if user==null %}
+        <a href="/signin" class="btn btn-outline-primary">Sign In</a>
+      {% else %}
+        <span>Welcome, <a href="/user/profile">{{ user.name }}</a></span>
+        &nbsp;&nbsp;&nbsp;
+        <a href="/signout" class="btn btn-outline-primary">Sign Out</a>
+      {% endif %}
+    </div>
+
+    <div class="container" style="max-width: 960px">
+      <div class="row">
+        <div class="col-12 col-md">
+          {% block main %}
+          {% endblock %}
+        </div>
+      </div>
+
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <h5>Copyright&copy;2020</h5>
+            <p>
+              <a target="_blank" href="https://www.liaoxuefeng.com/">Learn</a> -
+              <a target="_blank" href="https://www.liaoxuefeng.com/">Download</a> -
+              <a target="_blank" href="https://github.com/michaelliao">Github</a>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
