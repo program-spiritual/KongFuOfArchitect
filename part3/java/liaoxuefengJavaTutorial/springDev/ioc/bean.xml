@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans>
+    <bean id="dataSource" class="HikariDataSource" />
+    <bean id="bookService" class="BookService">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="userService" class="UserService">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+</beans>

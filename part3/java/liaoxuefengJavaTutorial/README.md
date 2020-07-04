@@ -437,6 +437,8 @@
 - [Servlet开发](web-servlet-embedded)
 - [使用 Filter](web-use-filter)
 # Spring 开发  
+- [ioc容器](springDev/ioc)
+- [装配Bean](springDev/spring-ioc-appcontext)
 # Spring Boot 开发
 
 
