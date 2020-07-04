@@ -430,14 +430,14 @@
 - [JDBC 编程](jdbcProgram)
 # 函数式编程
 - [函数式编程](funcProgram)
-# 设计模式
-- [设计模式](designPatterns)
+# 设计模式 
+- [设计模式](designPatterns/README.md)
 # Web 开发
 - [Web 开发](webdev)
 - [Servlet开发](web-servlet-embedded)
 - [使用 Filter](web-use-filter)
 # Spring 开发  
-
+# Spring Boot 开发
 
 
 # 引用版权声明
