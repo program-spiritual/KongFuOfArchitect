@@ -1,0 +1,72 @@
+spring:
+  datasource-master:
+    url: jdbc:hsqldb:file:testdb
+    username: sa
+    password:
+    dirver-class-name: org.hsqldb.jdbc.JDBCDriver
+    datasource-slave:
+      url: jdbc:hsqldb:file:testdb
+      username: sa
+      password:
+      dirver-class-name: org.hsqldb.jdbc.JDBCDriver
+  profiles:
+    active: '@spring.profiles.active@'
+  application:
+    name: ${APP_NAME:unnamed}
+  datasource:
+    url: jdbc:hsqldb:file:testdb
+    username: sa
+    password:
+    dirver-class-name: org.hsqldb.jdbc.JDBCDriver
+    hikari:
+      auto-commit: false
+      connection-timeout: 3000
+      validation-timeout: 3000
+      max-lifetime: 60000
+      maximum-pool-size: 20
+      minimum-idle: 1
+storage:
+
+  type: ${STORAGE_TYPE:local}
+  local:
+    # 文件存储根目录:
+    root-dir: ${STORAGE_LOCAL_ROOT:/var/storage}
+    # 最大文件大小，默认100K:
+    max-size: ${STORAGE_LOCAL_MAX_SIZE:102400}
+    # 是否允许空文件:
+    allow-empty: false
+    # 允许的文件类型:
+    allow-types: jpg, png, gif
+pebble:
+  # 默认为".pebble"，改为"":
+  suffix:
+  # 开发阶段禁用模板缓存:
+  cache: false
+
+server:
+  port: ${APP_PORT:8080}
+
+---
+
+spring:
+  profiles: test
+
+server:
+  port: 8000
+
+---
+
+spring:
+  profiles: production
+
+server:
+  port: 80
+
+pebble:
+  cache: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, beans, env, metrics

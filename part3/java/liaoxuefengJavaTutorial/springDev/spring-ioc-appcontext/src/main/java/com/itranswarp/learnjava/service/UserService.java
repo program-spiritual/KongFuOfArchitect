@@ -1,11 +1,21 @@
 package com.itranswarp.learnjava.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 import java.util.ArrayList;
 
+@Component
 public class UserService {
+
+    @Autowired
     private MailService mailService;
+
+    public UserService(@Autowired MailService mailService) {
+        this.mailService = mailService;
+    }
 
     public void setMailService(MailService mailService) {
         this.mailService = mailService;

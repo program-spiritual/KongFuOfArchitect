@@ -1,0 +1,15 @@
+2020-07-05 20:48:52.233  INFO 98972 --- [main] com.itranswarp.learnjava.Application     : Starting Application v1.0-SNAPSHOT on huhongyundeMacBook-Pro-2.local with PID 98972 (/Users/huhongyun/PycharmProjects/KongFuOfArchitect/part3/java/liaoxuefengJavaTutorial/springBootDev/springboot-hello/target/awesome-app.jar started by huhongyun in /Users/huhongyun/PycharmProjects/KongFuOfArchitect/part3/java/liaoxuefengJavaTutorial/springBootDev/springboot-hello/target)
+2020-07-05 20:48:52.236  INFO 98972 --- [main] com.itranswarp.learnjava.Application     : The following profiles are active: test
+2020-07-05 20:48:53.543  INFO 98972 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8000 (http)
+2020-07-05 20:48:53.555  INFO 98972 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-07-05 20:48:53.556  INFO 98972 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-07-05 20:48:53.629  INFO 98972 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-07-05 20:48:53.630  INFO 98972 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1324 ms
+2020-07-05 20:48:53.914  INFO 98972 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-07-05 20:48:54.254  INFO 98972 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-07-05 20:48:54.312  INFO 98972 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8000 (http) with context path ''
+2020-07-05 20:48:54.327  INFO 98972 --- [main] com.itranswarp.learnjava.Application     : Started Application in 2.601 seconds (JVM running for 2.984)
+2020-07-05 20:49:03.815  INFO 98972 --- [http-nio-8000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-07-05 20:49:03.816  INFO 98972 --- [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-07-05 20:49:03.829  INFO 98972 --- [http-nio-8000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2020-07-05 21:16:57.414  INFO 98972 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
