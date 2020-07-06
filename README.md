@@ -152,6 +152,7 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 - [part9 | 负载均衡](./part9/README.md)
 - [part10 | 编译原理](part10/README.md)
 - [part11 | 安全与渗透](part11/README.md)
+- [part12 | Shell脚本](https://github.com/xiaomiwujiecao/cleverShell)
 
 ## 大纲描述
 
