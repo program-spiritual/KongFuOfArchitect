@@ -463,7 +463,7 @@
   
 # Spring Boot 开发
 
-- [第一个Spring 应用](springBootDev/springboot-hello)
+- [第一个 Spring Boot 应用](springBootDev/springboot-hello)
 - [Spring 配置](springBootDev/springboot-config)
 
 # 引用版权声明
