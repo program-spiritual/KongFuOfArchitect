@@ -1,0 +1,33 @@
+server:
+  port: ${APP_PORT:8080}
+
+spring:
+  application:
+    name: ${APP_NAME:unnamed}
+  datasource:
+    url: jdbc:hsqldb:file:testdb
+    username: sa
+    password:
+    dirver-class-name: org.hsqldb.jdbc.JDBCDriver
+    # HikariCP配置:
+    hikari:
+      auto-commit: false
+      connection-timeout: 3000
+      validation-timeout: 3000
+      max-lifetime: 60000
+      maximum-pool-size: 20
+      minimum-idle: 1
+
+pebble:
+  suffix:
+  cache: false
+
+storage:
+  local:
+    root-dir: ${STORAGE_LOCAL_ROOT:/var/storage}
+    # max file size defaults to 100K:
+    max-size: ${STORAGE_LOCAL_MAX_SIZE:102400}
+    # allow empty file?
+    allow-empty: false
+    # allow types:
+    allow-types: jpg, png, gif

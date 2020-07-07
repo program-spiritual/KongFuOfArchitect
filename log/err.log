@@ -1,6 +1,0 @@
-04-23 15:49:40.870 [main] ERROR Student11
-got exception!
-
-java.lang.UnsupportedOperationException: null
-	at Student11.testLogError(CommonsLoggingDemo2.java:30) [KongFuOfArchitect/:?]
-	at CommonsLoggingDemo2.main(CommonsLoggingDemo2.java:14) [KongFuOfArchitect/:?]
