@@ -5,6 +5,7 @@ public class ReadConsole  {
         InputStreamReader cin = null;
 
         try {
+           
             cin = new InputStreamReader(System.in);
             System.out.println("Enter characters, 'q' to quit.");
             char c;

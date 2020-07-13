@@ -39,9 +39,19 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 
 ## CHANGE LOG
 
+- 2020年05月03日
+  
+  - 增加 `LISP` 基础编程文字教程
+  - 分支 增加 `spring` , `Algorithm` 维护者增加
+
 - 2020年04月01日
 
-  增加廖雪峰博客`JAVA`教程笔记
+  - 增加廖雪峰博客`JAVA`教程笔记
+
+## 致谢
+
+感谢阁下的star，感谢关注此项目，如果此项目对阁下产生了帮助，在下页诚挚的邀请你通过移动客户端的方式获取更多的资讯、知识、以及实用的工具，
+详情参见： [武文弄墨](https://app.nodejs7.com/)，再次表示真挚的感谢！
 
 ## 引言
 
@@ -126,6 +136,7 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
   - [第一章 `JAVA` 技术栈](./part3/java/README.md)
   - [第二章 `GO` 技术栈](./part3/go/README.md)
   - [第三章 `Scala` 技术栈](./part3/scala/README.md)
+  - [第四章 `LISP`编程 ](./part3/lisp/README.md)
 - [part4 | 高效成长](./part4/README.md)
 - [part5 | 资源汇总](./part5/README.md)
   - [第一章 `EcmaScript` 与 `Nodejs`](./part5/js/README.md)
