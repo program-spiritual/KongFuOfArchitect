@@ -192,33 +192,6 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 - 区块链
 - ...
 
-## 项目维护周期
-
-本项目长期维护 LTS
-
-
-## 遵循协议
-
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
-
-## CHANGE LOG
-
-- 2020年07月07日 
-
-- 增加 `安全与渗透` 教程
-- 增加 `自学指北` 
-
-
-- 2020年05月03日
-  
-  - 增加 `LISP` 基础编程文字教程
-  - 分支 增加 `spring` , `Algorithm` 维护者增加
-
-- 2020年04月01日
-
-  - 增加廖雪峰博客`JAVA`教程笔记
-
 
 
 ## 引言
@@ -501,6 +474,36 @@ xiaomiwujiecao@gmail.com
 ## 贡献
 
 `fork` 此项目并 `pull request` 你新增的源码
+
+
+## 项目维护周期
+
+本项目长期维护 LTS
+
+
+## 遵循协议
+
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
+## CHANGE LOG
+
+- 2020年07月07日 
+
+- 增加 `安全与渗透` 教程
+- 增加 `自学指北` 
+
+
+- 2020年05月03日
+  
+  - 增加 `LISP` 基础编程文字教程
+  - 分支 增加 `spring` , `Algorithm` 维护者增加
+
+- 2020年04月01日
+
+  - 增加廖雪峰博客`JAVA`教程笔记
+
+
 
 
 ## 致谢
