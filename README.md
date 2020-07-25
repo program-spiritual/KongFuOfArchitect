@@ -443,12 +443,9 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 
 如果您有意愿参与任何一部分的贡献,请直接通过以下方式
 
-1. 发送合作意向到我的 `gmail` 邮箱：
 
-```
-xiaomiwujiecao@gmail.com
-```
-2. 参照 [ISSUES](https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/1) 页面的方式，`fork` 之后按照格式提交
+
+参照 [ISSUES](https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/1) 页面的方式，`fork` 之后按照格式提交
 
 
 
