@@ -287,6 +287,8 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 - [part9 | 负载均衡](./part9/README.md)
 - [part10 | 编译原理](part10/README.md)
 - [part11 | 安全与渗透](part11/README.md)
+    - [汇编基础](https://github.com/xiaomiwujiecao/GAB)
+    - [ios庖丁解牛](https://github.com/xiaomiwujiecao/iosKnife)
 - [part12 | Shell脚本](https://github.com/xiaomiwujiecao/cleverShell)
 
 ## 大纲描述
@@ -490,20 +492,26 @@ xiaomiwujiecao@gmail.com
 
 ## CHANGE LOG
 
+- 2020年07月25日
+
+- [+] [汇编基础](https://github.com/xiaomiwujiecao/GAB)
+
+- [+] [ios庖丁解牛](https://github.com/xiaomiwujiecao/iosKnife)
+
 - 2020年07月07日 
 
-- 增加 `安全与渗透` 教程
-- 增加 `自学指北` 
+- [+] `安全与渗透` 教程
+- [+] `自学指北` 
 
 
 - 2020年05月03日
   
-  - 增加 `LISP` 基础编程文字教程
-  - 分支 增加 `spring` , `Algorithm` 维护者增加
+  - [+] `LISP` 基础编程文字教程
+  - [branch] 增加 `spring` , `Algorithm` 维护者增加
 
 - 2020年04月01日
 
-  - 增加廖雪峰博客`JAVA`教程笔记
+  - [+] 增加廖雪峰博客`JAVA`教程笔记
 
 
 
