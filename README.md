@@ -490,15 +490,15 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 ## CHANGE LOG
 
 - 2020年07月25日
-
-- [+] [汇编基础](https://github.com/xiaomiwujiecao/GAB)
-
-- [+] [ios庖丁解牛](https://github.com/xiaomiwujiecao/iosKnife)
+    
+    - [+] [汇编基础](https://github.com/xiaomiwujiecao/GAB)
+    
+    - [+] [ios庖丁解牛](https://github.com/xiaomiwujiecao/iosKnife)
 
 - 2020年07月07日 
 
-- [+] `安全与渗透` 教程
-- [+] `自学指北` 
+    - [+] `安全与渗透` 教程
+    - [+] `自学指北` 
 
 
 - 2020年05月03日
