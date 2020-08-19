@@ -9,9 +9,9 @@ LISP程序可以在解释器上运行，也可以作为已编译的代码运行�
 
 ## 环境
 
-- vscode
-- clisp
-- sbcl
+- `vscode` 或 `EMACS`
+- `clisp`
+- `sbcl`
 
 
 ### windows clisp 
