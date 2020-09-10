@@ -54,3 +54,7 @@ clisp hello.lisp
 [函数](./lisp_function/)
 
 [断言](./lisp_predicates/)
+
+[条件语句](./lisp_decisions/)
+
+[循环](./lisp_loops)
