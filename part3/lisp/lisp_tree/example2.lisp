@@ -1,0 +1,6 @@
+(setq empList (make-hash-table)) 
+(setf (gethash '001 empList) '(Charlie Brown))
+(setf (gethash '002 empList) '(Freddie Seal)) 
+(write (gethash '001 empList)) 
+(terpri)
+(write (gethash '002 empList)) 

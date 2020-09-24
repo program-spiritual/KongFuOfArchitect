@@ -1,6 +1,7 @@
-
+;; init an empty array 
 (write (setf my-array (make-array '(10))))
 (terpri)
+;; set the ref index with number
 (setf (aref my-array 0) 25)
 (setf (aref my-array 1) 23)
 (setf (aref my-array 2) 45)

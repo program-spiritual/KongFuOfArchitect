@@ -1,0 +1,5 @@
+(write (setf (get 'books'title) '(Gone with the Wind)))
+(terpri)
+(write (setf (get 'books 'author) '(Margaret Michel)))
+(terpri)
+(write (setf (get 'books 'publisher) '(Warner Books)))

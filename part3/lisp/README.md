@@ -58,3 +58,9 @@ clisp hello.lisp
 [条件语句](./lisp_decisions/)
 
 [循环](./lisp_loops)
+
+[数值类型](./lisp_numbers)
+
+[字符串类型](./lisp_characters)
+
+[队列](./lisp_sequences)
