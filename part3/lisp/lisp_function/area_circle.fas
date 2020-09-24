@@ -1,0 +1,30 @@
+(|SYSTEM|::|VERSION| '(20080430.))
+#0Y_ #0Y |CHARSET|::|UTF-8|
+#Y(#:|1 6 (DEFUN AREA-CIRCLE (RAD) ...)-1|
+   #20Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 DA DC 32 9C C5 19 01)
+   (|COMMON-LISP-USER|::|AREA-CIRCLE| |SYSTEM|::|REMOVE-OLD-DEFINITIONS|
+    #Y(|COMMON-LISP-USER|::|AREA-CIRCLE|
+       #35Y(00 00 00 00 01 00 00 00 26 02 38 01 31 97 DA 6B 01 AF 33 02 15 DC
+            6B 01 DD B0 B1 73 03 39 33 02 15 19 02)
+       (#Y(|COMMON-LISP-USER|::|AREA-CIRCLE-1|
+           #29Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 01 02 DB 01
+                04 B6 2D 09 02 9E 19 04)
+           ("Radius : " 5. |SYSTEM|::|DO-FORMAT-FIXED-FLOAT|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        |COMMON-LISP|::|*STANDARD-OUTPUT*|
+        #Y(|COMMON-LISP-USER|::|AREA-CIRCLE-2|
+           #29Y(00 00 00 00 02 00 00 00 21 18 DA B0 38 02 31 95 AF 01 02 DB 01
+                04 B6 2D 09 02 9E 19 04)
+           ("\n
+Area : "
+            10. |SYSTEM|::|DO-FORMAT-FIXED-FLOAT|)
+           (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+        3.141592f0)
+       (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|)
+       (|COMMON-LISP-USER|::|RAD|)
+       "Calculate area of a circle with given radius" 1))
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
+#Y(#:|8 8 (AREA-CIRCLE 10)-2|
+   #15Y(00 00 00 00 00 00 00 00 20 01 DA 2F 01 19 01)
+   (10. |COMMON-LISP-USER|::|AREA-CIRCLE|)
+   (|COMMON-LISP|::|T| |COMMON-LISP|::|T| |COMMON-LISP|::|T|))
