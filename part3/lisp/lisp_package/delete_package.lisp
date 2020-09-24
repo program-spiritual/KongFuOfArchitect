@@ -1,0 +1,28 @@
+
+(make-package :tom)
+(make-package :dick)
+(make-package :harry)
+(in-package tom)
+(defun hello () 
+   (write-line "tom say hello")
+)
+
+(in-package dick)
+(defun hello () 
+   (write-line "dick say hello")
+)
+
+(in-package harry)
+(defun hello () 
+   (write-line "harry say hello")
+)
+
+(in-package tom)
+(hello)
+(in-package dick)
+(hello)
+(in-package harry)
+(hello)
+(delete-package tom)
+(in-package tom)
+(hello)

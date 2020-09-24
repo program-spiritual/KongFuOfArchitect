@@ -1,0 +1,11 @@
+(defun factorial (x)
+   (cond ((or (not (typep x 'integer)) (minusp x))
+      (error "~S is a negative number." x))
+      ((zerop x) 1)
+      (t (* x (factorial (- x 1))))
+   )
+)
+
+(write(factorial 5))
+(terpri)
+(write(factorial -1))

@@ -1,0 +1,7 @@
+(with-open-file (stream "tmp/myfile.txt" :direction :output)
+   (format stream "Write a short sentence")
+   (terpri stream)
+   (format stream "This is a simple description.")
+   (terpri stream)
+   (format stream "Please ensure that you can see all the words.")
+)
