@@ -2,7 +2,17 @@
 
 > 这需要你有`java`的编程基础
 
-- [基础语法](HelloWorld.scala)
+- [基础语法](/part3/scala/scalaProgramming/HelloWorld.scala)
+```scala
+object HelloWorld {
+  /* This is my first java program.
+  * This will print 'Hello World' as the output
+  */
+  def main(args: Array[String]) {
+    println("Hello, world!") // prints Hello World
+  }
+}
+```
 - [变量](./scala_variables.scala)
 - [类和对象](scala_classes_objects.scala)
 - [隐式类](IntTimesDemo.scala)

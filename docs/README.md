@@ -1,24 +1,16 @@
 # 《 架构师的功夫》
+
 >  英文 《KongFuOfArchitect》
 
-![架构师的功夫](./img/icon.svg)
-
-
-## 版本 2.1 
-
-![2.1-snap](img/snap.png)
-
-## 完整文档
-
-[Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
+![架构师的功夫](./img/架构师的功夫1.png)
 
 ## 前言
 
 ### 为什么要写：
-    
+
 受极客时间的《左耳听风》、《从零开始学架构》、《许式伟的架构课》等专栏影响，结合目前自身的现状，想留一份记录给20年后的自己
 
-### win 用户开发效率提升方法
+### 工欲善其事必先利其器
 
 Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务必读一下这篇：
 

@@ -1,6 +1,6 @@
 ## GO 编程
 
-- [基础编程](goProgramming/README.md)
+- [基础编程](/part3/go/goProgramming/README.md)
 - [疑难解答](troubleshooting/readme.md)
 - 基于gin 搭建 api server
   - [gin文档](https://github.com/gin-gonic/gin)
