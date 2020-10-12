@@ -32,33 +32,33 @@
 
 
 ## 文件目录
-
+\part3\erlang\README.md
 ### 基础
-- [hello](src/base/hello.erl)
-- [hello2](src/base/hello2.erl)
-- [atomCase1](src/base/atomCase1.erl)
-- [numberCase1](src/base/numberCase1.erl)
+- [hello](/part3/erlang/src/base/hello.erl)
+- [hello2](/part3/erlang/src/base/hello2.erl)
+- [atomCase1](/part3/erlang/src/base/atomCase1.erl)
+- [numberCase1](/part3/erlang/src/base/numberCase1.erl)
 ### 变量
 - [variableCase1](src/variable/variableCase1.erl)
-- [variableWrongCase1](src/variable/variableWrongCase1.erl)
-- [variableWrongCase2](src/variable/variableWrongCase2.erl)
-- [printVariableCase1](src/variable/printVariableCase1.erl)
+- [variableWrongCase1](/part3/erlang/src/variable/variableWrongCase1.erl)
+- [variableWrongCase2](/part3/erlang/src/variable/variableWrongCase2.erl)
+- [printVariableCase1](/part3/erlang/src/variable/printVariableCase1.erl)
 ### 操作符
-- [erlang_arithmatic_operators](src/operators/erlang_arithmatic_operators.erl)
-- [erlang_bitwise_operators](src/operators/erlang_bitwise_operators.erl)
-- [erlang_logical_operators](src/operators/erlang_logical_operators.erl)
-- [erlang_relational_operators](src/operators/erlang_relational_operators.erl)
+- [erlang_arithmatic_operators](/part3/erlang/src/operators/erlang_arithmatic_operators.erl)
+- [erlang_bitwise_operators](/part3/erlang/src/operators/erlang_bitwise_operators.erl)
+- [erlang_logical_operators](/part3/erlang/src/operators/erlang_logical_operators.erl)
+- [erlang_relational_operators](/part3/erlang/src/operators/erlang_relational_operators.erl)
 ## 循环
-- [forStatement](src/loops/forStatement.erl)
-- [whileStatement](src/loops/whileStatement.erl)
+- [forStatement](/part3/erlang/src/loops/forStatement.erl)
+- [whileStatement](/part3/erlang/src/loops/whileStatement.erl)
 ### 决策
-- [erlang_case_statements](src/decision/erlang_case_statements.erl)
-- [erlang_if_statement](src/decision/erlang_if_statement.erl)
-- [erlang_multiple_expression](src/decision/erlang_multiple_expression.erl)
-- [erlang_nested_if_statements](src/decision/erlang_nested_if_statements.erl)
+- [erlang_case_statements](/part3/erlang/src/decision/erlang_case_statements.erl)
+- [erlang_if_statement](/part3/erlang/src/decision/erlang_if_statement.erl)
+- [erlang_multiple_expression](/part3/erlang/src/decision/erlang_multiple_expression.erl)
+- [erlang_nested_if_statements](/part3/erlang/src/decision/erlang_nested_if_statements.erl)
 ### 函数
-- [anonymous](src/functions/anonymous.erl)
-- [guard_sequence](src/functions/guard_sequence.erl)
-- [guard_sequence](src/functions/guard_sequence.erl)
-- [helloworld](src/functions/helloworld.erl)
-- [multiple_args](src/functions/multiple_args.erl)
+- [anonymous](/part3/erlang/src/functions/anonymous.erl)
+- [guard_sequence](/part3/erlang/src/functions/guard_sequence.erl)
+- [guard_sequence](/part3/erlang/src/functions/guard_sequence.erl)
+- [helloworld](/part3/erlang/src/functions/helloworld.erl)
+- [multiple_args](/part3/erlang/src/functions/multiple_args.erl)
