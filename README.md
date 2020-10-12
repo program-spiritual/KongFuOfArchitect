@@ -8,9 +8,9 @@
 
 ![2.1-snap](img/snap.png)
 
-## 完整文档
+## 完整在线文档
 
-
+[Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
 
 ## 前言
 
