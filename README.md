@@ -10,7 +10,7 @@
 
 ## 完整文档
 
-[Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
+
 
 ## 前言
 
