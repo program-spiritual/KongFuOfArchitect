@@ -1,7 +1,7 @@
 ## YAML 
 
 
-YAML不是标记语言,而是一种数据序列化语言
+`YAML` 不是标记语言,而是一种数据序列化语言
 
 ### 格式
 
@@ -16,11 +16,23 @@ YAML不是标记语言,而是一种数据序列化语言
 
 [basic](basic.yaml)
 
+```yaml
+--- # Favorite movies
+- Casablanca
+- North by Northwest
+- The Man Who Wasn't There
+```
+
 ### 内联格式
 
 内敛格式的分隔符使用逗号和空格
 
 [inline](inline.yaml)
+
+```yaml
+--- # Shopping list
+[milk, groceries, eggs, juice, fruits]
+```
 
 ### 折叠文本
 
