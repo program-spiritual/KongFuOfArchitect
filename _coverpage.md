@@ -10,5 +10,5 @@
 - 专注 `coding` 基本功
 - 编程思维训练
 
-[GitHub](https://github.com/docsifyjs/docsify/)
+[GitHub](https://github.com/xiaomiwujiecao/KongFuOfArchitect)
 [Get Started](#整体目录)
