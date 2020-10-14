@@ -38,6 +38,19 @@
 
 [folderText](foldText.yaml)
 
+```yaml
+---
+
+-{ name:John, age:33}
+-name:Mary Smith
+ age:27
+
+men:[John Smith,Bill Jones]
+women:
+  - Mary Smith
+  - Susan Williams
+```
+
 ### 基本元素
 
 - 注释以 `#` 开头
