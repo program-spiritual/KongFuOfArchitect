@@ -1,4 +1,4 @@
-## YAML 
+## YAML
 
 
 `YAML` 不是标记语言,而是一种数据序列化语言
@@ -9,7 +9,7 @@
 - 拓展名须以 `.yaml` 作为拓展名
 - `YAML` 不允许在创建 YAML 文件时使用`tab`键；
   允许使用空格代替
-  
+
 ### 基础文件格式
 
 使用连接符和空格开头
@@ -67,11 +67,11 @@ women:
 
 - 关联数组使用冒号`:`表示，以键值对的形式表示。
   它们用大括号`{}`括起来。
-  
+
 - 具有单个流的多个文档用3个连字符（`---`）分隔。
 
 - 每个文件中重复的节点最初都以 `&` 号表示，之后再以星号`*`表示。  
-  
+
 - `YAML` 始终要求将冒号和逗号用作列表分隔符，后跟带有标量值的空格。
 
 - 节点应标有感叹号（`!`）或双感叹号（`!!`），后跟可以扩展为URI或URL的字符串。
@@ -262,14 +262,14 @@ avg: 0.288
 ```
 
 对于集合，`YAML` 包括使用显式指示符而不是使用缩进来表示空格的流样式。
-集合中的流程顺序用方括号括起来的逗号分隔列表表示。 
+集合中的流程顺序用方括号括起来的逗号分隔列表表示。
 `PHP` 框架（如 `Symphony` ）中包含的最佳收集插图。
 
 ```
 [PHP, Perl, Python]
 ```
 
-这些集合存储在文档中。 
+这些集合存储在文档中。
 `YAML` 中的文档分隔用三个连字符或破折号（`---`）表示。
 文档末尾标有三个点（`...`）。
 
@@ -280,7 +280,7 @@ avg: 0.288
 ---
 - Mark Joseph
 - James Stephen
-- Ken Griffey 
+- Ken Griffey
 
 # Team ranking
 ---
@@ -296,3 +296,292 @@ avg: 0.288
 ? [ New York Yankees,Atlanta Braves ]
 : [ 2001-07-02, 2001-08-12, 2001-08-14]
 ```
+
+### 标量和标签
+
+`YAML` 使用意为（`|`）的字面量类型的块格式编写，它表示换行计数。
+在`YAML`中，标量以折叠样式（`>`）书写，其中每行表示一个以空行或更多缩进的行结束的折叠空间。
+
+保留在字面量中的新行如下所示-
+
+```yaml
+ASCII Art
+--- |
+\//||\/||
+// || ||__
+```
+保留折叠的换行符，以便显示更多的缩进行和空白行，如下所示:
+
+```yaml
+>
+Sammy Sosa completed another
+fine season with great stats.
+63 Home Runs
+0.288 Batting Average
+What a year!
+```
+`YAML`流标量包括普通样式和引用样式。
+双引号样式包括各种转义序列。
+流标量可以包含多条线；
+在这种结构中，换行符总是折叠的。
+
+```yaml
+plain:
+This unquoted scalar
+spans many lines.
+quoted: "So does this
+quoted scalar.\n"
+```
+在`YAML`中，未标记的节点是使用特定类型的应用程序指定的。
+标签规范的示例通常将 `seq` ， `map` 和 `str` 类型用于 `YAML` 标签存储库。
+标签表示为示例，如下所述-
+
+#### 整型标签
+
+这些标记中包含整数值。
+它们也称为数字标签。
+
+```yaml
+canonical: 12345
+decimal: +12,345
+sexagecimal: 3:25:45
+octal: 014
+hexadecimal: 0xC
+```
+
+#### 浮点型标签
+
+这些标签包括十进制和指数值。
+它们也称为指数标签
+
+```yaml
+canonical: 1.23015e+3
+exponential: 12.3015e+02
+sexagecimal: 20:30.15
+fixed: 1,230.15
+negative infinity: -.inf
+not a number: .NaN
+```
+
+#### 杂项标签
+
+它包括各种嵌入其中的整数，浮点和字符串值。
+因此，它被称为杂项标签。
+
+```yaml
+null: ~
+true: y
+false: n
+string: '12345'
+```
+
+### 完整长度示例
+
+下面的完整示例指出了 `YAML` 的结构，其中包括符号和各种表示形式，它们在以 `JSON` 格式转换或处理它们时将非常有用。
+这些属性在 `JSON` 文档中也称为键名。
+创建这些表示法是出于安全目的。
+
+上面的 `YAML` 格式代表默认值，适配器并具有各种其他属性。
+YAML还保留生成的每个文件的日志，以跟踪生成的错误消息。
+在将指定的 `YAML` 文件转换为 `JSON` 格式后，我们将获得所需的输出，如下所述-
+
+```yaml
+defaults: &defaults
+   adapter:  postgres
+   host:     localhost
+
+development:
+   database: myapp_development
+   <<: *defaults
+
+test:
+   database: myapp_test
+   <<: *defaults
+```
+
+将 `YAML` 转为 `JSON` 格式:
+
+```yaml
+{
+   "defaults": {
+      "adapter": "postgres",
+      "host": "localhost"
+   },
+   "development": {
+      "database": "myapp_development",
+      "adapter": "postgres",
+      "host": "localhost"
+   },
+   "test": {
+      "database": "myapp_test",
+      "adapter": "postgres",
+      "host": "localhost"
+   }
+}
+```
+
+包含默认前缀和前缀“ `<<: *`”的键，并且在需要时不需要重复编写相同的代码片段。
+
+### 程序
+
+`YAML` 遵守程序的标准步骤。
+`YAML` 中的本机数据结构包括简单的表示形式，例如节点。
+它也称为表示节点图.
+
+它包括映射，序列和标量，这些序列被序列化以创建序列化树。
+通过序列化，对象将与字节流一起转换。
+
+序列化事件树有助于创建字符流的表示形式，如下图所示。
+
+反向过程将字节流解析为序列化的事件树。
+之后，将节点转换为节点图。
+这些值随后会在 `YAML` 本机数据结构中转换。
+下图解释了这一点-
+
+> 自己重新绘制的
+
+![yaml_process_flow](./img/YAML_PROCESS_FLOW.png)
+
+- `YAML` 中的信息以两种方式使用：机器处理和人工消耗。
+- `YAML` 中的处理器用作在上述图中互补视图之间转换信息的过程的工具。
+- `YAML` 处理器必须在给定应用程序中提供的信息结构。
+- `YAML` 包括用于以串行格式表示数据对象的序列化过程。
+- `YAML` 信息的处理包括三个阶段：代表，序列化，表示和解析。
+
+
+#### 代表
+
+`YAML` 使用三种节点表示数据结构：序列，映射和标量。
+
+##### 序列（类数组）
+
+序列是指条目的有序数，它映射了键值对的无序关联。
+它对应于 `Perl` 或 `Python` 数组列表。
+下面显示的代码是序列表示的示例-
+
+```yaml
+product:
+   - sku         : BL394D
+     quantity    : 4
+     description : Football
+     price       : 450.00
+   - sku         : BL4438H
+     quantity    : 1
+     description : Super Hoop
+     price       : 2392.00
+```
+##### 映射
+
+另一方面，映射表示字典数据结构或哈希表。
+下面提到了一个相同的示例-
+
+```yaml
+batchLimit: 1000
+threadCountLimit: 2
+key: value
+keyMapping: <What goes here?>
+```
+
+##### 标量
+
+标量表示字符串，整数，日期和原子数据类型的标准值。
+请注意，`YAML` 还包括指定数据类型结构的节点。
+
+
+#### 序列化
+
+`YAML` 中需要序列化过程，以简化人类友好的关键顺序和锚点名称。
+序列化的结果是 `YAML` 序列化树。   
+可以遍历它以产生一系列的 `YAML` 数据事件调用。
+
+```yaml
+consumer:
+   class: 'AppBundle\Entity\consumer'
+   attributes:
+      filters: ['customer.search', 'customer.order', 'customer.boolean']
+   collectionOperations:
+      get:
+         method: 'GET'
+         normalization_context:
+       groups: ['customer_list']
+   itemOperations:
+      get:
+         method: 'GET'
+         normalization_context:
+            groups: ['customer_get']
+```
+#### 表现
+
+`YAML` 序列化的最终输出称为 `presentation`。
+它以人类友好的方式表示字符流。
+`YAML` 处理器包括用于创建流，处理缩进和格式化内容的各种演示细节。
+此完整过程由用户的偏好决定。
+
+YAML表示过程的一个示例是创建 `JSON` 值的结果。
+观察下面给出的代码以更好地理解-
+
+```yaml
+{
+   "consumer": {
+      "class": "AppBundle\\Entity\\consumer",
+      "attributes": {
+         "filters": [
+            "customer.search",
+            "customer.order",
+            "customer.boolean"
+         ]
+      },
+      "collectionOperations": {
+         "get": {
+            "method": "GET",
+            "normalization_context": {
+               "groups": [
+                  "customer_list"
+               ]
+            }
+         }
+      },
+      "itemOperations": {
+         "get": {
+            "method": "GET",
+            "normalization_context": {
+               "groups": [
+                  "customer_get"
+               ]
+            }
+         }
+      }
+   }
+}
+```
+
+#### 解析
+
+解析是表现的逆过程。
+它包括字符流并创建一系列事件。
+它丢弃表现过程中引入的导致序列化事件的细节。
+解析过程可能由于输入格式错误而失败。
+基本上，这是一个检查 `YAML` 格式是否正确的过程。
+考虑下面提到的 `YAML` 示例-
+
+```yaml
+---
+   environment: production
+   classes:
+      nfs::server:
+         exports:
+            - /srv/share1
+            - /srv/share3
+   parameters:
+      paramter1
+```
+
+它带有三个连字符，表示文档的开始，之后定义了各种属性。
+`YAML Lint` 是 `YAML` 的在线解析器，可帮助解析 `YAML` 结构以检查其是否有效。
+下面提到了 `YAML Lint ` 的官方链接：
+
+http://www.yamllint.com/
+
+ 您可以看到如下所示的解析输出-
+
+ ![yaml_lint](./img/yaml_lint.png)
