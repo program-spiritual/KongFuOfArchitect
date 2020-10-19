@@ -204,7 +204,7 @@ key: #comment 1
 
 - `YAML` 包含了使用缩进作为作用域的块集合
 - 每个条目都以新行开头。
-- 集合中的块序列用破折号和空格（`-`）表示每个条目。
+- 集合中的序列块用破折号和空格（`-`）表示每个条目。
 - 块集合样式没有任何特定的指示符。
 - `YAML`中的块集合可以通过标识其中包含的键值对来区别于其他标量。
 
@@ -648,7 +648,7 @@ http://www.yamllint.com/
 
 | 序号  |  字符 |  功能 |
 | ------------ | ------------ |------------ |
-| 1  | `_`  | 它表示一个块序列条目  |
+| 1  | `_`  | 它表示一个序列块条目  |
 | 2  | `?`  | 它表示一个映射键  |
 | 3  | `:`  | 它表示一个映射值  |
 | 4  | `,`  | 它表示集合流条目  |
@@ -864,7 +864,7 @@ fruits:
    ? &A1 !!str "foo"
    : !!str "bar",
    ? !!str &A2 "baz"
-   : *a1
+   : *A1
 }
 ```
 
@@ -940,3 +940,656 @@ fruits:
 ---
 !!str "foo bar\n"
 ```
+
+### 块标量头
+
+本章，我们将重点介绍用于表示内容的各种标量类型。
+在 `YAML` 中，注释可能位于标量内容之前或之后。需要注意的是，注释不应包含在标量内容中。
+
+请注意，所有流标量样式都可以包含多行，但使用多个键除外。 标量表示如下 :
+
+```yaml
+%YAML 1.1
+---
+!!map {
+   ? !!str "simple key"
+   : !!map {
+      ? !!str "also simple"
+      : !!str "value",
+      ? !!str "not a simple key"
+      : !!str "any value"
+   }
+}
+```
+他生成的块标量头输出如下所示 :
+
+```yaml
+{
+   "simple key": {
+      "not a simple key": "any value", 
+      "also simple": "value"
+   }
+}
+```
+
+#### 文档标记标量内容
+
+本示例中的所有字符都被视为内容，包括内部空格字符。
+
+```yaml
+%YAML 1.1
+---
+!!map {
+   ? !!str "---"
+   : !!str "foo",
+   ? !!str "...",
+   : !!str "bar"
+}
+
+%YAML 1.1
+---
+!!seq [
+   !!str "---",
+   !!str "...",
+   !!map {
+      ? !!str "---"
+      : !!str "..."
+   }
+]
+```
+
+纯换行符用下面给出的示例表示 :
+
+```yaml
+%YAML 1.1
+---
+!!str "as space \
+trimmed\n\
+specific\L\n\
+none"
+```
+
+相应的 `JSON` 输出如下所述：
+
+```yaml
+"as space trimmed\nspecific\u2028\nnone"
+```
+
+
+### 流样式
+
+`YAML` 中的流样式可视为 `JSON` 的自然扩展，以覆盖折叠内容行，从而获得更好的可读性，该功能使用锚点和别名来创建对象实例。
+在本章中，我们将重点介绍以下概念的流表示：
+
+- 别名节点
+- 空节点
+- 流标量样式
+- 流集合样式
+- 流节点
+
+别名节点的示例如下所示:
+
+```yaml
+%YAML 1.2
+---
+!!map {
+   ? !!str "First occurrence"
+   : &A !!str "Foo",
+   ? !!str "Override anchor"
+   : &B !!str "Bar",
+   ? !!str "Second occurrence"
+   : *A,
+   ? !!str "Reuse anchor"
+   : *B,
+}
+```
+
+下面给出上述代码的 `JSON` 输出:
+
+```json
+{
+   "First occurrence": "Foo", 
+   "Second occurrence": "Foo", 
+   "Override anchor": "Bar", 
+   "Reuse anchor": "Bar"
+}
+```
+
+具有空内容的节点被视为空节点。
+
+```yaml
+%YAML 1.2
+---
+!!map {
+   ? !!str "foo" : !!str "",
+   ? !!str "" : !!str "bar",
+}
+```
+
+JSON 输出内容为：
+
+```json
+{
+   "": "bar", 
+   "foo": ""
+}
+```
+
+流标量样式包括双引号、单引号和普通类型。相同的基本示例如下 :
+
+```yaml
+%YAML 1.2
+---
+!!map {
+   ? !!str "implicit block key"
+   : !!seq [
+      !!map {
+         ? !!str "implicit flow key"
+         : !!str "value",
+      }
+   ]  
+}
+```
+
+上面给出的示例的 `JSON` 格式输出如下所示:
+
+```json
+{
+   "implicit block key": [
+      {
+         "implicit flow key": "value"
+      }
+   ] 
+}
+```
+
+`YAML` 中的流集合嵌套是在另一个流集合中包含一个块集合。
+流集合条目使用逗号 （`,`） 指示器终止。
+下面的示例详细解释了流集合块:
+
+```yaml
+%YAML 1.2
+---
+!!seq [
+   !!seq [
+      !!str "one",
+      !!str "two",
+   ],
+   
+   !!seq [
+      !!str "three",
+      !!str "four",
+   ],
+]
+```
+
+`JSON` 中流收集的输出如下所示:
+
+```json
+[
+   [
+      "one", 
+      "two"
+   ], 
+   [
+      "three", 
+      "four"
+   ]
+]
+```
+
+像 `JSON` 这样的流样式包括开始和结束指示器。
+唯一没有任何属性的流样式是普通标量。
+
+
+```yaml
+%YAML 1.2
+---
+!!seq [
+!!seq [ !!str "a", !!str "b" ],
+!!map { ? !!str "a" : !!str "b" },
+!!str "a",
+!!str "b",
+!!str "c",]
+```
+
+以 `JSON` 格式显示的代码的输出如下 :
+
+
+```json
+[
+   [
+      "a", 
+      "b"
+   ], 
+   
+   {
+      "a": "b"
+   }, 
+   
+   "a", 
+   "b", 
+   "c"
+]
+```
+
+### 块样式
+
+`YAML` 包括两个块标量样式：**字面量**和**折叠**。
+块标量控制在少数指标上，在内容本身前面有一个标头。
+下面给出块标量标头的示例 ：
+
+```yaml
+%YAML 1.2
+---
+!!seq [
+   !!str "literal\n",
+   !!str "·folded\n",
+   !!str "keep\n\n",
+   !!str "·strip",
+]
+```
+
+具有默认行为的 `JSON` 格式输出如下 :
+
+```json
+[
+   "literal\n", 
+   "\u00b7folded\n", 
+   "keep\n\n", 
+   "\u00b7strip"
+]
+```
+
+#### 块样式的类型
+
+四种块样式：
+
+- `literal` 字面的
+- `folded`  折叠的
+- `keep`    保持的
+- `strip`   剥离的
+
+这些块样式是在“块斩”场景的帮助下定义的。
+下面是一个块斩断场景的例子：
+
+```yaml
+%YAML 1.2
+---
+!!map {
+   ? !!str "strip"
+   : !!str "# text",
+   ? !!str "clip"
+   : !!str "# text\n",
+   ? !!str "keep"
+   : !!str "# text\n",
+}
+```
+您可以看到以下三种格式的 `JSON` 生成的输出:
+
+```json
+{
+   "strip": "# text", 
+   "clip": "# text\n", 
+   "keep": "# text\n"
+}
+```
+
+`YAML` 中的切入控制最终的中断和结尾的空行，这些空行以各种形式进行解释。
+
+#### 剥离
+
+在这种情况下，标量内容不包括最后的换行和空行。
+它由斩断指示器“-”指定。
+
+#### 裁剪
+
+如果未指定显式的裁剪指示符，则裁剪被视为默认行为。
+最后的中断字符保留在标量的内容中。
+上面的示例演示了裁剪的最佳示例。
+它以换行符“ `\n`”终止。
+
+#### 保持
+
+保持是指以“`+`”号表示的代表。
+创建的其他行不会折叠。
+额外的行不会折叠。
+
+### 序列样式
+
+要了解序列样式，了解集合很重要。
+集合和序列样式的概念并行工作。 
+`YAML` 中的集合用适当的序列样式表示。
+如果要引用标记的正确顺序，请始终引用集合。 
+`YAML` 中的集合由数组中表示的从零开始的连续整数索引。
+序列样式的重点始于集合。
+
+案例：
+
+让我们将宇宙中行星的数量视为可以作为一个集合创建的序列。
+以下代码显示了如何表示宇宙中行星的序列样式：
+
+```yaml
+# Ordered sequence of nodes in YAML STRUCTURE
+Block style: !!seq
+- Mercury   # Rotates - no light/dark sides.
+- Venus     # Deadliest. Aptly named.
+- Earth     # Mostly dirt.
+- Mars      # Seems empty.
+- Jupiter   # The king.
+- Saturn    # Pretty.
+- Uranus    # Where the sun hardly shines.
+- Neptune   # Boring. No rings.
+- Pluto     # You call this a planet?
+Flow style: !!seq [ Mercury, Venus, Earth, Mars,      # Rocks
+                    Jupiter, Saturn, Uranus, Neptune, # Gas
+                    Pluto ]                           # Overrated
+``` 
+
+然后，您可以看到以下以 `JSON` 格式显示的有序序列的输出:
+
+```json
+{
+   "Flow style": [
+      "Mercury", 
+      "Venus", 
+      "Earth", 
+      "Mars", 
+      "Jupiter", 
+      "Saturn", 
+      "Uranus", 
+      "Neptune", 
+      "Pluto"
+   ], 
+   
+   "Block style": [
+      "Mercury", 
+      "Venus", 
+      "Earth", 
+      "Mars", 
+      "Jupiter", 
+      "Saturn", 
+      "Uranus", 
+      "Neptune", 
+      "Pluto"
+   ]
+}
+```
+
+### 映射流
+
+`YAML` 中的映射流表示键值对的无序集合。
+它们也称为映射节点。
+请注意，键应保持唯一。
+如果映射流结构中的键重复，则会生成错误。
+键顺序在序列化树中生成。
+
+映射流结构的示例如下所示：
+
+```yaml
+%YAML 1.1
+paper:
+   uuid: 8a8cbf60-e067-11e3-8b68-0800200c9a66
+   name: On formally undecidable propositions of  Principia Mathematica and related systems I.
+   author: Kurt Gödel.
+tags:
+   - tag:
+      uuid: 98fb0d90-e067-11e3-8b68-0800200c9a66
+      name: Mathematics
+   - tag:
+      uuid: 3f25f680-e068-11e3-8b68-0800200c9a66
+      name: Logic
+```
+
+`JSON` 格式的映射序列（无序列表）的输出如下所示:
+
+```json
+{
+   "paper": {
+      "uuid": "8a8cbf60-e067-11e3-8b68-0800200c9a66",
+      "name": "On formally undecidable propositions of Principia Mathematica and related systems I.",
+      "author": "Kurt Gödel."
+   },
+   "tags": [
+      {
+         "tag": {
+            "uuid": "98fb0d90-e067-11e3-8b68-0800200c9a66",
+            "name": "Mathematics"
+         }
+      },
+      {
+         "tag": {
+            "uuid": "3f25f680-e068-11e3-8b68-0800200c9a66",
+            "name": "Logic"
+         }
+      }
+   ]
+}
+```
+
+如果您观察到如上所示的输出，则会发现在 `YAML` 映射结构中键名保持唯一
+
+### 序列块
+
+`YAML` 的序列块表示一系列节点。
+每个项目都由前导 “`-`” 指示符表示。
+请注意，`YAML` 中的 “`-`” 指示符应与节点之间留有空格。
+
+
+块序列的基本表述如下：
+
+```yaml
+block sequence:
+··- one↓
+  - two : three↓
+```
+
+## 示例：
+
+观察以下示例，以更好地理解序列块。
+
+```yaml
+port: &ports
+  adapter:  postgres
+  host:     localhost
+
+development:
+  database: myapp_development
+  <<: *ports
+```
+
+`JSON` 格式的序列块的输出如下-
+
+```json
+{
+   "port": {
+      "adapter": "postgres",
+      "host": "localhost"
+   },
+   "development": {
+      "database": "myapp_development",
+      "adapter": "postgres",
+      "host": "localhost"
+   }
+}
+```
+
+### 故障安全模式
+
+`YAML` 内部结构被定义为标记集的组合，并包括用于解析非特定标记的机制。 
+`YAML` 中的故障安全模式是以可以与任何 `YAML` 文档一起使用的方式创建的。
+它也被视为 `YAML` 文档通用的内部结构。
+
+#### 类型
+
+故障安全模式有两种类型：**通用映射**和**通用序列**
+
+##### 通用映射
+
+- 它代表一个关联容器。
+- 在此，每个键在关联中都是唯一的，并且恰好映射到一个值。 
+- `YAML` 不包含对键定义的限制。
+
+案例：
+
+```yaml
+Clark : Evans
+Ingy : döt Net
+Oren : Ben-Kiki
+Flow style: !!map { Clark: Evans, Ingy: döt Net, Oren: Ben-Kiki }
+```
+`JSON` 格式的通用映射结构的输出如下所示:
+
+```json
+{
+   "Oren": "Ben-Kiki", 
+   "Ingy": "d\u00f6t Net", 
+   "Clark": "Evans", 
+   "Flow style": {
+      "Oren": "Ben-Kiki", 
+      "Ingy": "d\u00f6t Net", 
+      "Clark": "Evans"
+   }
+}
+```
+
+##### 通用序列
+
+- 它代表一种序列。
+- 它包括一个由从零开始的连续整数索引的集合。
+- 它用 `!!seq` 标签表示。
+
+```yaml
+Clark : Evans
+Ingy : döt Net
+Oren : Ben-Kiki
+Flow style: !!seq { Clark: Evans, Ingy: döt Net, Oren: Ben-Kiki }
+```
+
+此故障安全模式的通用序列的输出:
+
+```json
+{
+   "Oren": "Ben-Kiki", 
+   "Ingy": "d\u00f6t Net", 
+   "Clark": "Evans", 
+   "Flow style": {
+      "Oren": "Ben-Kiki", 
+      "Ingy": "d\u00f6t Net", 
+      "Clark": "Evans"
+   }
+}
+```
+
+### JSON 内部结构
+
+
+`YAML` 中的 `JSON` 内部结构被认为是大多数现代计算机语言的通性。
+它允许解析 `JSON` 文件。
+在YAML中强烈建议在 `JSON` 内部结构上考虑其他内部结构。
+这样做的主要原因是它包括用户友好的键值组合。
+消息可以被编码为键，并可在必要情况下使用。
+
+`JSON` 内部结构是标量的，不存在值(`value`)这一说。 
+`JSON` 内部结构中的映射条目以某些键值对的格式表示，其中 `null` 被视为有效。
+
+空 `JSON` 模式如下所示-
+
+```yaml
+!!null null: value for null key
+key with null value: !!null null
+```
+
+`JSON` 表示的输出在下面提到:
+
+```json
+{
+   "null": "value for null key", 
+   "key with null value": null
+}
+```
+
+案例：
+
+以下示例表示布尔 `JSON` 内部结构-
+
+```yaml
+YAML is a superset of JSON: !!bool true
+Pluto is a planet: !!bool false
+```
+
+以下是 `JSON` 格式的输出-
+
+```json
+{
+   "YAML is a superset of JSON": true, 
+   "Pluto is a planet": false
+}
+```
+
+案例：
+
+以下示例表示整数 `JSON` 内部结构-
+
+```yaml
+negative: !!int -12
+zero: !!int 0
+positive: !!int 34
+```
+整数生成的 `JSON` 模式的输出如下所示：
+
+```json
+{
+   "positive": 34, 
+   "zero": 0, 
+   "negative": -12
+}
+```
+
+案例：
+
+`JSON` 内部结构中的标签由以下示例表示-
+
+```yaml
+A null: null
+Booleans: [ true, false ]
+Integers: [ 0, -0, 3, -19 ]
+Floats: [ 0., -0.0, 12e03, -2E+05 ]
+Invalid: [ True, Null, 0o7, 0x3A, +12.3 ]
+```
+
+您可以找到 `JSON` 输出，如下所示:
+
+```json
+{
+   "Integers": [
+      0, 
+      0, 
+      3, 
+      -19
+   ], 
+   
+   "Booleans": [
+      true, 
+      false
+   ], 
+   "A null": null, 
+
+   "Invalid": [
+         true, 
+         null, 
+         "0o7", 
+         58, 
+         12.300000000000001
+   ], 
+   
+   "Floats": [
+      0.0, 
+      -0.0, 
+      "12e03", 
+      "-2E+05"
+   ]
+}
+```
+
+### The End
