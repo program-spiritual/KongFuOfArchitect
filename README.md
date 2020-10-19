@@ -4,7 +4,7 @@
 ![架构师的功夫](./img/icon.svg)
 
 
-## 版本 2.1 
+## 版本 2.2
 
 ![2.1-snap](img/snap.png)
 
