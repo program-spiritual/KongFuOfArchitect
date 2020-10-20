@@ -34,3 +34,26 @@ if (lock.tryLock() || lock.tryLock(timeout, unit)) {
 [SemaphoreWorker](src/main/java/conCurrentTool/SemaphoreWorker.java)
 ### LatchSample
 [LatchSample](src/main/java/conCurrentTool/LatchSample.java)
+
+## 队列
+
+[LinkedBlockingQueue](./src/main/java/queue/LinkedBlockingQueue.java)
+
+### 队列使用场景与典型用例
+
+[生产者-消费者](src/main/java/queue/ConsumerProducer.java)
+
+## `Java` 并发类库提供的线程池
+
+- `newCachedThreadPool`
+  - 处理大量短时间工作任务的线程池
+- `newFixedThreadPool`
+  - 其背后使用的是无界的工作队列，任何时候最多有 `nThreads` 个工作线程是活动的
+- `newSingleThreadExecutor`
+  - 它的特点在于工作线程数目被限制为 1
+- `newSingleThreadScheduledExecutor`
+  - 进行定时或周期性的工作调度，区别在于单一工作线程还是多个工作线程
+- `newWorkStealingPool`
+  - 并行地处理任务，不保证处理顺序。
+  
+  
