@@ -10,4 +10,4 @@
 
 [**JAVA** `Class` 与 `JVM`](./java_class_jvm/README.md)
 
-[**JAVA** `Class` 与 `JVM` -在线文档版](./java_class_jvm/README.md)
+[**JAVA** `Class` 与 `JVM` -在线文档版](/part4/java_class_jvm/README.md)
