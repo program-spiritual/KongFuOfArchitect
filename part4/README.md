@@ -1,10 +1,13 @@
 # 第四部分 高效成长
 
-##  "编程"内功修炼
+##  **编程**内功修炼
 
-### JAVA
-[JAVA并发编程](./java_concurrency/README.md)
+### _JAVA_
 
-### node.js 
+[**JAVA** 并发编程](./java_concurrency/README.md)
 
-[exports、module.exports和export、export default到底是咋回事](https://segmentfault.com/a/1190000010426778)
+[**JAVA** 并发编程-在线文档版](/part4/java_concurrency/README.md)
+
+[**JAVA** `Class` 与 `JVM`](./java_class_jvm/README.md)
+
+[**JAVA** `Class` 与 `JVM` -在线文档版](./java_class_jvm/README.md)
