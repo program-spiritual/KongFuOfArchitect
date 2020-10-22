@@ -1,8 +1,8 @@
 package deadLock;
 
 public class DeadLockSample extends Thread {
-    private String first;
-    private String second;
+    private final String first;
+    private final String second;
     public DeadLockSample(String name, String first, String second) {
         super(name);
         this.first = first;

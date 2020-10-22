@@ -8,8 +8,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DeadLockSampleV2 extends Thread {
-    private String first;
-    private String second;
+    private final String first;
+    private final String second;
 
     public DeadLockSampleV2(String name, String first, String second) {
         super(name);
