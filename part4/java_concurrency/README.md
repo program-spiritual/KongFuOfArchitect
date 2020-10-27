@@ -3,6 +3,7 @@
 ### 死锁
 
 - [DeadLockSample](src/main/java/deadLock/DeadLockSample.java)
+
 ```java
 package deadLock;
 
@@ -69,6 +70,7 @@ public class DeadLockSample extends Thread {
  * */
 ```
 - [DeadLockSampleV2](src/main/java/deadLock/DeadLockSampleV2.java)
+
 ```java
 package deadLock;
 
@@ -139,8 +141,6 @@ public class DeadLockSampleV2 extends Thread {
         t2.join();
     }
 }
-
-
 ```
 如何预防死锁？
 
@@ -151,12 +151,11 @@ public class DeadLockSampleV2 extends Thread {
     - 对象之间组合、调用的关系对比和组合，考虑可能调用时序。
     - 按照可能时序合并，发现可能死锁的场景。
 - 使用带超时的方法
-```java
 
+```java
 if (lock.tryLock() || lock.tryLock(timeout, unit)) {
     // ...
    }
-
 ```
 
 - 通过静态代码分析
@@ -164,7 +163,9 @@ if (lock.tryLock() || lock.tryLock(timeout, unit)) {
 ## 并发工具
 
 ### Semaphore
+
 [UsualSemaphoreSample](src/main/java/conCurrentTool/UsualSemaphoreSample.java)
+
 ```java
 package conCurrentTool;
 
@@ -180,10 +181,11 @@ public class UsualSemaphoreSample {
         }
     }
 }
-
 ```
 ### AbnormalSemaphore
+
 [AbnormalSemaphoreSample](src/main/java/conCurrentTool/AbnormalSemaphoreSample.java)
+
 ```java
 package conCurrentTool;
 
@@ -225,8 +227,11 @@ class MyWorker implements Runnable {
     }
 }
 ```
+
 ### SemaphoreWorker
+
 [SemaphoreWorker](src/main/java/conCurrentTool/SemaphoreWorker.java)
+
 ```java
 package conCurrentTool;
 
@@ -262,10 +267,11 @@ public class SemaphoreWorker  implements Runnable{
         System.out.println(name + " " + msg);
     }
 }
-
 ```
 ### LatchSample
+
 [LatchSample](src/main/java/conCurrentTool/LatchSample.java)
+
 ```java
 package conCurrentTool;
 
@@ -316,12 +322,11 @@ class SecondBatchWorker implements Runnable {
         }
     }
 }
-
-
 ```
 ## 队列
 
 [LinkedBlockingQueue](./src/main/java/queue/LinkedBlockingQueue.java)
+
 ```java
 package queue;
 
@@ -354,7 +359,6 @@ public class LinkedBlockingQueue {
 
     }
 }
-
 ```
 
 ### 队列使用场景与典型用例
@@ -429,7 +433,6 @@ public class ConsumerProducer {
         }
     }
 }
-
 ```
 
 ## `Java` 并发类库提供的线程池
@@ -455,7 +458,6 @@ public class ConsumerProducer {
 构造函数的配置：
 
 ```java
-
 public ThreadPoolExecutor(int corePoolSize,
                         int maximumPoolSize,
                         long keepAliveTime,
@@ -463,7 +465,6 @@ public ThreadPoolExecutor(int corePoolSize,
                         BlockingQueue<Runnable> workQueue,
                         ThreadFactory threadFactory,
                         RejectedExecutionHandler handler)
-
 ```
 
 状态如何表征：
@@ -519,7 +520,6 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }
 1. 可以考虑为索引分区对象添加一个逻辑上的锁：
 
 ```java
-
 public class AtomicBTreePartition {
 private volatile long lock;
 public void acquireLock(){}
@@ -531,7 +531,6 @@ public void releaseeLock(){}
 - AtomicLongFieldUpdater
 
 ```java
-
 private static final AtomicLongFieldUpdater<AtomicBTreePartition> lockFieldUpdater =
         AtomicLongFieldUpdater.newUpdater(AtomicBTreePartition.class, "lock");
 
@@ -547,7 +546,6 @@ private void acquireLock(){
 - Variable Handle API
 
 ```java
-
 private static final VarHandle HANDLE = MethodHandles.lookup().findStaticVarHandle
         (AtomicBTreePartition.class, "lock");
 
@@ -578,6 +576,7 @@ private void acquireLock(){
   
 - 示例
   - `ReentrantLock` 
+  
 ```java
 package conCurrentTool;
 
@@ -609,8 +608,10 @@ public class ReentrantLockCase1 {
     abstract static class Sync extends AbstractQueuedSynchronizer { }
 }
 
+
 ```
 `ReentrantLock` 中的 `tryAcquire` 实现：
+
 - `NonfairSync` 和 `FairSync`
 
  `AQS` 内部 `tryAcquire` 仅仅是个接近未实现的方法（直接抛异常）
@@ -631,7 +632,6 @@ public ReentrantLock() {
     public ReentrantLock(boolean fair) {
         sync = fair ? new FairSync() : new NonfairSync();
     }
-
 ```
 
 里体现了非公平的语义:
@@ -660,7 +660,6 @@ final boolean nonfairTryAcquire(int acquires) {
 当前线程会被包装成为一个排他模式的节点（`EXCLUSIVE`），通过 `addWaiter` 方法添加到队列中。
 
 ```java
-
 final boolean acquireQueued(final Node node, int arg) {
       boolean interrupted = false;
       try {
