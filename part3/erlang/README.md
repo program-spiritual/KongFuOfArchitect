@@ -62,3 +62,50 @@
 - [guard_sequence](/part3/erlang/src/functions/guard_sequence.erl)
 - [helloworld](/part3/erlang/src/functions/helloworld.erl)
 - [multiple_args](/part3/erlang/src/functions/multiple_args.erl)
+
+### 模块
+
+- [attribute](/part3/erlang/src/module/attribute.erl)
+- [helloworld](/part3/erlang/src/module/helloworld.erl)
+- [import_module](/part3/erlang/src/module/import_module.erl)
+- [prebuilt_attribute](/part3/erlang/src/module/prebuilt_attribute.erl)
+
+### 递归
+
+- [duplicate](/part3/erlang/src/recursion/duplicate.erl)
+- [helloworld](/part3/erlang/src/recursion/helloworld.erl)
+- [length_recursion](/part3/erlang/src/recursion/length_recursion.erl)
+- [list_reversal](/part3/erlang/src/recursion/list_reversal.erl)
+- [tail_recursion](/part3/erlang/src/recursion/tail_recursion.erl)
+
+### 字符串
+
+- [erlang_strings](/part3/erlang/src/strings/erlang_strings.erl)
+- [left_trailing](/part3/erlang/src/strings/left_trailing.erl)
+- [right_sub_string](/part3/erlang/src/strings/right_sub_string.erl)
+- [right_trailing](/part3/erlang/src/strings/right_trailing.erl)
+- [sub_string_demo](/part3/erlang/src/strings/sub_string_demo.erl)
+- [to_lower](/part3/erlang/src/strings/to_lower.erl)
+- [to_upper](/part3/erlang/src/strings/to_upper.erl)
+
+
+### 列表
+
+- [index](/part3/erlang/src/lists/index.erl)
+- [list_all](/part3/erlang/src/lists/list_all.erl)
+- [list_any](/part3/erlang/src/lists/list_any.erl)
+- [list_append](/part3/erlang/src/lists/list_append.erl)
+- [list_delete](/part3/erlang/src/lists/list_delete.erl)
+- [list_deplicate](/part3/erlang/src/lists/list_deplicate.erl)
+- [list_droplast](/part3/erlang/src/lists/list_droplast.erl)
+- [list_last](/part3/erlang/src/lists/list_last.erl)
+- [list_max](/part3/erlang/src/lists/list_max.erl)
+- [list_member](/part3/erlang/src/lists/list_member.erl)
+- [list_merge](/part3/erlang/src/lists/list_merge.erl)
+- [list_min](/part3/erlang/src/lists/list_min.erl)
+- [list_nth](/part3/erlang/src/lists/list_nth.erl)
+- [list_nth_tail](/part3/erlang/src/lists/list_nth_tail.erl)
+- [list_reverse](/part3/erlang/src/lists/list_reverse.erl)
+- [list_sort](/part3/erlang/src/lists/list_sort.erl)
+- [list_sublist](/part3/erlang/src/lists/list_sublist.erl)
+- [list_sum](/part3/erlang/src/lists/list_sum.erl)
