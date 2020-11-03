@@ -48,3 +48,48 @@ start() ->
 如果该进程存在并且还处于活动状态，
 如果该进程存在并且仍在运行，则返回 `true` ，即不管它是否不退出并且尚未退出。
 否则，返回 `false` 。
+
+
+## `pid_to_list`
+
+```erlang
+
+-module(processes_pid_to_list).
+-author("Administrator").
+
+%% API
+-export([call/2,start/0]).
+call(Arg1, Arg2) ->
+  io:format("~p ~p~n", [Arg1, Arg2]).
+
+start() ->
+  Pid = spawn(?MODULE, call, ["hello", "process"]),
+  io:fwrite("~p~n",[pid_to_list(Pid)]).
+```
+## `registered`
+
+> 返回所有已注册的进程列表
+
+```erlang
+-module(registered).
+-author("Administrator").
+
+%% API
+-export([start/0]).
+start() ->
+%%  Returns a list with the names of all the registered processes.
+  io:fwrite("~p~n", [registered()]).
+
+```
+## ‘`self`
+
+> 返回正在调用的进程id  pid
+
+```
+-module(self_pid)
+-export([start/0])
+
+start()->
+io:fwrite("~p~n",[self()]).
+
+```

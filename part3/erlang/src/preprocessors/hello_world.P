@@ -1,0 +1,21 @@
+-file("hello_world.erl", 1).
+
+-module(hello_world).
+
+-author("Administrator").
+
+-file("user.hrl", 1).
+
+-author("Administrator").
+
+-record(person,{name = "", id}).
+
+-file("hello_world.erl", 4).
+
+-export([start/0]).
+
+start() ->
+    io:fwrite("~w", [{1 + 2}]).
+
+
+
