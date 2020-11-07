@@ -848,3 +848,494 @@ java -Xlog:help
 
 -XX:G1MixedGCCountTarget
 ```
+
+### `Java` 内存模型中的 `happen-before`
+
+> 是 `Java` 内存模型中保证多线程操作可见性的机制，也是对早期语言规范中含糊的可见性概念的一个精确定义
+>
+
+#### 具体表现形式:
+
+- 线程内执行的每个操作，都保证 `happen-before` 后面的操作
+-  对于 `volatile` 变量，对它的写操作，保证 `happen-before` 在随后对该变量的读取操作
+-  对于一个锁的解锁操作，保证 `happen-before` 加锁操作
+- 对象构建完成，保证 `happen-before` 于 `finalizer` 的开始动作
+- 类似线程内部操作的完成，保证 `happen-before` 其他 `Thread.join()` 的线程
+
+-  happen-before 关系是存在着传递性的
+
+#### 学习 `JMM` 的建议
+
+- 明确目的，克制住技术的诱惑。除非你是编译器或者 `JVM` 工程师
+- 克制住对“秘籍”的诱惑。尽量遵循语言规范进行
+
+
+### 为什么需要 `JMM`(Java 内存模型（Java Memory Model，JMM）)
+
+- 简化多线程编程、保证程序可移植性
+
+- 让普通 `Java` 开发者和编译器、`JVM` 工程师，能够清晰地达成共识
+
+- 相对简单并准确地判断出，多线程程序什么样的执行序列是符合规范的。
+
+JMM 内部的实现通常是依赖于所谓的内存屏障，通过禁止某些重排序的方式，提供内存可见性保证，也就是实现了各种 happen-before 规则
+
+### `JMM` 提供的可见性，体现在类似 `volatile` 上，具体行为是什么样呢？
+
+ `volatile` 变量的可见性发生了增强，能够起到守护其上下文的作用
+
+
+### Java程序运行在Docker等容器环境
+
+`Docker` 其内存、`CPU` 等资源限制是通过 `CGroup`（Control Group）实现的
+早期的 JDK 不能识别这些限制
+#### 问题：
+- 未配置合适的 `JVM` 堆和元数据区、直接内存等参数，`Java` 就有可能试图使用超过容器限制的内存，最终被容器 `OOM kill`，或者自身发生 `OOM`
+- 错误判断了可获取的 `CPU` 资源
+- 镜像非常多的时候，镜像的存储等开销就比较明显了。
+- `Java` 自身的大小、内存占用、启动速度，都存在一定局限性
+
+#### `Docker` 到底有什么特别？
+
+- `Docker` 并不是一种完全的虚拟化技术，而更是一种轻量级的隔离技术。
+
+- `Docker` 基于 `namespace`，为每个容器提供了单独的命名空间，对网络、`PID`、用户、`IPC` 通信、文件系统挂载点等实现了隔离
+- `Docker` 通过 `CGroup` 进行管理管理计算资源
+-  `Docker` 仅在类似 `Linux` 内核之上实现了有限的隔离和虚拟化
+
+#### 未隐藏的底层信息带来了很多意外的困难
+
+- 容器环境对于计算资源的管理方式是全新的，`CGroup` 作为相对比较新的技术，历史版本的 Java 显然并不能自然地理解相应的资源限制
+- `namespace` 对于容器内的应用细节增加了一些微妙的差异，比如 `jcmd`、`jstack` 等工具会依赖于“/proc//”下面提供的部分信息
+  - `Docker` 的设计改变了这部分信息的原有结构
+   
+##### `Ergonomics` 机制
+
+-  `JVM` 会大概根据检测到的内存大小，设置最初启动时的堆大小为系统内存的 `1/64`  
+- `JVM` 检测到系统的 `CPU` 核数，则直接影响到了 `Parallel GC` 的并行线程数目 、 `JIT complier` 线程数目
+- 由于容器环境的差异，`Java` 的判断很可能是基于错误信息而做出的
+-  `JVM` 的一些原有诊断或备用机制也会受到影响。
+   - 为保证服务的可用性，一种常见的选择是依赖“-XX:OnOutOfMemoryError”功能
+     - 这种机制是基于 fork 实现的，当 Java 进程已经过度提交内存时，fork 新的进程往往已经不可能正常运行了
+
+##### 如何解决问题     
+
+- 升级到最新的 `JDK` 版本
+
+- 针对内存限制，可以使用下面的参数设置
+
+```text
+## 只支持 Linux 环境。而对于 CPU 核心数限定，
+-XX:+UnlockExperimentalVMOptions
+-XX:+UseCGroupMemoryLimitForHeap
+
+```
+实践中发现有问题，也可以使用“-XX:-UseContainerSupport”，关闭 Java 的容器支持特性，这可以作为一种防御性机制，避免新特性破坏原有基础功能
+
+
+##### 只能使用老版本的 `JDK` 怎么办？
+
+在环境中，这样限制容器内存
+
+```bash
+
+$ docker run -it --rm --name yourcontainer -p 8080:8080 -m 800M repo/your-java-container:openjdk
+```
+额外配置下面的环境变量，直接指定 `JVM` 堆大小
+
+```text
+
+-e JAVA_OPTIONS='-Xmx300m'
+```
+
+明确配置 `GC` 和 `JIT` 并行线程数目，以避免二者占用过多计算资源
+
+```text
+
+-XX:ParallelGCThreads
+-XX:CICompilerCount
+```
+
+明确告知 `JVM` 系统内存限额。
+
+```text
+
+-XX:MaxRAM=`cat /sys/fs/cgroup/memory/memory.limit_in_bytes`
+```
+
+也可以指定 Docker 运行参数
+
+```text
+
+--memory-swappiness=0
+```
+
+##### 借助社区工具
+
+[java-buildpack-memory-calculator](https://github.com/cloudfoundry/java-buildpack-memory-calculator)
+
+对于容器镜像大小的问题，如果你使用的是 `JDK 9` 以后的版本，完全可以使用 `jlink` 工具定制最小依赖的 `Java` 运行环境，将 `JDK` 裁剪为几十 M 的大小，这样运行起来并不困难。
+
+
+### 后台服务出现明显“变慢”，谈谈你的诊断思路？
+
+- 清晰地定位问题：
+  - 是长时间的还是突发性的
+  - 是否重复出现
+  - 是系统对其他方面的请求的反应延时变长吗
+
+- 理清问题的症状：
+  - 问题可能来自于 `Java` 服务自身，也可能仅仅是受系统里其他服务的影响   
+    - 一些 `Java` 诊断工具也可以用于这个诊断，例如通过 `JFR`
+  - 监控应用是否大量出现了某种类型的异常。
+    - 有：异常可能就是个突破点
+    - 无： 先检查系统级别的资源等情况
+      - CPU、内存等资源是否被其他进程大量占用
+      - 并且这种占用是否不符合系统正常运行状况
+  - 监控 `Java` 服务自身，例如 `GC` 日志里面是否观察到 `Full GC` 等恶劣情况出现    
+    - 利用 `jstat` 等工具，获取内存使用的统计信息也是个常用手段；
+    - 利用 `jstack` 等工具检查是否出现死锁等
+  - 如果还不能确定具体问题，对应用进行 `Profiling` 也是个办法 
+  - 定位了程序错误或者 `JVM` 配置的问题后，就可以采取相应的补救措施 
+  
+ #### 业界最广泛的性能分析方法论。
+ 
+- 系统架构不同
+  - 分布式
+  - 单体式  
+
+`Charlie Hunt` 曾将其方法论总结为两类：  
+- 自上而下。从应用的顶层，逐步深入到具体的不同模块，或者更近一步的技术细节单元，找到可能的问题和解决办法。
+- 自下而上。从类似 `CPU` 这种硬件底层，判断类似 `Cache-Miss` 之类的问题和调优机会，出发点是指令级别优化
+
+#### 上而下分析中，各个阶段的常见工具和思路：
+系统性能分析中，`CPU、内存和 `IO` 是主要关注项。
+
+先用 `top` 命令查看负载状况
+
+`top` 命令获取相应 `pid`，“-H”代表 `thread` 模式，你可以配合 `grep` 命令更精准定位。
+
+```bash 
+top –H
+```
+
+转换为十六进制
+
+```bash
+
+printf "%x" your_pid
+```
+
+
+利用 `jstack` 获取的线程栈，对比相应的 `ID` 即可。
+
+更加通用的诊断方向，利用 `vmstat` 之类，查看上下文切换的数量
+
+```text
+
+vmstat -1 -10
+```
+如果上下文切换很高，就表明是由于不合理的多线程调用引起的。
+
+当然还需要利用 `pidstat` 等手段，进行更加具体的定位
+
+![](src/main/resources/性能调优工具图.png)
+
+`JVM` 层面的性能分析
+
+- 利用 `JMC、JConsole` 等工具进行运行时监控。
+- 利用各种工具，在运行时进行堆转储分析，或者获取各种角度的统计数据
+- `GC` 日志等手段，诊断 `Full GC`、`Minor GC`，或者引用堆积
+
+
+`JFR/JMC` 完全具备了生产系统 `Profiling` 的能力，
+
+不需要重新启动系统或者提前增加配置。例如，你可以在运行时启动 `JFR` 记录，并将这段时间的信息写入文件：
+```text
+
+Jcmd <pid> JFR.start duration=120s filename=myrecording.jfr
+```
+
+### 有人说“Lambda 能让 Java 程序慢 30 倍”？
+
+#### 基准测试
+
+- 基准测试是一个非常有效的通用手段，让我们以直观、量化的方式，判断程序在特定条件下的性能表现。
+- 基准测试必须明确定义自身的范围和目标，否则很有可能产生误导的结果。
+- 虽然 `Lambda/Stream` 为 `Java` 提供了强大的函数式编程能力，但是也需要正视其局限性：
+  - `Lambda/Stream` 提供了与传统方式接近对等的性能，但是如果对于性能非常敏感，就不能完全忽视它在特定场景的性能差异了，例如：初始化的开销。 
+  - 增加了程序诊断等方面的复杂性，程序栈要复杂很多
+#### 基准测试的主要目的和特征
+
+- 性能往往是特定情景下的评价，泛泛地说性能“好”或者“快”，往往是具有误导性的
+- 通过引入基准测试，我们可以定义性能对比的明确条件、具体的指标，进而保证得到定量的、可重复的对比数据，这是工程中的实际需要。
+
+#### 什么时候需要开发微基准测试呢？  
+- 开发共享类库，为其他模块提供某种服务的 `API`
+- `API` 对于性能，如延迟、吞吐量有着严格的要求
+  
+#### 如何构建自己的微基准测试，选择什么样的框架比较好？
+
+最为广泛的框架之一就是 `JMH`。
+使用 `JMH` 也非常简单，你可以直接将其依赖加入 `Maven` 工程。
+使用 `mvn` 命令生成一个项目
+
+````bash
+
+$ mvn archetype:generate \
+        -DinteractiveMode=false \
+        -DarchetypeGroupId=org.openjdk.jmh \
+          -DarchetypeArtifactId=jmh-java-benchmark-archetype \
+        -DgroupId=org.sample \
+        -DartifactId=test \
+        -Dversion=1.0
+````
+
+`JMH` 利用注解（`Annotation`），定义具体的测试方法，以及基准测试的详细配置
+
+- @Benchmark”以标识它是个基准测试方法
+-  BenchmarkMode 则指定了基准测试模式
+
+```java
+
+@Benchmark
+@BenchmarkMode(Mode.Throughput)
+public void testMethod() {
+   // Put your benchmark code here.
+}
+```
+
+实现了具体的测试后，就可以利用下面的 `Maven` 命令构建:
+
+```bash 
+
+mvn clean install
+```
+
+运行：
+
+
+java -jar target/benchmarks.jar
+
+
+#### 基准测试避坑指南
+
+需要从白盒层面理解代码，尤其是具体的性能开销，不管是 CPU 还是内存分配
+
+- 需要保证我们写出的基准测试符合测试目的，确实验证的是我们要覆盖的功能点
+- 通常对于微基准测试，我们通常希望代码片段确实是有限的，
+- 微基准测试基本上都是体量较小的 `API` 层面测试，最大的威胁来自于过度“聪明”的 JVM！
+
+##### 几个方面需要重点关注：
+- 保证代码经过了足够并且合适的预热。
+   - 在 server 模式下，JIT 会在一段代码执行 10000 次后，将其编译为本地代码，client 模式则是 1500 次以后。我们需要排除代码执行初期的噪音，保证真正采样到的统计数据符合其稳定运行状态。
+   
+使用下面的参数来判断预热工作到底是经过了多久   
+
+```text
+
+-XX:+PrintCompilation
+```   
+避免后台编译：
+
+```text
+
+-Xbatch
+```
+
+也要保证预热阶段的代码路径和采集阶段的代码路径是一致的.
+
+
+防止 JVM 进行无效代码消除（Dead Code Elimination）:
+
+```java
+
+public void testMethod() {
+   
+}
+```
+
+尽量保证方法有返回值，而不是 `void` 方法，或者使用 `JMH` `提供的BlackHole设施`，
+
+```java
+
+public void testMethod(Blackhole blackhole) {
+   int left = 10;
+   int right = 100;
+   int mul = left * right;
+   blackhole.consume(mul);
+}
+```
+
+防止发生常量折叠:
+
+`JVM` 如果发现计算过程是依赖于常量或者事实上的常量，就可能会直接计算其结果，所以基准测试并不能真实反映代码执行的性能。`JMH` 提供了 `State` 机制来解决这个问题
+
+
+ `JMH` 还会对 `State` 对象进行额外的处理，以尽量消除伪共享（False Sharing）的影响
+ 
+ 
+ ## `JVM` 优化 `Java` 代码时都做了什么？
+ 
+ `JVM` 的优化方式仅仅作用在运行应用代码的时候
+ 
+ - `runtime`
+   - 解释执行和动态编译通用的一些机制
+     - 锁机制
+     - 内存分配机制
+     - 专门用于优化解释执行效率的
+       - 模版解释器
+       - inline cache
+         - 优化虚方法调用的动态绑定
+ - `JIT`
+   - 将热点代码以方法为单位转换成机器码，直接运行在底层硬件之上
+   - 多种优化方式
+     - 方法内联
+     - 逃逸分析
+     - 基于程序运行 `profile` 的投机性优化
+     
+    
+### java 代码生命周期
+
+请看图
+
+> 我自己绘制の
+>
+![](src/main/resources/java代码生命周期.png) 
+     
+- 字节码     
+     
+`Java` 通过引入字节码这种中间表达方式，屏蔽了不同硬件的差异，由 `JVM` 负责完成从字节码到机器码的转化     
+
+- 编译期
+
+ `javac` 等编译器或者相关 `API` 等将源码转换成为字节码的过程。此阶段，会进行少量类似常量折叠之类的优化，只要利用反编译工具，就可以直接查看细节。
+ `javac` 优化与 `JVM` 内部优化也存在关联，毕竟它负责了字节码的生成
+ 
+ 
+###  `JVM` 运行时的优化
+
+请看图：
+
+![](src/main/resources/JVM与编译器.png)
+
+`JVM` 会根据统计信息，动态决定:
+
+- 什么方法被编译，
+- 什么方法解释执行，
+- 即使是已经编译过的代码，也可能在不同的运行阶段不再是热点，
+- `JVM` 有必要将这种代码从 `Code Cache` 中移除出去，
+
+毕竟其大小是有限的。
+
+#### 解释器和编译器也会进行一些通用优化:
+
+- 锁优化，
+- `Intrinsic` 机制 (内建方法)，就是针对特别重要的基础方法
+- 即时编译器（`JIT`），则是更多优化工作的承担者
+  - 另外一个优化场景，则是最针对所谓热点循环代码，利用通常说的栈上替换技术
+  - `JIT` 可以看作就是基于两个计数器实现
+    - 方法计数器和回边计数器提供给 `JVM` 统计数据，以定位到热点代码。
+    - `JIT` 机制要复杂得多
+      - 逃逸分析、循环展开、方法内联
+ 
+#### 有哪些手段可以探查这些优化的具体发生情况呢
+ 
+ - 打印编译发生的细节。
+ 
+ ```text
+
+-XX:+PrintCompilation
+```
+
+- 输出更多编译的细节
+  - `LogFile` 选项是可选的，不指定则会输出到
+```text
+
+-XX:UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:LogFile=<your_file_path>
+```
+
+- 打印内联的发生，可利用下面的诊断选项，也需要明确解锁
+
+```text
+
+-XX:+PrintInlining
+```
+
+#### 如何知晓 `Code Cache` 的使用状态
+
+- JMC、JConsole 之类
+-  NMT
+
+#### 有哪些可以触手可及的调优角度和手段
+
+- 调整热点代码门限值
+
+```text
+
+-XX:CompileThreshold=N
+```
+
+还有一个办法就是关闭计数器衰减。
+
+```text
+
+-XX:-UseCounterDecay
+```
+
+ `debug` 版本的 `JDK`，还可以利用下面的参数进行试验
+ 
+ ```text
+
+-XX:CounterHalfLifeTime
+```
+
+- 调整 `Code Cache` 大小
+
+如果 `Code Cache` 太小，可能只有一小部分代码可以被 `JIT` 编译，其他的代码则没有选择，只能解释执行
+
+```text
+
+-XX:ReservedCodeCacheSize=<SIZE>
+```
+
+调整其初始大小
+
+```text
+
+-XX:InitialCodeCacheSize=<SIZE>
+```
+
+-调整编译器线程数，或者选择适当的编译器模式
+
+`client` 模式默认只有一个编译线程，而 `server` 模式则默认是两个
+通过下面的参数指定的编译线程数:
+```text
+
+-XX:CICompilerCount=N
+```
+
+- 减少进入安全点
+
+> 它远远不只是发生在动态编译的时候，GC 阶段发生的更加频繁，你可以利用下面选项诊断安全点的影响
+>
+```text
+
+-XX:+PrintSafepointStatistics ‑XX:+PrintGCApplicationStoppedTime
+```
+> !!!注意，在 `JDK 9` 之后，`PrintGCApplicationStoppedTime` 已经被移除了，你需要使用“-Xlog:safepoint”之类方式来指定。
+
+
+和安全点相关:
+
+- 在 `JIT` 过程中，逆优化等场景会需要插入安全点
+- 常规的锁优化阶段也可能发生
+  - 偏斜锁的设计目的是为了避免无竞争时的同步开销，但是当真的发生竞争时，撤销偏斜锁会触发安全点，是很重的操作
+  
+在并发场景中偏斜锁的价值其实是被质疑的，经常会明确建议关闭偏斜锁。
+
+```text
+
+-XX:-UseBiasedLocking
+```  
+
