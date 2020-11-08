@@ -1323,7 +1323,7 @@ public void testMethod(Blackhole blackhole) {
 
 -XX:+PrintSafepointStatistics ‑XX:+PrintGCApplicationStoppedTime
 ```
-> !!!注意，在 `JDK 9` 之后，`PrintGCApplicationStoppedTime` 已经被移除了，你需要使用“-Xlog:safepoint”之类方式来指定。
+!> 注意，在 `JDK 9` 之后，`PrintGCApplicationStoppedTime` 已经被移除了，你需要使用“-Xlog:safepoint”之类方式来指定。
 
 
 和安全点相关:
