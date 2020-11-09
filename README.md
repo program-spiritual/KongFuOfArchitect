@@ -8,7 +8,7 @@
 
 ![2.1-snap](img/snap.png)
 
-## 完整在线文档
+## [完整在线文档](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
 
 [Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
 
@@ -20,10 +20,8 @@
 
 ### win 用户开发效率提升方法
 
-Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务必读一下这篇：
-
-[windows 流畅开发准备工作](https://ai.nodejs7.com/2020/01/14/118.html)
-
+- [windows 流畅开发准备工作](https://ai.nodejs7.com/2020/01/14/118.html)
+- [在windows 7| 8| 10 .etc 中使用 `vim` 作为 `ide` 的配置方法](https://github.com/xiaomiwujiecao/use_vim_in_winX)
 
 ## 架构师的成长路线
 
@@ -272,37 +270,30 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 
 > “我们学计算机当程序员最大的福气不是可以到大公司里加班和 996，而是我们生活在了第三次工业革命的信息化时代，这才是最大的福气，所以，我们应该努力地提升自己，而不是把自己当劳动力一样的卖了！在这样的一个时代，你要做的不是通过加班和拼命来跪着挣钱，而是通过技能来躺着挣钱……”
 
-## 知识体系
-
-![架构师的功夫.png](https://static.nodejs7.com/2020/01/2361170417.png)
 
 ## 整体目录
 
-- [part1 | 架构基础](./part1/README.md)
-- [part2 | 算法与数据](./part2/README.md)
-  - [算法与数据结构基础](./part2/01/README.md)
+- [part1 | 架构基础 --->点击进入](./part1/README.md)
+- [part2 | 算法与数据 --->点击进入](./part2/README.md)
 - [part3 | 范式编程](./part3/README.md)
-  - [第一章 `JAVA` 技术栈](./part3/java/README.md)
-    - [第一节:基础](./part3/java/javaProgramming)
-    - [第二节:廖雪峰java学习笔记](./part3/java/liaoxuefengJavaTutorial)
-  - [第二章 `GO` 函数式编程](./part3/go/README.md)
-  - [第三章 `Scala` 编程](./part3/scala/README.md)
-  - [第四章 `LISP`编程 ](./part3/lisp/README.md)
-  - [第五章 `Prolog`编程 ](./part3/prolog/README.md)
-  - [第六章 `yaml` 数据序列化 ](./part3/yaml/README.md)
-  - [第六章 `Erlang` 函数式编程 ](./part3/erlang/README.md)
-- [part4 | 高效成长](./part4/README.md)
-- [part5 | 资源汇总](./part5/README.md)
-  - [第一章 `EcmaScript` 与 `Nodejs`](./part5/js/README.md)
-- [part6 | 大道至简](./part6/README.md)
-- [part7 | AI与区块链](./part7/README.md)
-- [part8 | 微服务与自动化](./part8/README.md)
-- [part9 | 负载均衡](./part9/README.md)
-- [part10 | 编译原理](part10/README.md)
-- [part11 | 安全与渗透](part11/README.md)
-    - [汇编基础](https://github.com/xiaomiwujiecao/GAB)
-    - [ios庖丁解牛](https://github.com/xiaomiwujiecao/iosKnife)
-- [part12 | Shell脚本](https://github.com/xiaomiwujiecao/cleverShell)
+  - [第一章 `JAVA` 技术栈--->点击进入](./part3/java/README.md)
+  - [第二章 `GO` 函数式编程--->点击进入](./part3/go/README.md)
+  - [第三章 `Scala` 编程--->点击进入](./part3/scala/README.md)
+  - [第四章 `LISP`编程 --->点击进入](./part3/lisp/README.md)
+  - [第五章 `Prolog`编程--->点击进入 ](./part3/prolog/README.md)
+  - [第六章 `yaml` 数据序列化 --->点击进入 ](./part3/yaml/README.md)
+  - [第六章 `Erlang` 函数式编程 --->点击进入 ](./part3/erlang/README.md)
+- [part4 | 高效成长 --->点击进入](./part4/README.md)
+- [part5 | 资源汇总 --->点击进入](./part5/README.md)
+- [part6 | 大道至简--->暂未更新](./part6/README.md)
+- [part7 | AI与区块链--->暂未更新](./part7/README.md)
+- [part8 | 微服务与自动化--->暂未更新](./part8/README.md)
+- [part9 | 负载均衡--->暂未更新](./part9/README.md)
+- [part10 | 编译原理--->点击进入](part10/README.md)
+- [part11 | 安全与渗透--->暂未更新](part11/README.md)
+    - [汇编基础--->点击进入](https://github.com/xiaomiwujiecao/GAB)
+    - [ios庖丁解牛--->点击进入](https://github.com/xiaomiwujiecao/iosKnife)
+- [part12 | Shell脚本 --->点击进入](https://github.com/xiaomiwujiecao/cleverShell)
 
 ## 大纲描述
 
@@ -452,38 +443,14 @@ Windows平台开发如何能够更快捷，更舒适，请 Windows 的看官务�
 
 ![](img/规范与重构.png)
     
-## 参与核心贡献
 
-如果您有意愿参与任何一部分的贡献,请直接通过以下方式
+## ISSUES 问题
 
-
-
-参照 [ISSUES](https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/1) 页面的方式，`fork` 之后按照格式提交
-
-
-
-## 贡献者
-
-[贡献者列表](https://github.com/xiaomiwujiecao/KongFuOfArchitect/graphs/contributors)
-
-
-## TODO LIST
-
-- [x] 第 `1` 部分 架构基础
-- [ ] 第 `2` 部分 算法与数据
-- [x] 第 `3` 部分 范式编程
-- [ ] 第 `4` 部分 高效成长
-- [ ] 第 `5` 部分 资源汇总
-- [ ] 第 `6` 部分 大道至简
-
-## ISSUES 问题管理
-
-1. 如果您有任何建议和错误反馈，例如发现了错别字，请在 `ISSUES` 中直接指出，谢谢！
-2. 也可以在博客文章详情下方进行上述操作，我会在看到后的第一时间进行修改
+ 如果您有任何建议和错误反馈，例如发现了错别字，请在 `ISSUES` 中直接指出，谢谢！
 
 ## 问题讨论 
 
-请移步：https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/3
+请阁下移步：https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/
 
 ## 贡献
 
