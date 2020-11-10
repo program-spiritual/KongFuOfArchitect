@@ -2,6 +2,7 @@
 
 ## 目录
 
--  [ansible 小书](ansile/README.md.)
+-  [ansible 小书](./ansible/README.md)
+-  [ansible 小书-在线文档版](/part8/ansible/README.md)
 
 
