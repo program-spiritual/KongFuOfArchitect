@@ -397,4 +397,313 @@ all:
 - 组可以有多个父组和子组，但不能有循环关系。
 - 主机也可以位于多个组中，但是只有一个主机实例，可以合并多个组中的数据
 
+###  管理主机和组变量
+
+尽管我们可以将变量存储在主清单文件中，但存储单独的主机变量和组变量文件可以帮助您更轻松地管理变量值。
+- 主机和组变量文件必须使用 ` YAM ` L语法。
+- 有效的文件扩展名包括` .yml `，` .yaml `，`.json `或 `没有文件扩展名`。
+- 如果您不熟悉 `YAML` ，请参见 `YAML` 语法。 
+
+` Ansible `  通过搜索相对于清单文件或剧本文件的路径来加载主机和组变量文件。
+
+如果位于 `/etc/ansible/hosts` 的清单文件包含名为 `foosball` 的主机，该主机属于 `raleigh` 和 `webservers` 两个组，则该主机将在YAML文件中使用变量：
+
+
+```yml
+/etc/ansible/group_vars/raleigh #  可选的文件拓展名： '.yml', '.yaml', 或  '.json'
+/etc/ansible/group_vars/webservers
+/etc/ansible/host_vars/foosball
+```
+
+例如，如果按数据中心将清单中的主机们分组，并且每个数据中心使用其自己的 `NTP` 服务器和数据库服务器，则可以创建一个名为 `/etc/ansible/group_vars/raleigh` 的文件来存储 `raleigh` 组的变量：
+
+```yml
+/etc/ansible/group_vars/raleigh/db_settings
+/etc/ansible/group_vars/raleigh/cluster_settings
+```
+
+`raleigh`  组中的所有主机都可以使用这些文件中定义的变量。
+当单个文件太大或要在某些组变量上使用 `Ansible Vault` 时，这对于保持变量的组织性非常有用。
+
+您还可以将 `group_vars/` 和 `host_vars/` 目录添加到您的剧本目录中。
+缺省情况下，`ansible-playbook` 命令在当前工作目录中查找这些目录。
+其他 `Ansible` 命令（例如，`ansible` ，`ansible-console` 等）将仅在清单目录中查找 `group_vars`  /和 `host_vars/` 。
+如果要其他命令从剧本目录加载组和主机变量，则必须在命令行上提供 `--playbook-dir` 选项。
+如果您同时从 `Playbook` 目录和清单目录中加载清单文件，则 `Playbook` 目录中的变量将覆盖在清单目录中设置的变量。
+将清单文件和变量保存在 `git repo` （或其他版本控制工具）中，是跟踪清单和主机变量的更改的绝佳方法。
+
+
+### 变量是如何合并的？ 
+
+默认情况下，在运行剧本之前，变量会合并或延展到指定主机。
+这使得 `Ansible` 可以专注于主机和任务，因此组无法真正在清单文件和除匹配的主机之外的环境中存活。
+默认情况下，`Ansible` 会覆盖变量，包括为组或主机定义的变量.
+顺序或优先顺序是（从最低到最高）：
+
+- 所有组（因为它是所有其他组的根）
+- 父级组
+- 子级组
+- 主机
+
+
+默认情况下，`Ansible` 按字母顺序合并处于相同父或子级别的组，最后加载的组将覆盖先前的组。
+例如， `a_group` 将与 `b_group` 合并，并且匹配的 `b_group` 变量将覆盖 `a _group` 中的变量。
+您可以通过设置组变量 `ansible_group_priority` 更改同一级别的组的合并顺序（在解决父或子顺序之后）来更改此行为。
+数字越大，合并的时间越晚，优先级更高。
+如果未设置，则此变量默认为 `1`。
+例如：
+
+> priority 表示的优先级，如果你写过java 那么你应该很熟悉这个单词
+
+```yml
+    testvar: a
+    ansible_group_priority: 10
+b_group:
+    testvar: b
+```
+
+在此示例中，如果两个组具有相同的优先级，则结果通常为 `testvar == b`  ，但是由于我们给 `a_group` 一个更高的优先级，因此结果将为 `testvar == a` 。
+
+!> `ansible_group_priority` 只能在清单源中设置，而不能在 `group_vars/` 中设置，因为该变量用于加载 `group_vars` 。
+
+### 使用多个清单源
+
+通过从命令行提供多个清单参数或通过配置 `ANSIBLE_INVENTORY`  ，可以同时定位多个清单源（目录，动态清单脚本或清单插件支持的文件）。
+当您要针对特定操作同时针对通常独立的环境（例如预发布和生产环境）时，这还是很有用的。
+
+从命令行定位两个源，如下所示：
+
+```bash
+ansible-playbook get_logs.yml -i staging -i production
+
+```
+
+请记住，如果清单中存在变量冲突，则根据[如何合并变量和变量优先级](https://docs.ansible.com/ansible/2.9/user_guide/intro_inventory.html#how-we-merge)：我[应该在哪里放置变量](https://docs.ansible.com/ansible/2.9/user_guide/playbooks_variables.html#ansible-variable-precedence)中所述的规则解决这些冲突。
+
+合并顺序由清单源参数的顺序控制。
+如果预发布环境清单中的 `[all：vars]` 定义 `myvar = 1` ，而生产环境清单中定义 `myvar = 2` ，则将以 `myvar = 2` 运行该剧本。如果以 `-i production -i staging` 运行该剧本，则结果将相反。
+
+#### 用目录汇总清单源
+
+您还可以通过组合目录下的多个清单源和来源类型来创建清单文件。
+这对于组合静态和动态主机并将它们作为一个清单进行管理很有用。
+以下清单结合了清单插件源，动态清单脚本和具有静态主机的文件：
+
+```yml
+inventory/
+  openstack.yml          # 配置清单插件以从Openstack Cloud 获取主机们 
+  dynamic-inventory.py   # 使用动态清单脚本添加其他主机
+  static-inventory       # 添加静态主机和组
+  group_vars/
+    all.yml              # 将变量分配给所有主机
+```
+
+您可以像下面这样定位此清单目录：
+
+```
+ansible-playbook example.yml -i inventory
+```
+
+如果存在与其他清单源之间的变量冲突或组依赖关系，则控制清单资源的合并顺序会很有用。
+根据文件名按字母顺序合并清单，因此可以通过在文件名之前添加前缀来控制结果：
+
+```yml
+
+inventory/
+  01-openstack.yml          # 配置清单插件以从 Openstack Cloud 获取主机 
+  02-dynamic-inventory.py   # 使用动态清单脚本添加其他主机
+  03-static-inventory       # 添加静态主机和组 
+  group_vars/
+  all.yml                   # 将变量分配给所有主机
+
+
+```
+
+如果 `01-openstack.yml` 为所有组定义了 `myvar = 1` ，`02-dynamic-inventory.py` 定义 `myvar = 2` ，而 `03-static-inventory` 定义 `myvar = 3` ，则将以 `myvar = 3` 运行该剧本。
+
+### 连接到主机：行为清单参数
+
+#### 主机连接：
+
+!> 当使用 `ssh` 连接插件（默认设置）时，`Ansible` 不会公开允许用户和 `ssh` 进程之间通信的通道，以手动接受密码来解密 `ssh` 密钥。
+强烈建议使用 `ssh-agent` 。
+
+- ansible_connection
+
+主机的连接类型。
+可以是任何 `ansible` 连接插件的名称。 
+SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
+默认为 `smart` 。
+下一节将介绍基于非 `SSH` 的类型。
+
+所有连接的常规参数：
+
+- ansible_host
+- 要连接的主机名，如果与您要给它提供的别名不同。
+- ansible_port
+- 连接端口号（如果不是默认值）（ssh为22）
+- ansible_user
+- 连接到主机时要使用的用户名
+- ansible_password
+- 用于验证主机的密码（切勿以纯文本形式存储此变量；建议使用 vault
+
+特定于SSH连接：
+
+- ansible_ssh_private_key_file
+ ssh使用的私钥文件。如果使用多个密钥并且您不想使用 `SSH` 代理，则很有用。
+- ansible_ssh_common_args
+ 此设置始终附加到 `sftp` ，`scp` 和 `ssh` 的默认命令行中。为特定主机（或组）配置 `ProxyCommand` 很有用。
+- ansible_sftp_extra_args
+ 此设置始终附加在默认的 `sftp` 命令行中。
+- ansible_scp_extra_args
+ 此设置始终附加在默认的 `scp` 命令行中。
+- ansible_ssh_extra_args
+ 此设置始终附加在默认的 `ssh` 命令行中。
+- ansible_ssh_pipelining 
+ 确定是否使用 `SSH` 管道。这可以覆盖 `ansible.cfg` 中的管道设置。
+- ansible_ssh_executable 
+此设置将覆盖使用系统 `ssh` 的默认行为。这可以覆盖 `ansible.cfg` 中的 `ssh_executable` 设置。
+
+`Ansible-INI` 主机文件中的示例：
+
+
+```yml
+
+some_host         ansible_port=2222     ansible_user=manager
+aws_host          ansible_ssh_private_key_file=/home/example/.ssh/aws.pem
+freebsd_host      ansible_python_interpreter=/usr/local/bin/python
+ruby_module_host  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
+
+
+```
+
+非SSH连接类型
+
+如上一节所述，`Ansible` 通过 `SSH` 执行剧本，但不限于此连接类型。
+使用主机特定的参数 `ansible_connection=<connector> ` ，可以更改连接类型。
+以下基于非 `SSH` 的连接器可用：
+
+- local
+该连接器可用于将剧本部署到控制主机（节点）本身。
+- docker
+该连接器使用本地 `Docker` 客户端将剧本直接部署到 `Docker` 容器中。
+此连接器处理以下参数：
+- ansible_host
+要连接的Docker容器的名称
+- ansible_user
+在容器内操作的用户名。用户必须存在于容器内。
+- ansible_become
+如果设置为 `true` ，则会使用 `begin_user` 在容器内进行操作。
+- ansible_docker_extra_args
+
+可能是一个字符串，其中包含 `Docker` 可以理解的，不是特定于命令行的任何其他参数。此参数主要用于配置要使用的远程 `Docker` 守护程序。
+
+这是如何立即部署到创建的容器的示例：
+
+
+```yml
+
+- name: create jenkins container
+  docker_container:
+    docker_host: myserver.net:4243
+    name: my_jenkins
+    image: jenkins
+
+- name: add container to inventory
+  add_host:
+    name: my_jenkins
+    ansible_connection: docker
+    ansible_docker_extra_args: "--tlsverify --tlscacert=/path/to/ca.pem --tlscert=/path/to/client-cert.pem --tlskey=/path/to/client-key.pem -H=tcp://myserver.net:4243"
+    ansible_user: jenkins
+  changed_when: false
+
+- name: create directory for ssh keys
+  delegate_to: my_jenkins
+  file:
+    path: "/var/jenkins_home/.ssh/jupiter"
+    state: directory
+
+```
+
+!> 如果您从一开始就阅读文档，那么这可能是您看到的 `Ansible` 剧本的第一个示例。
+这不是清单文件。
+稍后将在文档中详细介绍剧本。
+
+
+### 清单安装示例
+
+示例：每个环境一个清单
+
+如果您需要管理多个环境，有时明智的做法是每个清单文件只定义一个环境的主机。
+这样，例如，当您实际要更新某些预发布环境的服务器时，很难意外地更改测试环境中节点的状态。
+例如：你可以编写一个 `inventory_test ` 文件
+
+```ini
+
+[dbservers]
+db01.test.example.com
+db02.test.example.com
+
+[appservers]
+app01.test.example.com
+app02.test.example.com
+app03.test.example.com
+
+```
+该文件仅包含属于测试环境的主机。
+
+当然，你可以在另一个文件中定义预发布环境的配置，例如，编写一个 `inventory_staging` 文件：
+
+```ini
+
+[dbservers]
+db01.staging.example.com
+db02.staging.example.com
+
+[appservers]
+app01.staging.example.com
+app02.staging.example.com
+app03.staging.example.com
+
+```
+要将名为 `site.yml` 的剧本应用于测试环境中的所有应用服务器，请使用以下命令
+
+```bash
+ansible-playbook -i inventory_test site.yml -l appservers
+```
+
+示例：按功能分组
+
+在上一节中，您已经看到了使用组对具有相同功能的主机进行集群配置的示例。
+例如，这使您可以在剧本或角色中定义防火墙规则，而不会影响数据库服务器：
+
+```yml
+
+- hosts: dbservers
+  tasks:
+  - name: allow access from 10.0.0.1
+    iptables:
+      chain: INPUT
+      jump: ACCEPT
+      source: 10.0.0.1
+
+```
+
+示例：按位置分组
+
+
+其他任务可能集中在某个主机所在的位置。
+假设 `db01.test.example.com` 和 `app01.test.example.com` 位于 `DC1` 中，而 `db02.test.example.com` 位于 `DC2` 中：
+
+```ini
+[dc1]
+db01.test.example.com
+app01.test.example.com
+
+[dc2]
+db02.test.example.com
+```
+
+实际上，您可能甚至需要混淆所有这些设置，因为有可能，需要在一天之内，更新特定数据中心中的所有节点，而在另一天，无论如何都要更新所有应用程序服务器。
+
 
