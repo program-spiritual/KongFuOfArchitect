@@ -706,4 +706,285 @@ db02.test.example.com
 
 实际上，您可能甚至需要混淆所有这些设置，因为有可能，需要在一天之内，更新特定数据中心中的所有节点，而在另一天，无论如何都要更新所有应用程序服务器。
 
+## Ansible ad-hoc （临时）命令
+
+
+Ansible `ad-hoc` 命令使用 `/usr/bin/ansible` 命令行工具来自动化一个或多个受控节点上的单个任务。
+临时命令既快速又简单，但不可重用。
+那么，为什么要首先了解临时命令呢？
+临时命令演示了 Ansible的简单性和强大。
+您在此处学习的概念可直接移植到剧本语言。
+
+
+### 为何使用
+
+临时命令非常适合很少且重复执行的任务。
+例如，如果你想在圣诞节假期关闭实验室中所有机器的电源，则可以在 `Ansible` 中执行快速的单行任务而无需编写剧本。
+
+
+
+临时命令如下所示：
+
+```bash
+
+$ ansible [pattern] -m [module] -a "[module options]"
+
+```
+
+### 临时任务的用例
+
+
+临时任务可用于重新引导服务器，复制文件，管理程序包和用户等。
+您可以在临时任务中使用任何 `ansible` 模块。
+临时任务（例如剧本）使用声明性模型，计算并执行达到指定最终状态所需的操作。
+通过在开始之前检查当前状态并且不执行任何操作，除非当前状态与指定的最终状态不同，它们可以实现幂等形式。
+
+#### 重新启动服务器
+
+`ansible` 命令行实用程序的默认模块是命令模块。
+您可以使用临时任务来调用命令模块，然后一次重新启动亚特兰大的所有 `aWeb` 服务器，每次10个。
+在 `Ansible` 执行此操作之前，必须在清单中名为 `[atlanta]` 的组中列出亚特兰大的所有服务器，并且该组中的每台计算机都必须具有有效的 `SSH` 凭据。
+要重新启动 `[atlanta]` 组中的所有服务器：
+
+```bash
+$ ansible atlanta -a "/sbin/reboot"
+
+```
+
+默认情况下，`Ansible` 仅使用5个并发进程。
+如果您拥有的主机数量超过为派生计数设置的值，则 `Ansible` 会与它们对话，但是会花费更长的时间。
+要使用10个并行分支重新启动 `[atlanta]` 服务器，请执行以下操作：
+
+```bash
+$ ansible atlanta -a "/sbin/reboot" -f 10
+```
+
+`/usr/bin/ansible` 将默认从您的用户帐户运行。要以其他用户身份连接：
+
+```bash
+$ ansible atlanta -a "/sbin/reboot" -f 10 -u username
+```
+
+重新引导可能需要特权升级。
+您可以使用用户名连接到服务器，并使用 `root` 关键字以 `root` 用户身份运行命令：
+
+
+```bash
+$ ansible atlanta -a "/sbin/reboot" -f 10 -u username --become [--ask-become-pass]
+```
+
+如果添加 `--ask-become-pass` 或 `-K` ，则 `Ansible` 会提示您输入用于特权升级的密码（ `sudo/su/pfexec/doas/etc`）。
+
+!> 命令模块不支持管道化和重定向之类的扩展 `Shell` 语法（尽管 `shell` 变量始终起到了作用）。
+如果您的命令需要特定于 `shell` 的语法，请改用 `shell` 模块。
+
+到目前为止，我们所有的示例都使用了默认的“命令”模块。
+要使用其他模块，请传递 `-m` 作为模块名称。
+例如，使用 `shell` 模块：
+
+```bash
+$ ansible raleigh -m shell -a 'echo $TERM'
+```
+
+当使用 `Ansible ad hoc CLI`（而不是 `Playbook` ）运行任何命令时，请特别注意 `shell` 引用规则，因此本地 `shell` 会保留变量并将其传递给 `Ansible` 。
+例如，在上面的示例中使用双引号而不是单引号的话，这会导致计算你所在的案例的变量。
+
+
+#### 管理文件
+
+临时任务可以利用 `Ansible` 和 `SCP` 的功能将许多文件并行传输到多台计算机。
+要将文件直接传输到 `[atlanta]` 组中的所有服务器，请执行以下操作：
+
+```bash
+$ ansible atlanta -m copy -a "src=/etc/hosts dest=/tmp/hosts"
+```
+如果您打算重复这样的任务，请在剧本中使用模板模块。
+文件模块允许更改文件的所有权和权限。
+这些相同的选项也可以直接传递给复制模块：
+
+```bash
+$ ansible webservers -m file -a "dest=/srv/foo/a.txt mode=600"
+$ ansible webservers -m file -a "dest=/srv/foo/b.txt mode=600 owner=mdehaan group=mdehaan"
+```
+
+文件模块还可以创建目录，类似于 `mkdir -p `：
+
+
+```bash
+$ ansible webservers -m file -a "dest=/path/to/c mode=755 owner=mdehaan group=mdehaan state=directory"
+```
+以及（递归）删除目录和删除文件：
+
+```bash
+$ ansible webservers -m file -a "dest=/path/to/c state=absent"
+```
+
+####  管理包
+
+您还可以使用临时任务通过软件包管理模块（例如 `yum` ）在受管节点上安装，更新或删除软件包。
+要确保安装软件包而不更新软件包：
+
+```bash
+$ ansible webservers -m yum -a "name=acme state=present"
+
+```
+
+要确保安装了特定版本的软件包：
+
+```bash
+$ ansible webservers -m yum -a "name=acme-1.5 state=present"
+```
+
+要确保安装了最新版本的软件包:
+
+```bash
+$ ansible webservers -m yum -a "name=acme state=latest"
+
+```
+确保移除软件包：
+
+```bash
+$ ansible webservers -m yum -a "name=acme state=absent"
+```
+
+`Ansible` 具有用于在许多平台下管理软件包的模块。
+如果没有用于软件包管理器的模块，则可以使用命令模块安装软件包或为软件包管理器创建模块。
+
+#### 管理用户和组
+
+您可以使用临时任务在受控节点上创建，管理和删除用户帐户：
+
+```bash
+$ ansible all -m user -a "name=foo password=<crypted password here>"
+
+$ ansible all -m user -a "name=foo state=absent"
+```
+
+####  管理服务
+
+
+确保在所有 `Web` 服务器上启动了服务：
+
+```bash
+$ ansible webservers -m service -a "name=httpd state=started"
+```
+
+或者，在所有Web服务器上重新启动服务：
+
+```bash
+$ ansible webservers -m service -a "name=httpd state=restarted"
+```
+确保服务已停止：
+
+```bash
+$ ansible webservers -m service -a "name=httpd state=stopped"
+```
+
+#### 收集事实
+
+事实代表发现的有关系统的变量。
+您可以使用事实来实现任务的有条件执行，也可以仅获取有关系统的临时信息。
+要查看所有事实：
+
+```bash
+$ ansible all -m setup
+
+```
+
+您也可以过滤此输出以仅显示某些事实，有关详细信息，请参阅[安装](https://docs.ansible.com/ansible/2.9/modules/setup_module.html#setup-module)模块文档。
+
+
+
+## 使用命令行工具
+
+大多数用户都熟悉 `ansible` 和 `ansible-playbook` ，但这些并不是 `Ansible` 提供的唯一实用程序。
+以下是 `Ansible` 实用程序的完整列表。
+每个页面均包含对该实用程序的描述以及支持的参数列表。
+
+- ansible
+
+针对一组主机定义并运行单个任务“剧本”
+
+大纲:
+
+```bash
+usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
+            [--become-user BECOME_USER] [-K] [-i INVENTORY] [--list-hosts]
+            [-l SUBSET] [-P POLL_INTERVAL] [-B SECONDS] [-o] [-t TREE] [-k]
+            [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER]
+            [-c CONNECTION] [-T TIMEOUT]
+            [--ssh-common-args SSH_COMMON_ARGS]
+            [--sftp-extra-args SFTP_EXTRA_ARGS]
+            [--scp-extra-args SCP_EXTRA_ARGS]
+            [--ssh-extra-args SSH_EXTRA_ARGS] [-C] [--syntax-check] [-D]
+            [-e EXTRA_VARS] [--vault-id VAULT_IDS]
+            [--ask-vault-pass | --vault-password-file VAULT_PASSWORD_FILES]
+            [-f FORKS] [-M MODULE_PATH] [--playbook-dir BASEDIR]
+            [-a MODULE_ARGS] [-m MODULE_NAME]
+            pattern
+
+```
+ansible 的描述： 
+
+是用于执行“远程操作”的超简单工具/框架/ API。
+此命令允许您针对一组主机定义和运行单个任务“剧本”
+
+公共参数：
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 要求提供保险库密码  |
+| --become-method <BECOME_METHOD>  | 要使用的特权升级方法(default=%(default)s)，请使用 `ansible-doc -t` 成为 `-l `列出有效的选择。  |
+| --become-user <BECOME_USER>  | 以该用户身份运行操作（默认= root）  |
+| --list-hosts  | 输出匹配主机列表；不执行其他任何操作  |
+| --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能设置相对路径，包括 `role/group_vars/` 等。  |
+| --private-key <PRIVATE_KEY_FILE>, --key-file <PRIVATE_KEY_FILE>  | 使用此文件来验证连接  |
+| --scp-extra-args <SCP_EXTRA_ARGS>  | 指定额外的参数以仅传递给 `scp`（例如 `-l` ）  |
+| --ssh-common-args <SSH_COMMON_ARGS>  | 指定要传递给 `sftp` / `scp` / `ssh` 的通用参数（例如 `ProxyCommand` ）  |
+| --ssh-extra-args <SSH_EXTRA_ARGS>  | 指定额外的参数以仅传递给ssh（例如-R）  |
+| --syntax-check  | 在剧本上执行语法检查，但不执行  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+| --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置，然后退出  |
+| -B <SECONDS>, --background <SECONDS>  | 异步运行，在X秒后失败（默认值= N/A）  |
+| -C, --check  | 不进行任何更改；相反地，其会尝试预测可能发生的某些变化  |
+| -D, --diff  | 更改（小的）文件和模板时，请显示这些文件中的差异；
+与 `–check` 一起使用效果很好  |
+| -K, --ask-become-pass  | 索要权升级密码  |
+| -M, --module-path  | 将冒号分隔的路径添加到模块库（默认= `~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules` ）  |
+| -P <POLL_INTERVAL>, --poll <POLL_INTERVAL>  | 如果使用 `-B` ，则设置轮询间隔（默认值= 15）  |
+| -T <TIMEOUT>, --timeout <TIMEOUT>  | 覆盖连接超时（以秒为单位）（默认为10）  |
+| -a <MODULE_ARGS>, --args <MODULE_ARGS>  | 模块参数  |
+| -b, --become  | 使用变为运行操作（不意味提示输入密码）  |
+| -c <CONNECTION>, --connection <CONNECTION>  | 要使用的连接类型（默认= smart）  |
+| -e, --extra-vars  | 如果文件名以 `@` 开头，则将其他变量设置为 `key= alue `或 `YAML/JSON`  |
+| -f <FORKS>, --forks <FORKS>   |  指定要使用的并行进程数（默认= 5）   |
+| -h, --help  |  显示此帮助消息并退出   |
+| -i, --inventory, --inventory-file   |  指定清单主机路径或逗号分隔的主机列表。 –不推荐使用库存文件   |
+| -k, --ask-pass   |  询问连接密码   |
+| -l <SUBSET>, --limit <SUBSET>  |  将所选主机进一步限制为其他模式   |
+| -m <MODULE_NAME>, --module-name <MODULE_NAME>  |  要执行的模块名称（默认=命令）   |
+| -o, --one-line   | 浓缩输出  |
+| -t <TREE>, --tree <TREE>   |  日志输出到该目录   |
+| -u <REMOTE_USER>, --user <REMOTE_USER>   |  以该用户身份连接（默认=无）   |
+| -v, --verbose   | 详细模式（ `-vvv` 用于更多，`-vvvv` 用于启用连接调试）    |
+|    |     |
+
+环境：
+
+可以指定以下环境变量。 
+
+`ANSIBLE_CONFIG` –覆盖默认的 `ansible` 配置文件 
+
+`ansible.cfg` 中的大多数选项都可以使用
+
+ansible.cfg文件中的大多数选项都可以使用更多选项
+
+
+文件：
+
+`/etc/ansible/ansible.cfg` – 配置文件，
+如果存在的话使用 `~/.ansible.cfg` –用户配置文件，覆盖默认的配置（如果存在）
+
+
 
