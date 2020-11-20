@@ -742,7 +742,7 @@ $ ansible [pattern] -m [module] -a "[module options]"
 #### 重新启动服务器
 
 `ansible` 命令行实用程序的默认模块是命令模块。
-您可以使用临时任务来调用命令模块，然后一次重新启动亚特兰大的所有 `aWeb` 服务器，每次10个。
+您可以使用临时任务来调用命令模块，然后一次重新启动亚特兰大的所有 `Web` 服务器，每次10个。
 在 `Ansible` 执行此操作之前，必须在清单中名为 `[atlanta]` 的组中列出亚特兰大的所有服务器，并且该组中的每台计算机都必须具有有效的 `SSH` 凭据。
 要重新启动 `[atlanta]` 组中的所有服务器：
 
@@ -901,7 +901,7 @@ $ ansible all -m setup
 以下是 `Ansible` 实用程序的完整列表。
 每个页面均包含对该实用程序的描述以及支持的参数列表。
 
-- ansible
+### ansible
 
 针对一组主机定义并运行单个任务“剧本”
 
@@ -924,12 +924,12 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
             pattern
 
 ```
-ansible 的描述： 
+#### ansible 的描述： 
 
 是用于执行“远程操作”的超简单工具/框架/ API。
 此命令允许您针对一组主机定义和运行单个任务“剧本”
 
-公共参数：
+#### 公共参数：
 
 | 参数  | 描述  |
 | ------------ | ------------ |
@@ -948,8 +948,7 @@ ansible 的描述：
 | --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置，然后退出  |
 | -B <SECONDS>, --background <SECONDS>  | 异步运行，在X秒后失败（默认值= N/A）  |
 | -C, --check  | 不进行任何更改；相反地，其会尝试预测可能发生的某些变化  |
-| -D, --diff  | 更改（小的）文件和模板时，请显示这些文件中的差异；
-与 `–check` 一起使用效果很好  |
+| -D, --diff  | 更改（小的）文件和模板时，请显示这些文件中的差异；与 `–check` 一起使用效果很好  |
 | -K, --ask-become-pass  | 索要权升级密码  |
 | -M, --module-path  | 将冒号分隔的路径添加到模块库（默认= `~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules` ）  |
 | -P <POLL_INTERVAL>, --poll <POLL_INTERVAL>  | 如果使用 `-B` ，则设置轮询间隔（默认值= 15）  |
@@ -970,7 +969,7 @@ ansible 的描述：
 | -v, --verbose   | 详细模式（ `-vvv` 用于更多，`-vvvv` 用于启用连接调试）    |
 |    |     |
 
-环境：
+#### 环境：
 
 可以指定以下环境变量。 
 
@@ -981,10 +980,43 @@ ansible 的描述：
 ansible.cfg文件中的大多数选项都可以使用更多选项
 
 
-文件：
+#### 文件：
 
-`/etc/ansible/ansible.cfg` – 配置文件，
+`/etc/ansible/ansible.cfg` –配置文件，
 如果存在的话使用 `~/.ansible.cfg` –用户配置文件，覆盖默认的配置（如果存在）
 
 
+### ansible-doc
+
+插件文档工具
+
+#### 大纲
+
+```bash
+usage: ansible-doc [-h] [--version] [-v] [-M MODULE_PATH]
+                [--playbook-dir BASEDIR]
+                [-t {become,cache,callback,cliconf,connection,httpapi,inventory,lookup,netconf,shell,module,strategy,vars}]
+                [-j] [-F | -l | -s | --metadata-dump]
+                [plugin [plugin ...]]
+```
+#### 描述
+
+显示有关 `Ansible` 库中安装的模块的信息。
+它显示了简短的插件清单及其简短描述，提供了其 `文档` 字符串的打印输出，并且可以创建一个简短的“代码片段”，可以粘贴到剧本中
+
+#### 公共参数
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --metadata-dump  | 对于内部测试，仅转储所有插件的 `json` 元数据。  |
+| --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能设置相对路径，包括 `role/group_vars/` 等。  |
+| --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置然后退出  |
+| -F, --list_files  | 显示插件名称及其源文件，但不提供摘要（表示 `–list` ）  |
+| -M, --module-path  | 将冒号分隔的路径添加到模块库（默认：`~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules`）  |
+| -h, --help  | 显示此帮助消息并退出  |
+| -j, --json  | 将输出更改为 `json` 格式。  |
+| -s, --snippet  | 显示指定插件的剧本摘要  |
+| -t <TYPE>, --type <TYPE>  | 选择哪种插件类型（默认为“模块”）。可用的插件类型包括：（`become`，`cache`，'callback'，'cliconf'，'connection'，' httpapi'，'inventory'，'find'，'netconf'， 'shell'，'module'， strategy，'vars'）  |
+| -v, --verbose  | 详细模式（-vvv用于更多，-vvvv用于启用连接调试）  |
+|   |   |
 
