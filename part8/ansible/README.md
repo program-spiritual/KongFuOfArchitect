@@ -949,7 +949,7 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 | -B <SECONDS>, --background <SECONDS>  | 异步运行，在X秒后失败（默认值= N/A）  |
 | -C, --check  | 不进行任何更改；相反地，其会尝试预测可能发生的某些变化  |
 | -D, --diff  | 更改（小的）文件和模板时，请显示这些文件中的差异；与 `–check` 一起使用效果很好  |
-| -K, --ask-become-pass  | 索要权升级密码  |
+| -K, --ask-become-pass  | 索取提权密码  |
 | -M, --module-path  | 将冒号分隔的路径添加到模块库（默认= `~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules` ）  |
 | -P <POLL_INTERVAL>, --poll <POLL_INTERVAL>  | 如果使用 `-B` ，则设置轮询间隔（默认值= 15）  |
 | -T <TIMEOUT>, --timeout <TIMEOUT>  | 覆盖连接超时（以秒为单位）（默认为10）  |
@@ -1016,7 +1016,77 @@ usage: ansible-doc [-h] [--version] [-v] [-M MODULE_PATH]
 | -h, --help  | 显示此帮助消息并退出  |
 | -j, --json  | 将输出更改为 `json` 格式。  |
 | -s, --snippet  | 显示指定插件的剧本摘要  |
-| -t <TYPE>, --type <TYPE>  | 选择哪种插件类型（默认为“模块”）。可用的插件类型包括：（`become`，`cache`，'callback'，'cliconf'，'connection'，' httpapi'，'inventory'，'find'，'netconf'， 'shell'，'module'， strategy，'vars'）  |
-| -v, --verbose  | 详细模式（-vvv用于更多，-vvvv用于启用连接调试）  |
+| -t <TYPE>, --type <TYPE>  | 选择哪种插件类型（默认为 'module'）。可用的插件类型包括：（`become`，`cache`，'callback'，'cliconf'，'connection'，' httpapi'，'inventory'，'find'，'netconf'， 'shell'，'module'， strategy，'vars'）  |
+| -v, --verbose  | 详细模式（ `-vvv` 用于更多，`-vvvv` 用于启用连接调试）  |
 |   |   |
+
+
+### ansible-galaxy
+
+执行各种与角色和集合相关的操作
+
+#### 大纲
+
+```bash
+usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
+```
+
+#### 公共参数
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置和退出  |
+| -h, --help  | 显示此帮助消息并退出  |
+| -v, --verbose  | 详细模式（ `-vvv ` 用于更多，`-vvvv` 用于启用连接调试）  |
+
+
+#### 动作
+
+##### 集合
+
+在 `Ansible Galaxy` 系列上执行操作。
+必须结合下面列出的其他操作（如 `init` / `install` ）。
+
+###### 集合初始化：
+
+创建符合Galaxy元数据格式的角色或集合的框架。
+需要角色或集合名称。
+集合名称必须采用以下格式
+
+```
+<namespace>.<collection>
+```
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| --collection-skeleton <COLLECTION_SKELETON>  | 新集合应基于的集合框架的路径。  |
+| --init-path <INIT_PATH>  | 将在其中创建骨架集合的路径。默认值为当前工作目录。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -f, --force  | 强制覆盖现有角色或集合  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+
+###### 集合构建：
+
+构建一个 `Ansible Galaxy` 集合工件，该工件可以存储在中央存储库（如 `Ansible Galaxy` ）中。
+默认情况下，此命令从当前工作目录构建。
+您可以选择传入集合输入路径（ `galaxy.yml` 所在位置）
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | Ansible Galaxy API密钥  |
+| --output-path  | 集合建立的路径。默认值为当前工作目录。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -f, --force  | 强制覆盖现有角色或集合  |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+
+
+
+
 
