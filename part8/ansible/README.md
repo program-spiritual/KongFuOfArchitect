@@ -1275,4 +1275,76 @@ usage: ansible-inventory [-h] [--version] [-v] [-i INVENTORY]
 |   |   |
 
 
+### ansible-playbook
+
+#### 大纲
+
+```bash
+usage: ansible-playbook [-h] [--version] [-v] [-k]
+                     [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER]
+                     [-c CONNECTION] [-T TIMEOUT]
+                     [--ssh-common-args SSH_COMMON_ARGS]
+                     [--sftp-extra-args SFTP_EXTRA_ARGS]
+                     [--scp-extra-args SCP_EXTRA_ARGS]
+                     [--ssh-extra-args SSH_EXTRA_ARGS] [--force-handlers]
+                     [--flush-cache] [-b] [--become-method BECOME_METHOD]
+                     [--become-user BECOME_USER] [-K] [-t TAGS]
+                     [--skip-tags SKIP_TAGS] [-C] [--syntax-check] [-D]
+                     [-i INVENTORY] [--list-hosts] [-l SUBSET]
+                     [-e EXTRA_VARS] [--vault-id VAULT_IDS]
+                     [--ask-vault-pass | --vault-password-file VAULT_PASSWORD_FILES]
+                     [-f FORKS] [-M MODULE_PATH] [--list-tasks]
+                     [--list-tags] [--step] [--start-at-task START_AT_TASK]
+                     playbook [playbook ...]
+```
+
+#### 描述
+
+运行 `Ansible` 剧本的工具，`Ansible` 剧本是一个配置和多节点部署系统。
+有关更多信息，请参见项目主页（https://docs.ansible.com）。
+
+
+#### 公共选项
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 要求提供保险库密码  |
+| --become-method <BECOME_METHOD>  | 要使用的特权升级方法 `(default=%(default)s)` ，请使用 `ansible-doc -t become -l` 列出有效的选择。  |
+| --become-user <BECOME_USER>  | 以该用户身份运行操作（默认= root）  |
+| --flush-cache  | 清除清单中每个主机的事实缓存  |
+| --force-handlers  | 即使任务失败也运行处理程序  |
+| --list-hosts  | 输出匹配主机列表 .不执行其他任何操作  |
+| --list-tags  | 列出所有可用标签  |
+| --list-tasks  | 列出将要执行的所有任务  |
+| --private-key <PRIVATE_KEY_FILE>, --key-file <PRIVATE_KEY_FILE>   | 使用此文件来验证连接  |
+| --scp-extra-args <SCP_EXTRA_ARGS>  | 指定额外的参数以仅传递给scp（例如-l）  |
+| --sftp-extra-args <SFTP_EXTRA_ARGS>  | 指定额外的参数以仅传递给sftp（例如-f，-l）  |
+| --skip-tags  | 仅运行标签与这些值不匹配的剧本和任务  |
+| --ssh-common-args <SSH_COMMON_ARGS>  | 指定要传递给 `sftp/scp/ssh` 的通用参数（例如 `ProxyCommand` ）  |
+| --ssh-extra-args <SSH_EXTRA_ARGS>  | 指定额外的参数以仅传递给ssh（例如-R）  |
+| --start-at-task <START_AT_TASK>  | 在与此名称匹配的任务处启动剧本  |
+| --step  | 一步一步：在运行之前确认每个任务  |
+| --syntax-check  | 在剧本上执行语法检查，但不执行  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+| --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置然后退出  |
+| -C, --check  | 不进行任何更改；相反，尝试预测可能发生的某些变化  |
+| -D, --diff  | 更改（小的）文件和模板时，显示这些文件中的差异；与 `–check`一起使用效果很好  |
+| -K, --ask-become-pass  | 要求特权密码  |
+| -M, --module-path  | 将冒号分隔的路径添加到模块库(默认 ： `~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules`)  |
+| -T <TIMEOUT>, --timeout <TIMEOUT>   | 覆盖连接超时（以秒为单位）（默认为10）  |
+| -b, --become  | 使用become进行操作  |
+| -c <CONNECTION>, --connection <CONNECTION>  | 要使用的连接类型（默认=smart）  |
+| -e, --extra-vars  | 如果文件名以@开头，则将其他变量设置为key=value或YAML/JSON  |
+| -f <FORKS>, --forks <FORKS>  | 指定要使用的并行进程数（默认= 5）  |
+| -h, --help  | 显示此帮助消息并退出  |
+| -i, --inventory, --inventory-file  | 指定清单主机路径或逗号分隔的主机列表。 –不推荐使用 --inventory-file  |
+| -k, --ask-pass  | 询问连接密码  |
+| -l <SUBSET>, --limit <SUBSET>  | 将所选主机进一步限制为其他模式  |
+| -t, --tags  | 只运行带有这些值标记的剧本和任务  |
+| -u <REMOTE_USER>, --user <REMOTE_USER>  | 以该用户身份连接（默认=无）  |
+| -v, --verbose  | 详细模式（-vvv用于更多，-vvvv用于启用连接调试）  |
+|   |   |
+|   |   |
+|   |   |
 
