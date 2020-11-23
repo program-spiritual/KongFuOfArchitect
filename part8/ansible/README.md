@@ -1198,10 +1198,6 @@ usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 | --remove <REMOVE_ID>  | 删除与提供的ID值匹配的集成。  |
 | -c, --ignore-certs  | 忽略SSL证书验证错误。  |
 | -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
 
 
  
@@ -1234,4 +1230,49 @@ usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 | -n, --no-deps  | 不要下载列为依赖项的角色。  |
 | -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
 | -r <ROLE_FILE>, --role-file <ROLE_FILE> | 包含要安装的角色列表的文件。  |
+
+
+### ansible-inventory
+
+#### 大纲
+
+```
+usage: ansible-inventory [-h] [--version] [-v] [-i INVENTORY]
+                      [--vault-id VAULT_IDS]
+                      [--ask-vault-pass | --vault-password-file VAULT_PASSWORD_FILES]
+                      [--playbook-dir BASEDIR] [--list] [--host HOST]
+                      [--graph] [-y] [--toml] [--vars] [--export]
+                      [--output OUTPUT_FILE]
+                      [host|group]
+```
+
+#### 描述
+
+用于显示或转储 `Ansible` 看到的已配置清单的常用选项
+
+#### 公共选项
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 要求提供保险库密码  |
+| --export  | 执行 `–list` 时，以针对导出进行优化的方式呈现，而不是Ansible处理方式的准确表示  |
+| --graph  | 创建清单图，如果提供模式，则必须是有效的组名  |
+| --host <HOST>  | 输出指定的主机信息，用作清单脚本  |
+| --list  | 输出特定的主机信息，用作清单脚本  |
+| --list-hosts  |   |
+| --output <OUTPUT_FILE>  | 执行`–list` 时，将清单发送到文件而不是发送到屏幕  |
+| --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能（包括 `role/group_vars/` 等）设置相对路径。  |
+| --toml  | 使用 TOML 格式而不是默认 JSON ，对 `–graph` 忽略  |
+| --vars | 将变量添加到图形显示，除非与 `–graph` 一起使用，否则将被忽略  |  
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+| --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置然后退出  |
+|  -h, --help  | 显示此帮助消息并退出   |
+| -i, --inventory, --inventory-file  | 指定清单主机路径或逗号分隔的主机列表。–不推荐使用 --inventory-file |
+| -v, --verbose  | 详细模式（ `-vvv` 用于查看更多，`-vvvv` 用于启用连接调试）  |
+| -y, --yaml  | 使用 `YAML` 格式而不是默认 `JSON` ，对于 `–graph` 会被忽略  |
+|   |   |
+|   |   |
+
+
 
