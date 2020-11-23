@@ -1042,12 +1042,12 @@ usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 
 #### 动作
 
-##### 集合
+##### 集合: `collection`
 
 在 `Ansible Galaxy` 系列上执行操作。
 必须结合下面列出的其他操作（如 `init` / `install` ）。
 
-###### 集合初始化：
+###### 集合初始化：`collection init`
 
 创建符合Galaxy元数据格式的角色或集合的框架。
 需要角色或集合名称。
@@ -1067,7 +1067,7 @@ usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 | -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
 
 
-###### 集合构建：
+###### 构建集合：`collection build`
 
 构建一个 `Ansible Galaxy` 集合工件，该工件可以存储在中央存储库（如 `Ansible Galaxy` ）中。
 默认情况下，此命令从当前工作目录构建。
@@ -1079,14 +1079,159 @@ usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 | --output-path  | 集合建立的路径。默认值为当前工作目录。  |
 | -c, --ignore-certs  | 忽略SSL证书验证错误。  |
 | -f, --force  | 强制覆盖现有角色或集合  |
-|   |   |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器网址  |
 |   |   |
 |   |   |
 |   |   |
 |   |   |
 |   |   |
 
+###### 安装集合： `collection install`
+
+安装一个或多个角色（ `ansible-galaxy role install`），或安装一个或多个集合（ `ansible-galaxy collection install` ）。
+您可以传递一个列表（角色或集合）或使用下面列出的文件选项（这些选项是互斥的）。
+如果您传递一个列表，则它可以是名称（将通过 `galaxy API` 和 `github` 下载），也可以是本地 `tar` 存档文件。
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | Ansible Galaxy API密钥  |
+| --force-with-deps  | 强制覆盖现有集合及其依赖项。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -f, --force  | 强制覆盖现有角色或集合  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器网址  |
+| -i, --ignore-errors  | 忽略安装期间的错误，并继续安装下一个指定的集合。然而并不会忽略依赖项冲突错误。  |
+| -n, --no-deps  | 不要下载列为依赖项的集合。  |
+| -p <COLLECTIONS_PATH>, --collections-path <COLLECTIONS_PATH>  | 包含您的集合的目录的路径。  |
+| -r <REQUIREMENTS>, --requirements-file <REQUIREMENTS>  | 包含要安装的集合列表的文件。  |
+|   |   |
 
 
+##### 角色 `role`
 
+在 `Ansible Galaxy` 角色上执行操作。
+必须与下面列出的其他操作（如 `delete/install/init` ）结合使用。
+
+###### 初始化角色:  role init 
+
+创建符合 `Galaxy` 元数据格式的角色或集合的框架。
+需要角色或集合名称。
+集合名称的格式必须是 `<namespace>.<collection>`
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| --init-path <INIT_PATH>  | 将在其中创建骨架集合的路径。默认值为当前工作目录。  |
+| --offline  | 创建角色时不要查询 API  |
+| --role-skeleton <ROLE_SKELETON>  | 新角色应基于的角色骨架的路径。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -f, --force  | 强制覆盖现有角色或集合  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+
+###### 删除角色列表： `role remove`
+
+从本地系统中删除作为参数传递的角色列表。
+
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+###### 删除单个角色： `role delete`
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+###### 列出角色列表：  `role list`
+
+
+列出安装在本地系统上的角色，或与作为参数传递的单个角色匹配。
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+###### 搜索角色: role search
+
+在 `Ansible Galaxy` 服务器上搜索角色
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| --author <AUTHOR>  | GitHub用户名  |
+| --galaxy-tags <GALAXY_TAGS>  | 要过滤的标签列表  |
+| --platforms <PLATFORMS>  | 要过滤的系统平台列表  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+###### 导入角色：`role import`
+
+用于将角色导入Ansible Galaxy
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | Ansible Galaxy API密钥，可在 https://galaxy.ansible.com/me/preferences 中找到。您还可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| --branch <REFERENCE>  | 要导入的分支的名称。默认为存储库的默认分支（通常是 `master` 分支）  |
+| --no-wait  | 不等待导入结果。  |
+| --role-name <ROLE_NAME>  | 角色应具有的名称（如果与仓库名称不同）  |
+| --status  | 检查给定 `github_user/github_repo` 的最新导入请求的状态。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+###### 集成角色 `role setup`
+
+从 `Github` 或 `Travis` 上 集成  `Ansible Galaxy` 角色的一体化
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | Ansible Galaxy API密钥，可在https://galaxy.ansible.com/me/preferences中找到。您还可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| --list  | 列出所有集成。   |
+| --remove <REMOVE_ID>  | 删除与提供的ID值匹配的集成。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+
+
+ 
+###### 角色信息： role info
+
+打印出有关已安装角色的详细信息以及可从 `galaxy API` 获得的信息。
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | [文档](https://galaxy.ansible.com/me/preferences) 您也可以为 `GALAXY_SERVER_LIST` 条目设置令牌。  |
+| --offline  | 创建角色时不要查询 API  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器URL  |
+
+###### 安装角色： role install 
+
+安装一个或多个角色（ansible-galaxy role install ），或安装一个或多个集合（ansible-galaxy collection install）。
+您可以传递列表（角色或集合）或使用下面列出的文件选项（这些选项是互斥的）。
+如果您传递列表，则它可以是名称（将通过galaxy API和github下载），也可以是本地tar存档文件。
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --api-key <API_KEY>  | Ansible Galaxy API密钥  |
+| --force-with-deps  |  强制覆盖现有角色及其依赖项。  |
+| -c, --ignore-certs  | 忽略SSL证书验证错误。  |
+| -f, --force  | 强制覆盖现有角色或集合  |
+| -s <API_SERVER>, --server <API_SERVER>  | Galaxy API服务器网址  |
+| -i, --ignore-errors  | 忽略错误并继续下一个指定的角色。  |
+| -n, --no-deps  | 不要下载列为依赖项的角色。  |
+| -p, --roles-path  | 包含您的角色的目录的路径。默认是通过 `DEFAULT_ROLES_PATH` 配置的第一个可写文件 `~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles` |
+| -r <ROLE_FILE>, --role-file <ROLE_FILE> | 包含要安装的角色列表的文件。  |
 
