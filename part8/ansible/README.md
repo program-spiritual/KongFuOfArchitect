@@ -16,15 +16,15 @@
 
 解释：
 受控节点指的是：☞您使用 `Ansible` 管理的网络设备（或服务器）。
-受控节点有时也称为“主机”。受控节点上没有安装 `Ansible`。
+受控节点有时也称为“宿主”。受控节点上没有安装 `Ansible`。
 
 
 - (Inventory) 清单文件
 
 清单文件指的是：☞受控节点的列表。
-清单文件有时也称为“主机文件”。
+清单文件有时也称为“宿主文件”。
 您的清单可以为每个受管节点指定信息，例如 `IP` 地址。
-库存还可以组织受控节点，创建和嵌套组以便于扩展。
+清单还可以组织受控节点，创建和嵌套组以便于扩展。
 
 - (Module) 模块
 
@@ -46,14 +46,14 @@
 
 ## 如何构建自定义的清单文件
 
- `Ansible` 使用称为清单的清单或清单组，同时针对基础架构中的多个受控节点或“主机”进行工作。
-定义清单后，您可以使用模式来选择要与 `Ansible` 一起运行的主机或组。
+ `Ansible` 使用称为清单的清单或清单组，同时针对基础架构中的多个受控节点或“宿主”进行工作。
+定义清单后，您可以使用模式来选择要与 `Ansible` 一起运行的宿主或组。
 
 清单默认位置是一个名为 `/etc/ansible/hosts` 的文件。
 您可以使用 `-i` 选项在命令行中指定其他清单文件。
 您还可以同时使用多个清单文件， 或从动态或云资源或不同格式（ `YAML`，`ini` 等）中提取清单，
 
-### 清单基础：格式，主机和组
+### 清单基础：格式，宿主和组
 
 清单文件可以采用多种格式中任意一种，具体取决于您拥有的清单插件。
 最常见的格式是 `INI` 和 `YAML` 。
@@ -72,7 +72,7 @@ two.example.com
 three.example.com
 ```
 
-括号中的标题是组名，用于对主机进行分类并确定您在什么时候、什么目的 、控制什么主机。
+括号中的标题是组名，用于对宿主进行分类并确定您在什么时候、什么目的 、控制什么主机。
 
 下面是基于 YAML 格式的清单文件：
 
@@ -96,14 +96,14 @@ all:
 ### 默认组
 
 有两个默认组：全部(`all`)和未分组(`ungrouped`)。
-全部组包含每个主机。
-未分组的组包含除所有主机之外没有其他组的所有主机。
-每个主机将始终至少属于2个组（全部和未分组或全部和某些其他组）。
+全部组包含每个宿主。
+未分组的组包含除所有宿主之外没有其他组的所有主机。
+每个宿主将始终至少属于2个组（全部和未分组或全部和某些其他组）。
 尽管 `all` 和 `ungrouped` 始终存在，但它们可以是隐式的，不会出现在 `group` 列表之类的 `group_names` 中。
 
-### 多个组中的主机
+### 多个组中的宿主
 
-您可以（可能会）将每个主机分成多个组。
+您可以（可能会）将每个宿主分成多个组。
 例如，亚特兰大数据中心中的生产 `Web` 服务器可能包含在名为 `[prod]` 和 `[atlanta]` 和 `[webservers]` 的组中。
 您可以创建跟踪以下内容的组：
 
@@ -181,9 +181,9 @@ all:
       children:
         west:
 ```
-### 添加主机范围
+### 添加宿主范围
 
-如果您有很多具有相似模式的主机，则可以将它们添加为一个范围，而不必分别列出每个主机名：在 `INI` 中：
+如果您有很多具有相似模式的宿主，则可以将它们添加为一个范围，而不必分别列出每个主机名：在 `INI` 中：
 
 ```ini
 [webservers]
@@ -200,14 +200,14 @@ db-[a:f].example.com
 
 ### 向清单文件添加变量
 
-您可以存储与清单中特定主机或组相关的变量值。
-首先，您可以将变量直接添加到主清单文件中的主机和组。
-但是，随着将越来越多的受控节点添加到 `Ansible` 清单文件中，您可能希望将变量存储在单独的主机和组变量文件中.
+您可以存储与清单中特定宿主或组相关的变量值。
+首先，您可以将变量直接添加到主清单文件中的宿主和组。
+但是，随着将越来越多的受控节点添加到 `Ansible` 清单文件中，您可能希望将变量存储在单独的宿主和组变量文件中.
 
-#### 将变量分配给一台计算机：主机变量
+#### 将变量分配给一台计算机：宿主变量
 
 
-您可以轻松地将变量分配给单个主机，然后稍后在剧本中使用它。
+您可以轻松地将变量分配给单个宿主，然后稍后在剧本中使用它。
 在 `INI` 中：
 ```ini
 [atlanta]
@@ -227,13 +227,13 @@ atlanta:
     maxRequestsPerChild: 909
 
 ```
-诸如非标准 `SSH` 端口之类的唯一值可以很好地用作主机变量。
-您可以通过在主机名后加冒号的端口号将它们添加到 `Ansible` 清单中：
+诸如非标准 `SSH` 端口之类的唯一值可以很好地用作宿主变量。
+您可以通过在宿主名后加冒号的端口号将它们添加到 `Ansible` 清单中：
 
 ```ini
 badwolf.example.com:5309
 ```
-连接变量也可以用作主机变量：
+连接变量也可以用作宿主变量：
 
 ```ini
 [targets]
@@ -266,19 +266,19 @@ jumper ansible_port=5555 ansible_host=192.0.2.50
       ansible_host: 192.0.2.50
 
 ```
- 在上面的示例中，对主机别名“ jumper”运行 `Ansible` 将连接到 `192.0.2.50` 上的 `5555` 端口 。这仅适用于具有静态 `IP` 的主机，
+ 在上面的示例中，对宿主别名“ jumper”运行 `Ansible` 将连接到 `192.0.2.50` 上的 `5555` 端口 。这仅适用于具有静态 `IP` 的主机，
 或者通过隧道连接时。
 
 !> 
 - 使用 `key=value` 语法以`INI` 格式传递的值根据声明位置的不同而具有不同地解释：
 
-- 当与主机内联声明时，`INI` 值将解释为 `Python` 字面量结构（字符串，数字，元组，列表，字典，布尔值，空）。
-主机行每行接受多个 `key=value` 参数。
+- 当与宿主内联声明时，`INI` 值将解释为 `Python` 字面量结构（字符串，数字，元组，列表，字典，布尔值，空）。
+宿主行每行接受多个 `key=value` 参数。
 因此，他们需要一种方法来指示空格是值的一部分而不是分隔符。
 
 - 在 `:vars` 节中声明时，`INI` 值将解释为字符串。
 例如，`var=FALSE` 将创建一个等于 "FALSE" 的字符串。
-与主机行不同，`:vars` 节每行仅接受一个条目，因此`=`号之后的所有内容都必须是该条目的值。
+与宿主行不同，`:vars` 节每行仅接受一个条目，因此`=`号之后的所有内容都必须是该条目的值。
 
 - 如果 `INI` 清单中设置的变量值必须是某种类型（例如，字符串或布尔值），请始终在任务中使用过滤器指定类型。
 使用变量时，请勿依赖 `INI` 清单中设置的类型。
@@ -294,7 +294,7 @@ jumper ansible_port=5555 ansible_host=192.0.2.50
 
 ####  将变量分配给许多计算机：组变量
  
-如果组中的所有主机共享一个变量值，则可以一次将该变量应用于整个组。
+如果组中的所有宿主共享一个变量值，则可以一次将该变量应用于整个组。
 在 `INI` 中：
 
 ```ini
@@ -323,9 +323,9 @@ atlanta:
 
 ```
 
-组变量是一次将变量应用于多个主机的便捷方法。
-但是，在执行之前，`Ansible` 始终将变量（包括清单变量）展平到主机级别。
-如果主机是多个组的成员，则 `Ansible` 将从所有这些组中读取变量值。
+组变量是一次将变量应用于多个宿主的便捷方法。
+但是，在执行之前，`Ansible` 始终将变量（包括清单变量）展平到宿主级别。
+如果宿主是多个组的成员，则 `Ansible` 将从所有这些组中读取变量值。
 如果将不同的值分配给不同组中的同一变量，则 `Ansible` 会根据内部规则选择要使用的值进行合并。
 
 #### 继承变量值：组中组的组变量
@@ -390,25 +390,25 @@ all:
 ```
 
 
-如果您需要存储列表或哈希数据，或者希望将主机和组特定变量与清单文件分开，请参阅组织主机和组变量。
+如果您需要存储列表或哈希数据，或者希望将宿主和组特定变量与清单文件分开，请参阅组织主机和组变量。
 
 子组有几个要注意的属性：
 
-- 属于子组成员的任何主机都将自动成为父组成员。
+- 属于子组成员的任何宿主都将自动成为父组成员。
 - 子组变量将具有更高的优先级（覆盖）父组变量。
 - 组可以有多个父组和子组，但不能有循环关系。
-- 主机也可以位于多个组中，但是只有一个主机实例，可以合并多个组中的数据
+- 宿主也可以位于多个组中，但是只有一个主机实例，可以合并多个组中的数据
 
-###  管理主机和组变量
+###  管理宿主和组变量
 
-尽管我们可以将变量存储在主清单文件中，但存储单独的主机变量和组变量文件可以帮助您更轻松地管理变量值。
-- 主机和组变量文件必须使用 ` YAM ` L语法。
+尽管我们可以将变量存储在主清单文件中，但存储单独的宿主变量和组变量文件可以帮助您更轻松地管理变量值。
+- 宿主和组变量文件必须使用 ` YAM ` L语法。
 - 有效的文件扩展名包括` .yml `，` .yaml `，`.json `或 `没有文件扩展名`。
 - 如果您不熟悉 `YAML` ，请参见 `YAML` 语法。 
 
-` Ansible `  通过搜索相对于清单文件或剧本文件的路径来加载主机和组变量文件。
+` Ansible `  通过搜索相对于清单文件或剧本文件的路径来加载宿主和组变量文件。
 
-如果位于 `/etc/ansible/hosts` 的清单文件包含名为 `foosball` 的主机，该主机属于 `raleigh` 和 `webservers` 两个组，则该主机将在YAML文件中使用变量：
+如果位于 `/etc/ansible/hosts` 的清单文件包含名为 `foosball` 的宿主，该主机属于 `raleigh` 和 `webservers` 两个组，则该主机将在YAML文件中使用变量：
 
 
 ```yml
@@ -417,35 +417,35 @@ all:
 /etc/ansible/host_vars/foosball
 ```
 
-例如，如果按数据中心将清单中的主机们分组，并且每个数据中心使用其自己的 `NTP` 服务器和数据库服务器，则可以创建一个名为 `/etc/ansible/group_vars/raleigh` 的文件来存储 `raleigh` 组的变量：
+例如，如果按数据中心将清单中的宿主们分组，并且每个数据中心使用其自己的 `NTP` 服务器和数据库服务器，则可以创建一个名为 `/etc/ansible/group_vars/raleigh` 的文件来存储 `raleigh` 组的变量：
 
 ```yml
 /etc/ansible/group_vars/raleigh/db_settings
 /etc/ansible/group_vars/raleigh/cluster_settings
 ```
 
-`raleigh`  组中的所有主机都可以使用这些文件中定义的变量。
+`raleigh`  组中的所有宿主都可以使用这些文件中定义的变量。
 当单个文件太大或要在某些组变量上使用 `Ansible Vault` 时，这对于保持变量的组织性非常有用。
 
 您还可以将 `group_vars/` 和 `host_vars/` 目录添加到您的剧本目录中。
 缺省情况下，`ansible-playbook` 命令在当前工作目录中查找这些目录。
 其他 `Ansible` 命令（例如，`ansible` ，`ansible-console` 等）将仅在清单目录中查找 `group_vars`  /和 `host_vars/` 。
-如果要其他命令从剧本目录加载组和主机变量，则必须在命令行上提供 `--playbook-dir` 选项。
+如果要其他命令从剧本目录加载组和宿主变量，则必须在命令行上提供 `--playbook-dir` 选项。
 如果您同时从 `Playbook` 目录和清单目录中加载清单文件，则 `Playbook` 目录中的变量将覆盖在清单目录中设置的变量。
-将清单文件和变量保存在 `git repo` （或其他版本控制工具）中，是跟踪清单和主机变量的更改的绝佳方法。
+将清单文件和变量保存在 `git repo` （或其他版本控制工具）中，是跟踪清单和宿主变量的更改的绝佳方法。
 
 
 ### 变量是如何合并的？ 
 
-默认情况下，在运行剧本之前，变量会合并或延展到指定主机。
-这使得 `Ansible` 可以专注于主机和任务，因此组无法真正在清单文件和除匹配的主机之外的环境中存活。
-默认情况下，`Ansible` 会覆盖变量，包括为组或主机定义的变量.
+默认情况下，在运行剧本之前，变量会合并或延展到指定宿主。
+这使得 `Ansible` 可以专注于宿主和任务，因此组无法真正在清单文件和除匹配的主机之外的环境中存活。
+默认情况下，`Ansible` 会覆盖变量，包括为组或宿主定义的变量.
 顺序或优先顺序是（从最低到最高）：
 
 - 所有组（因为它是所有其他组的根）
 - 父级组
 - 子级组
-- 主机
+- 宿主
 
 
 默认情况下，`Ansible` 按字母顺序合并处于相同父或子级别的组，最后加载的组将覆盖先前的组。
@@ -488,16 +488,16 @@ ansible-playbook get_logs.yml -i staging -i production
 #### 用目录汇总清单源
 
 您还可以通过组合目录下的多个清单源和来源类型来创建清单文件。
-这对于组合静态和动态主机并将它们作为一个清单进行管理很有用。
-以下清单结合了清单插件源，动态清单脚本和具有静态主机的文件：
+这对于组合静态和动态宿主并将它们作为一个清单进行管理很有用。
+以下清单结合了清单插件源，动态清单脚本和具有静态宿主的文件：
 
 ```yml
 inventory/
-  openstack.yml          # 配置清单插件以从Openstack Cloud 获取主机们 
-  dynamic-inventory.py   # 使用动态清单脚本添加其他主机
-  static-inventory       # 添加静态主机和组
+  openstack.yml          # 配置清单插件以从Openstack Cloud 获取宿主们 
+  dynamic-inventory.py   # 使用动态清单脚本添加其他宿主
+  static-inventory       # 添加静态宿主和组
   group_vars/
-    all.yml              # 将变量分配给所有主机
+    all.yml              # 将变量分配给所有宿主
 ```
 
 您可以像下面这样定位此清单目录：
@@ -512,27 +512,27 @@ ansible-playbook example.yml -i inventory
 ```yml
 
 inventory/
-  01-openstack.yml          # 配置清单插件以从 Openstack Cloud 获取主机 
-  02-dynamic-inventory.py   # 使用动态清单脚本添加其他主机
-  03-static-inventory       # 添加静态主机和组 
+  01-openstack.yml          # 配置清单插件以从 Openstack Cloud 获取宿主 
+  02-dynamic-inventory.py   # 使用动态清单脚本添加其他宿主
+  03-static-inventory       # 添加静态宿主和组 
   group_vars/
-  all.yml                   # 将变量分配给所有主机
+  all.yml                   # 将变量分配给所有宿主
 
 
 ```
 
 如果 `01-openstack.yml` 为所有组定义了 `myvar = 1` ，`02-dynamic-inventory.py` 定义 `myvar = 2` ，而 `03-static-inventory` 定义 `myvar = 3` ，则将以 `myvar = 3` 运行该剧本。
 
-### 连接到主机：行为清单参数
+### 连接到宿主：行为清单参数
 
-#### 主机连接：
+#### 宿主连接：
 
 !> 当使用 `ssh` 连接插件（默认设置）时，`Ansible` 不会公开允许用户和 `ssh` 进程之间通信的通道，以手动接受密码来解密 `ssh` 密钥。
 强烈建议使用 `ssh-agent` 。
 
 - ansible_connection
 
-主机的连接类型。
+宿主的连接类型。
 可以是任何 `ansible` 连接插件的名称。 
 SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
 默认为 `smart` 。
@@ -541,20 +541,20 @@ SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
 所有连接的常规参数：
 
 - ansible_host
-- 要连接的主机名，如果与您要给它提供的别名不同。
+- 要连接的宿主名，如果与您要给它提供的别名不同。
 - ansible_port
 - 连接端口号（如果不是默认值）（ssh为22）
 - ansible_user
-- 连接到主机时要使用的用户名
+- 连接到宿主时要使用的用户名
 - ansible_password
-- 用于验证主机的密码（切勿以纯文本形式存储此变量；建议使用 vault
+- 用于验证宿主的密码（切勿以纯文本形式存储此变量；建议使用 vault
 
 特定于SSH连接：
 
 - ansible_ssh_private_key_file
  ssh使用的私钥文件。如果使用多个密钥并且您不想使用 `SSH` 代理，则很有用。
 - ansible_ssh_common_args
- 此设置始终附加到 `sftp` ，`scp` 和 `ssh` 的默认命令行中。为特定主机（或组）配置 `ProxyCommand` 很有用。
+ 此设置始终附加到 `sftp` ，`scp` 和 `ssh` 的默认命令行中。为特定宿主（或组）配置 `ProxyCommand` 很有用。
 - ansible_sftp_extra_args
  此设置始终附加在默认的 `sftp` 命令行中。
 - ansible_scp_extra_args
@@ -566,7 +566,7 @@ SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
 - ansible_ssh_executable 
 此设置将覆盖使用系统 `ssh` 的默认行为。这可以覆盖 `ansible.cfg` 中的 `ssh_executable` 设置。
 
-`Ansible-INI` 主机文件中的示例：
+`Ansible-INI` 宿主文件中的示例：
 
 
 ```yml
@@ -582,11 +582,11 @@ ruby_module_host  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
 非SSH连接类型
 
 如上一节所述，`Ansible` 通过 `SSH` 执行剧本，但不限于此连接类型。
-使用主机特定的参数 `ansible_connection=<connector> ` ，可以更改连接类型。
+使用宿主特定的参数 `ansible_connection=<connector> ` ，可以更改连接类型。
 以下基于非 `SSH` 的连接器可用：
 
 - local
-该连接器可用于将剧本部署到控制主机（节点）本身。
+该连接器可用于将剧本部署到控制宿主（节点）本身。
 - docker
 该连接器使用本地 `Docker` 客户端将剧本直接部署到 `Docker` 容器中。
 此连接器处理以下参数：
@@ -636,7 +636,7 @@ ruby_module_host  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
 
 示例：每个环境一个清单
 
-如果您需要管理多个环境，有时明智的做法是每个清单文件只定义一个环境的主机。
+如果您需要管理多个环境，有时明智的做法是每个清单文件只定义一个环境的宿主。
 这样，例如，当您实际要更新某些预发布环境的服务器时，很难意外地更改测试环境中节点的状态。
 例如：你可以编写一个 `inventory_test ` 文件
 
@@ -652,7 +652,7 @@ app02.test.example.com
 app03.test.example.com
 
 ```
-该文件仅包含属于测试环境的主机。
+该文件仅包含属于测试环境的宿主。
 
 当然，你可以在另一个文件中定义预发布环境的配置，例如，编写一个 `inventory_staging` 文件：
 
@@ -676,7 +676,7 @@ ansible-playbook -i inventory_test site.yml -l appservers
 
 示例：按功能分组
 
-在上一节中，您已经看到了使用组对具有相同功能的主机进行集群配置的示例。
+在上一节中，您已经看到了使用组对具有相同功能的宿主进行集群配置的示例。
 例如，这使您可以在剧本或角色中定义防火墙规则，而不会影响数据库服务器：
 
 ```yml
@@ -694,7 +694,7 @@ ansible-playbook -i inventory_test site.yml -l appservers
 示例：按位置分组
 
 
-其他任务可能集中在某个主机所在的位置。
+其他任务可能集中在某个宿主所在的位置。
 假设 `db01.test.example.com` 和 `app01.test.example.com` 位于 `DC1` 中，而 `db02.test.example.com` 位于 `DC2` 中：
 
 ```ini
@@ -754,7 +754,7 @@ $ ansible atlanta -a "/sbin/reboot"
 ```
 
 默认情况下，`Ansible` 仅使用5个并发进程。
-如果您拥有的主机数量超过为派生计数设置的值，则 `Ansible` 会与它们对话，但是会花费更长的时间。
+如果您拥有的宿主数量超过为派生计数设置的值，则 `Ansible` 会与它们对话，但是会花费更长的时间。
 要使用10个并行分支重新启动 `[atlanta]` 服务器，请执行以下操作：
 
 ```bash
@@ -905,7 +905,7 @@ $ ansible all -m setup
 
 ### ansible
 
-针对一组主机定义并运行单个任务“剧本”
+针对一组宿主定义并运行单个任务“剧本”
 
 大纲:
 
@@ -929,7 +929,7 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 #### ansible 的描述： 
 
 是用于执行“远程操作”的超简单工具/框架/ API。
-此命令允许您针对一组主机定义和运行单个任务“剧本”
+此命令允许您针对一组宿主定义和运行单个任务“剧本”
 
 #### 公共参数：
 
@@ -938,7 +938,7 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 | --ask-vault-pass  | 要求提供保险库密码  |
 | --become-method <BECOME_METHOD>  | 要使用的特权升级方法(default=%(default)s)，请使用 `ansible-doc -t` 成为 `-l `列出有效的选择。  |
 | --become-user <BECOME_USER>  | 以该用户身份运行操作（默认= root）  |
-| --list-hosts  | 输出匹配主机列表；不执行其他任何操作  |
+| --list-hosts  | 输出匹配宿主列表；不执行其他任何操作  |
 | --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能设置相对路径，包括 `role/group_vars/` 等。  |
 | --private-key <PRIVATE_KEY_FILE>, --key-file <PRIVATE_KEY_FILE>  | 使用此文件来验证连接  |
 | --scp-extra-args <SCP_EXTRA_ARGS>  | 指定额外的参数以仅传递给 `scp`（例如 `-l` ）  |
@@ -961,9 +961,9 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 | -e, --extra-vars  | 如果文件名以 `@` 开头，则将其他变量设置为 `key= alue `或 `YAML/JSON`  |
 | -f <FORKS>, --forks <FORKS>   |  指定要使用的并行进程数（默认= 5）   |
 | -h, --help  |  显示此帮助消息并退出   |
-| -i, --inventory, --inventory-file   |  指定清单主机路径或逗号分隔的主机列表。 –不推荐使用库存文件   |
+| -i, --inventory, --inventory-file   |  指定清单宿主路径或逗号分隔的主机列表。 –不推荐使用清单文件   |
 | -k, --ask-pass   |  询问连接密码   |
-| -l <SUBSET>, --limit <SUBSET>  |  将所选主机进一步限制为其他模式   |
+| -l <SUBSET>, --limit <SUBSET>  |  将所选宿主进一步限制为其他模式   |
 | -m <MODULE_NAME>, --module-name <MODULE_NAME>  |  要执行的模块名称（默认=命令）   |
 | -o, --one-line   | 浓缩输出  |
 | -t <TREE>, --tree <TREE>   |  日志输出到该目录   |
@@ -1259,8 +1259,8 @@ usage: ansible-inventory [-h] [--version] [-v] [-i INVENTORY]
 | --ask-vault-pass  | 要求提供保险库密码  |
 | --export  | 执行 `–list` 时，以针对导出进行优化的方式呈现，而不是Ansible处理方式的准确表示  |
 | --graph  | 创建清单图，如果提供模式，则必须是有效的组名  |
-| --host <HOST>  | 输出指定的主机信息，用作清单脚本  |
-| --list  | 输出特定的主机信息，用作清单脚本  |
+| --host <HOST>  | 输出指定的宿主信息，用作清单脚本  |
+| --list  | 输出特定的宿主信息，用作清单脚本  |
 | --list-hosts  |   |
 | --output <OUTPUT_FILE>  | 执行`–list` 时，将清单发送到文件而不是发送到屏幕  |
 | --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能（包括 `role/group_vars/` 等）设置相对路径。  |
@@ -1270,7 +1270,7 @@ usage: ansible-inventory [-h] [--version] [-v] [-i INVENTORY]
 | --vault-password-file  | 保险库密码文件  |
 | --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置然后退出  |
 |  -h, --help  | 显示此帮助消息并退出   |
-| -i, --inventory, --inventory-file  | 指定清单主机路径或逗号分隔的主机列表。–不推荐使用 --inventory-file |
+| -i, --inventory, --inventory-file  | 指定清单宿主路径或逗号分隔的主机列表。–不推荐使用 --inventory-file |
 | -v, --verbose  | 详细模式（ `-vvv` 用于查看更多，`-vvvv` 用于启用连接调试）  |
 | -y, --yaml  | 使用 `YAML` 格式而不是默认 `JSON` ，对于 `–graph` 会被忽略  |
 |   |   |
@@ -1313,9 +1313,9 @@ usage: ansible-playbook [-h] [--version] [-v] [-k]
 | --ask-vault-pass  | 要求提供保险库密码  |
 | --become-method <BECOME_METHOD>  | 要使用的特权升级方法 `(default=%(default)s)` ，请使用 `ansible-doc -t become -l` 列出有效的选择。  |
 | --become-user <BECOME_USER>  | 以该用户身份运行操作（默认= root）  |
-| --flush-cache  | 清除清单中每个主机的事实缓存  |
+| --flush-cache  | 清除清单中每个宿主的事实缓存  |
 | --force-handlers  | 即使任务失败也运行处理程序  |
-| --list-hosts  | 输出匹配主机列表 .不执行其他任何操作  |
+| --list-hosts  | 输出匹配宿主列表 .不执行其他任何操作  |
 | --list-tags  | 列出所有可用标签  |
 | --list-tasks  | 列出将要执行的所有任务  |
 | --private-key <PRIVATE_KEY_FILE>, --key-file <PRIVATE_KEY_FILE>   | 使用此文件来验证连接  |
@@ -1340,9 +1340,9 @@ usage: ansible-playbook [-h] [--version] [-v] [-k]
 | -e, --extra-vars  | 如果文件名以@开头，则将其他变量设置为key=value或YAML/JSON  |
 | -f <FORKS>, --forks <FORKS>  | 指定要使用的并行进程数（默认= 5）  |
 | -h, --help  | 显示此帮助消息并退出  |
-| -i, --inventory, --inventory-file  | 指定清单主机路径或逗号分隔的主机列表。 –不推荐使用 --inventory-file  |
+| -i, --inventory, --inventory-file  | 指定清单宿主路径或逗号分隔的主机列表。 –不推荐使用 --inventory-file  |
 | -k, --ask-pass  | 询问连接密码  |
-| -l <SUBSET>, --limit <SUBSET>  | 将所选主机进一步限制为其他模式  |
+| -l <SUBSET>, --limit <SUBSET>  | 将所选宿主进一步限制为其他模式  |
 | -t, --tags  | 只运行带有这些值标记的剧本和任务  |
 | -u <REMOTE_USER>, --user <REMOTE_USER>  | 以该用户身份连接（默认=无）  |
 | -v, --verbose  | 详细模式（-vvv用于更多，-vvvv用于启用连接调试）  |
@@ -1395,7 +1395,7 @@ usage: ansible-vault [-h] [--version] [-v]
 | --vault-id  | 要使用的库身份  |
 | --vault-password-file  | 密码库密码文件  |
 
-#### decrypt
+##### decrypt
 
 使用提供的密码库密钥解密提供的文件
 
@@ -1406,7 +1406,7 @@ usage: ansible-vault [-h] [--version] [-v]
 | --vault-id  | 要使用的库身份  |
 | --vault-password-file  | 保险库密码文件  |
 
-#### edit
+##### edit
 
 在编辑器中打开并解密现有的已存储文件，关闭后将再次对其进行加密
 
@@ -1417,7 +1417,7 @@ usage: ansible-vault [-h] [--version] [-v]
 | --vault-id  | 要使用的库身份  |
 | --vault-password-file  | 保险库密码文件  |
 
-#### view
+##### view
 
 用 `Vault` 密钥调用呼叫器打开、解密、查看现有的 `Vault` 文件
 
@@ -1430,7 +1430,7 @@ usage: ansible-vault [-h] [--version] [-v]
 
 
 
-#### encrypt
+##### encrypt
 
 使用提供的保管库密钥加密提供的文件
 
@@ -1444,7 +1444,7 @@ usage: ansible-vault [-h] [--version] [-v]
 | --output <OUTPUT_FILE>  | 输出文件名进行加密或解密；使用-用于标准输出  |
 
 
-#### encrypt_string
+##### encrypt_string
 
 使用提供的密码库密钥加密提供的字符串
 
@@ -1459,7 +1459,7 @@ usage: ansible-vault [-h] [--version] [-v]
 | -n, --name  | 指定变量名称  |
 | -p, --prompt  | 提示要加密的字符串  |
 
-#### rekey
+##### rekey
 
 使用新的密钥重新加密已存储文件，需要先前的密钥
 
@@ -1482,10 +1482,10 @@ usage: ansible-vault [-h] [--version] [-v]
 剧本是 `Ansible` 的配置，部署和编排语言。
 它们可以描述您希望远程系统执行的策略，或一般 `IT` 流程中的一组步骤。
 
-如果 `Ansible` 模块是您工作站中的工具，则剧本是您的说明手册，主机清单是您的原材料。
+如果 `Ansible` 模块是您工作站中的工具，则剧本是您的说明手册，宿主清单是您的原材料。
 
 从根上讲，剧本可用于管理远程服务器的配置和部署。
-从更高的角度上来说，他们可以对涉及滚动更新的多层部署进行排序，并可以将操作委派给其他主机，并与监视服务器和负载平衡器进行交互。
+从更高的角度上来说，他们可以对涉及滚动更新的多层部署进行排序，并可以将操作委派给其他宿主，并与监视服务器和负载平衡器进行交互。
 
 
 尽管这里有很多信息，但无需一次学习所有内容。
@@ -1510,7 +1510,7 @@ usage: ansible-vault [-h] [--version] [-v]
 
 
 每个剧本由一个列表中的一个或多个“剧本”组成。
-剧本的目的是将一组主机映射到一些定义明确的角色，这些角色以无障碍调用任务为代表。
+剧本的目的是将一组宿主映射到一些定义明确的角色，这些角色以无障碍调用任务为代表。
 从根本上讲，任务不过是对 `ansible` 模块的调用。
 
 通过编写包含多个 ”戏” 的剧本，可以编排多机部署，在 `webservers` 组中的所有计算机上运行某些步骤，然后在数据库服务器组中运行某些步骤，然后在 `webservers` 组中返回更多命令，等等。 
@@ -1584,7 +1584,7 @@ usage: ansible-vault [-h] [--version] [-v]
       state: started
 
 ```
-您可以使用此方法在您要定位的主机组，登录到远程服务器的用户名，是否使用sudo等之间切换。
+您可以使用此方法在您要定位的宿主组，登录到远程服务器的用户名，是否使用sudo等之间切换。
 像任务一样，戏按照剧本中指定的顺序运行：从上到下。
 
 
@@ -1592,11 +1592,11 @@ usage: ansible-vault [-h] [--version] [-v]
 
 ### 基础
 
-#### 主机和用户
+#### 宿主和用户
 
 对于剧本中的每场戏，您都可以选择基础结构中要定位的计算机以及要完成这些步骤（称为任务）的远程用户。
 
-主机行是一个或多个组或主机模式的列表，用冒号分隔
+宿主行是一个或多个组或主机模式的列表，用冒号分隔
 `remote_user` 只是用户帐户的名称：
 
 ```yml
@@ -1674,7 +1674,7 @@ usage: ansible-vault [-h] [--version] [-v]
 `Ansible` 还注意不要记录密码参数。
 
 
-您还可以控制主机的运行顺序。
+您还可以控制宿主的运行顺序。
 默认值是遵循清单提供的顺序：
 
 ```yml
@@ -1693,16 +1693,16 @@ usage: ansible-vault [-h] [--version] [-v]
 | ------------ | ------------ |
 | inventory  | 默认值。顺序为是“以清单为准”  |
 | reverse_inventory  | 显然，这是上面排序的逆排序法 |
-| sorted  | 主机按名称的字母顺序排列  |
+| sorted  | 宿主按名称的字母顺序排列  |
 | reverse_sorted  | 显然，这是上面排序的逆排序法  |
 | shuffle  | 每次运行都会进行乱序处理  |
 
 
 #### 任务列表
 
-每个剧本都有一个任务列表。一般情况，他们都是按照顺序执行的，一次一个，在继续执行下一个任务之前，对所有与主机模式匹配的机器进行测试。
-重要的是要了解，在一出戏中，所有主机都将获得相同的任务指令。
-戏的目的是将主机的选择映射到任务。
+每个剧本都有一个任务列表。一般情况，他们都是按照顺序执行的，一次一个，在继续执行下一个任务之前，对所有与宿主模式匹配的机器进行测试。
+重要的是要了解，在一出戏中，所有宿主都将获得相同的任务指令。
+戏的目的是将宿主的选择映射到任务。
 
 每个任务的目标是执行带有特定参数的模块。
 变量可以在模块的参数中使用。
@@ -1955,7 +1955,7 @@ Task/Handler: ensure apache is at the latest version
 如果您想查看成功模块的详细输出以及失败模块的详细输出，请使用 `--verbose` 标志。
 在Ansible 0.5及更高版本中可用。
 
-要在运行剧本之前查看哪些主机会受到剧本的影响，可以执行以下操作：
+要在运行剧本之前查看哪些宿主会受到剧本的影响，可以执行以下操作：
 
 
 ```bash
@@ -2018,13 +2018,1011 @@ Ansible具有可重复使用内容的两种操作模式：动态和静态。
 与动态包含相比，使用 `import *` 也可能有一些限制：
 
 - 如上所述，循环根本不能与导入一起使用。
-- 将变量用作目标文件或角色名称时，无法使用清单资源（主机/组变量等）中的变量。
+- 将变量用作目标文件或角色名称时，无法使用清单资源（宿主/组变量等）中的变量。
 - 使用 `import *` 的处理程序通过名称通知时不会触发，因为导入会使用导入的任务列表覆盖处理程序的命名任务。
 
 !> 关于将通知用于动态任务：仍然可以触发动态包含本身，这将导致包含中的所有任务都运行。
 
+### 使用变量
+
+虽然存在自动化可以使事情变得可重复，但所有系统并不完全相同。
+有些可能需要与其他配置稍有不同的配置。
+在某些情况下，观察到的一个系统的行为或状态可能会影响您配置其他系统的方式。
+例如，您可能需要找出一个系统的 `IP` 地址，并将其用作另一个系统上的配置值。
+
+`Ansible` 使用变量来帮助处理系统之间的差异。
+要了解变量，您还需要阅读条件和循环。
+诸如 `group_by` 模块和 `when` 条件等有用的东西也可以与变量一起使用，并帮助管理系统之间的差异。
+
+#### 创建变量名
+
+在开始使用变量之前，重要的是要知道什么是有效的变量名。
+变量名称应为字母，数字和下划线。
+变量应始终以字母开头。
+
+好的变量：
+
+foo_port 
+
+foo5 
+
+坏的变量：
+
+foo-port, foo port, foo.port
+
+12
+
+`YAML` 还支持将键映射到值的字典。
+例如：
+
+```yml
+foo:
+  field1: one
+  field2: two
+
+```
+
+然后，您可以使用方括号或点号来引用字典中的特定字段：
+
+```
+foo['field1']
+foo.field1
+```
+
+这些都将引用相同的值（"one"）。
+但是，如果选择使用点表示法，请注意某些键可能会引起问题，因为它们与 `python` 词典的属性和方法冲突。
 
 
+如果您使用以两个下划线开头和结尾的键（这些键在 `python` 中保留了特殊含义）或为任何已知的公共属性，则应使用方括号符号而不是点符号。
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| add | -- |  
+|  append | -- |  
+|  as_integer_ratio | -- |  
+|  bit_length | -- |  
+|  capitalize | -- |  
+|  center | -- |  
+|  clear | -- |  
+|  conjugate | -- |  
+|  copy | -- |  
+|  count | -- |  
+|  decode | -- |  
+|  denominator | -- |  
+|  difference | -- |  
+|  difference_update | -- |  
+|  discard | -- |  
+|  encode | -- |  
+|  endswith | -- |  
+|  expandtabs | -- |  
+|  extend | -- |  
+|  find | -- |  
+|  format | -- |  
+|  fromhex | -- |  
+|  fromkeys | -- |  
+|  get | -- |  
+|  has_key | -- |  
+|  hex | -- |  
+|  imag | -- |  
+|  index | -- |  
+|  insert | -- |  
+|  intersection | -- |  
+|  intersection_update | -- |  
+|  isalnum | -- |  
+|  isalpha | -- |  
+|  isdecimal | -- |  
+|  isdigit | -- |  
+|  isdisjoint | -- |  
+|  is_integer | -- |  
+|  islower | -- |  
+|  isnumeric | -- |  
+|  isspace | -- |  
+|  issubset | -- |  
+|  issuperset | -- |  
+|  istitle | -- |  
+|  isupper | -- |  
+|  items | -- |  
+|  iteritems | -- |  
+|  iterkeys | -- |  
+|  itervalues | -- |  
+|  join | -- |  
+|  keys | -- |  
+|  ljust | -- |  
+|  lower | -- |  
+|  lstrip | -- |  
+|  numerator | -- |  
+|  partition | -- |  
+|  pop | -- |  
+|  popitem | -- |  
+|  real | -- |  
+|  remove | -- |  
+|  replace | -- |  
+|  reverse | -- |  
+|  rfind | -- |  
+|  rindex | -- |  
+|  rjust | -- |  
+|  rpartition | -- |  
+|  rsplit | -- |  
+|  rstrip | -- |  
+|  setdefault | -- |  
+|  sort | -- |  
+|  split | -- |  
+|  splitlines | -- |  
+|  startswith | -- |  
+|  strip | -- |  
+|  swapcase | -- |  
+|  symmetric_difference | -- |  
+|  symmetric_difference_update | -- |  
+|  title | -- |  
+|  translate | -- |  
+|  union | -- |  
+|  update | -- |  
+|  upper | -- |  
+|  values | -- |  
+|  viewitems | -- |  
+|  viewkeys | -- |  
+|  viewvalues | -- |  
+|  zfill | -- |  
+
+
+
+
+#### 在清单文件中定义变量
+
+通常，您需要为清单中的单个宿主或一组主机设置变量。
+例如，波士顿的计算机可能都使用“ boston.ntp.example.com”作为NTP服务器。 
+
+
+#### 在剧本中定义变量
+
+您可以直接在剧本中定义变量：
+
+```yml
+- hosts: webservers
+  vars:
+    http_port: 80
+```
+#### 在被包含的文件和角色中定义变量
+
+如[角色](https://docs.ansible.com/ansible/2.9/user_guide/playbooks_reuse_roles.html#playbooks-reuse-roles)中所述，变量也可以通过包含文件包含在剧本中，而包含文件可能是也可能不是 `Ansible` 角色的一部分。
+最好使用角色，因为它提供了一个不错的组织系统
+
+#### 在 `Jinja2` 中使用变量
+
+定义变量后，您可以使用 `Jinja2` 模板系统在您的剧本中使用它们。
+这是一个简单的 `Jinja2` 模板：
+
+```yml
+My amp goes to {{ max_amp_value }}
+```
+
+此表达式提供了变量替换的最基本形式。
+您可以在剧本中使用相同的语法。
+例如：
+
+```yml
+template: 
+  src=foo.cfg.j2
+   dest={{ remote_install_path }}/foo.cfg
+```
+在这里，变量定义文件的位置，文件的位置可能因一个系统而异。
+
+在模板内部，您可以自动访问宿主范围内的所有变量。
+实际上，不仅如此，您还可以读取有关其他宿主的变量。
+我们将稍后展示如何做到这一点。
+
+!> `ansible` 允许在模板中使用 `Jinja2` 循环和条件，但在剧本中，我们不使用它们。 
+`Ansible` 剧本是纯机器可解析的 `YAML` 。
+这是一个非常重要的功能，因为它意味着可以代码生成文件片段，或让其他生态系统工具读取 `Ansible` 文件。
+并非每个人都需要此功能，但它可以释放各种可能性。
+
+
+#### 使用 `Jinja2` 过滤器转换变量
+
+`Jinja2` 过滤器使您可以转换模板表达式中变量的值。
+例如，`capitalize` 将传递给它的任何值大写； 
+`to_yaml` 和 `to_json` 过滤器更改变量值的格式。 
+`Jinja2` 包含许多内置过滤器，而 `Ansible` 提供了更多过滤器。
+
+#### 一个 `YAML` 的坑
+
+YAML语法要求，如果您使用 `{{foo}}` 开头的值，请用引号将整个行引起来，因为它希望确保您不尝试启动 `YAM` L字典。
+这在YAML语法文档中有介绍。
+
+- 不起作用·的：
+
+```yml
+- hosts: app_servers
+  vars:
+      app_path: {{ base_path }}/22
+```
+- 起作用的
+
+```yml
+- hosts: app_servers
+  vars:
+       app_path: "{{ base_path }}/22"
+```
+
+#### 从系统中发现的变量：事实
+
+在其他地方也可以使用变量，但这是一种发现的变量，不是用户设置的。
+事实是通过与远程系统对话而获得的信息。
+您可以在 `ansible_facts` 变量下找到一个完整的集合，大多数事实也作为保留 `ansible_` 前缀的顶级变量而被“注入”，但由于冲突而被丢弃。
+可以通过 [`INJECT_FACTS_AS_VARS`](https://docs.ansible.com/ansible/2.9/reference_appendices/config.html#inject-facts-as-vars) 设置禁用。
+例如，远程宿主的IP地址或操作系统是什么。
+若要查看可用的信息，请在剧本中尝试以下操作：
+
+```yml
+- debug: var=ansible_facts
+
+```
+要查看所收集的“原始”信息，请执行以下操作：
+
+```yml
+ansible hostname -m setup
+```
+
+这将返回大量的变量数据，在 `Ansible 2.7` 上可能看起来像这样：
+
+```json
+{
+    "ansible_all_ipv4_addresses": [
+        "REDACTED IP ADDRESS"
+    ],
+    "ansible_all_ipv6_addresses": [
+        "REDACTED IPV6 ADDRESS"
+    ],
+    "ansible_apparmor": {
+        "status": "disabled"
+    },
+    "ansible_architecture": "x86_64",
+    "ansible_bios_date": "11/28/2013",
+    "ansible_bios_version": "4.1.5",
+    "ansible_cmdline": {
+        "BOOT_IMAGE": "/boot/vmlinuz-3.10.0-862.14.4.el7.x86_64",
+        "console": "ttyS0,115200",
+        "no_timer_check": true,
+        "nofb": true,
+        "nomodeset": true,
+        "ro": true,
+        "root": "LABEL=cloudimg-rootfs",
+        "vga": "normal"
+    },
+    "ansible_date_time": {
+        "date": "2018-10-25",
+        "day": "25",
+        "epoch": "1540469324",
+        "hour": "12",
+        "iso8601": "2018-10-25T12:08:44Z",
+        "iso8601_basic": "20181025T120844109754",
+        "iso8601_basic_short": "20181025T120844",
+        "iso8601_micro": "2018-10-25T12:08:44.109968Z",
+        "minute": "08",
+        "month": "10",
+        "second": "44",
+        "time": "12:08:44",
+        "tz": "UTC",
+        "tz_offset": "+0000",
+        "weekday": "Thursday",
+        "weekday_number": "4",
+        "weeknumber": "43",
+        "year": "2018"
+    },
+    "ansible_default_ipv4": {
+        "address": "REDACTED",
+        "alias": "eth0",
+        "broadcast": "REDACTED",
+        "gateway": "REDACTED",
+        "interface": "eth0",
+        "macaddress": "REDACTED",
+        "mtu": 1500,
+        "netmask": "255.255.255.0",
+        "network": "REDACTED",
+        "type": "ether"
+    },
+    "ansible_default_ipv6": {},
+    "ansible_device_links": {
+        "ids": {},
+        "labels": {
+            "xvda1": [
+                "cloudimg-rootfs"
+            ],
+            "xvdd": [
+                "config-2"
+            ]
+        },
+        "masters": {},
+        "uuids": {
+            "xvda1": [
+                "cac81d61-d0f8-4b47-84aa-b48798239164"
+            ],
+            "xvdd": [
+                "2018-10-25-12-05-57-00"
+            ]
+        }
+    },
+    "ansible_devices": {
+        "xvda": {
+            "holders": [],
+            "host": "",
+            "links": {
+                "ids": [],
+                "labels": [],
+                "masters": [],
+                "uuids": []
+            },
+            "model": null,
+            "partitions": {
+                "xvda1": {
+                    "holders": [],
+                    "links": {
+                        "ids": [],
+                        "labels": [
+                            "cloudimg-rootfs"
+                        ],
+                        "masters": [],
+                        "uuids": [
+                            "cac81d61-d0f8-4b47-84aa-b48798239164"
+                        ]
+                    },
+                    "sectors": "83883999",
+                    "sectorsize": 512,
+                    "size": "40.00 GB",
+                    "start": "2048",
+                    "uuid": "cac81d61-d0f8-4b47-84aa-b48798239164"
+                }
+            },
+            "removable": "0",
+            "rotational": "0",
+            "sas_address": null,
+            "sas_device_handle": null,
+            "scheduler_mode": "deadline",
+            "sectors": "83886080",
+            "sectorsize": "512",
+            "size": "40.00 GB",
+            "support_discard": "0",
+            "vendor": null,
+            "virtual": 1
+        },
+        "xvdd": {
+            "holders": [],
+            "host": "",
+            "links": {
+                "ids": [],
+                "labels": [
+                    "config-2"
+                ],
+                "masters": [],
+                "uuids": [
+                    "2018-10-25-12-05-57-00"
+                ]
+            },
+            "model": null,
+            "partitions": {},
+            "removable": "0",
+            "rotational": "0",
+            "sas_address": null,
+            "sas_device_handle": null,
+            "scheduler_mode": "deadline",
+            "sectors": "131072",
+            "sectorsize": "512",
+            "size": "64.00 MB",
+            "support_discard": "0",
+            "vendor": null,
+            "virtual": 1
+        },
+        "xvde": {
+            "holders": [],
+            "host": "",
+            "links": {
+                "ids": [],
+                "labels": [],
+                "masters": [],
+                "uuids": []
+            },
+            "model": null,
+            "partitions": {
+                "xvde1": {
+                    "holders": [],
+                    "links": {
+                        "ids": [],
+                        "labels": [],
+                        "masters": [],
+                        "uuids": []
+                    },
+                    "sectors": "167770112",
+                    "sectorsize": 512,
+                    "size": "80.00 GB",
+                    "start": "2048",
+                    "uuid": null
+                }
+            },
+            "removable": "0",
+            "rotational": "0",
+            "sas_address": null,
+            "sas_device_handle": null,
+            "scheduler_mode": "deadline",
+            "sectors": "167772160",
+            "sectorsize": "512",
+            "size": "80.00 GB",
+            "support_discard": "0",
+            "vendor": null,
+            "virtual": 1
+        }
+    },
+    "ansible_distribution": "CentOS",
+    "ansible_distribution_file_parsed": true,
+    "ansible_distribution_file_path": "/etc/redhat-release",
+    "ansible_distribution_file_variety": "RedHat",
+    "ansible_distribution_major_version": "7",
+    "ansible_distribution_release": "Core",
+    "ansible_distribution_version": "7.5.1804",
+    "ansible_dns": {
+        "nameservers": [
+            "127.0.0.1"
+        ]
+    },
+    "ansible_domain": "",
+    "ansible_effective_group_id": 1000,
+    "ansible_effective_user_id": 1000,
+    "ansible_env": {
+        "HOME": "/home/zuul",
+        "LANG": "en_US.UTF-8",
+        "LESSOPEN": "||/usr/bin/lesspipe.sh %s",
+        "LOGNAME": "zuul",
+        "MAIL": "/var/mail/zuul",
+        "PATH": "/usr/local/bin:/usr/bin",
+        "PWD": "/home/zuul",
+        "SELINUX_LEVEL_REQUESTED": "",
+        "SELINUX_ROLE_REQUESTED": "",
+        "SELINUX_USE_CURRENT_RANGE": "",
+        "SHELL": "/bin/bash",
+        "SHLVL": "2",
+        "SSH_CLIENT": "REDACTED 55672 22",
+        "SSH_CONNECTION": "REDACTED 55672 REDACTED 22",
+        "USER": "zuul",
+        "XDG_RUNTIME_DIR": "/run/user/1000",
+        "XDG_SESSION_ID": "1",
+        "_": "/usr/bin/python2"
+    },
+    "ansible_eth0": {
+        "active": true,
+        "device": "eth0",
+        "ipv4": {
+            "address": "REDACTED",
+            "broadcast": "REDACTED",
+            "netmask": "255.255.255.0",
+            "network": "REDACTED"
+        },
+        "ipv6": [
+            {
+                "address": "REDACTED",
+                "prefix": "64",
+                "scope": "link"
+            }
+        ],
+        "macaddress": "REDACTED",
+        "module": "xen_netfront",
+        "mtu": 1500,
+        "pciid": "vif-0",
+        "promisc": false,
+        "type": "ether"
+    },
+    "ansible_eth1": {
+        "active": true,
+        "device": "eth1",
+        "ipv4": {
+            "address": "REDACTED",
+            "broadcast": "REDACTED",
+            "netmask": "255.255.224.0",
+            "network": "REDACTED"
+        },
+        "ipv6": [
+            {
+                "address": "REDACTED",
+                "prefix": "64",
+                "scope": "link"
+            }
+        ],
+        "macaddress": "REDACTED",
+        "module": "xen_netfront",
+        "mtu": 1500,
+        "pciid": "vif-1",
+        "promisc": false,
+        "type": "ether"
+    },
+    "ansible_fips": false,
+    "ansible_form_factor": "Other",
+    "ansible_fqdn": "centos-7-rax-dfw-0003427354",
+    "ansible_hostname": "centos-7-rax-dfw-0003427354",
+    "ansible_interfaces": [
+        "lo",
+        "eth1",
+        "eth0"
+    ],
+    "ansible_is_chroot": false,
+    "ansible_kernel": "3.10.0-862.14.4.el7.x86_64",
+    "ansible_lo": {
+        "active": true,
+        "device": "lo",
+        "ipv4": {
+            "address": "127.0.0.1",
+            "broadcast": "host",
+            "netmask": "255.0.0.0",
+            "network": "127.0.0.0"
+        },
+        "ipv6": [
+            {
+                "address": "::1",
+                "prefix": "128",
+                "scope": "host"
+            }
+        ],
+        "mtu": 65536,
+        "promisc": false,
+        "type": "loopback"
+    },
+    "ansible_local": {},
+    "ansible_lsb": {
+        "codename": "Core",
+        "description": "CentOS Linux release 7.5.1804 (Core)",
+        "id": "CentOS",
+        "major_release": "7",
+        "release": "7.5.1804"
+    },
+    "ansible_machine": "x86_64",
+    "ansible_machine_id": "2db133253c984c82aef2fafcce6f2bed",
+    "ansible_memfree_mb": 7709,
+    "ansible_memory_mb": {
+        "nocache": {
+            "free": 7804,
+            "used": 173
+        },
+        "real": {
+            "free": 7709,
+            "total": 7977,
+            "used": 268
+        },
+        "swap": {
+            "cached": 0,
+            "free": 0,
+            "total": 0,
+            "used": 0
+        }
+    },
+    "ansible_memtotal_mb": 7977,
+    "ansible_mounts": [
+        {
+            "block_available": 7220998,
+            "block_size": 4096,
+            "block_total": 9817227,
+            "block_used": 2596229,
+            "device": "/dev/xvda1",
+            "fstype": "ext4",
+            "inode_available": 10052341,
+            "inode_total": 10419200,
+            "inode_used": 366859,
+            "mount": "/",
+            "options": "rw,seclabel,relatime,data=ordered",
+            "size_available": 29577207808,
+            "size_total": 40211361792,
+            "uuid": "cac81d61-d0f8-4b47-84aa-b48798239164"
+        },
+        {
+            "block_available": 0,
+            "block_size": 2048,
+            "block_total": 252,
+            "block_used": 252,
+            "device": "/dev/xvdd",
+            "fstype": "iso9660",
+            "inode_available": 0,
+            "inode_total": 0,
+            "inode_used": 0,
+            "mount": "/mnt/config",
+            "options": "ro,relatime,mode=0700",
+            "size_available": 0,
+            "size_total": 516096,
+            "uuid": "2018-10-25-12-05-57-00"
+        }
+    ],
+    "ansible_nodename": "centos-7-rax-dfw-0003427354",
+    "ansible_os_family": "RedHat",
+    "ansible_pkg_mgr": "yum",
+    "ansible_processor": [
+        "0",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "1",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "2",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "3",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "4",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "5",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "6",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz",
+        "7",
+        "GenuineIntel",
+        "Intel(R) Xeon(R) CPU E5-2670 0 @ 2.60GHz"
+    ],
+    "ansible_processor_cores": 8,
+    "ansible_processor_count": 8,
+    "ansible_processor_threads_per_core": 1,
+    "ansible_processor_vcpus": 8,
+    "ansible_product_name": "HVM domU",
+    "ansible_product_serial": "REDACTED",
+    "ansible_product_uuid": "REDACTED",
+    "ansible_product_version": "4.1.5",
+    "ansible_python": {
+        "executable": "/usr/bin/python2",
+        "has_sslcontext": true,
+        "type": "CPython",
+        "version": {
+            "major": 2,
+            "micro": 5,
+            "minor": 7,
+            "releaselevel": "final",
+            "serial": 0
+        },
+        "version_info": [
+            2,
+            7,
+            5,
+            "final",
+            0
+        ]
+    },
+    "ansible_python_version": "2.7.5",
+    "ansible_real_group_id": 1000,
+    "ansible_real_user_id": 1000,
+    "ansible_selinux": {
+        "config_mode": "enforcing",
+        "mode": "enforcing",
+        "policyvers": 31,
+        "status": "enabled",
+        "type": "targeted"
+    },
+    "ansible_selinux_python_present": true,
+    "ansible_service_mgr": "systemd",
+    "ansible_ssh_host_key_ecdsa_public": "REDACTED KEY VALUE",
+    "ansible_ssh_host_key_ed25519_public": "REDACTED KEY VALUE",
+    "ansible_ssh_host_key_rsa_public": "REDACTED KEY VALUE",
+    "ansible_swapfree_mb": 0,
+    "ansible_swaptotal_mb": 0,
+    "ansible_system": "Linux",
+    "ansible_system_capabilities": [
+        ""
+    ],
+    "ansible_system_capabilities_enforced": "True",
+    "ansible_system_vendor": "Xen",
+    "ansible_uptime_seconds": 151,
+    "ansible_user_dir": "/home/zuul",
+    "ansible_user_gecos": "",
+    "ansible_user_gid": 1000,
+    "ansible_user_id": "zuul",
+    "ansible_user_shell": "/bin/bash",
+    "ansible_user_uid": 1000,
+    "ansible_userspace_architecture": "x86_64",
+    "ansible_userspace_bits": "64",
+    "ansible_virtualization_role": "guest",
+    "ansible_virtualization_type": "xen",
+    "gather_subset": [
+        "all"
+    ],
+    "module_setup": true
+}
+```
+
+
+综上所述， 第一张磁盘的模型可以在模板或剧本中引用为：
+
+```yml
+{{ ansible_facts['devices']['xvda']['model'] }}
+
+```
+
+同样，系统报告的宿主名是：
+
+```yml
+{{ ansible_facts['nodename'] }}
+```
+事实常用于条件语句（请参阅条件语句）和模板中。
+事实还可用于创建符合特定条件的宿主的动态组
+
+
+##### 禁用的事实
+
+如果您知道不需要宿主的任何事实数据，并且集中了解系统的所有信息，则可以关闭事实收集。
+主要在大量系统上，或者在实验平台上使用Ansible时，这在按推送模式扩展Ansible方面具有优势。
+在任何剧本中，只需执行以下操作：
+
+```yml
+- hosts: whatever
+  gather_facts: no
+```
+
+
+##### 本地事实
+
+正如在剧本一章中讨论的那样，`Ansible` 事实是一种获取有关远程系统数据以用于剧本变量的方法。
+通常，这些是由 `Ansible` 中的`setup`模块自动发现的。
+用户还可以编写自定义事实模块，如 `API` 指南中所述。
+但是，如果您希望有一种简单的方法来提供系统或用户提供的数据以供 `Ansible` 变量使用，而无需编写事实模块，该怎么办？
+
+“ Facts.d”是一种用于用户控制其系统管理方式的机制。
+
+!> 也许“本地事实”有点用词不当，它的意思是“本地提供的用户值”，而不是“集中提供的用户值”，或者事实是什么-“本地动态确定的值”。
+
+如果远程管理系统具有 `/etc/ansible/facts.d` 目录，则此目录中以`.fact`结尾的任何文件都可以是 `JSON` ，`INI` 或返回 `JSON` 的可执行文件，
+并且这些文件可以在 `Ansible` 中提供本地事实。
+可以使用 `fact_path` 基本关键字指定备用目录。
+
+举个栗子。假设 `/etc/ansible/facts.d/preferences.fact` 包含了：
+
+```ini
+[general]
+asdf=1
+bar=2
+```
+这将产生一个名为 `general` 的哈希变量事实，其中 `asdf` 和 `bar` 为成员。
+要验证这一点，请运行以下命令：
+
+```
+ansible <hostname> -m setup -a "filter=ansible_local"
+```
+您会看到添加了以下事实：
+
+```json
+"ansible_local": {
+        "preferences": {
+            "general": {
+                "asdf" : "1",
+                "bar"  : "2"
+            }
+        }
+ }
+```
+可以在 `template/playbook` 中按以下方式访问此数据：
+
+
+```yml
+{{ ansible_local['preferences']['general']['asdf'] }}
+```
+
+本地名称空间可防止任何用户提供的事实覆盖系统事实或剧本中其他位置定义的变量。
+
+!> `key=value` 对中的关键部分将在 `ansible_local` 变量内转换为小写。
+使用上面的示例，如果 `ini` 文件在 `[general]` 部分中包含`XYZ=3` ，则应该以以下方式访问它：`{{ansible_local ['preferences'] ['general'] ['xyz']}}`
+而不是 `{{ansible_local ['preferences'] ['general'] ['XYZ']}}`。
+这是因为 `Ansible`使用Python的 `ConfigParser` ，它通过 `optionxform` 方法传递所有选项名称，并且该方法的默认实现将选项名称转换为小写。
+
+
+如果您有一本剧本正在复制自定义事实，然后运行它，则显式调用以重新运行设置模块可以允许在特定的剧本过程中使用该事实。
+否则，它将在下一个收集事实信息的剧集中可用。
+这是一个可能看起来像的示例：
+
+```yml
+- hosts: webservers
+  tasks:
+    - name: create directory for ansible custom facts
+      file: 
+        state=directory
+        recurse=yes
+        path=/etc/ansible/facts.d
+    - name: install custom ipmi fact
+      copy:
+        src=ipmi.fact
+        dest=/etc/ansible/facts.d
+    - name: re-read facts after adding custom fact
+      setup:
+        filter=ansible_local
+
+```
+
+但是，在这种模式下，您也可以编写一个事实模块，并且不妨考虑将此作为选项
+
+
+##### `Ansible` 版本
+
+为了使剧本的行为适应特定版本的 `ansible` ，可以使用具有以下结构的变量 `ansible_version`：
+
+```json
+"ansible_version": {
+    "full": "2.0.0.2",
+    "major": 2,
+    "minor": 0,
+    "revision": 0,
+    "string": "2.0.0.2"
+}
+
+```
+
+
+##### 缓存的事实
+
+如文档其他部分所示，一台服务器可以引用有关另一台服务器的变量，如下所示：
+
+```yml
+{{ hostvars['asdf.example.com']['ansible_facts']['os_family'] }}
+```
+要禁用“事实缓存”，要做到这一点，Ansible必须已经在当前剧本与“ asdf.example.com”进行了对话，或者在剧本中与更高的进行了对话。
+这是ansible的默认配置。
+
+为避免这种情况，Ansible 1.8允许在两次运行剧本之间保存事实，但是必须手动启用此功能。
+为什么这可能有用？
+
+对于具有数千个宿主的超大型基础架构，事实高速缓存可以配置为每晚运行。
+一小组服务器的配置可以全天临时运行或定期运行。
+启用事实缓存后，就不必“命中”所有服务器来引用变量和有关它们的信息。
+
+启用事实高速缓存后，尽管事实上在 `/usr/bin/ansible-playbook` 的当前执行中未与变量进行通讯，但一组中的机器仍可以引用另一组中有关机器的变量。
+要从缓存的事实中受益，您将需要在大多数剧本中将` gathering `设置更改为`smart`或 `explicit`，或将 `collect_facts` 设置为 `False` 。
+
+当前，Ansible附带了两个持久性缓存插件：`redis` 和 `jsonfile` 。
+
+要使用 `redis` 配置事实缓存，请在 `ansible.cfg` 中启用它，如下所示：
+
+```ini
+[defaults]
+gathering = smart
+fact_caching = redis
+fact_caching_timeout = 86400
+# seconds
+```
+要启动和运行 `redis` ，请执行等效的 `OS` 命令：
+
+```bash
+yum install redis
+service redis start
+pip install redis
+```
+请注意， `Python redis` 库应该从 `pip` 安装，EPEL中打包的版本太旧，`Ansible` 无法使用。
+在当前实施例中，此功能处于beta级别状态，并且Redis插件不支持端口或密码配置，预计这将在不久的将来改变。
+
+要使用 `jsonfile` 配置事实缓存，请在 `ansible.cfg` 中启用它，如下所示：
+
+```yml
+[defaults]
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = /path/to/cachedir
+fact_caching_timeout = 86400
+# seconds
+```
+
+`fact_caching_connection` 是可写目录的本地文件系统路径（如果一个都木有，`ansible` 将尝试创建该目录）。
+
+`fact_caching_timeout` 是缓存记录的事实的秒数。
+
+
+
+
+#### 注册变量
+
+变量的另一个主要用途是运行命令并将该命令的结果注册为变量。
+执行任务并将返回值保存在变量中以供以后的任务使用时，你创建了一个注册变量。
+在条件章节中有更多示例。
+
+```yml
+- hosts: web_servers
+
+  tasks:
+
+     - shell: /usr/bin/foo
+       register: foo_result
+       ignore_errors: True
+
+     - shell: /usr/bin/bar
+       when: foo_result.rc == 5
+
+```
+结果因模块而异。
+每个模块的文档都包含一个 `RETURN` 部分，描述该模块的返回值。
+要查看特定任务的值，请使用 `-v` 运行您的剧本。
+已注册的变量与事实相似，但有一些关键区别。
+像事实一样，注册变量是宿主级变量。
+但是，注册变量仅存储在内存中。 
+（可配置的任何缓存插件均受支持。）已注册的变量仅在宿主上对当前剧本运行的其余部分有效。
+最后，注册变量和事实具有不同的优先级。
+在具有循环的任务中注册变量时，注册的变量包含循环中每个项目的值。
+循环期间放置在变量中的数据结构将包含一个 `result` 属性，该属性是来自模块的所有响应的列表。
+有关如何工作的更深入的示例，请参见“将寄存器与循环一起使用”的“循环”部分。
+
+!> 如果任务失败或被跳过，则仍以失败或跳过状态注册变量，避免注册变量的唯一方法是使用标签。
+
+
+#### 访问复杂的变量数据
+
+我们已经在文档中对事实进行了描述。
+提供的某些事实（例如网络信息）可作为嵌套数据结构使用。
+要访问它们，简单的 `{{foo}}` 是不够的，但是仍然很容易做到。
+这是我们获取IP地址的方法：
+
+```yml
+{{ ansible_facts["eth0"]["ipv4"]["address"] }}
+```
+另一种写法
+
+```yml
+{{ ansible_facts.eth0.ipv4.address }}
+```
+同样地，我们访问数组的第一个元素的方式：
+
+```yml
+{{ foo[0] }}
+```
+
+#### 使用魔术变量访问有关其他宿主的信息
+
+不管您是否定义任何变量，都可以使用 `Ansible` 提供的特殊变量访问有关宿主的信息，包括“魔术”变量，事实和连接变量。
+魔术变量名称是保留的-请勿使用这些名称设置变量。
+可变环境也被保留。
+
+最常用的魔术变量是 `hostvars`，`groups` ，`group_names` 和 `inventory_hostname` 。
+
+`hostvars` 使您可以访问其他宿主的变量，包括有关该主机的事实。
+您可以在剧本的任何位置访问宿主变量。
+即使您尚未在该剧本或一组剧本本中的任何剧本中与该宿主建立连接，您仍然可以获取变量，但您看不到事实。
+
+如果您的数据库服务器希望使用来自另一个节点的“事实”值或分配给另一个节点的清单变量，则可以在模板甚至操作行中轻松使用：
+
+```yml
+{{ hostvars['test.example.com']['ansible_facts']['distribution'] }}
+```
+`groups` 是清单中所有组（和宿主）的列表。
+这可用于枚举组中的所有宿主。
+例如：
+
+```jinja2
+{% for host in groups['app_servers'] %}
+   # something that applies to all app servers.
+{% endfor %}
+```
+一个常用的习惯用法是在一个小组中走动，以查找该小组中的所有IP地址。
+
+```jinja2
+{% for host in groups['app_servers'] %}
+   {{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}
+{% endfor %}
+```
+
+您可以使用此惯用法将前端代理服务器指向所有应用程序服务器，在服务器之间设置正确的防火墙规则，等等。
+您需要确保之前已填充了这些宿主的事实，例如如果最近没有缓存事实，则对他们进行对抗操作（事实缓存已在Ansible 1.8中添加）。
+
+
+`group_names` 是当前宿主所在的所有组的列表（数组）。可以使用 `Jinja2` 语法在模板中使用此模板，
+以使模板源文件根据宿主的组成员身份（或角色）而有所不同：
+
+```jinja2
+{% if 'webserver' in group_names %}
+   # some part of a configuration file that only applies to webservers
+{% endif %}
+```
+
+清单宿主名(`inventory_hostname`)是在 `Ansible` 的清单主机文件中配置的主机名。
+如果您禁用了事实收集功能，或者不想依靠发现的宿主名 `ansible_hostname` ，此功能将非常有用。
+如果您有较长的 `FQDN` ，则可以使用 `stock_hostname_short`，它包含直到第一个期间的一部分，而没有域的其余部分。
+其他有用的魔术变量涉及当前的剧本或剧本，包括：
+| 魔术变量  | 描述  |
+| ------------ | ------------ |
+| ansible_play_hosts  | 是当前剧本中仍处于活动状态的所有宿主的完整列表。  |
+| ansible_play_batch  | 可作为宿主名列表使用，这些主机名属于该剧本的当前“批处理”。批次大小由 `serial`  定义，如果未设置，则相当于整个剧本（使其与 `ansible_play_hosts` 相同 ） |
+| ansible_playbook_python  | 是用于调用Ansible命令行工具的 `python` 可执行文件的路径。  |
+| inventory_dir  | 是保存Ansible的库存宿主文件的目录的路径名  |
+| inventory_file  | 指向 Ansible 清单宿主文件的文件名和文件路径 |
+| playbook_dir  | 包含剧本的基本目录  |
+| role_path  | 它将返回当前角色的路径名（从1.8开始）。这仅在角色内部起作用  |
+| ansible_check_mode  | （在版本2.1中添加），这是一个布尔型魔术变量，如果使用 `--check` 运行 `Ansible` ，则会将其设置为 `True`  |
 |   |   |
 |   |   |
 |   |   |
@@ -2039,6 +3037,126 @@ Ansible具有可重复使用内容的两种操作模式：动态和静态。
 |   |   |
 |   |   |
 |   |   |
+
+
+
+#### 在文件中定义变量
+
+将剧本置于源代码控制下是一个好主意，但您可能希望公开该剧本，同时将某些重要变量设为私有的。
+同样，有时您可能只想将某些信息保存在不同的文件中，而不是存放在主剧本上。
+
+您可以使用一个或多个外部变量文件来执行此操作，如下所示：
+
+```yml
+---
+
+- hosts: all
+  remote_user: root
+  vars:
+    favcolor: blue
+  vars_files:
+    - /vars/external_vars.yml
+
+  tasks:
+
+  - name: this is just a placeholder
+    command: /bin/echo foo
+```
+
+这样就消除了与他人共享您的剧本源时与他人共享敏感数据的风险。
+
+每个变量文件的内容都是一个简单的YAML字典，如下所示：
+
+```yml
+---
+# in the above example, this would be vars/external_vars.yml
+somevar: somevalue
+password: magic
+```
+
+> 也可以将每个宿主和每个组的变量保存在非常相似的文件中，这在组织主机和组的变量中有介绍。
+
+
+
+
+
+
+#### 在命令行上传递变量
+
+除了 `vars_prompt` 和 `vars_files` 外，还可以在命令行中使用 `--extra-vars` （或 `-e` ）参数设置变量。
+可以使用单引号字符串（包含一个或多个变量）使用以下格式之一定义变量:
+
+键=值格式：
+
+```bash
+ansible-playbook release.yml --extra-vars "version=1.23.45 other_variable=foo"
+```
+
+> 使用 `key=value` 语法传递的值将解释为字符串。
+> 如果您需要传递不应该是字符串的任何内容（布尔值，整数，浮点数，列表等），请使用 `JSON` 格式。
+
+`JSON` 字符串格式：
+
+```bash
+ansible-playbook release.yml --extra-vars '{"version":"1.23.45","other_variable":"foo"}'
+ansible-playbook arcade.yml --extra-vars '{"pacman":"mrs","ghosts":["inky","pinky","clyde","sue"]}'
+```
+
+`JSON` 或 `YAML` 文件中的变量：
+
+```bash
+ansible-playbook release.yml --extra-vars "@some_file.json"
+```
+
+除其他事项外，这对于设置宿主组或剧本用户非常有用。
+对引号和其他特殊字符进行转义：请确保您对标记（例如 `JSON` ）和您在其中运行的 `Shell` 都适当地对引号进行了转义：
+
+```bash
+ansible-playbook arcade.yml --extra-vars "{\"name\":\"Conan O\'Brien\"}"
+ansible-playbook arcade.yml --extra-vars '{"name":"Conan O'\\\''Brien"}'
+ansible-playbook script.yml --extra-vars "{\"dialog\":\"He said \\\"I just can\'t get enough of those single and double-quotes"\!"\\\"\"}"
+```
+在这种情况下，最好使用包含变量定义的 `JSON` 或 `YAML` 文件
+
+
+#### 变量优先级：我应该在哪里放置变量？
+
+很多人可能会问变量如何覆盖另一个变量。
+归根结底，这是Ansible的理念，那就是更好地知道在哪里放置变量，然后您不必再多考虑了。
+避免在47个地方定义变量“ x”，然后问“使用x的问题”。
+为什么？
+因为那不是Ansible的禅宗哲学。
+只有一幢帝国大厦。一个蒙娜丽莎（Mona Lisa）等人。找出要在哪里定义变量，不要太复杂。
+
+但是，让我们继续前进，抢占先机！
+它就在那里，您可能会用到它。
+
+这是从最小到最大的优先顺序（最后列出的变量赢得优先顺序）：
+
+| 变量位置  | 排序  |
+| ------------ | ------------ |
+| 命令行值（"-u user"）  | 1  |
+| 角色默认  | 2  |
+| 清单文件或脚本组变量  | 3  |
+| 清单组变量/所有变量  | 4  |
+| 剧本组变量/所有变量  | 5  |
+| 清单组变量下的所有  | 6  |
+| 剧本组变量下的所有  | 7  |
+| 清单文件或脚本宿主变量  | 8  |
+| 清单宿主变量  | 9  |
+| 剧本宿主变量  | 10  |
+| 宿主事实/缓存设置的事实  | 11  |
+| 剧变量  | 12  |
+| 剧提示变量  | 13  |
+| 剧变量文件  | 14  |
+| 角色变量（位于 `role/vars/main.yml`）  | 15  |
+| 块变量（块中的任务）  | 16  |
+| 任务变量（仅对于任务）  | 17  |
+| 包含变量  | 18  |
+| 设置的事实/注册变量  | 19  |
+| 角色（和include_role）参数  | 20  |
+| 包含参数  | 21  |
+| 额外的变量（始终优先）  | 22  |
 |   |   |
 |   |   |
 |   |   |
@@ -2047,5 +3165,18 @@ Ansible具有可重复使用内容的两种操作模式：动态和静态。
 |   |   |
 |   |   |
 |   |   |
+
+
+基本上，任何涉及“角色默认值”（角色内的默认值文件夹）的东西都是最易延展的，并且很容易被覆盖。
+角色的 `vars` 目录中的所有内容都会覆盖名称空间中该变量的先前版本。
+这里要遵循的想法是，范围越明确，使用命令行的优先级就越高 `-e` 总是赢得额外的` var` 。
+主机变量或清单变量可以取代角色默认值，但不能像 `vars` 目录或 `include_vars` 任务那样显式包含。
+
+
+
+##### 作用域变量
+##### 在哪里设置一个变量
+#### 使用高级变量语法 
+
 
 
