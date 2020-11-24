@@ -16,13 +16,13 @@
 
 解释：
 受控节点指的是：☞您使用 `Ansible` 管理的网络设备（或服务器）。
-受控节点有时也称为“宿主”。受控节点上没有安装 `Ansible`。
+受控节点有时也称为“宿主机”。受控节点上没有安装 `Ansible`。
 
 
 - (Inventory) 清单文件
 
 清单文件指的是：☞受控节点的列表。
-清单文件有时也称为“宿主文件”。
+清单文件有时也称为“宿主机文件”。
 您的清单可以为每个受管节点指定信息，例如 `IP` 地址。
 清单还可以组织受控节点，创建和嵌套组以便于扩展。
 
@@ -46,14 +46,14 @@
 
 ## 如何构建自定义的清单文件
 
- `Ansible` 使用称为清单的清单或清单组，同时针对基础架构中的多个受控节点或“宿主”进行工作。
-定义清单后，您可以使用模式来选择要与 `Ansible` 一起运行的宿主或组。
+ `Ansible` 使用称为清单的清单或清单组，同时针对基础架构中的多个受控节点或“宿主机”进行工作。
+定义清单后，您可以使用模式来选择要与 `Ansible` 一起运行的宿主机或组。
 
 清单默认位置是一个名为 `/etc/ansible/hosts` 的文件。
 您可以使用 `-i` 选项在命令行中指定其他清单文件。
 您还可以同时使用多个清单文件， 或从动态或云资源或不同格式（ `YAML`，`ini` 等）中提取清单，
 
-### 清单基础：格式，宿主和组
+### 清单基础：格式，宿主机和组
 
 清单文件可以采用多种格式中任意一种，具体取决于您拥有的清单插件。
 最常见的格式是 `INI` 和 `YAML` 。
@@ -72,7 +72,7 @@ two.example.com
 three.example.com
 ```
 
-括号中的标题是组名，用于对宿主进行分类并确定您在什么时候、什么目的 、控制什么主机。
+括号中的标题是组名，用于对宿主机进行分类并确定您在什么时候、什么目的 、控制什么主机。
 
 下面是基于 YAML 格式的清单文件：
 
@@ -96,14 +96,14 @@ all:
 ### 默认组
 
 有两个默认组：全部(`all`)和未分组(`ungrouped`)。
-全部组包含每个宿主。
-未分组的组包含除所有宿主之外没有其他组的所有主机。
-每个宿主将始终至少属于2个组（全部和未分组或全部和某些其他组）。
+全部组包含每个宿主机。
+未分组的组包含除所有宿主机之外没有其他组的所有主机。
+每个宿主机将始终至少属于2个组（全部和未分组或全部和某些其他组）。
 尽管 `all` 和 `ungrouped` 始终存在，但它们可以是隐式的，不会出现在 `group` 列表之类的 `group_names` 中。
 
-### 多个组中的宿主
+### 多个组中的宿主机
 
-您可以（可能会）将每个宿主分成多个组。
+您可以（可能会）将每个宿主机分成多个组。
 例如，亚特兰大数据中心中的生产 `Web` 服务器可能包含在名为 `[prod]` 和 `[atlanta]` 和 `[webservers]` 的组中。
 您可以创建跟踪以下内容的组：
 
@@ -181,9 +181,9 @@ all:
       children:
         west:
 ```
-### 添加宿主范围
+### 添加宿主机范围
 
-如果您有很多具有相似模式的宿主，则可以将它们添加为一个范围，而不必分别列出每个主机名：在 `INI` 中：
+如果您有很多具有相似模式的宿主机，则可以将它们添加为一个范围，而不必分别列出每个主机名：在 `INI` 中：
 
 ```ini
 [webservers]
@@ -200,14 +200,14 @@ db-[a:f].example.com
 
 ### 向清单文件添加变量
 
-您可以存储与清单中特定宿主或组相关的变量值。
-首先，您可以将变量直接添加到主清单文件中的宿主和组。
-但是，随着将越来越多的受控节点添加到 `Ansible` 清单文件中，您可能希望将变量存储在单独的宿主和组变量文件中.
+您可以存储与清单中特定宿主机或组相关的变量值。
+首先，您可以将变量直接添加到主清单文件中的宿主机和组。
+但是，随着将越来越多的受控节点添加到 `Ansible` 清单文件中，您可能希望将变量存储在单独的宿主机和组变量文件中.
 
-#### 将变量分配给一台计算机：宿主变量
+#### 将变量分配给一台计算机：宿主机变量
 
 
-您可以轻松地将变量分配给单个宿主，然后稍后在剧本中使用它。
+您可以轻松地将变量分配给单个宿主机，然后稍后在剧本中使用它。
 在 `INI` 中：
 ```ini
 [atlanta]
@@ -227,13 +227,13 @@ atlanta:
     maxRequestsPerChild: 909
 
 ```
-诸如非标准 `SSH` 端口之类的唯一值可以很好地用作宿主变量。
-您可以通过在宿主名后加冒号的端口号将它们添加到 `Ansible` 清单中：
+诸如非标准 `SSH` 端口之类的唯一值可以很好地用作宿主机变量。
+您可以通过在宿主机名后加冒号的端口号将它们添加到 `Ansible` 清单中：
 
 ```ini
 badwolf.example.com:5309
 ```
-连接变量也可以用作宿主变量：
+连接变量也可以用作宿主机变量：
 
 ```ini
 [targets]
@@ -266,19 +266,19 @@ jumper ansible_port=5555 ansible_host=192.0.2.50
       ansible_host: 192.0.2.50
 
 ```
- 在上面的示例中，对宿主别名“ jumper”运行 `Ansible` 将连接到 `192.0.2.50` 上的 `5555` 端口 。这仅适用于具有静态 `IP` 的主机，
+ 在上面的示例中，对宿主机别名“ jumper”运行 `Ansible` 将连接到 `192.0.2.50` 上的 `5555` 端口 。这仅适用于具有静态 `IP` 的主机，
 或者通过隧道连接时。
 
 !> 
 - 使用 `key=value` 语法以`INI` 格式传递的值根据声明位置的不同而具有不同地解释：
 
-- 当与宿主内联声明时，`INI` 值将解释为 `Python` 字面量结构（字符串，数字，元组，列表，字典，布尔值，空）。
-宿主行每行接受多个 `key=value` 参数。
+- 当与宿主机内联声明时，`INI` 值将解释为 `Python` 字面量结构（字符串，数字，元组，列表，字典，布尔值，空）。
+宿主机行每行接受多个 `key=value` 参数。
 因此，他们需要一种方法来指示空格是值的一部分而不是分隔符。
 
 - 在 `:vars` 节中声明时，`INI` 值将解释为字符串。
 例如，`var=FALSE` 将创建一个等于 "FALSE" 的字符串。
-与宿主行不同，`:vars` 节每行仅接受一个条目，因此`=`号之后的所有内容都必须是该条目的值。
+与宿主机行不同，`:vars` 节每行仅接受一个条目，因此`=`号之后的所有内容都必须是该条目的值。
 
 - 如果 `INI` 清单中设置的变量值必须是某种类型（例如，字符串或布尔值），请始终在任务中使用过滤器指定类型。
 使用变量时，请勿依赖 `INI` 清单中设置的类型。
@@ -294,7 +294,7 @@ jumper ansible_port=5555 ansible_host=192.0.2.50
 
 ####  将变量分配给许多计算机：组变量
  
-如果组中的所有宿主共享一个变量值，则可以一次将该变量应用于整个组。
+如果组中的所有宿主机共享一个变量值，则可以一次将该变量应用于整个组。
 在 `INI` 中：
 
 ```ini
@@ -323,9 +323,9 @@ atlanta:
 
 ```
 
-组变量是一次将变量应用于多个宿主的便捷方法。
-但是，在执行之前，`Ansible` 始终将变量（包括清单变量）展平到宿主级别。
-如果宿主是多个组的成员，则 `Ansible` 将从所有这些组中读取变量值。
+组变量是一次将变量应用于多个宿主机的便捷方法。
+但是，在执行之前，`Ansible` 始终将变量（包括清单变量）展平到宿主机级别。
+如果宿主机是多个组的成员，则 `Ansible` 将从所有这些组中读取变量值。
 如果将不同的值分配给不同组中的同一变量，则 `Ansible` 会根据内部规则选择要使用的值进行合并。
 
 #### 继承变量值：组中组的组变量
@@ -390,25 +390,25 @@ all:
 ```
 
 
-如果您需要存储列表或哈希数据，或者希望将宿主和组特定变量与清单文件分开，请参阅组织主机和组变量。
+如果您需要存储列表或哈希数据，或者希望将宿主机和组特定变量与清单文件分开，请参阅组织主机和组变量。
 
 子组有几个要注意的属性：
 
-- 属于子组成员的任何宿主都将自动成为父组成员。
+- 属于子组成员的任何宿主机都将自动成为父组成员。
 - 子组变量将具有更高的优先级（覆盖）父组变量。
 - 组可以有多个父组和子组，但不能有循环关系。
-- 宿主也可以位于多个组中，但是只有一个主机实例，可以合并多个组中的数据
+- 宿主机也可以位于多个组中，但是只有一个主机实例，可以合并多个组中的数据
 
-###  管理宿主和组变量
+###  管理宿主机和组变量
 
-尽管我们可以将变量存储在主清单文件中，但存储单独的宿主变量和组变量文件可以帮助您更轻松地管理变量值。
-- 宿主和组变量文件必须使用 ` YAM ` L语法。
+尽管我们可以将变量存储在主清单文件中，但存储单独的宿主机变量和组变量文件可以帮助您更轻松地管理变量值。
+- 宿主机和组变量文件必须使用 ` YAM ` L语法。
 - 有效的文件扩展名包括` .yml `，` .yaml `，`.json `或 `没有文件扩展名`。
 - 如果您不熟悉 `YAML` ，请参见 `YAML` 语法。 
 
-` Ansible `  通过搜索相对于清单文件或剧本文件的路径来加载宿主和组变量文件。
+` Ansible `  通过搜索相对于清单文件或剧本文件的路径来加载宿主机和组变量文件。
 
-如果位于 `/etc/ansible/hosts` 的清单文件包含名为 `foosball` 的宿主，该主机属于 `raleigh` 和 `webservers` 两个组，则该主机将在YAML文件中使用变量：
+如果位于 `/etc/ansible/hosts` 的清单文件包含名为 `foosball` 的宿主机，该主机属于 `raleigh` 和 `webservers` 两个组，则该主机将在YAML文件中使用变量：
 
 
 ```yml
@@ -417,35 +417,35 @@ all:
 /etc/ansible/host_vars/foosball
 ```
 
-例如，如果按数据中心将清单中的宿主们分组，并且每个数据中心使用其自己的 `NTP` 服务器和数据库服务器，则可以创建一个名为 `/etc/ansible/group_vars/raleigh` 的文件来存储 `raleigh` 组的变量：
+例如，如果按数据中心将清单中的宿主机们分组，并且每个数据中心使用其自己的 `NTP` 服务器和数据库服务器，则可以创建一个名为 `/etc/ansible/group_vars/raleigh` 的文件来存储 `raleigh` 组的变量：
 
 ```yml
 /etc/ansible/group_vars/raleigh/db_settings
 /etc/ansible/group_vars/raleigh/cluster_settings
 ```
 
-`raleigh`  组中的所有宿主都可以使用这些文件中定义的变量。
+`raleigh`  组中的所有宿主机都可以使用这些文件中定义的变量。
 当单个文件太大或要在某些组变量上使用 `Ansible Vault` 时，这对于保持变量的组织性非常有用。
 
 您还可以将 `group_vars/` 和 `host_vars/` 目录添加到您的剧本目录中。
 缺省情况下，`ansible-playbook` 命令在当前工作目录中查找这些目录。
 其他 `Ansible` 命令（例如，`ansible` ，`ansible-console` 等）将仅在清单目录中查找 `group_vars`  /和 `host_vars/` 。
-如果要其他命令从剧本目录加载组和宿主变量，则必须在命令行上提供 `--playbook-dir` 选项。
+如果要其他命令从剧本目录加载组和宿主机变量，则必须在命令行上提供 `--playbook-dir` 选项。
 如果您同时从 `Playbook` 目录和清单目录中加载清单文件，则 `Playbook` 目录中的变量将覆盖在清单目录中设置的变量。
-将清单文件和变量保存在 `git repo` （或其他版本控制工具）中，是跟踪清单和宿主变量的更改的绝佳方法。
+将清单文件和变量保存在 `git repo` （或其他版本控制工具）中，是跟踪清单和宿主机变量的更改的绝佳方法。
 
 
 ### 变量是如何合并的？ 
 
-默认情况下，在运行剧本之前，变量会合并或延展到指定宿主。
-这使得 `Ansible` 可以专注于宿主和任务，因此组无法真正在清单文件和除匹配的主机之外的环境中存活。
-默认情况下，`Ansible` 会覆盖变量，包括为组或宿主定义的变量.
+默认情况下，在运行剧本之前，变量会合并或延展到指定宿主机。
+这使得 `Ansible` 可以专注于宿主机和任务，因此组无法真正在清单文件和除匹配的主机之外的环境中存活。
+默认情况下，`Ansible` 会覆盖变量，包括为组或宿主机定义的变量.
 顺序或优先顺序是（从最低到最高）：
 
 - 所有组（因为它是所有其他组的根）
 - 父级组
 - 子级组
-- 宿主
+- 宿主机
 
 
 默认情况下，`Ansible` 按字母顺序合并处于相同父或子级别的组，最后加载的组将覆盖先前的组。
@@ -488,16 +488,16 @@ ansible-playbook get_logs.yml -i staging -i production
 #### 用目录汇总清单源
 
 您还可以通过组合目录下的多个清单源和来源类型来创建清单文件。
-这对于组合静态和动态宿主并将它们作为一个清单进行管理很有用。
-以下清单结合了清单插件源，动态清单脚本和具有静态宿主的文件：
+这对于组合静态和动态宿主机并将它们作为一个清单进行管理很有用。
+以下清单结合了清单插件源，动态清单脚本和具有静态宿主机的文件：
 
 ```yml
 inventory/
-  openstack.yml          # 配置清单插件以从Openstack Cloud 获取宿主们 
-  dynamic-inventory.py   # 使用动态清单脚本添加其他宿主
-  static-inventory       # 添加静态宿主和组
+  openstack.yml          # 配置清单插件以从Openstack Cloud 获取宿主机们 
+  dynamic-inventory.py   # 使用动态清单脚本添加其他宿主机
+  static-inventory       # 添加静态宿主机和组
   group_vars/
-    all.yml              # 将变量分配给所有宿主
+    all.yml              # 将变量分配给所有宿主机
 ```
 
 您可以像下面这样定位此清单目录：
@@ -512,27 +512,27 @@ ansible-playbook example.yml -i inventory
 ```yml
 
 inventory/
-  01-openstack.yml          # 配置清单插件以从 Openstack Cloud 获取宿主 
-  02-dynamic-inventory.py   # 使用动态清单脚本添加其他宿主
-  03-static-inventory       # 添加静态宿主和组 
+  01-openstack.yml          # 配置清单插件以从 Openstack Cloud 获取宿主机 
+  02-dynamic-inventory.py   # 使用动态清单脚本添加其他宿主机
+  03-static-inventory       # 添加静态宿主机和组 
   group_vars/
-  all.yml                   # 将变量分配给所有宿主
+  all.yml                   # 将变量分配给所有宿主机
 
 
 ```
 
 如果 `01-openstack.yml` 为所有组定义了 `myvar = 1` ，`02-dynamic-inventory.py` 定义 `myvar = 2` ，而 `03-static-inventory` 定义 `myvar = 3` ，则将以 `myvar = 3` 运行该剧本。
 
-### 连接到宿主：行为清单参数
+### 连接到宿主机：行为清单参数
 
-#### 宿主连接：
+#### 宿主机连接：
 
 !> 当使用 `ssh` 连接插件（默认设置）时，`Ansible` 不会公开允许用户和 `ssh` 进程之间通信的通道，以手动接受密码来解密 `ssh` 密钥。
 强烈建议使用 `ssh-agent` 。
 
 - ansible_connection
 
-宿主的连接类型。
+宿主机的连接类型。
 可以是任何 `ansible` 连接插件的名称。 
 SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
 默认为 `smart` 。
@@ -541,20 +541,20 @@ SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
 所有连接的常规参数：
 
 - ansible_host
-- 要连接的宿主名，如果与您要给它提供的别名不同。
+- 要连接的宿主机名，如果与您要给它提供的别名不同。
 - ansible_port
 - 连接端口号（如果不是默认值）（ssh为22）
 - ansible_user
-- 连接到宿主时要使用的用户名
+- 连接到宿主机时要使用的用户名
 - ansible_password
-- 用于验证宿主的密码（切勿以纯文本形式存储此变量；建议使用 vault
+- 用于验证宿主机的密码（切勿以纯文本形式存储此变量；建议使用 vault
 
 特定于SSH连接：
 
 - ansible_ssh_private_key_file
  ssh使用的私钥文件。如果使用多个密钥并且您不想使用 `SSH` 代理，则很有用。
 - ansible_ssh_common_args
- 此设置始终附加到 `sftp` ，`scp` 和 `ssh` 的默认命令行中。为特定宿主（或组）配置 `ProxyCommand` 很有用。
+ 此设置始终附加到 `sftp` ，`scp` 和 `ssh` 的默认命令行中。为特定宿主机（或组）配置 `ProxyCommand` 很有用。
 - ansible_sftp_extra_args
  此设置始终附加在默认的 `sftp` 命令行中。
 - ansible_scp_extra_args
@@ -566,7 +566,7 @@ SSH协议类型为 `smart`，`ssh` 或 `paramiko` 。
 - ansible_ssh_executable 
 此设置将覆盖使用系统 `ssh` 的默认行为。这可以覆盖 `ansible.cfg` 中的 `ssh_executable` 设置。
 
-`Ansible-INI` 宿主文件中的示例：
+`Ansible-INI` 宿主机文件中的示例：
 
 
 ```yml
@@ -582,11 +582,11 @@ ruby_module_host  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
 非SSH连接类型
 
 如上一节所述，`Ansible` 通过 `SSH` 执行剧本，但不限于此连接类型。
-使用宿主特定的参数 `ansible_connection=<connector> ` ，可以更改连接类型。
+使用宿主机特定的参数 `ansible_connection=<connector> ` ，可以更改连接类型。
 以下基于非 `SSH` 的连接器可用：
 
 - local
-该连接器可用于将剧本部署到控制宿主（节点）本身。
+该连接器可用于将剧本部署到控制宿主机（节点）本身。
 - docker
 该连接器使用本地 `Docker` 客户端将剧本直接部署到 `Docker` 容器中。
 此连接器处理以下参数：
@@ -636,7 +636,7 @@ ruby_module_host  ansible_ruby_interpreter=/usr/bin/ruby.1.9.3
 
 示例：每个环境一个清单
 
-如果您需要管理多个环境，有时明智的做法是每个清单文件只定义一个环境的宿主。
+如果您需要管理多个环境，有时明智的做法是每个清单文件只定义一个环境的宿主机。
 这样，例如，当您实际要更新某些预发布环境的服务器时，很难意外地更改测试环境中节点的状态。
 例如：你可以编写一个 `inventory_test ` 文件
 
@@ -652,7 +652,7 @@ app02.test.example.com
 app03.test.example.com
 
 ```
-该文件仅包含属于测试环境的宿主。
+该文件仅包含属于测试环境的宿主机。
 
 当然，你可以在另一个文件中定义预发布环境的配置，例如，编写一个 `inventory_staging` 文件：
 
@@ -676,7 +676,7 @@ ansible-playbook -i inventory_test site.yml -l appservers
 
 示例：按功能分组
 
-在上一节中，您已经看到了使用组对具有相同功能的宿主进行集群配置的示例。
+在上一节中，您已经看到了使用组对具有相同功能的宿主机进行集群配置的示例。
 例如，这使您可以在剧本或角色中定义防火墙规则，而不会影响数据库服务器：
 
 ```yml
@@ -694,7 +694,7 @@ ansible-playbook -i inventory_test site.yml -l appservers
 示例：按位置分组
 
 
-其他任务可能集中在某个宿主所在的位置。
+其他任务可能集中在某个宿主机所在的位置。
 假设 `db01.test.example.com` 和 `app01.test.example.com` 位于 `DC1` 中，而 `db02.test.example.com` 位于 `DC2` 中：
 
 ```ini
@@ -754,7 +754,7 @@ $ ansible atlanta -a "/sbin/reboot"
 ```
 
 默认情况下，`Ansible` 仅使用5个并发进程。
-如果您拥有的宿主数量超过为派生计数设置的值，则 `Ansible` 会与它们对话，但是会花费更长的时间。
+如果您拥有的宿主机数量超过为派生计数设置的值，则 `Ansible` 会与它们对话，但是会花费更长的时间。
 要使用10个并行分支重新启动 `[atlanta]` 服务器，请执行以下操作：
 
 ```bash
@@ -905,7 +905,7 @@ $ ansible all -m setup
 
 ### ansible
 
-针对一组宿主定义并运行单个任务“剧本”
+针对一组宿主机定义并运行单个任务“剧本”
 
 大纲:
 
@@ -929,7 +929,7 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 #### ansible 的描述： 
 
 是用于执行“远程操作”的超简单工具/框架/ API。
-此命令允许您针对一组宿主定义和运行单个任务“剧本”
+此命令允许您针对一组宿主机定义和运行单个任务“剧本”
 
 #### 公共参数：
 
@@ -938,7 +938,7 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 | --ask-vault-pass  | 要求提供保险库密码  |
 | --become-method <BECOME_METHOD>  | 要使用的特权升级方法(default=%(default)s)，请使用 `ansible-doc -t` 成为 `-l `列出有效的选择。  |
 | --become-user <BECOME_USER>  | 以该用户身份运行操作（默认= root）  |
-| --list-hosts  | 输出匹配宿主列表；不执行其他任何操作  |
+| --list-hosts  | 输出匹配宿主机列表；不执行其他任何操作  |
 | --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能设置相对路径，包括 `role/group_vars/` 等。  |
 | --private-key <PRIVATE_KEY_FILE>, --key-file <PRIVATE_KEY_FILE>  | 使用此文件来验证连接  |
 | --scp-extra-args <SCP_EXTRA_ARGS>  | 指定额外的参数以仅传递给 `scp`（例如 `-l` ）  |
@@ -961,9 +961,9 @@ usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
 | -e, --extra-vars  | 如果文件名以 `@` 开头，则将其他变量设置为 `key= alue `或 `YAML/JSON`  |
 | -f <FORKS>, --forks <FORKS>   |  指定要使用的并行进程数（默认= 5）   |
 | -h, --help  |  显示此帮助消息并退出   |
-| -i, --inventory, --inventory-file   |  指定清单宿主路径或逗号分隔的主机列表。 –不推荐使用清单文件   |
+| -i, --inventory, --inventory-file   |  指定清单宿主机路径或逗号分隔的主机列表。 –不推荐使用清单文件   |
 | -k, --ask-pass   |  询问连接密码   |
-| -l <SUBSET>, --limit <SUBSET>  |  将所选宿主进一步限制为其他模式   |
+| -l <SUBSET>, --limit <SUBSET>  |  将所选宿主机进一步限制为其他模式   |
 | -m <MODULE_NAME>, --module-name <MODULE_NAME>  |  要执行的模块名称（默认=命令）   |
 | -o, --one-line   | 浓缩输出  |
 | -t <TREE>, --tree <TREE>   |  日志输出到该目录   |
@@ -1259,8 +1259,8 @@ usage: ansible-inventory [-h] [--version] [-v] [-i INVENTORY]
 | --ask-vault-pass  | 要求提供保险库密码  |
 | --export  | 执行 `–list` 时，以针对导出进行优化的方式呈现，而不是Ansible处理方式的准确表示  |
 | --graph  | 创建清单图，如果提供模式，则必须是有效的组名  |
-| --host <HOST>  | 输出指定的宿主信息，用作清单脚本  |
-| --list  | 输出特定的宿主信息，用作清单脚本  |
+| --host <HOST>  | 输出指定的宿主机信息，用作清单脚本  |
+| --list  | 输出特定的宿主机信息，用作清单脚本  |
 | --list-hosts  |   |
 | --output <OUTPUT_FILE>  | 执行`–list` 时，将清单发送到文件而不是发送到屏幕  |
 | --playbook-dir <BASEDIR>  | 由于此工具不使用剧本，因此可以将其用作替代剧本目录，从而为许多功能（包括 `role/group_vars/` 等）设置相对路径。  |
@@ -1270,7 +1270,7 @@ usage: ansible-inventory [-h] [--version] [-v] [-i INVENTORY]
 | --vault-password-file  | 保险库密码文件  |
 | --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置然后退出  |
 |  -h, --help  | 显示此帮助消息并退出   |
-| -i, --inventory, --inventory-file  | 指定清单宿主路径或逗号分隔的主机列表。–不推荐使用 --inventory-file |
+| -i, --inventory, --inventory-file  | 指定清单宿主机路径或逗号分隔的主机列表。–不推荐使用 --inventory-file |
 | -v, --verbose  | 详细模式（ `-vvv` 用于查看更多，`-vvvv` 用于启用连接调试）  |
 | -y, --yaml  | 使用 `YAML` 格式而不是默认 `JSON` ，对于 `–graph` 会被忽略  |
 |   |   |
@@ -1313,9 +1313,9 @@ usage: ansible-playbook [-h] [--version] [-v] [-k]
 | --ask-vault-pass  | 要求提供保险库密码  |
 | --become-method <BECOME_METHOD>  | 要使用的特权升级方法 `(default=%(default)s)` ，请使用 `ansible-doc -t become -l` 列出有效的选择。  |
 | --become-user <BECOME_USER>  | 以该用户身份运行操作（默认= root）  |
-| --flush-cache  | 清除清单中每个宿主的事实缓存  |
+| --flush-cache  | 清除清单中每个宿主机的事实缓存  |
 | --force-handlers  | 即使任务失败也运行处理程序  |
-| --list-hosts  | 输出匹配宿主列表 .不执行其他任何操作  |
+| --list-hosts  | 输出匹配宿主机列表 .不执行其他任何操作  |
 | --list-tags  | 列出所有可用标签  |
 | --list-tasks  | 列出将要执行的所有任务  |
 | --private-key <PRIVATE_KEY_FILE>, --key-file <PRIVATE_KEY_FILE>   | 使用此文件来验证连接  |
@@ -1340,9 +1340,9 @@ usage: ansible-playbook [-h] [--version] [-v] [-k]
 | -e, --extra-vars  | 如果文件名以@开头，则将其他变量设置为key=value或YAML/JSON  |
 | -f <FORKS>, --forks <FORKS>  | 指定要使用的并行进程数（默认= 5）  |
 | -h, --help  | 显示此帮助消息并退出  |
-| -i, --inventory, --inventory-file  | 指定清单宿主路径或逗号分隔的主机列表。 –不推荐使用 --inventory-file  |
+| -i, --inventory, --inventory-file  | 指定清单宿主机路径或逗号分隔的主机列表。 –不推荐使用 --inventory-file  |
 | -k, --ask-pass  | 询问连接密码  |
-| -l <SUBSET>, --limit <SUBSET>  | 将所选宿主进一步限制为其他模式  |
+| -l <SUBSET>, --limit <SUBSET>  | 将所选宿主机进一步限制为其他模式  |
 | -t, --tags  | 只运行带有这些值标记的剧本和任务  |
 | -u <REMOTE_USER>, --user <REMOTE_USER>  | 以该用户身份连接（默认=无）  |
 | -v, --verbose  | 详细模式（-vvv用于更多，-vvvv用于启用连接调试）  |
@@ -1482,10 +1482,10 @@ usage: ansible-vault [-h] [--version] [-v]
 剧本是 `Ansible` 的配置，部署和编排语言。
 它们可以描述您希望远程系统执行的策略，或一般 `IT` 流程中的一组步骤。
 
-如果 `Ansible` 模块是您工作站中的工具，则剧本是您的说明手册，宿主清单是您的原材料。
+如果 `Ansible` 模块是您工作站中的工具，则剧本是您的说明手册，宿主机清单是您的原材料。
 
 从根上讲，剧本可用于管理远程服务器的配置和部署。
-从更高的角度上来说，他们可以对涉及滚动更新的多层部署进行排序，并可以将操作委派给其他宿主，并与监视服务器和负载平衡器进行交互。
+从更高的角度上来说，他们可以对涉及滚动更新的多层部署进行排序，并可以将操作委派给其他宿主机，并与监视服务器和负载平衡器进行交互。
 
 
 尽管这里有很多信息，但无需一次学习所有内容。
@@ -1510,16 +1510,16 @@ usage: ansible-vault [-h] [--version] [-v]
 
 
 每个剧本由一个列表中的一个或多个“剧本”组成。
-剧本的目的是将一组宿主映射到一些定义明确的角色，这些角色以无障碍调用任务为代表。
+剧本的目的是将一组宿主机映射到一些定义明确的角色，这些角色以无障碍调用任务为代表。
 从根本上讲，任务不过是对 `ansible` 模块的调用。
 
-通过编写包含多个 ”戏” 的剧本，可以编排多机部署，在 `webservers` 组中的所有计算机上运行某些步骤，然后在数据库服务器组中运行某些步骤，然后在 `webservers` 组中返回更多命令，等等。 
+通过编写包含多个 ”戏剧” 的剧本，可以编排多机部署，在 `webservers` 组中的所有计算机上运行某些步骤，然后在数据库服务器组中运行某些步骤，然后在 `webservers` 组中返回更多命令，等等。 
 。
-“戏”或多或少是体育类比。
+“戏剧”或多或少是体育类比。
 您可能会遇到很多影响系统做不同事情的事情。
-好像您不是在定义一种特定的状态或模型，而是可以在不同的时间进行不同的戏。
+好像您不是在定义一种特定的状态或模型，而是可以在不同的时间进行不同的戏剧。
 
-首先，这是一本剧本，`verify-apache.yml` ，其中仅包含一部剧本：
+首先，这是一本剧本，`verify-apache.yml` ，其中仅包含一部戏剧：
 
 ```yml
 ---
@@ -1550,7 +1550,7 @@ usage: ansible-vault [-h] [--version] [-v]
         state: restarted
 ```
 
-剧本可以包含多个戏。
+剧本可以包含多个戏剧。
 您可能有一本首先针对 `Web` 服务器，然后针对数据库服务器的剧本。
 例如：
 
@@ -1584,19 +1584,19 @@ usage: ansible-vault [-h] [--version] [-v]
       state: started
 
 ```
-您可以使用此方法在您要定位的宿主组，登录到远程服务器的用户名，是否使用sudo等之间切换。
-像任务一样，戏按照剧本中指定的顺序运行：从上到下。
+您可以使用此方法在您要定位的宿主机组，登录到远程服务器的用户名，是否使用sudo等之间切换。
+像任务一样，戏剧按照剧本中指定的顺序运行：从上到下。
 
 
 下面，我们将详细介绍剧本语言的各种功能。
 
 ### 基础
 
-#### 宿主和用户
+#### 宿主机和用户
 
-对于剧本中的每场戏，您都可以选择基础结构中要定位的计算机以及要完成这些步骤（称为任务）的远程用户。
+对于剧本中的每场戏剧，您都可以选择基础结构中要定位的计算机以及要完成这些步骤（称为任务）的远程用户。
 
-宿主行是一个或多个组或主机模式的列表，用冒号分隔
+宿主机行是一个或多个组或主机模式的列表，用冒号分隔
 `remote_user` 只是用户帐户的名称：
 
 ```yml
@@ -1627,7 +1627,7 @@ usage: ansible-vault [-h] [--version] [-v]
   remote_user: yourname
   become: yes
 ```
-在特定任务上而不是整场戏中,你可以使用关键字 `become`：
+在特定任务上而不是整场戏剧中,你可以使用关键字 `become`：
 
 ```yml
 ---
@@ -1664,7 +1664,7 @@ usage: ansible-vault [-h] [--version] [-v]
 
 
 如果您需要为 `sudo` 指定密码，请使用 `--ask-become-pass` 或 `-K` 运行 `ansible-playbook` 。
-如果您使用 `become` 来跑这场戏而该剧本似乎挂起了，则它可能停留在特权升级提示下，并且可以使用 `Control-C` 停止，从而允许您添加适当的密码来重新执行该剧本
+如果您使用 `become` 来跑这场戏剧而该剧本似乎挂起了，则它可能停留在特权升级提示下，并且可以使用 `Control-C` 停止，从而允许您添加适当的密码来重新执行该剧本
 
 !> 将 `root_user` 用作 `root` 以外的用户时，模块参数将简短地写入`/tmp` 中的随机临时文件中。
 这些命令执行后立即删除。
@@ -1674,7 +1674,7 @@ usage: ansible-vault [-h] [--version] [-v]
 `Ansible` 还注意不要记录密码参数。
 
 
-您还可以控制宿主的运行顺序。
+您还可以控制宿主机的运行顺序。
 默认值是遵循清单提供的顺序：
 
 ```yml
@@ -1693,16 +1693,16 @@ usage: ansible-vault [-h] [--version] [-v]
 | ------------ | ------------ |
 | inventory  | 默认值。顺序为是“以清单为准”  |
 | reverse_inventory  | 显然，这是上面排序的逆排序法 |
-| sorted  | 宿主按名称的字母顺序排列  |
+| sorted  | 宿主机按名称的字母顺序排列  |
 | reverse_sorted  | 显然，这是上面排序的逆排序法  |
 | shuffle  | 每次运行都会进行乱序处理  |
 
 
 #### 任务列表
 
-每个剧本都有一个任务列表。一般情况，他们都是按照顺序执行的，一次一个，在继续执行下一个任务之前，对所有与宿主模式匹配的机器进行测试。
-重要的是要了解，在一出戏中，所有宿主都将获得相同的任务指令。
-戏的目的是将宿主的选择映射到任务。
+每个剧本都有一个任务列表。一般情况，他们都是按照顺序执行的，一次一个，在继续执行下一个任务之前，对所有与宿主机模式匹配的机器进行测试。
+重要的是要了解，在一出戏剧中，所有宿主机都将获得相同的任务指令。
+戏剧的目的是将宿主机的选择映射到任务。
 
 每个任务的目标是执行带有特定参数的模块。
 变量可以在模块的参数中使用。
@@ -1839,8 +1839,8 @@ handlers:
 # this handler name may cause your play to fail!
 - name: restart "{{ web_service_name }}"
 ```
-如果在处理程序名称中使用的变量不可用，则整场戏将失败。
-在戏中更改该变量不会导致新创建处理程序。
+如果在处理程序名称中使用的变量不可用，则整场戏剧将失败。
+在戏剧中更改该变量不会导致新创建处理程序。
 取而代之的是将变量放在处理程序的任务参数中。
 您可以使用 `include_vars` 这样加载值：
 
@@ -1955,7 +1955,7 @@ Task/Handler: ensure apache is at the latest version
 如果您想查看成功模块的详细输出以及失败模块的详细输出，请使用 `--verbose` 标志。
 在Ansible 0.5及更高版本中可用。
 
-要在运行剧本之前查看哪些宿主会受到剧本的影响，可以执行以下操作：
+要在运行剧本之前查看哪些宿主机会受到剧本的影响，可以执行以下操作：
 
 
 ```bash
@@ -1998,7 +1998,7 @@ Ansible具有可重复使用内容的两种操作模式：动态和静态。
 - 对于静态导入，父任务选项将复制其所包含的内容到所有子任务。
 
 !> 角色是一种特殊情况。
-在Ansible 2.3之前，角色总是通过特殊角色静态包含在角色中：给定基本的选项，并且总是在执行任何其他播放任务之前首先执行（除非使用 `pre_tasks`）。
+在Ansible 2.3之前，角色总是通过特殊角色静态包含在角色中：给定基本的选项，并且总是在执行任何其他戏剧任务之前首先执行（除非使用 `pre_tasks`）。
 仍然可以通过这种方式使用角色，但是，Ansible 2.3引入了 `include_role` 选项，以允许与其他任务一起内联执行角色
 
 
@@ -2018,7 +2018,7 @@ Ansible具有可重复使用内容的两种操作模式：动态和静态。
 与动态包含相比，使用 `import *` 也可能有一些限制：
 
 - 如上所述，循环根本不能与导入一起使用。
-- 将变量用作目标文件或角色名称时，无法使用清单资源（宿主/组变量等）中的变量。
+- 将变量用作目标文件或角色名称时，无法使用清单资源（宿主机/组变量等）中的变量。
 - 使用 `import *` 的处理程序通过名称通知时不会触发，因为导入会使用导入的任务列表覆盖处理程序的命名任务。
 
 !> 关于将通知用于动态任务：仍然可以触发动态包含本身，这将导致包含中的所有任务都运行。
@@ -2169,7 +2169,7 @@ foo.field1
 
 #### 在清单文件中定义变量
 
-通常，您需要为清单中的单个宿主或一组主机设置变量。
+通常，您需要为清单中的单个宿主机或一组主机设置变量。
 例如，波士顿的计算机可能都使用“ boston.ntp.example.com”作为NTP服务器。 
 
 
@@ -2207,8 +2207,8 @@ template:
 ```
 在这里，变量定义文件的位置，文件的位置可能因一个系统而异。
 
-在模板内部，您可以自动访问宿主范围内的所有变量。
-实际上，不仅如此，您还可以读取有关其他宿主的变量。
+在模板内部，您可以自动访问宿主机范围内的所有变量。
+实际上，不仅如此，您还可以读取有关其他宿主机的变量。
 我们将稍后展示如何做到这一点。
 
 !> `ansible` 允许在模板中使用 `Jinja2` 循环和条件，但在剧本中，我们不使用它们。 
@@ -2250,7 +2250,7 @@ YAML语法要求，如果您使用 `{{foo}}` 开头的值，请用引号将整�
 事实是通过与远程系统对话而获得的信息。
 您可以在 `ansible_facts` 变量下找到一个完整的集合，大多数事实也作为保留 `ansible_` 前缀的顶级变量而被“注入”，但由于冲突而被丢弃。
 可以通过 [`INJECT_FACTS_AS_VARS`](https://docs.ansible.com/ansible/2.9/reference_appendices/config.html#inject-facts-as-vars) 设置禁用。
-例如，远程宿主的IP地址或操作系统是什么。
+例如，远程宿主机的IP地址或操作系统是什么。
 若要查看可用的信息，请在剧本中尝试以下操作：
 
 ```yml
@@ -2731,18 +2731,18 @@ ansible hostname -m setup
 
 ```
 
-同样，系统报告的宿主名是：
+同样，系统报告的宿主机名是：
 
 ```yml
 {{ ansible_facts['nodename'] }}
 ```
 事实常用于条件语句（请参阅条件语句）和模板中。
-事实还可用于创建符合特定条件的宿主的动态组
+事实还可用于创建符合特定条件的宿主机的动态组
 
 
 ##### 禁用的事实
 
-如果您知道不需要宿主的任何事实数据，并且集中了解系统的所有信息，则可以关闭事实收集。
+如果您知道不需要宿主机的任何事实数据，并且集中了解系统的所有信息，则可以关闭事实收集。
 主要在大量系统上，或者在实验平台上使用Ansible时，这在按推送模式扩展Ansible方面具有优势。
 在任何剧本中，只需执行以下操作：
 
@@ -2861,7 +2861,7 @@ ansible <hostname> -m setup -a "filter=ansible_local"
 为避免这种情况，Ansible 1.8允许在两次运行剧本之间保存事实，但是必须手动启用此功能。
 为什么这可能有用？
 
-对于具有数千个宿主的超大型基础架构，事实高速缓存可以配置为每晚运行。
+对于具有数千个宿主机的超大型基础架构，事实高速缓存可以配置为每晚运行。
 一小组服务器的配置可以全天临时运行或定期运行。
 启用事实缓存后，就不必“命中”所有服务器来引用变量和有关它们的信息。
 
@@ -2930,9 +2930,9 @@ fact_caching_timeout = 86400
 每个模块的文档都包含一个 `RETURN` 部分，描述该模块的返回值。
 要查看特定任务的值，请使用 `-v` 运行您的剧本。
 已注册的变量与事实相似，但有一些关键区别。
-像事实一样，注册变量是宿主级变量。
+像事实一样，注册变量是宿主机级变量。
 但是，注册变量仅存储在内存中。 
-（可配置的任何缓存插件均受支持。）已注册的变量仅在宿主上对当前剧本运行的其余部分有效。
+（可配置的任何缓存插件均受支持。）已注册的变量仅在宿主机上对当前剧本运行的其余部分有效。
 最后，注册变量和事实具有不同的优先级。
 在具有循环的任务中注册变量时，注册的变量包含循环中每个项目的值。
 循环期间放置在变量中的数据结构将包含一个 `result` 属性，该属性是来自模块的所有响应的列表。
@@ -2962,25 +2962,25 @@ fact_caching_timeout = 86400
 {{ foo[0] }}
 ```
 
-#### 使用魔术变量访问有关其他宿主的信息
+#### 使用魔术变量访问有关其他宿主机的信息
 
-不管您是否定义任何变量，都可以使用 `Ansible` 提供的特殊变量访问有关宿主的信息，包括“魔术”变量，事实和连接变量。
+不管您是否定义任何变量，都可以使用 `Ansible` 提供的特殊变量访问有关宿主机的信息，包括“魔术”变量，事实和连接变量。
 魔术变量名称是保留的-请勿使用这些名称设置变量。
 可变环境也被保留。
 
 最常用的魔术变量是 `hostvars`，`groups` ，`group_names` 和 `inventory_hostname` 。
 
-`hostvars` 使您可以访问其他宿主的变量，包括有关该主机的事实。
-您可以在剧本的任何位置访问宿主变量。
-即使您尚未在该剧本或一组剧本本中的任何剧本中与该宿主建立连接，您仍然可以获取变量，但您看不到事实。
+`hostvars` 使您可以访问其他宿主机的变量，包括有关该主机的事实。
+您可以在剧本的任何位置访问宿主机变量。
+即使您尚未在该剧本或一组剧本本中的任何剧本中与该宿主机建立连接，您仍然可以获取变量，但您看不到事实。
 
 如果您的数据库服务器希望使用来自另一个节点的“事实”值或分配给另一个节点的清单变量，则可以在模板甚至操作行中轻松使用：
 
 ```yml
 {{ hostvars['test.example.com']['ansible_facts']['distribution'] }}
 ```
-`groups` 是清单中所有组（和宿主）的列表。
-这可用于枚举组中的所有宿主。
+`groups` 是清单中所有组（和宿主机）的列表。
+这可用于枚举组中的所有宿主机。
 例如：
 
 ```jinja2
@@ -2997,11 +2997,11 @@ fact_caching_timeout = 86400
 ```
 
 您可以使用此惯用法将前端代理服务器指向所有应用程序服务器，在服务器之间设置正确的防火墙规则，等等。
-您需要确保之前已填充了这些宿主的事实，例如如果最近没有缓存事实，则对他们进行对抗操作（事实缓存已在Ansible 1.8中添加）。
+您需要确保之前已填充了这些宿主机的事实，例如如果最近没有缓存事实，则对他们进行对抗操作（事实缓存已在Ansible 1.8中添加）。
 
 
-`group_names` 是当前宿主所在的所有组的列表（数组）。可以使用 `Jinja2` 语法在模板中使用此模板，
-以使模板源文件根据宿主的组成员身份（或角色）而有所不同：
+`group_names` 是当前宿主机所在的所有组的列表（数组）。可以使用 `Jinja2` 语法在模板中使用此模板，
+以使模板源文件根据宿主机的组成员身份（或角色）而有所不同：
 
 ```jinja2
 {% if 'webserver' in group_names %}
@@ -3009,17 +3009,18 @@ fact_caching_timeout = 86400
 {% endif %}
 ```
 
-清单宿主名(`inventory_hostname`)是在 `Ansible` 的清单主机文件中配置的主机名。
-如果您禁用了事实收集功能，或者不想依靠发现的宿主名 `ansible_hostname` ，此功能将非常有用。
+清单宿主机名(`inventory_hostname`)是在 `Ansible` 的清单主机文件中配置的主机名。
+如果您禁用了事实收集功能，或者不想依靠发现的宿主机名 `ansible_hostname` ，此功能将非常有用。
 如果您有较长的 `FQDN` ，则可以使用 `stock_hostname_short`，它包含直到第一个期间的一部分，而没有域的其余部分。
 其他有用的魔术变量涉及当前的剧本或剧本，包括：
+
 | 魔术变量  | 描述  |
 | ------------ | ------------ |
-| ansible_play_hosts  | 是当前剧本中仍处于活动状态的所有宿主的完整列表。  |
-| ansible_play_batch  | 可作为宿主名列表使用，这些主机名属于该剧本的当前“批处理”。批次大小由 `serial`  定义，如果未设置，则相当于整个剧本（使其与 `ansible_play_hosts` 相同 ） |
+| ansible_play_hosts  | 是当前剧本中仍处于活动状态的所有宿主机的完整列表。  |
+| ansible_play_batch  | 可作为宿主机名列表使用，这些主机名属于该剧本的当前“批处理”。批次大小由 `serial`  定义，如果未设置，则相当于整个剧本（使其与 `ansible_play_hosts` 相同 ） |
 | ansible_playbook_python  | 是用于调用Ansible命令行工具的 `python` 可执行文件的路径。  |
-| inventory_dir  | 是保存Ansible的库存宿主文件的目录的路径名  |
-| inventory_file  | 指向 Ansible 清单宿主文件的文件名和文件路径 |
+| inventory_dir  | 是保存Ansible的清单宿主机文件的目录的路径名  |
+| inventory_file  | 指向 Ansible 清单宿主机文件的文件名和文件路径 |
 | playbook_dir  | 包含剧本的基本目录  |
 | role_path  | 它将返回当前角色的路径名（从1.8开始）。这仅在角色内部起作用  |
 | ansible_check_mode  | （在版本2.1中添加），这是一个布尔型魔术变量，如果使用 `--check` 运行 `Ansible` ，则会将其设置为 `True`  |
@@ -3074,7 +3075,7 @@ somevar: somevalue
 password: magic
 ```
 
-> 也可以将每个宿主和每个组的变量保存在非常相似的文件中，这在组织主机和组的变量中有介绍。
+> 也可以将每个宿主机和每个组的变量保存在非常相似的文件中，这在组织主机和组的变量中有介绍。
 
 
 
@@ -3108,7 +3109,7 @@ ansible-playbook arcade.yml --extra-vars '{"pacman":"mrs","ghosts":["inky","pink
 ansible-playbook release.yml --extra-vars "@some_file.json"
 ```
 
-除其他事项外，这对于设置宿主组或剧本用户非常有用。
+除其他事项外，这对于设置宿主机组或剧本用户非常有用。
 对引号和其他特殊字符进行转义：请确保您对标记（例如 `JSON` ）和您在其中运行的 `Shell` 都适当地对引号进行了转义：
 
 ```bash
@@ -3133,38 +3134,31 @@ ansible-playbook script.yml --extra-vars "{\"dialog\":\"He said \\\"I just can\'
 
 这是从最小到最大的优先顺序（最后列出的变量赢得优先顺序）：
 
-| 变量位置  | 排序  |
-| ------------ | ------------ |
-| 命令行值（"-u user"）  | 1  |
-| 角色默认  | 2  |
-| 清单文件或脚本组变量  | 3  |
-| 清单组变量/所有变量  | 4  |
-| 剧本组变量/所有变量  | 5  |
-| 清单组变量下的所有  | 6  |
-| 剧本组变量下的所有  | 7  |
-| 清单文件或脚本宿主变量  | 8  |
-| 清单宿主变量  | 9  |
-| 剧本宿主变量  | 10  |
-| 宿主事实/缓存设置的事实  | 11  |
-| 剧变量  | 12  |
-| 剧提示变量  | 13  |
-| 剧变量文件  | 14  |
-| 角色变量（位于 `role/vars/main.yml`）  | 15  |
-| 块变量（块中的任务）  | 16  |
-| 任务变量（仅对于任务）  | 17  |
-| 包含变量  | 18  |
-| 设置的事实/注册变量  | 19  |
-| 角色（和include_role）参数  | 20  |
-| 包含参数  | 21  |
-| 额外的变量（始终优先）  | 22  |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
+|   原文   | 变量位置  | 排序  |
+|   ------------   | ------------ | ------------ |
+|   command line values (eg “-u user”)   | 命令行值（"-u user"）  | 1  |
+|   role defaults   | 角色默认  | 2  |
+|   inventory file or script group vars  | 清单文件或脚本组变量  | 3  |
+|   inventory group_vars/all   | 清单组变量/所有变量  | 4  |
+|   playbook group_vars/all   | 剧本组变量/所有变量  | 5  |
+|   inventory group_vars/*   | 清单组变量下的所有  | 6  |
+|   playbook group_vars/*   | 剧本组变量下的所有  | 7  |
+|   inventory file or script host vars   | 清单文件或脚本宿主机变量  | 8  |
+|   inventory host_vars/*   | 清单宿主机变量  | 9  |
+|   playbook host_vars/*   | 剧本宿主机变量  | 10  |
+|   host facts / cached set_facts    | 宿主机事实/缓存设置的事实  | 11  |
+|   play vars   | 戏剧变量  | 12  |
+|   play vars_prompt   | 戏剧提示变量  | 13  |
+|   play vars_files   | 戏剧变量文件  | 14  |
+|   role vars (defined in role/vars/main.yml)   | 角色变量（位于 `role/vars/main.yml`）  | 15  |
+|   block vars (only for tasks in block)   | 块变量（块中的任务）  | 16  |
+|   task vars (only for the task)   | 任务变量（仅对于任务）  | 17  |
+|   include_vars   | 包含变量  | 18  |
+|   set_facts / registered vars   | 设置的事实/注册变量  | 19  |
+|   role (and include_role) params   | 角色（和include_role）参数  | 20  |
+|   include params   | 包含参数  | 21  |
+|   extra vars (always win precedence)   | 额外的变量（始终优先）  | 22  |
+
 
 
 基本上，任何涉及“角色默认值”（角色内的默认值文件夹）的东西都是最易延展的，并且很容易被覆盖。
@@ -3172,11 +3166,494 @@ ansible-playbook script.yml --extra-vars "{\"dialog\":\"He said \\\"I just can\'
 这里要遵循的想法是，范围越明确，使用命令行的优先级就越高 `-e` 总是赢得额外的` var` 。
 主机变量或清单变量可以取代角色默认值，但不能像 `vars` 目录或 `include_vars` 任务那样显式包含。
 
+!> 在任何部分中，重新定义`var`都将覆盖前一个实例。如果多个组具有相同的变量，则最后一个加载者获胜。如果您在戏剧的`vars`：部分中定义了两次变量，则第二个变量获胜。
+
+!> 前面介绍了默认配置 `hash_behaviour=replace`，切换到合并仅部分覆盖。
+
+!> 组加载遵循父/子关系。然后，按照字母顺序将相同“父/子”级别的组合并。
+用户可以通过 `ansible_group_priority` 代替最后一个，对于所有组默认为1。
+此变量`ansible_group_priority`仅可在清单源中设置，而不能在`group_vars/`中设置，因为该变量用于加载`group_vars/`。
+
+（对于所有版本）要考虑的另一重要事项是，连接变量将覆盖`config`，命令行以及戏剧/角色/任务特定的选项和关键字。有关更多详细信息，请参见控制Ansible的行为方式：优先级规则。
+
+```bash
+ansible -u lola myhost
+```
+由于变量的值优先（在这种情况下，变量来自清单，但无论在何处定义变量，该变量都具有优先级），因此仍将作为 `ramon` 连接。
+
+对于戏剧/任务，对于 `remote_user` 也是如此。假设相同的清单资源配置，请执行以下操作：
+
+```yml
+- hosts: myhost
+  tasks:
+   - command: I'll connect as ramon still
+     remote_user: lola
+```
+清单中的 `ansible_user`将覆盖`remote_use`r的值。
+
+这样做是为了使特定于主机的设置可以覆盖常规设置。这些变量通常是按清单中的主机或组定义的，但它们的行为与其他变量类似。
+
+如果要全局覆盖远程用户（甚至覆盖清单），则可以使用额外的变量。例如，如果您运行：
+
+```yml
+ansible... -e "ansible_user=maria" -u lola
+```
+
+`lola`值仍然被忽略，但是`ansible_user=maria`优先于可能设置`ansible_user`（或`remote_user`）的所有其他位置。
+
+变量的特定于连接的版本优先于更通用的版本。例如，指定为`group_var`的`ansible_ssh_user`的优先级高于指定为`host_var`的`ansible_user`的优先级。
+您还可以在戏剧中将其作为普通变量覆盖：
+
+```yml
+- hosts: all
+  vars:
+    ansible_user: lola
+  tasks:
+    - command: I'll connect as lola!
+```
+
+
 
 
 ##### 作用域变量
-##### 在哪里设置一个变量
-#### 使用高级变量语法 
 
+您可以根据希望该值具有的范围来决定在哪里设置变量。 Ansible具有三个主要范围：
+
+-  全局：由配置，环境变量和命令行设置
+-  戏剧：每次戏剧和包含的结构，vars条目（vars; vars_files; vars_prompt），角色默认值和`vars`。
+-  主机：直接与宿主机相关联的变量，例如清单，`include_vars`，事实或已注册的任务输出
+
+##### 示例：该如何设置一个变量
+
+让我们展示一些示例，以及您可能希望根据对值的控制类型选择放置哪些内容。
+
+首先，组变量功能强大。
+
+站点范围的默认值应定义为`group_vars/all`设置。组变量通常放在清单文件旁边。它们也可以由动态清单脚本返回（请参阅使用动态清单），也可以通过UI或API在Red Hat Ansible Tower之类的东西中定义：
+
+```yml
+---
+# file: /etc/ansible/group_vars/all
+# this is the site wide default
+ntp_server: default-time.example.com
+```
+区域信息可以在`group_vars/region`变量中定义。如果此组是所有组的子级（之所以如此，因为所有组都是），则它将覆盖较高且更通用的组：
+
+```yml
+---
+# file: /etc/ansible/group_vars/boston
+ntp_server: boston-time.example.com
+```
+
+如果出于某种疯狂的原因，我们只想告诉特定的主机使用特定的NTP服务器，则它将覆盖组变量！：
+
+```yml
+---
+# file: /etc/ansible/host_vars/xyz.boston.example.com
+ntp_server: override.example.com
+```
+
+这样就涵盖了清单以及通常在此处设置的内容。这是处理地理或行为问题的好地方。由于组通常是将角色映射到主机的实体，因此有时在组上设置变量而不是在角色上定义变量是一种捷径。您可以选择任何一种方式。
+
+切记：子组会覆盖父组，而主机始终会覆盖其组。
+
+下一步：了解角色变量优先级。
+
+我们假设您此时正在使用角色。您应该确定使用角色。角色很棒。您正在使用角色不是吗？
+
+如果要编写具有合理默认值的可再发行角色，请将其放在 `role/x/defaults/main.yml` 文件中。这意味着角色将带来一个默认值，但是Ansible中的任何内容都将覆盖它。有关更多信息，请参见角色：
+
+```yml
+---
+# file: roles/x/defaults/main.yml
+# if not overridden in inventory or as a parameter, this is the value that will be used
+http_port: 80
+```
+
+如果您正在编写角色，并且想要确保该角色中的值绝对使用该角色，并且不会被清单覆盖，则应像这样将其放置在`role/x/vars/main.yml `中，并且清单值不能覆盖它。 但 `-e` 仍然会：
+
+```yml
+---
+# file: roles/x/vars/main.yml
+# this will absolutely be used in this role
+http_port: 80
+```
+这是插入关于角色的常量的一种方法，该常量始终为真。如果您不与其他人共享角色，则可以在此处放置特定于应用程序的行为，例如端口。但是，如果您要与他人共享角色，则将变量放在此处可能会很不好。没有人能够使用清单来覆盖它们，但是他们仍然可以通过将参数传递给角色来实现。
+参数化角色非常有用。
+如果您正在使用角色，并且想覆盖默认值，则将其作为参数传递给角色，如下所示：
+
+```yml
+roles:
+   - role: apache
+     vars:
+        http_port: 8080
+```
+这对剧本阅读器很清楚，您已经做出了明智的选择，以覆盖角色的某些默认设置，或者传递角色无法自行承担的某些配置。它还允许您传递特定于站点的内容，而这并不是您与他人共享的角色的一部分。
+
+这通常可用于可能多次应用于某些主机的事物。例如：
+
+```yml
+roles:
+   - role: app_user
+     vars:
+        myname: Ian
+   - role: app_user
+     vars:
+       myname: Terry
+   - role: app_user
+     vars:
+       myname: Graham
+   - role: app_user
+     vars:
+       myname: John
+```
+在此示例中，多次调用同一角色。很可能根本没有提供默认名称。未定义变量时，Ansible会警告您-这实际上是默认行为。
+角色还有其他一些事情。
+
+一般而言，在一个角色中设置的变量对其他角色可用。这意味着，如果您有 `role/common/vars/main.yml` ，则可以在其中设置变量，并在其他角色以及剧本中的其他地方使用它们：
+
+```yml
+roles:
+   - role: common_settings
+   - role: something
+     vars:
+       foo: 12
+   - role: something_else
+```
+有一些保护措施可以避免使用命名空间变量。如上所述，在`common_settings`中定义的变量绝对可以用于“ something”和“ something_else”任务，但是，如果“ something”确认将`foo`设置为`12`，即使在通用设置的深处也将`foo`设置为`20`。
+
+因此，这是优先顺序，以更直接的方式进行说明。不用担心优先级，只需考虑您的角色是定义默认变量还是您肯定要使用的“实时”变量。清单位于中间的优先级，如果要强制覆盖某些内容，请使用`-e`。
+
+
+
+
+#### 使用条件
+
+通常，戏剧的结果可能取决于变量的值，事实（有关远程系统的知识）或先前的任务结果。在某些情况下，变量的值可能取决于其他变量。可以基于主机是否符合其他条件来创建其他组来管理主机。本主题介绍如何在剧本中使用条件。
+
+> Ansible中有许多选项可以控制执行流程。支持的条件的更多示例可以在这里找到：http://jinja.pocoo.org/docs/dev/templates/#comparisons
+
+##### when
+
+有时，您可能想跳过特定主机上的特定步骤。如果操作系统是特定版本，这可能就像不安装某个软件包一样简单，或者如果文件系统已满，则可能执行一些清理步骤。
+
+在Ansible中，使用when子句很容易做到这一点，该子句包含不带双花括号的原始 `Jinja2` 表达式（请参阅 `group_by` –根据事实创建 `Ansible` 组）。实际上很简单：
+
+```yml
+tasks:
+  - name: "shut down Debian flavored systems"
+    command: /sbin/shutdown -t now
+    when: ansible_facts['os_family'] == "Debian"
+    # note that all variables can be used directly in conditionals without double curly braces
+```
+您还可以使用括号对条件进行分组：
+
+```yml
+tasks:
+  - name: "shut down CentOS 6 and Debian 7 systems"
+    command: /sbin/shutdown -t now
+    when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6") or
+          (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "7")
+```
+
+也可以将多个都必须为真的条件（逻辑“和”）指定为列表：
+
+```yml
+tasks:
+  - name: "shut down CentOS 6 systems"
+    command: /sbin/shutdown -t now
+    when:
+      - ansible_facts['distribution'] == "CentOS"
+      - ansible_facts['distribution_major_version'] == "6"
+```
+
+在 `when` 语句中也可以使用许多` Jinja2` “测试”和“过滤器”，其中一些是唯一的，由Ansible提供。假设我们要忽略一个语句的错误，然后根据成功或失败决定有条件地执行某项操作：
+
+```yml
+tasks:
+  - command: /bin/false
+    register: result
+    ignore_errors: True
+
+  - command: /bin/something
+    when: result is failed
+
+  # In older versions of ansible use ``success``, now both are valid but succeeded uses the correct tense.
+  - command: /bin/something_else
+    when: result is succeeded
+
+  - command: /bin/still/something_else
+    when: result is skipped
+```
+
+要查看特定系统上可用的事实，您可以在剧本中执行以下操作：
+
+```yml
+- debug: var=ansible_facts
+```
+提示：有时您会找回一个字符串变量，并且希望对其进行数学运算比较。您可以这样做：
+
+```yml
+tasks:
+  - shell: echo "only on Red Hat 6, derivatives, and later"
+    when: ansible_facts['os_family'] == "RedHat" and ansible_facts['lsb']['major_release']|int >= 6
+```
+
+!> 上面的示例要求目标主机上有lsb_release软件包，以便返回“ lsb major_release”事实。
+
+也可以使用在剧本或清单资源中定义的变量，只需确保将布尔过滤器应用于非布尔变量（例如：内容为“yes”，“on”，“ 1”，“true”的字符串变量）。一个示例可能是根据变量的布尔值执行任务：
+
+```yml
+vars:
+  epic: true
+  monumental: "yes"
+```
+
+然后，条件执行可能看起来像：
+
+```yml
+tasks:
+    - shell: echo "This certainly is epic!"
+      when: epic or monumental|bool
+```
+或：
+
+```yml
+tasks:
+    - shell: echo "This certainly isn't epic!"
+      when: not epic
+```
+
+如果尚未设置必需变量，则可以使用 `Jinja2` 定义的测试跳过或失败。例如：
+
+```yml
+tasks:
+    - shell: echo "I've got '{{ foo }}' and am not afraid to use it!"
+      when: foo is defined
+
+    - fail: msg="Bailing out. this play requires 'bar'"
+      when: bar is undefined
+```
+
+与条件导入`vars`文件结合使用时，尤其有用（请参见下文）。如示例所示，您不需要使用`{{}}`来使用条件条件中的变量，因为这些已经隐含。
+
+
+##### loops
+
+将`when`与循环结合使用（请参见循环），请注意，`when`语句是针对每项分别处理的。这是设计使然：
+
+```yml
+tasks:
+    - command: echo {{ item }}
+      loop: [ 0, 2, 4, 6, 8, 10 ]
+      when: item > 5
+```
+
+如果您需要根据定义的循环变量跳过整个任务，请使用 `|default` 过滤器提供空的迭代器：
+
+```yml
+- command: echo {{ item }}
+  loop: "{{ mylist|default([]) }}"
+  when: item > 5
+```
+
+如果在循环中使用字典：
+
+```yml
+- command: echo {{ item.key }}
+  loop: "{{ query('dict', mydict|default({})) }}"
+  when: item.value > 5
+
+```
+
+
+##### 载入自定义事实
+
+如果您愿意，也可以很容易地提供自己的事实，您应该开发模块吗？要运行它们，只需在任务列表的顶部调用您自己的自定义事实收集模块，返回的变量将可供以后的任务使用：
+
+```yml
+tasks:
+    - name: gather site specific fact data
+      action: site_facts
+    - command: /usr/bin/thingy
+      when: my_custom_fact_just_retrieved_from_the_remote_system == '1234'
+
+```
+
+##### 将 ‘when’ 应用于 角色，导入 和 包含
+
+请注意，如果您有多个任务都共享相同的条件语句，则可以将条件附加到任务包含语句，如下所示。所有任务都会得到评估，但条件将应用于每个任务：
+
+```yml
+- import_tasks: tasks/sometasks.yml
+  when: "'reticulating splines' in output"
+```
+> 在2.0之前的版本中，此功能适用于任务包含，但不适用于剧本包含。 2.0使其可以同时使用。
+
+或具有角色：
+
+```yml
+- hosts: webservers
+  roles:
+     - role: debian_stock_config
+       when: ansible_facts['os_family'] == 'Debian'
+```
+
+当您在不符合条件的系统上使用此方法时，默认情况下，您会在Ansible中注意到很多“跳过”输出。在许多情况下，`group_by`模块可以是一种更简化的方式来完成同一件事。
+当条件语句与`include_*`任务而不是导入一起使用时，它仅适用于包含任务本身，而不适用于包含文件中的任何其他任务。这种区别很重要的常见情况如下：
+
+```yml
+# We wish to include a file to define a variable when it is not
+# already defined
+
+# main.yml
+- import_tasks: other_tasks.yml # note "import"
+  when: x is not defined
+
+# other_tasks.yml
+- set_fact:
+    x: foo
+- debug:
+    var: x
+```
+
+这在包含时间扩展为以下内容：
+
+```yml
+- set_fact:
+    x: foo
+  when: x is not defined
+- debug:
+    var: x
+  when: x is not defined
+```
+因此，如果`x`最初未定义，则将跳过调试任务。通过使用`include_tasks`而不是`import_tasks`，`other_tasks.yml`中的两个任务都将按预期执行。
+
+##### 条件导入
+
+##### 根据变量选择文件和模板
+
+##### 注册变量
+
+通常在剧本中，将给定命令的结果存储在变量中并在以后访问它可能很有用。以这种方式使用命令模块可以在许多方面消除编写特定于站点的事实的需要，例如，您可以测试特定程序的存在。
+
+“ register”关键字决定要保存结果的变量。结果变量可以在模板，操作行或`when`语句中使用。看起来像这样（在一个简单的例子中）：
+
+```yml
+- name: test play
+  hosts: all
+
+  tasks:
+
+      - shell: cat /etc/motd
+        register: motd_contents
+
+      - shell: echo "motd contains the word hi"
+        when: motd_contents.stdout.find('hi') != -1
+```
+
+如前所示，可以使用“ stdout”值访问已注册变量的字符串内容。如果将注册结果转换为列表（或已经是列表），则可以在任务循环中使用它，如下所示。
+“ stdout_lines”也已在对象上可用，但是如果您愿意的话，您也可以调用 `home_dirs.stdout.split()`，并且可以按其他字段拆分：
+
+```yml
+
+- name: registered variable usage as a loop list
+  hosts: all
+  tasks:
+
+    - name: retrieve the list of home directories
+      command: ls /home
+      register: home_dirs
+
+    - name: add home dirs to the backup spooler
+      file:
+        path: /mnt/bkspool/{{ item }}
+        src: /home/{{ item }}
+        state: link
+      loop: "{{ home_dirs.stdout_lines }}"
+      # same as loop: "{{ home_dirs.stdout.split() }}"
+
+```
+如前所示，可以使用“ stdout”值访问已注册变量的字符串内容。您可以检查注册变量的字符串内容是否为空：
+
+```yml
+
+- name: check registered variable for emptiness
+  hosts: all
+
+  tasks:
+
+      - name: list contents of directory
+        command: ls mydir
+        register: contents
+
+      - name: check contents for emptiness
+        debug:
+          msg: "Directory is empty"
+        when: contents.stdout == ""
+
+```
+
+
+
+##### 常用事实
+
+
+以下条件在条件句中经常使用-参见上面的示例。
+
+可能的值（样本，不完整的列表）：
+
+```
+Alpine
+Altlinux
+Amazon
+Archlinux
+ClearLinux
+Coreos
+CentOS
+Debian
+Fedora
+Gentoo
+Mandriva
+NA
+OpenWrt
+OracleLinux
+RedHat
+Slackware
+SMGL
+SUSE
+Ubuntu
+VMwareESX
+
+```
+
+ansible_facts[‘distribution_major_version’]
+
+这将是操作系统的主要版本。例如，对于Ubuntu 16.04，该值将为16。
+
+
+ansible_facts[‘os_family’]
+
+
+可能的值（样本，不完整的列表）：
+
+```
+AIX
+Alpine
+Altlinux
+Archlinux
+Darwin
+Debian
+FreeBSD
+Gentoo
+HP-UX
+Mandrake
+RedHat
+SGML
+Slackware
+Solaris
+Suse
+Windows
+```
 
 
