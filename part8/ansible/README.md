@@ -1,5 +1,7 @@
 # ansible 小书
 
+!> 参考文档: https://docs.ansible.com/ansible/2.9/user_guide, 版本  2.9 , 整理原因： 为考试准备
+
 ## 基础概念
 
 - (Control node)控制节点
@@ -1040,7 +1042,7 @@ usage: ansible-galaxy [-h] [--version] [-v] TYPE ...
 | -v, --verbose  | 详细模式（ `-vvv ` 用于更多，`-vvvv` 用于启用连接调试）  |
 
 
-#### 动作
+#### 操作
 
 ##### 集合: `collection`
 
@@ -1347,4 +1349,703 @@ usage: ansible-playbook [-h] [--version] [-v] [-k]
 |   |   |
 |   |   |
 |   |   |
+
+
+### ansible-vault
+
+`Ansible` 数据文件的加密/解密实用程序
+
+#### 大纲
+
+```
+usage: ansible-vault [-h] [--version] [-v]
+                  {create,decrypt,edit,view,encrypt,encrypt_string,rekey}
+                  ...
+```
+
+#### 描述
+
+可以加密Ansible使用的任何结构化数据文件。
+这可能包括 `group_vars/ ` 或 `group_vars/ ` 清单变量，由 `include_vars` 或 `vars_files` 加载的变量，或通过 `-e @file.yml` 或 `-e @file.json` 在 `ansible-playbook` 命令行上传递的变量文件。
+
+角色变量和默认值也包括在内！
+
+由于 `Ansible` 任务，处理程序,其他对象，都是数据，因此也可以使用 `Vault` 对其进行加密。
+如果您不想公开正在使用的变量，则可以将单个任务文件完全加密
+
+#### 公共选项
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --version  | 显示程序的版本号，配置文件位置，配置的模块搜索路径，模块位置，可执行文件位置之后退出  |
+| -h, --help  | 显示此帮助消息并退出  |
+| -v, --verbose  | 详细模式（-vvv用于更多，-vvvv用于启用连接调试）  |
+
+
+#### 操作
+
+##### create
+
+在编辑器中创建并打开文件，该文件在关闭时将使用提供的文件库密钥进行加密
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索取密码库密码  |
+| --encrypt-vault-id <ENCRYPT_VAULT_ID>  | 用于加密的库ID（如果提供的库ID大于ID，则为必填项）  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 密码库密码文件  |
+
+#### decrypt
+
+使用提供的密码库密钥解密提供的文件
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索要保险库库密码  |
+| --output <OUTPUT_FILE>  | 输出文件名进行加密或解密；使用-用于标准输出  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+
+#### edit
+
+在编辑器中打开并解密现有的已存储文件，关闭后将再次对其进行加密
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索要保险库库密码  |
+| --encrypt-vault-id <ENCRYPT_VAULT_ID>  | 用于加密的库ID（如果##提供的库ID大于ID，则为必填项）  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+
+#### view
+
+用 `Vault` 密钥调用呼叫器打开、解密、查看现有的 `Vault` 文件
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索要保险库库密码  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+
+
+
+
+#### encrypt
+
+使用提供的保管库密钥加密提供的文件
+
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索要保险库密码  |
+| --encrypt-vault-id <ENCRYPT_VAULT_ID>  | 用于加密的库ID（如果##提供的库ID大于ID，则为必填项）  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+| --output <OUTPUT_FILE>  | 输出文件名进行加密或解密；使用-用于标准输出  |
+
+
+#### encrypt_string
+
+使用提供的密码库密钥加密提供的字符串
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索要保险库密码  |
+| --encrypt-vault-id <ENCRYPT_VAULT_ID>  | 用于加密的库ID（如果##提供的库ID大于ID，则为必填项）  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+| --output <OUTPUT_FILE>  | 输出文件名进行加密或解密；使用-用于标准输出  |
+| --stdin-name <ENCRYPT_STRING_STDIN_NAME>  | 指定标准输入的变量名  |
+| -n, --name  | 指定变量名称  |
+| -p, --prompt  | 提示要加密的字符串  |
+
+#### rekey
+
+使用新的密钥重新加密已存储文件，需要先前的密钥
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| --ask-vault-pass  | 索要保险库密码  |
+| --encrypt-vault-id <ENCRYPT_VAULT_ID>  | 用于加密的库ID（如果##提供的库ID大于ID，则为必填项）  |
+| --new-vault-id <NEW_VAULT_ID>  | 用于更新密钥的新密码库身份  |
+| --new-vault-password-file <NEW_VAULT_PASSWORD_FILE>  | 新的保险库密码文件以进行密钥更新  |
+| --vault-id  | 要使用的库身份  |
+| --vault-password-file  | 保险库密码文件  |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+
+
+## 使用剧本
+
+剧本是 `Ansible` 的配置，部署和编排语言。
+它们可以描述您希望远程系统执行的策略，或一般 `IT` 流程中的一组步骤。
+
+如果 `Ansible` 模块是您工作站中的工具，则剧本是您的说明手册，主机清单是您的原材料。
+
+从根上讲，剧本可用于管理远程服务器的配置和部署。
+从更高的角度上来说，他们可以对涉及滚动更新的多层部署进行排序，并可以将操作委派给其他主机，并与监视服务器和负载平衡器进行交互。
+
+
+尽管这里有很多信息，但无需一次学习所有内容。
+您可以从小处着手，并在需要时随时间使用更多功能。
+
+
+剧本被设计为易于阅读的，并以基于文本的语言开发。
+有多种方法来组织剧本及其包含的文件。
+
+### 关于剧本
+
+与临时任务执行模式相比，剧本是使用 `ansible` 的完全不同的方式，并且功能特别强大。
+
+简而言之，剧本是一种非常简单的配置管理和多机部署系统的基础，与现有的系统不同，它非常适合于部署复杂的应用程序。
+
+### 剧本语言示例
+
+常规手册以YAML格式表示（请参见[YAML](https://xiaomiwujiecao.github.io/KongFuOfArchitect/#/./part3/yaml/README)语法），并且具有最少的语法，这有意地尝试不是编程语言或脚本，而是配置或过程的模型。
+
+!> 一些编辑器具有附加组件，可以帮助您在剧本中编写简洁的 `YAML` 语法。
+有关详细信息，请参见其他工具和程序。
+
+
+每个剧本由一个列表中的一个或多个“剧本”组成。
+剧本的目的是将一组主机映射到一些定义明确的角色，这些角色以无障碍调用任务为代表。
+从根本上讲，任务不过是对 `ansible` 模块的调用。
+
+通过编写包含多个 ”戏” 的剧本，可以编排多机部署，在 `webservers` 组中的所有计算机上运行某些步骤，然后在数据库服务器组中运行某些步骤，然后在 `webservers` 组中返回更多命令，等等。 
+。
+“戏”或多或少是体育类比。
+您可能会遇到很多影响系统做不同事情的事情。
+好像您不是在定义一种特定的状态或模型，而是可以在不同的时间进行不同的戏。
+
+首先，这是一本剧本，`verify-apache.yml` ，其中仅包含一部剧本：
+
+```yml
+---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+  - name: write the apache config file
+    template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
+    notify:
+    - restart apache
+  - name: ensure apache is running
+    service:
+      name: httpd
+      state: started
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+```
+
+剧本可以包含多个戏。
+您可能有一本首先针对 `Web` 服务器，然后针对数据库服务器的剧本。
+例如：
+
+```yml
+
+---
+- hosts: webservers
+  remote_user: root
+
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+  - name: write the apache config file
+    template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
+
+- hosts: databases
+  remote_user: root
+
+  tasks:
+  - name: ensure postgresql is at the latest version
+    yum:
+      name: postgresql
+      state: latest
+  - name: ensure that postgresql is started
+    service:
+      name: postgresql
+      state: started
+
+```
+您可以使用此方法在您要定位的主机组，登录到远程服务器的用户名，是否使用sudo等之间切换。
+像任务一样，戏按照剧本中指定的顺序运行：从上到下。
+
+
+下面，我们将详细介绍剧本语言的各种功能。
+
+### 基础
+
+#### 主机和用户
+
+对于剧本中的每场戏，您都可以选择基础结构中要定位的计算机以及要完成这些步骤（称为任务）的远程用户。
+
+主机行是一个或多个组或主机模式的列表，用冒号分隔
+`remote_user` 只是用户帐户的名称：
+
+```yml
+---
+- hosts: webservers
+  remote_user: root
+
+```
+
+!> `remote_user` 参数以前称为 `user`。
+在 `Ansible 1.4` 中将其重命名，以使其与用户模块（用于在远程系统上创建用户）更加区分开。
+
+也可以为每个任务定义远程用户：
+
+```yml
+- hosts: webservers
+  remote_user: root
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: yourname
+```
+还支持以其他用户身份运行事物:
+
+```yml
+---
+- hosts: webservers
+  remote_user: yourname
+  become: yes
+```
+在特定任务上而不是整场戏中,你可以使用关键字 `become`：
+
+```yml
+---
+- hosts: webservers
+  remote_user: yourname
+  tasks:
+    - service:
+        name: nginx
+        state: started
+      become: yes
+      become_method: sudo
+```
+
+您还可以以您的身份登录，然后成为不同于 `root` 用户的用户：
+
+
+```yml
+---
+- hosts: webservers
+  remote_user: yourname
+  become: yes
+  become_user: postgres
+```
+
+您还可以使用其他特权升级方法，例如 `su` ：
+
+```yml
+---
+- hosts: webservers
+  remote_user: yourname
+  become: yes
+  become_method: su
+```
+
+
+如果您需要为 `sudo` 指定密码，请使用 `--ask-become-pass` 或 `-K` 运行 `ansible-playbook` 。
+如果您使用 `become` 来跑这场戏而该剧本似乎挂起了，则它可能停留在特权升级提示下，并且可以使用 `Control-C` 停止，从而允许您添加适当的密码来重新执行该剧本
+
+!> 将 `root_user` 用作 `root` 以外的用户时，模块参数将简短地写入`/tmp` 中的随机临时文件中。
+这些命令执行后立即删除。
+仅当将特权从“ bob”更改为“ timmy”时，才会发生这种情况，而不是从“ bob”更改为“ root”时，或直接以“ bob”或“ root”身份登录时。
+如果您担心此数据是短暂可读（但不可写）的，请避免使用 `set_user` 设置传输未加密的密码。
+在其他情况下，不使用 `/tmp`，也不起作用。 
+`Ansible` 还注意不要记录密码参数。
+
+
+您还可以控制主机的运行顺序。
+默认值是遵循清单提供的顺序：
+
+```yml
+- hosts: all
+  order: sorted
+  gather_facts: False
+  tasks:
+    - debug:
+        var: inventory_hostname
+```
+
+排序的可能情况为：
+
+
+| 参数  | 描述  |
+| ------------ | ------------ |
+| inventory  | 默认值。顺序为是“以清单为准”  |
+| reverse_inventory  | 显然，这是上面排序的逆排序法 |
+| sorted  | 主机按名称的字母顺序排列  |
+| reverse_sorted  | 显然，这是上面排序的逆排序法  |
+| shuffle  | 每次运行都会进行乱序处理  |
+
+
+#### 任务列表
+
+每个剧本都有一个任务列表。一般情况，他们都是按照顺序执行的，一次一个，在继续执行下一个任务之前，对所有与主机模式匹配的机器进行测试。
+重要的是要了解，在一出戏中，所有主机都将获得相同的任务指令。
+戏的目的是将主机的选择映射到任务。
+
+每个任务的目标是执行带有特定参数的模块。
+变量可以在模块的参数中使用。
+模块应该是幂等的，也就是说，按顺序运行模块多次应与仅运行一次模块具有相同的效果。
+实现幂等的一种方法是让模块检查是否已达到其所需的最终状态，如果已经达到该状态，则不执行任何操作即可退出。
+如果剧本使用的所有模块都是幂等的，则剧本本身很可能是幂等的，因此重新运行剧本应该是安全的。
+
+`command` 和 `shell` 模块 通常会再次重新运行同一个命令，如果该命令是诸如 `chmod` 或 `setsebool` 等，则完全可以。尽管有一个 `create` 标志可用于使这些模块也成为幂等。
+每个任务都应有一个名称: `name`，该名称包含在运行剧本的输出中。
+这是人类可读的输出，因此提供每个任务步骤的良好描述很有用。
+如果未提供名称，则输入到“ action”的字符串将用于输出。
+
+可以使用旧版的声明方式： `action: module options`
+但建议您使用更常规的: `module: options`
+在整个文档中都使用此推荐格式，但是在某些剧本中可能会遇到较旧的格式。
+
+这是基本任务的样子。
+与大多数模块一样，服务模块采用 `key:value` 参数：
+
+```yml
+tasks:
+  - name: make sure apache is running
+    service:
+      name: httpd
+      state: started
+```
+`command` 和 `shell` 模块是仅有的一组参数，并且是不使用 `key:value`形式的仅有的模块。
+这使它们像您期望的那样简单地工作：
+
+```yml
+tasks:
+  - name: enable selinux
+    command: /sbin/setenforce 1
+```
+
+`` `` 关心的是返回码 ，如果您有一个成功退出码不为0的命令，则可能需要这样做：
+
+```yml
+tasks:
+  - name: run this command and ignore the result
+    shell: /usr/bin/somecommand || /bin/true
+```
+
+或者 这样做： 
+
+```yml
+tasks:
+  - name: run this command and ignore the result
+    shell: /usr/bin/somecommand
+    ignore_errors: True
+```
+
+如果操作行太长而令你不爽，则可以在空格处将其断开并缩进任何续行：
+
+```yml
+tasks:
+  - name: Copy ansible inventory file to client
+    copy: src=/etc/ansible/hosts dest=/etc/ansible/hosts
+            owner=root group=root mode=0644
+```
+
+变量可以在操作行中使用。
+假设您在 `vars` 部分中定义了一个名为 `vhost` 的变量，则可以执行以下操作：
+
+```yml
+tasks:
+  - name: create a virtual host file for {{ vhost }}
+    template:
+      src: somefile.j2
+      dest: /etc/httpd/conf.d/{{ vhost }}
+```
+
+这些相同的变量可在模板中使用，稍后我们将介绍。
+
+### 操作速记 
+
+`Ansible` 偏好酱紫列出的模块：
+
+```yml
+template:
+    src: templates/foo.j2
+    dest: /etc/foo.conf
+```
+Ansible的早期版本使用以下格式，该格式仍然有效：
+
+```yml
+action: template src=templates/foo.j2 dest=/etc/foo.conf
+```
+
+### 处理程序：更改时,运行操作
+
+正如我们已经提到的，模块应该是幂等的，并且可以在远程系统上进行更改后进行中继。
+剧本认识到这一点，并具有可用于响应变化的基本事件系统。
+
+这些“通知”动作是在剧本中每个任务块的结尾处触发的，即使被多个不同的任务通知，也只会触发一次。
+例如，多个资源可能指示 `apache` 需要重新启动，因为它们已经更改了配置文件，但是 `apache` 只会被退回一次以避免不必要的重新启动。
+这是一个在文件内容更改时（但仅在文件更改时）重新启动两个服务的示例：
+
+```yml
+- name: template configuration file
+  template:
+    src: template.j2
+    dest: /etc/foo.conf
+  notify:
+     - restart memcached
+     - restart apache
+```
+
+任务的通知部分中列出的事物称为处理程序。
+处理程序是任务的列表，实际上与常规任务没有什么不同，它们由全局唯一名称引用，并由通知者通知。
+如果没有任何通知处理程序，它将不会运行。
+无论有多少个任务通知处理程序，在特定任务中完成所有任务后，它将仅运行一次。
+
+这是处理程序示例部分：
+
+```yml
+handlers:
+    - name: restart memcached
+      service:
+        name: memcached
+        state: restarted
+    - name: restart apache
+      service:
+        name: apache
+        state: restarted
+```
+您可能希望 `Ansible` 处理程序使用变量。
+例如，如果服务名称因分发而略有不同，则您希望输出显示每台目标计算机的重新启动服务的确切名称。
+避免将变量放在处理程序的名称中。
+由于处理程序名称是早期的模板，因此 `Ansible` 可能没有可用于以下处理程序名称的值：
+
+```yml
+handlers:
+# this handler name may cause your play to fail!
+- name: restart "{{ web_service_name }}"
+```
+如果在处理程序名称中使用的变量不可用，则整场戏将失败。
+在戏中更改该变量不会导致新创建处理程序。
+取而代之的是将变量放在处理程序的任务参数中。
+您可以使用 `include_vars` 这样加载值：
+
+```yml
+tasks:
+  - name: Set host variables based on distribution
+    include_vars: "{{ ansible_facts.distribution }}.yml"
+
+handlers:
+  - name: restart web service
+    service:
+      name: "{{ web_service_name | default('httpd') }}"
+      state: restarted
+```
+
+从Ansible 2.2开始，处理程序还可以“侦听”通用主题，任务可以如下通知这些主题：
+
+```yml
+handlers:
+    - name: restart memcached
+      service:
+        name: memcached
+        state: restarted
+      listen: "restart web services"
+    - name: restart apache
+      service:
+        name: apache
+        state: restarted
+      listen: "restart web services"
+
+tasks:
+    - name: restart everything
+      command: echo "this task will restart the web services"
+      notify: "restart web services"
+```
+这种用法使触发多个处理程序变得更加容易。
+它还使处理程序与其名称脱钩，从而使在剧本和角色之间共享处理程序变得更容易（尤其是在使用来自诸如Galaxy之类的共享源的第三方角色时）。
+
+!> 
+
+- 通知处理程序始终按照定义的顺序运行，而不是按notify-statement中列出的顺序运行。使用侦听器的处理程序也是如此。
+
+- 处理程序名称和侦听主题位于全局命名空间中。
+
+- 处理程序名称是可模板化的，而侦听主题则不是。
+
+- 使用唯一的处理程序名称。如果您触发多个同名处理程序，则第一个处理程序将被覆盖。仅定义的最后一个将运行。
+
+- 您无法通知在部署内包含定义的处理程序。从 `Ansible 2.1` 开始，这确实有效，但是 `include` 必须是静态的。
+
+!>
+
+
+角色将在后面介绍，但有必要指出：
+
+在 `pre_tasks`，`task` 和 `post_tasks` 部分中通知的处理程序将在通知它们的部分末尾自动刷新，
+在“角色”部分中通知的处理程序将在“任务”部分的末尾自动刷新，但在所有任务处理程序之前，
+处理程序是作用域范围的，因此可以在定义它们的角色之外使用。
+如果您想立即刷新所有处理程序命令，则可以执行以下操作：
+
+```yml
+tasks:
+   - shell: some tasks go here
+   - meta: flush_handlers
+   - shell: some other tasks
+```
+在上面的示例中，任何到达队列的处理程序都将在到达 `meta` 语句时及早处理。
+这是一个小众案例，但有时会派上用场。
+
+### 执行一个剧本
+
+```bash
+ansible-playbook playbook.yml
+```
+
+### Ansible-Pull
+
+如果您想反转Ansible的体系结构，以便节点检入到中心位置，而不必向其推送配置，则可以。
+
+`ansible-pull` 是一个小脚本，它将签出git源中的配置指令，然后针对该内容运行 `ansible-playbook`。
+
+假设您对检出位置进行负载平衡，则 `ansible-pull` 本质上可以无限扩展。
+
+运行 `ansible-pull --help` 了解详细信息。
+
+
+### 整理剧本
+
+在执行之前，您可以使用 `ansible-lint` 对您的剧本进行详细检查。
+
+例如，如果您在本节前面介绍的 `verify-apache.yml` 剧本上运行 `ansible-lint` ，则会得到以下结果：
+
+```bash
+$ ansible-lint verify-apache.yml
+[403] Package installs should not use latest
+verify-apache.yml:8
+Task/Handler: ensure apache is at the latest version
+```
+` ansible-lint` 默认规则页面描述了每个错误。
+对于[403]，建议的解决方法是将 `state: latest` 更改为 `state: present` 于剧本中。
+
+### 其他剧本验证选项
+
+以下是您应考虑的其他一些事项：
+
+要检查剧本的语法，请使用带有 `--syntax-check`  标志的 `ansible-playbook` 。
+这将通过解析器运行剧本文件，以确保其包含的文件，角色等没有语法问题。
+
+在剧本执行的底部查看有关目标节点及其执行方式的摘要。
+常规故障和致命的 `unreachable` 的通信尝试在计数中保持分开。
+
+如果您想查看成功模块的详细输出以及失败模块的详细输出，请使用 `--verbose` 标志。
+在Ansible 0.5及更高版本中可用。
+
+要在运行剧本之前查看哪些主机会受到剧本的影响，可以执行以下操作：
+
+
+```bash
+ansible-playbook playbook.yml --list-hosts
+```
+
+### 创建可复用的剧本
+
+虽然可以在一个非常大的文件中编写剧本（并且您可能会开始以这种方式学习剧本），但最终您将需要重用文件并开始整理内容。
+在Ansible中，有三种方法可以做到这一点：`include`,`imports` 和 `roles`。
+
+包含(`include`)和导入(`import`)（在Ansible 2.4版中添加）允许用户将大型剧本拆分成较小的文件，这些文件可以在多个父级剧本中使用，甚至可以在同一本 `剧本`中多次使用。
+
+角色不仅可以将任务打包在一起，还可以包括变量，处理程序，甚至模块和其他插件。
+与包含和导入不同，角色也可以通过 `Ansible Galaxy` 上传和共享。
+
+#### 动与静
+
+Ansible具有可重复使用内容的两种操作模式：动态和静态。
+
+在Ansible 2.0中，引入了动态包含的概念。
+由于以这种方式使所有包含动态化存在一些限制，因此Ansible 2.1中引入了强制包含静态的能力。
+由于 `include` 任务变得过载以包含静态和动态语法，并且因为 `include` 的默认行为可能会基于 `Task` 上设置的其他选项而改变，因此 `Ansible 2.4` 引入了`include`  与 ` import `的概念。
+
+如果使用任何`include*`任务（`include_tasks`，`include_role`等），它将是动态的。
+如果您使用任何 `import *` 任务（`import_playbook`，`import_tasks` 等），它将是静态的。
+
+纯 `include`任务（用于任务文件和 `Playbook` 级包含）仍然可用，但是现在认为已弃用
+
+#### 动静分别
+
+这两种操作模式非常简单：
+
+- 动态包含在运行时在遇到该任务时进行处理。
+- `Ansible` 在 `剧本` 解析期间会预处理所有静态导入。
+
+当涉及Ansible任务选项时，例如 `tags` 和条件语句（`when:`）：
+
+- 对于动态包含，任务选项将仅在评估动态任务时应用于动态任务，而不会复制到子任务。
+- 对于静态导入，父任务选项将复制其所包含的内容到所有子任务。
+
+!> 角色是一种特殊情况。
+在Ansible 2.3之前，角色总是通过特殊角色静态包含在角色中：给定基本的选项，并且总是在执行任何其他播放任务之前首先执行（除非使用 `pre_tasks`）。
+仍然可以通过这种方式使用角色，但是，Ansible 2.3引入了 `include_role` 选项，以允许与其他任务一起内联执行角色
+
+
+#### 包含与导入之间的权衡与坑
+
+使用 `include *` 与 `import *` 具有一些优点以及用户在选择使用它们时应考虑的一些折衷：
+使用 `include *` 语句的主要优点是循环。
+当循环与包含一起使用时，所包含的任务或角色将对循环中的每个项目执行一次。
+
+与 `import *` 语句相比，使用 `include *` 确实有一些限制：
+
+- 仅存在于动态包含中的标签不会显示在 `--list-tags` 输出中。
+- 仅存在于动态包含中的任务不会显示在 `--list-tasks` 输出中。
+- 您不能使用 `notify` 来触发来自动态包含内部的处理程序名称（请参见下面的注释）。
+- 您不能使用 `--start-at-task` 在动态包含中的某个任务上开始执行。
+
+与动态包含相比，使用 `import *` 也可能有一些限制：
+
+- 如上所述，循环根本不能与导入一起使用。
+- 将变量用作目标文件或角色名称时，无法使用清单资源（主机/组变量等）中的变量。
+- 使用 `import *` 的处理程序通过名称通知时不会触发，因为导入会使用导入的任务列表覆盖处理程序的命名任务。
+
+!> 关于将通知用于动态任务：仍然可以触发动态包含本身，这将导致包含中的所有任务都运行。
+
+
+
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+
 
