@@ -3656,4 +3656,644 @@ Suse
 Windows
 ```
 
+### 循环
+
+有时您想重复执行多次任务。在计算机编程中，这称为循环。常见的Ansible循环包括使用文件模块更改多个文件和/或目录的所有权，使用用户模块创建多个用户以及重复轮询步骤直到达到特定结果。
+Ansible提供了两个用于创建循环的关键字：`loop` 和`with_<lookup>` 。
+
+
+> 我们在Ansible 2.5中添加了循环。它尚未完全替代 `with_<lookup>` ，但我们建议在大多数使用情况下使用它。
+> 我们没有弃用 `with_<lookup>` -该语法在可预见的将来仍然有效。
+
+
+#### 比较 `loop` 和 `with_*`
+
+- `with_` 关键字依赖于 `查找插件`-甚至项都是查找。
+- `loop` 关键字与`with_lis`t等效，是简单循环的最佳选择。
+- `loop` 关键字不接受字符串作为输入，
+
+- 一般来说，从 `with_X` 迁移到循环中涵盖的 `with_*`的任何使用都可以更新为使用循环。
+
+- 将 `with_items` 更改为循环时要小心，因为 `with_items` 会执行隐式单级展平。您可能需要使用带有循环的 `flatten(1)` 来匹配确切的结果。例如，要获得与以下相同的输出：
+
+
+```yml
+with_items:
+  - 1
+  - [2,3]
+  - 4
+
+```
+
+你可能需需要这样做：
+
+```yml
+loop: "{{ [1, [2,3] ,4] | flatten(1) }}"
+```
+
+需要在循环内使用查找的任何 `with_ *` 语句都不应转换为使用 `loop` 关键字。例如，不要这样做：
+
+
+```yml
+loop: "{{ lookup('fileglob', '*.txt', wantlist=True) }}"
+```
+
+保持简洁：
+
+```yml
+with_fileglob: '*.txt'
+
+```
+
+#### 标准循环
+
+迭代简单列表
+
+可以将重复的任务写为简单字符串列表上的标准循环。您可以直接在任务中定义列表：
+
+```yml
+- name: add several users
+  user:
+    name: "{{ item }}"
+    state: present
+    groups: "wheel"
+  loop:
+     - testuser1
+     - testuser2
+
+```
+
+您可以在变量文件中或在戏剧的“ vars”部分中定义列表，然后在任务中引用列表名称：
+
+```yml
+loop: "{{ somelist }}"
+
+```
+这些示例均等同于：
+
+```yml
+- name: add user testuser1
+  user:
+    name: "testuser1"
+    state: present
+    groups: "wheel"
+
+- name: add user testuser2
+  user:
+    name: "testuser2"
+    state: present
+    groups: "wheel"
+```
+
+您可以将列表直接传递给某些插件的参数。大多数包装模块都有这个能力。
+如果可用，将列表传递给参数比遍历任务更好。例如：
+
+```yml
+- name: optimal yum
+  yum:
+    name: "{{  list_of_packages  }}"
+    state: present
+
+- name: non-optimal yum, slower and may cause issues with interdependencies
+  yum:
+    name: "{{  item  }}"
+    state: present
+  loop: "{{  list_of_packages  }}"
+
+```
+
+#### 遍历哈希表
+
+如果您具有哈希列表，则可以在循环中引用子项。例如：
+
+```yml
+- name: add several users
+  user:
+    name: "{{ item.name }}"
+    state: present
+    groups: "{{ item.groups }}"
+  loop:
+    - { name: 'testuser1', groups: 'wheel' }
+    - { name: 'testuser2', groups: 'root' }
+```
+
+将条件语句与循环组合时，将对每个项目分别处理 `when：` 语句。有关示例，请参见 While 语句。
+
+#### 迭代字典
+
+要遍历字典，请使用 `dict2items` 字典筛选器：
+
+```yml
+- name: create a tag dictionary of non-empty tags
+  set_fact:
+    tags_dict: "{{ (tags_dict|default({}))|combine({item.key: item.value}) }}"
+  loop: "{{ tags|dict2items }}"
+  vars:
+    tags:
+      Environment: dev
+      Application: payment
+      Another: "{{ doesnotexist|default() }}"
+  when: item.value != ""
+```
+
+在这里，我们不想设置空标签，因此我们创建了仅包含非空标签的字典。
+
+#### 使用循环创建变量
+
+您可以将循环的输出注册为变量。例如：
+
+```yml
+- shell: "echo {{ item }}"
+  loop:
+    - "one"
+    - "two"
+  register: echo
+```
+
+当您将 `register` 与循环一起使用时，放置在变量中的数据结构将包含一个 `results` 属性，该属性是模块中所有响应的列表。这与使用不带循环的寄存器时返回的数据结构不同：
+
+```yml
+{
+    "changed": true,
+    "msg": "All items completed",
+    "results": [
+        {
+            "changed": true,
+            "cmd": "echo \"one\" ",
+            "delta": "0:00:00.003110",
+            "end": "2013-12-19 12:00:05.187153",
+            "invocation": {
+                "module_args": "echo \"one\"",
+                "module_name": "shell"
+            },
+            "item": "one",
+            "rc": 0,
+            "start": "2013-12-19 12:00:05.184043",
+            "stderr": "",
+            "stdout": "one"
+        },
+        {
+            "changed": true,
+            "cmd": "echo \"two\" ",
+            "delta": "0:00:00.002920",
+            "end": "2013-12-19 12:00:05.245502",
+            "invocation": {
+                "module_args": "echo \"two\"",
+                "module_name": "shell"
+            },
+            "item": "two",
+            "rc": 0,
+            "start": "2013-12-19 12:00:05.242582",
+            "stderr": "",
+            "stdout": "two"
+        }
+    ]
+}
+```
+随后对注册变量进行的循环检查结果可能类似于：
+
+```yml
+- name: Fail if return code is not 0
+  fail:
+    msg: "The command ({{ item.cmd }}) did not have a 0 return code"
+  when: item.rc != 0
+  loop: "{{ echo.results }}"
+```
+
+在迭代过程中，当前项目的结果将放置在变量中：
+
+```yml
+- shell: echo "{{ item }}"
+  loop:
+    - one
+    - two
+  register: echo
+  changed_when: echo.stdout != "one"
+
+```
+
+#### 复杂循环
+
+##### 迭代嵌套列表
+
+您可以使用 `Jinja2` 表达式遍历复杂的列表。例如，循环可以合并嵌套列表：
+
+```yml
+- name: give users access to multiple databases
+  mysql_user:
+    name: "{{ item[0] }}"
+    priv: "{{ item[1] }}.*:ALL"
+    append_privs: yes
+    password: "foo"
+  loop: "{{ ['alice', 'bob'] |product(['clientdb', 'employeedb', 'providerdb'])|list }}"
+
+```
+
+#####重试任务，直到满足条件
+
+您可以使用 `until` 关键字重试任务，直到满足特定条件为止。这是一个例子：
+
+
+```yml
+- shell: /usr/bin/foo
+  register: result
+  until: result.stdout.find("all systems go") != -1
+  retries: 5
+  delay: 10
+```
+
+该任务最多运行5次，每次尝试之间要延迟10秒。如果任何尝试的结果在其标准输出中都包含“所有系统都已运行”，则任务成功。 “重试”的默认值为3，“延迟”的默认值为5。
+
+要查看单个重试的结果，请使用 `-vv` 运行戏剧。
+
+当您使用 `until` 来运行任务并将结果注册为变量时，已注册的变量将包含一个名为“attempts”的键，该键记录任务的重试次数。
+
+> 如果要重试任务，则必须设置 `until` 参数。如果未定义 `until`，则将 `retries `参数的值强制为1。
+
+
+##### 遍历清单文件
+
+要循环戏剧清单或清单的一部分，可以对 `ansible_play_batch` 或 `groups` 变量使用常规循环：
+
+```yml
+# show all the hosts in the inventory
+- debug:
+    msg: "{{ item }}"
+  loop: "{{ groups['all'] }}"
+
+# show all the hosts in the current play
+- debug:
+    msg: "{{ item }}"
+  loop: "{{ ansible_play_batch }}"
+```
+
+还有一个特定的查找插件 `inventory_hostnames` 可以像这样使用：
+
+```yml
+# show all the hosts in the inventory
+- debug:
+    msg: "{{ item }}"
+  loop: "{{ query('inventory_hostnames', 'all') }}"
+
+# show all the hosts matching the pattern, ie all but the group www
+- debug:
+    msg: "{{ item }}"
+  loop: "{{ query('inventory_hostnames', 'all:!www') }}"
+```
+
+#### 确保列表输入为循环：查询与查找
+
+`loop` 关键字需要一个列表作为输入，但是默认情况下，`lookup` 关键字返回一个用逗号分隔的字符串。
+Ansible 2.5引入了一个新的 `Jinja2` 函数，该函数名为带有查询的调用查找插件，该函数始终返回一个列表，
+使用 `loop` 关键字时，提供了更简单的界面以及查找插件的更可预测的输出。
+
+您可以通过使用 `wantlist=True` 强制查找以返回要 `loop` 的列表，也可以改为使用 `query`。
+
+```yml
+loop: "{{ query('inventory_hostnames', 'all') }}"
+
+loop: "{{ lookup('inventory_hostnames', 'all', wantlist=True) }}"
+
+```
+
+#### 向循环中添加控制
+
+`loop_control` 关键字使您能够以有用的方式管理循环。
+
+##### 带 `label` 的极限回路输出
+
+当遍历复杂的数据结构时，任务的控制台输出可能非常庞大。要限制显示的输出，请使用带有 `loop_control` 的 `label` 指令：
+
+```yml
+- name: create servers
+  digital_ocean:
+    name: "{{ item.name }}"
+    state: present
+  loop:
+    - name: server1
+      disks: 3gb
+      ram: 15Gb
+      network:
+        nic01: 100Gb
+        nic02: 10Gb
+        ...
+  loop_control:
+    label: "{{ item.name }}"
+```
+
+
+该任务的输出将仅显示每个项目的名称字段，而不是多行 `{{item}}` 变量的全部内容。
+
+> 这是为了使控制台输出更具可读性，而不是保护敏感数据。如果 `loop` 中有敏感数据，请在任务上设置 `no_log:yes`以防止泄露。
+
+##### 循环内暂停
+
+要控制任务循环中每个项目执行之间的时间（以秒为单位），请使用带有 `loop_control` 的 `pause` 指令：
+
+
+```yml
+# main.yml
+- name: create servers, pause 3s before creating next
+  digital_ocean:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - server1
+    - server2
+  loop_control:
+    pause: 3
+
+```
+
+##### 通过 `index_var` 循环跟踪进度
+
+要跟踪循环中的位置，请将 `index_var` 指令与 `loop_control` 一起使用。此伪指令指定一个变量名称以包含当前循环索引：
+
+```yml
+  debug:
+    msg: "{{ item }} with index {{ my_idx }}"
+  loop:
+    - apple
+    - banana
+    - pear
+  loop_control:
+    index_var: my_idx
+
+```
+
+##### 使用 `loop_var` 定义内部和外部变量名称
+
+您可以使用 `include_tasks` 嵌套两个循环任务。但是，默认情况下，Ansible为每个循环设置循环变量项。
+这意味着内部嵌套循环将覆盖外部循环中的 `item` 值。您可以使用带有 `loop_control` 的 `loop_var` 为每个循环指定变量的名称：
+
+
+```yml
+# main.yml
+- include_tasks: inner.yml
+  loop:
+    - 1
+    - 2
+    - 3
+  loop_control:
+    loop_var: outer_item
+
+# inner.yml
+- debug:
+    msg: "outer item={{ outer_item }} inner item={{ item }}"
+  loop:
+    - a
+    - b
+    - c
+```
+> 如果Ansible检测到当前循环正在使用已定义的变量，则会引发错误以使任务失败。
+
+##### 扩展循环变量
+
+从Ansible 2.8开始，您可以使用扩展选项进行循环控制来获取扩展循环信息。此选项将公开以下信息。
+
+| 变量  | 描述  |
+| ------------ | ------------ |
+|  ansible_loop.allitems  | 循环列表的所有项目  |
+|  ansible_loop.index |  循环的当前迭代。 （1个已索引） |
+|  ansible_loop.index0 |  循环的当前迭代。 （0索引） |
+|  ansible_loop.revindex |  从循环末尾开始的迭代次数（已索引1个） |
+|  ansible_loop.revindex0 | 从循环末尾开始的迭代次数（索引为0）|
+|  ansible_loop.first  |  如果第一次迭代为 `True`  |
+|  ansible_loop.last |  如果最后一次迭代则为 `True`  |
+|  ansible_loop.length | 循环中的项目数  |
+|  ansible_loop.previtem | 循环的上一个迭代中的项目。在第一次迭代中未定义。  |
+|  ansible_loop.nextitem | 循环的以下迭代中的项目。在上一次迭代期间未定义。  |
+|   |   |
+|   |   |
+|   |   |
+|   |   |
+
+
+```yml
+loop_control:
+  extended: yes
+
+```
+
+
+### 从 `with_X` 迁移到循环
+
+随着Ansible 2.5的发布，建议执行循环的方法是使用新 `'loop'` 关键字而不是` with_X` 样式循环。
+
+在许多情况下，使用过滤器更好地表达循环语法，而不是更复杂地使用查询或查找。
+
+以下示例将说明如何将许多常见的 `with_` 样式循环转换为循环和过滤器。
+
+
+#### with_list
+
+`with_list` 被 `loop` 直接替换。
+
+
+```yml
+  debug:
+    msg: "{{ item }}"
+  with_list:
+    - one
+    - two
+
+- name: with_list -> loop
+  debug:
+    msg: "{{ item }}"
+  loop:
+    - one
+    - two
+
+```
+
+#### with_items
+
+`with_items` 被循环和展平过滤器替换。
+
+```yml
+- name: with_items
+  debug:
+    msg: "{{ item }}"
+  with_items: "{{ items }}"
+
+- name: with_items -> loop
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ items|flatten(levels=1) }}"
+
+```
+
+#### with_indexed_items
+
+用循环，展平过滤器和 `loop_control.index_var `代替 `with_indexed_items` 。
+
+```yml
+- name: with_indexed_items
+  debug:
+    msg: "{{ item.0 }} - {{ item.1 }}"
+  with_indexed_items: "{{ items }}"
+
+- name: with_indexed_items -> loop
+  debug:
+    msg: "{{ index }} - {{ item }}"
+  loop: "{{ items|flatten(levels=1) }}"
+  loop_control:
+    index_var: index
+
+```
+
+#### with_flattened
+
+`with_flattened` 被循环和 `flatten` 过滤器替换。
+
+```yml
+- name: with_flattened
+  debug:
+    msg: "{{ item }}"
+  with_flattened: "{{ items }}"
+
+- name: with_flattened -> loop
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ items|flatten }}"
+
+```
+
+#### with_together
+
+`with_together `替换为 `loop` 和 `zip` 过滤器。
+
+```yml
+- name: with_together
+  debug:
+    msg: "{{ item.0 }} - {{ item.1 }}"
+  with_together:
+    - "{{ list_one }}"
+    - "{{ list_two }}"
+
+- name: with_together -> loop
+  debug:
+    msg: "{{ item.0 }} - {{ item.1 }}"
+  loop: "{{ list_one|zip(list_two)|list }}"
+```
+
+#### with_dict
+
+`with_dict` 可以被循环和 `dictsort` 或 `dict2items` 过滤器替换。
+
+```yml
+- name: with_sequence
+  debug:
+    msg: "{{ item }}"
+  with_sequence: start=0 end=4 stride=2 format=testuser%02x
+
+- name: with_sequence -> loop
+  debug:
+    msg: "{{ 'testuser%02x' | format(item) }}"
+  # range is exclusive of the end point
+  loop: "{{ range(0, 4 + 1, 2)|list }}"
+
+```
+
+
+#### with_subelements
+
+`with_subelements` 被循环和子元素过滤器替换。
+
+```yml
+- name: with_subelements
+  debug:
+    msg: "{{ item.0.name }} - {{ item.1 }}"
+  with_subelements:
+    - "{{ users }}"
+    - mysql.hosts
+
+- name: with_subelements -> loop
+  debug:
+    msg: "{{ item.0.name }} - {{ item.1 }}"
+  loop: "{{ users|subelements('mysql.hosts') }}"
+
+```
+
+##### with_nested/with_cartesian
+
+`with_nested` 和 `with_cartesian` 被循环和乘积过滤器替换。
+
+```yml
+- name: with_nested
+  debug:
+    msg: "{{ item.0 }} - {{ item.1 }}"
+  with_nested:
+    - "{{ list_one }}"
+    - "{{ list_two }}"
+
+- name: with_nested -> loop
+  debug:
+    msg: "{{ item.0 }} - {{ item.1 }}"
+  loop: "{{ list_one|product(list_two)|list }}"
+
+```
+
+#### with_random_choice
+
+仅使用随机过滤器即可替换 `with_random_choice` ，而无需循环。
+
+```yml
+- name: with_random_choice
+  debug:
+    msg: "{{ item }}"
+  with_random_choice: "{{ my_list }}"
+
+- name: with_random_choice -> loop (No loop is needed here)
+  debug:
+    msg: "{{ my_list|random }}"
+  tags: random
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
