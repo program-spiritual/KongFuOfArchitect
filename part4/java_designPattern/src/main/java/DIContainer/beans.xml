@@ -1,0 +1,13 @@
+
+<beans>
+    <bean id="rateLimiter" class="com.xzg.RateLimiter">
+        <constructor-arg ref="redisCounter"/>
+    </bean>
+
+    <bean id="redisCounter" class="com.xzg.redisCounter" scope="singleton" lazy-init="true">
+        <constructor-arg type="String" value="127.0.0.1">
+            <constructor-arg type="int" value="1234">
+            </constructor-arg>
+        </constructor-arg>
+    </bean>
+</beans>
