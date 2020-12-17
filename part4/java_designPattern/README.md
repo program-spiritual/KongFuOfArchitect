@@ -24,5 +24,13 @@
 
 ---
 
+## 适配器模式
+
+### [继承的方式](src/main/java/adapter/extend)
+### [类持有的方式](src/main/java/adapter/combination)
+### [使用场景](src/main/java/adapter/improve)
+### [统一外部接口【适配外部接口】](src/main/java/adapter/unify)
+### [替换外部接口](src/main/java/adapter/replace)
+### [兼容性](src/main/java/adapter/compatible)
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
 
