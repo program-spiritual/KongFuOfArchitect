@@ -42,8 +42,17 @@
 
 ## 享元模式
 
-### [实现原理]()
+### [实现原理](src/main/java/flyweight/basic)
+### [更好的实现](src/main/java/flyweight/better)
+### [文本编辑器](src/main/java/flyweight/textEditor)
+### [自动装箱拆箱](src/main/java/flyweight/autoBoxing)
 
+
+## 观察者模式
+
+### [订阅，发布](src/main/java/pubSub/)
+### [觀察者模式](src/main/java/pubSub/p2p)
+### [eventbus](src/main/java/pubSub/eventBus/)
 
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
 
