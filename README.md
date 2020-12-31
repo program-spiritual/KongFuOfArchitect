@@ -12,6 +12,10 @@
 
 [Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
 
+## 致谢
+
+感谢   [JetBrains的支持](https://www.jetbrains.com/?from=KongFuOfArchitect) ， 让我不必受开发工具的限制，提高书写效率。
+
 ## 前言
 
 ### 为什么要写：
