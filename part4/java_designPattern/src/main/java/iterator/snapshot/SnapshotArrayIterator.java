@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class SnapshotArrayIterator<E> implements Iterator<E> {
     private int cursor;
-    private ArrayList<E> snapshot;
+    private final ArrayList<E> snapshot;
 
     public SnapshotArrayIterator(ArrayList<E> arrayList) {
         this.cursor = 0;
