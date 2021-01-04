@@ -54,5 +54,22 @@
 ### [觀察者模式](src/main/java/pubSub/p2p)
 ### [eventbus](src/main/java/pubSub/eventBus/)
 
+## 模板模式
+
+### [默认方式](src/main/java/template/)
+### [钩子](src/main/java/template/hook/)
+### [回调](src/main/java/template/callback/)
+### [驱动](src/main/java/template/jdbc/)
+
+
+## 策略模式
+
+### [默认方式](src/main/java/strategy/common)
+### [基于示例](src/main/java/strategy/order)
+### [不同大小文件内容排序](src/main/java/strategy/sort)
+
+
+
+
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
 
