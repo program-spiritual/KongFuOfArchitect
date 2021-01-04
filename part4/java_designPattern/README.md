@@ -69,6 +69,20 @@
 ### [不同大小文件内容排序](src/main/java/strategy/sort)
 
 
+## 职责链
+
+### [职责链-默认](src/main/java/chainOfResponsibility/common)
+### [职责链-优化](src/main/java/chainOfResponsibility/better)
+### [职责链-敏感词过滤](src/main/java/chainOfResponsibility/filter)
+
+
+## 状态模式
+
+### [状态机-马里奥](src/main/java/fsm/mario)
+### [状态机-查表法](src/main/java/fsm/lookup)
+### [状态机-查表优化](src/main/java/fsm/lookup/better)
+
+
 
 
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
