@@ -1,7 +1,5 @@
-package fsm.lookup.better;
+package fsm.better;
 
-import fsm.lookup.MarioStateMachine;
-import fsm.lookup.State;
 
 public class SuperMario implements IMario {
 
@@ -21,8 +19,7 @@ public class SuperMario implements IMario {
 
     @Override
     public void obtainMushRoom(MarioStateMachine stateMachine) {
-        stateMachine.setCurrentState(SuperMario.getInstance());
-        stateMachine.setScore(stateMachine.getScore() + 100);
+
     }
 
     @Override
@@ -39,6 +36,7 @@ public class SuperMario implements IMario {
 
     @Override
     public void meetMonster(MarioStateMachine stateMachine) {
-
+        stateMachine.setCurrentState(SmallMario.getInstance());
+        stateMachine.setScore(stateMachine.getScore() - 100);
     }
 }

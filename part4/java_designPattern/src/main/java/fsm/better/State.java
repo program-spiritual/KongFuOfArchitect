@@ -1,4 +1,4 @@
-package fsm.lookup.better;
+package fsm.better;
 
 public enum State {
 

@@ -80,9 +80,13 @@
 
 ### [状态机-马里奥](src/main/java/fsm/mario)
 ### [状态机-查表法](src/main/java/fsm/lookup)
-### [状态机-查表优化](src/main/java/fsm/lookup/better)
+### [状态机-优化](src/main/java/fsm/better)
 
+## 游标模式
 
+###  [基本-](src/main/java/iterator/basic)
+###  [优化-](src/main/java/iterator/better)
+###  [快照-](src/main/java/iterator/snapshot)
 
 
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
