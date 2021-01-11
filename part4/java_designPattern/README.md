@@ -88,6 +88,26 @@
 ###  [优化-](src/main/java/iterator/better)
 ###  [快照-](src/main/java/iterator/snapshot)
 
+## 访问者模式
+
+###  [访问者模式-](src/main/java/visitor)
+
+## 备忘录模式
+
+###  [备忘录模式-](src/main/java/memento)
+
+## 命令模式
+
+###  [备忘录模式-](src/main/java/command)
+
+## 解释器模式
+
+###  [解释器模式-](src/main/java/interpretor)
+
+## 中介模式
+
+###  [中介模式-](src/main/java/mediator)
+
 
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
 
