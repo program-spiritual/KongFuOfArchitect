@@ -1,0 +1,4 @@
+--Idempotence
+--IdempotenceIdGenerator(幂等号生成类)
+--IdempotenceStorage(接口：用来读写幂等号)
+--RedisClusterIdempotenceStorage(IdempotenceStorage的实现类)
