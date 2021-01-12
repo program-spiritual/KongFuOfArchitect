@@ -19,6 +19,7 @@
     <modules>
         <module>ratelimiter</module>
         <module>idempotence</module>
+        <module>darklaunch</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
@@ -39,6 +40,7 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.2.12.RELEASE</version>
         </dependency>
+
     </dependencies>
     <groupId>org.example</groupId>
     <artifactId>java_designPattern</artifactId>
