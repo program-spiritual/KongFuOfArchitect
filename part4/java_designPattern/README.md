@@ -80,10 +80,37 @@
 
 ### [状态机-马里奥](src/main/java/fsm/mario)
 ### [状态机-查表法](src/main/java/fsm/lookup)
-### [状态机-查表优化](src/main/java/fsm/lookup/better)
+### [状态机-优化](src/main/java/fsm/better)
+
+## 游标模式
+
+###  [基本-](src/main/java/iterator/basic)
+###  [优化-](src/main/java/iterator/better)
+###  [快照-](src/main/java/iterator/snapshot)
+
+## 访问者模式
+
+###  [访问者模式-](src/main/java/visitor)
+
+## 备忘录模式
+
+###  [备忘录模式-](src/main/java/memento)
+
+## 命令模式
+
+###  [备忘录模式-](src/main/java/command)
+
+## 解释器模式
+
+###  [解释器模式-](src/main/java/interpretor)
+
+## 中介模式
+
+###  [中介模式-](src/main/java/mediator)
 
 
-
-
+### [限流框架示例-](./ratelimiter)
+### [幂等框架示例-](./idempotence)
+### [灰度发布框架示例](./darklaunch)
 获取更多知识，请参考：[设计模式之美](https://time.geekbang.org/column/intro/250)
 

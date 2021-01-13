@@ -1,6 +1,5 @@
-package fsm.lookup.better;
+package fsm.better;
 
-import fsm.lookup.MarioStateMachine;
 
 public interface IMario {
     State getName();

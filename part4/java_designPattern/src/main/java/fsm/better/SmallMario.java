@@ -1,7 +1,5 @@
-package fsm.lookup.better;
+package fsm.better;
 
-import fsm.lookup.MarioStateMachine;
-import fsm.lookup.State;
 
 public class SmallMario implements IMario {
 
