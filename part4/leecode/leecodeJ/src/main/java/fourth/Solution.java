@@ -45,6 +45,6 @@ public class Solution {
     dfs(board, visited, str, y - 1, y, trie);
     dfs(board, visited, str, y + 1, y, trie);
 
-    visited[x][y] = true;
+    visited[x][y] = false;
   }
 }
