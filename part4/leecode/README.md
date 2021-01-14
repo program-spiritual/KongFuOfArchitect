@@ -28,3 +28,34 @@ n 皇后问题：
 
 [代码-java](./leecodeJ/src/main/java/second/Solution.java)
 
+
+3. 二分查找法
+
+前提:
+
+1. 单调递增或单调递减
+2. 存在上下限
+3.能够通过索引访问
+   
+实现一个求解平方根的函数：
+
+[代码-js](./src/main/java/third/Solution.mjs)
+[代码-js-牛顿推导式](./src/main/java/third/SolutionV2.mjs)
+
+
+4. 字典树
+
+
+
+核心思想：
+
+空间换时间。利用字符串的公共前缀降低查询时间的开销，以达到提高效率的目的。
+
+实现一个字典树：
+
+[代码-java-](./leecodeJ/src/main/java/fourth/)
+
+
+给定单词数组，在面板上查找是否存在连续的字母可组成单词数组的单项。
+
+[代码-java-](./leecodeJ/src/main/java/fourth/Solution.java)
