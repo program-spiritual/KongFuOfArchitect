@@ -114,6 +114,32 @@ n 皇后问题：
 
 [代码-java-](./leecodeJ/src/main/java/sixth/Solution5.java)
 
+编辑距离
+
+[代码-py-](./src/main/java/sixth/Solution6.py)
+
+
+
+7. 并查集
+
+并查集是一种树形数据结构
+作用：
+处理不交集的合并及查询问题
+
+Find: 确定元素属于哪个集合，确定两个元素是否属于同一个子集
+Union: 将两个子集合并成一个集合。
+
+[代码-java-](./leecodeJ/src/main/java/seventh/QuickUnionUF.java)
+
+
+8. LRU Cache
+
+
+1. 记忆
+2. 钱包-储物柜
+3. 代码模块
+
+[代码-py-](./src/main/java/eighth/Solution.py)
 
 
 
