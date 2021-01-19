@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.17)
+project(c___stl)
+
+set(CMAKE_CXX_STANDARD 14)
+include_directories("${PROJECT_SOURCE_DIR}/c++_basic")
+include_directories("${PROJECT_SOURCE_DIR}/c++_standard_library")
+add_subdirectory(c++_basic)
+add_subdirectory(c++_standard_library)
+set(EXTRA_LIBS ${EXTRA_LIBS} c++_basic)
+set(EXTRA_LIBS ${EXTRA_LIBS} c++_standard_library)

@@ -336,7 +336,19 @@
   - [第五章 `Prolog`编程--->点击进入 ](./part3/prolog/README.md)
   - [第六章 `yaml` 数据序列化 --->点击进入 ](./part3/yaml/README.md)
   - [第六章 `Erlang` 函数式编程 --->点击进入 ](./part3/erlang/README.md)
+  - [第七章 `C++` 与 `标准库` --->点击进入 ](./part3/c++_stl/README.md)
 - [part4 | 高效成长 --->点击进入](./part4/README.md)
+    - [**JAVA** 并发编程](./part4/java_concurrency/README.md)
+    
+    - [**JAVA** 并发编程-在线文档版](/part4/java_concurrency/README.md)
+    
+    - [**JAVA** `Class` 与 `JVM`](./part4/java_class_jvm/README.md)
+    
+    - [**JAVA** `Class` 与 `JVM` -在线文档版](/part4/java_class_jvm/README.md)
+    
+    - [**JAVA** 设计模式--笔记-- ](./part4/java_designPattern/README.md)
+    
+    - [**JAVA** 设计模式--笔记-- -在线文档版](/part4/java_designPattern/README.md)
 - [part5 | 资源汇总 --->点击进入](./part5/README.md)
 - [part6 | 大道至简--->暂未更新](./part6/README.md)
 - [part7 | AI与区块链--->暂未更新](./part7/README.md)
