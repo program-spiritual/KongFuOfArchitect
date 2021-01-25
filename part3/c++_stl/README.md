@@ -992,6 +992,25 @@ After swap, value of b :200
 因此，相应地，您需要像下面的函数 `swap()` 一样将函数参数声明为引用类型，
 该函数交换其参数所指向的两个整数变量的值(地址的值)。
 
+[swap_reference](./c++_basic/swap_reference.cpp)
+[swap_reference_main](./c++_basic/swap_reference_main.cpp)
 
+将上述代码放到一个文件中，进行编译和执行后，将产生以下结果：
+
+```c++
+Before swap, value of a :100
+Before swap, value of b :200
+After swap, value of a :200
+After swap, value of b :100
+```
 
 ##### 参数默认值
+
+定义函数时，可以为每个最后一个参数指定默认值。
+如果在调用函数时将相应的参数留为空白，则将使用此值。
+这是通过使用赋值运算符并为函数定义中的参数赋值来完成的。
+如果在调用函数时未传递该参数的值，则使用默认的给定值，但如果指定了值，则将忽略此默认值，而使用传递的值。
+考虑以下示例-
+
+[function_param_default_value](./c++_basic/function_param_default_value.cpp)
+[func_default_value](./c++_basic/func_default_value.cpp)
