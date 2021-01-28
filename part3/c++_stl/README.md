@@ -1834,3 +1834,241 @@ typedef long int *pint32;
 pint32 x, y, z;
 ```
 x，y和z都是长整整型数的指针。
+
+### 类与对象
+
+`C++`编程的主要目的是向`C`编程语言添加面向对象，而类是`C++`的主要功能，它支持面向对象的编程，通常称为用户定义类型。
+一个类用于指定对象的形式，它将数据表示形式和用于将该数据处理到一个整齐的包中的方法结合在一起。
+一个类中的数据和函数称为该类的成员。
+
+#### 类定义
+
+定义类时，将为数据类型定义一个蓝图。
+这实际上并没有定义任何数据，但确实定义了类名的含义，即，该类的对象将由什么组成，以及可以对该对象执行什么操作。
+类定义以关键字`class`开头，后跟类名。
+和 `class body`，用大括号括起来。
+类定义之后必须是分号或声明列表。
+例如，我们使用关键字类定义`Box`数据类型，如下所示-
+
+```c++
+class Box {
+   public:
+      double length;   // Length of a box
+      double breadth;  // Breadth of a box
+      double height;   // Height of a box
+};
+```
+关键字`public`确定了紧随其后的类的成员的访问属性。
+可以从类外部在类对象范围内的任何位置访问公共成员。
+您还可以将类的成员指定为私有成员或受保护成员，我们将在小节中讨论。
+
+#### 定义对象
+
+类提供了对象的设计图，因此基本上是从类创建对象的。
+我们使用与声明基本类型的变量完全相同的声明类型来声明类的对象。
+以下语句声明类`Box`的两个对象-
+
+```c++
+Box Box1;          // Declare Box1 of type Box
+Box Box2;          // Declare Box2 of type Box
+```
+#### 获取数据成员
+
+可以使用直接成员访问运算符（`.`）访问类对象的公共数据成员。
+让我们尝试以下示例以使事情变得清晰起来-
+
+[box](oop/box.cpp)
+
+重要的是要注意，不能使用直接成员访问运算符（`.`）直接访问私有成员和受保护成员。
+我们将学习如何访问私有成员和受保护成员。
+
+#### 类和对象的详细信息
+
+到目前为止，您已经对`C++`类和对象有了一个非常基本的想法。
+还有一些与`C++`类和对象有关的有趣概念，
+我们将在下面列出的各个小节中进行讨论-
+
+##### 类成员函数
+
+到目前为止，您已经对`C++`类和对象有了一个非常基本的想法。
+还有一些与`C++`类和对象有关的有趣概念，我们将在下面列出的各个小节中进行讨论-
+让我们采用先前定义的类来使用成员函数访问类的成员，而不是直接访问它们-
+
+```c++
+class Box {
+   public:
+      double length;         // Length of a box
+      double breadth;        // Breadth of a box
+      double height;         // Height of a box
+      double getVolume(void);// Returns box volume
+};
+```
+成员函数可以在类定义中定义，也可以使用作用域解析运算符：
+-单独定义。
+即使您不使用内联说明符，在类定义中定义成员函数也会声明该内联函数。
+所以您可以如下定义`Volume()`函数-
+
+```c++
+class Box {
+   public:
+      double length;      // Length of a box
+      double breadth;     // Breadth of a box
+      double height;      // Height of a box
+   
+      double getVolume(void) {
+         return length * breadth * height;
+      }
+};
+```
+如果愿意，可以使用作用域解析运算符（`::`)在类外定义相同的函数，如下所示：
+
+```c++
+double Box::getVolume(void) {
+   return length * breadth * height;
+}
+```
+
+在这里，唯一重要的一点是，您必须在`::`运算符之前使用类名。
+将在对象上使用点运算符（`.`）调用成员函数，该成员函数将仅按以下方式操作与该对象有关的数据-
+
+```c++
+Box myBox;          // Create an object
+
+myBox.getVolume();  // Call member function for the object
+```
+让我们提出以上概念来设置和获取类中不同类成员的值-
+
+[cpp_class_member_functions](oop/cpp_class_member_functions.cpp)
+
+##### 类访问修饰符
+
+数据隐藏是面向对象编程的重要功能之一，它可以防止程序的功能直接访问类类型的内部表示。
+类成员的访问限制由类主体中标记为公共，私有和受保护的部分指定。
+关键字 `public`，`private` 和 `protected` 称为访问说明符。
+一个类可以具有多个公共，受保护或私有标记的部分。
+每个部分都保持有效，直到看到另一个部分标签或类主体的右右括号为止。
+成员和类的默认访问权限为私有。
+
+```c++
+class Base { 
+   public:
+      // public members go here
+      protected:
+ 
+   // protected members go here
+   private:
+   // private members go here
+ 
+};
+```
+###### 公共成员
+
+公共成员可以从 `class` 外部但在程序内的任何地方访问。
+您可以在没有任何成员函数的情况下设置和获取公共变量的值，如以下示例所示：
+
+[public_member](oop/public_member.cpp)
+
+###### 私有成员
+
+私有成员变量或函数无法访问，甚至无法从类外部查看。
+只有 `class` 和 友元函数 可以访问私有成员。
+默认情况下，一个类的所有成员都是私有成员，例如，在以下类中，
+宽度是私有成员，这意味着在标记成员之前，
+将假定该成员为私有成员-
+
+```c++
+class Box {
+double width;
+
+public:
+double length;
+void setWidth( double wid );
+double getWidth( void );
+};
+```
+
+实际上，我们在私有部分定义数据，并在公共部分定义相关功能，
+以便可以从类外部调用它们，如以下程序所示。
+
+[private_member](oop/private_member.cpp)
+
+###### 受保护的成员
+
+受保护的成员变量或函数与私有成员非常相似，但是它提供了另一个好处，即可以在称为派生类的子类中访问它们。
+在下一章中，您将学习派生类和继承。
+现在，您可以检查以下示例，其中我从父类 `Box` 派生了一个子类 `SmallBox` 。
+下面的示例与上面的示例相似，此处width成员将可由其派生类SmallBox的任何成员函数访问。
+
+[protect_member](oop/protect_member.cpp)
+
+
+##### 构造函数
+
+类构造函数是类的特殊成员函数，只要我们创建该类的新对象，该构造函数便会执行。
+构造函数将具有与类完全相同的名称，并且根本没有任何返回类型，甚至没有void。
+构造函数对于为某些成员变量设置初始值非常有用。
+以下示例解释了构造函数的概念-
+
+[constructor_concept](oop/constructor_concept.cpp)
+
+###### 参数化构造函数
+
+默认构造函数没有任何参数，但是如果需要，构造函数可以具有参数。
+这有助于您在创建对象时为对象分配初始值，如以下示例所示-
+
+[](oop/parameterized_constructor.cpp)
+
+###### 使用初始化列表初始化字段
+
+如果使用参数化构造函数，则可以使用以下语法初始化字段-
+```c++
+Line::Line( double len): length(len) {
+   cout << "Object is being created, length = " << len << endl;
+}
+```
+
+上面的语法等于下面的语法-
+
+```c++
+Line::Line( double len) {
+   cout << "Object is being created, length = " << len << endl;
+   length = len;
+}
+```
+
+如果对于C类，您有多个字段X，Y，Z等要初始化，则use可以使用相同的语法并以逗号分隔字段，如下所示-
+
+```c++
+C::C( double a, double b, double c): X(a), Y(b), Z(c) {
+   ....
+}
+```
+
+###### 类析构函数
+析构函数是类的特殊成员函数，每当其类的对象超出范围或将`delete`表达式应用于指向该类对象的指针时，都执行该析构函数。
+析构函数的名称与以波浪号（`〜`）为前缀的类的名称完全相同，并且既不能返回值，也不能采用任何参数。
+析构函数对于在退出程序之前释放资源（例如关闭文件，释放内存等）非常有用。以下示例说明了析构函数的概念-
+
+[destructor_concept](oop/destructor_concept.cpp)
+
+##### 复制构造函数
+
+复制构造函数是一个构造函数，它通过使用先前创建的相同类的对象初始化对象来创建对象。
+复制构造函数用于-
+
+- 从另一个相同类型的对象初始化一个对象。
+- 复制对象以将其作为参数传递给函数。
+- 复制对象以从函数返回它。
+
+如果没有在类中定义副本构造函数，则编译器本身将定义一个副本构造函数。
+如果该类具有指针变量并具有一些动态内存分配，则必须具有副本构造函数。
+复制构造函数的最常见形式如下所示：
+
+```c++
+classname (const classname &obj) {
+   // body of constructor
+}
+```
+此处，`obj` 是对用于初始化另一个对象的对象的引用。
+
+[copy_constructor](oop/copy_constructor.cpp)
