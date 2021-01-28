@@ -1784,3 +1784,53 @@ struct Books {
 您将以与上述示例相同的方式访问结构变量-
 
 [structures_as_function_arguments](c++_basic/structures_as_function_arguments.cpp)
+
+#### 指向结构的指针
+您可以按照与定义任何其他变量的指针非常相似的方式定义指向结构的指针，如下所示
+
+```c++
+struct Books *struct_pointer;
+```
+现在，您可以将结构变量的地址存储在上面定义的指针变量中。
+要找到结构变量的地址，请将`&`运算符放在结构名称之前，如下所示：
+
+```c++
+struct_pointer = &Book1;
+```
+
+要使用指向该结构的指针访问该结构的成员，必须使用`->`运算符，如下所示：
+
+```c++
+struct_pointer->title;
+```
+
+让我们使用结构指针重写上面的示例，希望这将使您容易理解概念-
+
+#### `typedef` 关键字
+
+有一种定义结构的简便方法，也可以“别名”创建的类型。
+例如-
+```c++
+typedef struct {
+char  title[50];
+char  author[50];
+char  subject[100];
+int   book_id;
+} Books;
+```
+
+现在，您可以直接使用`Books`来定义`Books`类型的变量，而无需使用`struct`关键字。
+以下是示例-
+
+```c++
+Books Book1, Book2;
+```
+
+您可以对非结构使用`typedef`关键字，如下所示：
+
+```c++
+typedef long int *pint32;
+ 
+pint32 x, y, z;
+```
+x，y和z都是长整整型数的指针。
