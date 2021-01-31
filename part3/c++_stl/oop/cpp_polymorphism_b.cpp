@@ -12,7 +12,10 @@ public:
     height = b;
   }
 
-  virtual int area() = 0;
+  virtual int area(){
+      cout << "Parent class area :" <<endl;
+      return 0;
+  };
 };
 
 class Rectangle : public Shape {
