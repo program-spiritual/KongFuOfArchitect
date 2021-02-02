@@ -3834,3 +3834,56 @@ math.h标头定义了各种数学函数和一个宏。
 
 21 double fmod(double x,double y)返回x除以y的余数。
 [c_function_fmod](c_standard_library/c_function_fmod.cpp)
+
+#### setjmp.h
+
+setjmp.h标头定义了宏setjmp（），一个函数longjmp（）和一个变量类型jmp_buf，用于绕过常规函数调用和返回规则。
+
+##### setjmp()
+
+[c_macro_setjmp](c_standard_library/c_macro_setjmp.cpp)
+
+#### signal.h
+
+signal.h标头定义了一个变量类型sig_atomic_t，两个函数调用以及几个宏，以处理程序执行期间报告的不同信号。
+
+##### 库变量
+
+|变量|描述|
+|------------|------------|
+| `sig_atomic_t` |这是int类型，用作信号处理程序中的变量。这是对象的一种整体类型，即使存在异步信号也可以作为原子实体进行访问。|
+
+##### 库宏
+
+以下是标头signal.h中定义的宏，这些宏将在下面列出的两个函数中使用。
+
+SIG_ 宏与信号功能一起使用以定义信号功能。
+
+|宏|描述|
+|------------|------------|
+|SIG_DFL|默认信号处理程序。|
+|SIG_ERR|表示错误信号。|
+|SIG_IGN|忽略信号。|
+
+SIG宏用于在以下情况下表示信号编号：
+
+|宏|描述|
+|------------|------------|
+|SIGABRT|程序异常终止。|
+|SIGFPE|浮点错误，例如被零除。|
+|SIGILL|非法操作。|
+|SIGINT|中断信号，例如ctrl-C。|
+|SIGSEGV|对存储的无效访问（例如段违规）。|
+|SIGTERM|终止请求。|
+
+
+##### 库函数
+以下是标头信号中定义的 signal.h-
+
+|函数|描述|
+|------------|------------|
+|void (*signal(int sig, void (*func)(int)))(int)|该函数设置用于处理信号的函数，即信号处理程序。|
+|int raise(int sig)|此功能导致生成信号sig。sig参数与SIG宏兼容。|
+
+[c_function_signal](c_standard_library/c_function_signal.cpp)
+
