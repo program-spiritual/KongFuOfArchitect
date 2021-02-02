@@ -3784,7 +3784,6 @@ math.h标头定义了各种数学函数和一个宏。
 4 double atan2(double y,double x)根据两个值的符号返回以y / x弧度表示的反正切,以确定正确的象限。
 [c_function_atan2](c_standard_library/c_function_atan2.cpp)
 
-
 5 double cos(double x)返回弧度角x的余弦。
 [c_function_cos](c_standard_library/c_function_cos.cpp)
 
@@ -3792,33 +3791,46 @@ math.h标头定义了各种数学函数和一个宏。
 [c_function_cos](c_standard_library/c_function_cos.cpp)
 
 7 double sin(double x)返回弧度角x的正弦值。
+[c_function_sin](c_standard_library/c_function_sin.cpp)
 
 8 double sinh(double x)返回x的双曲正弦值。
+[c_function_sinh](c_standard_library/c_function_sinh.cpp)
 
 9 double tanh(double x)返回x的双曲正切值。
+[c_function_tanh](c_standard_library/c_function_tanh.cpp)
 
 10 double exp(double x)返回e的值乘以x的幂。
+[c_function_exp](c_standard_library/c_function_exp.cpp)
 
-11 double frexp(double x,int * exponent)返回值是尾数,指数所指向的整数是指数。
-
-结果值为x =尾数* 2 ^指数。
+11 double frexp(double x,int * exponent)返回值是尾数,指数所指向的整数是指数。结果值为x =尾数* 2 ^指数。
+[c_function_frexp](c_standard_library/c_function_frexp.cpp)
 
 12 double ldexp(double x,int exponent)返回x乘以2的乘幂。
+[c_function_ldexp](c_standard_library/c_function_ldexp.cpp)
 
 13 double log(double x)返回x的自然对数(以e为底的对数)。
+[c_function_log](c_standard_library/c_function_log.cpp)
 
 14 double log10(double x)返回x的公共对数(以10为底的对数)。
+[c_function_log10](c_standard_library/c_function_log10.cpp)
 
 15 double modf(double x,double * integer)返回值是小数部分(小数点后的部分),并将整数设置为整​​数部分。
+[c_function_modf](c_standard_library/c_function_modf.cpp)
 
 16 double pow(double x,double y)返回x乘以y的幂。
+[c_function_pow](c_standard_library/c_function_pow.cpp)
 
 17 double sqrt(double x)返回x的平方根。
+[c_function_sqrt](c_standard_library/c_function_sqrt.cpp)
 
 18 double ceil(double x)返回大于或等于x的最小整数值。
+[c_function_sqrt](c_standard_library/c_function_sqrt.cpp)
 
 19 double fabs(double x)返回x的绝对值。
+[c_function_fabs](c_standard_library/c_function_fabs.cpp)
 
 20 double floor(double x)返回小于或等于x的最大整数值。
+[c_function_floor](c_standard_library/c_function_floor.cpp)
 
-21 double fmod(double x,double y)返回x的余数除以y。
+21 double fmod(double x,double y)返回x除以y的余数。
+[c_function_fmod](c_standard_library/c_function_fmod.cpp)
