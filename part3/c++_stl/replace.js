@@ -12,8 +12,9 @@ let replaceFile = function(filePath){
     let str7 = str6.replace(/ :: /g,'::')
     let str8  = str7.replace(/！=/g,'!=')
     let str9 = str8.replace(/ == /g,'==')
+    let str10 = str8.replace(/ \*/g,'*')
     console.log('done!')
-    FS.writeFileSync(filePath, str9)
+    FS.writeFileSync(filePath, str10)
 }
 
 replaceFile('README.md')

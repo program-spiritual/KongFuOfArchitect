@@ -1,6 +1,10 @@
 
-add_library(c++_standard_library aaaa.cpp functional.cpp)
+add_library(c++_standard_library cpp_allocate_shared.cpp functional.cpp cpp_make_shared.cpp static_pointer_cast.cpp cpp_dynamic_pointer_cast.cpp)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 install(TARGETS c++_standard_library  DESTINATION bin)
 install(FILES  DESTINATION include)
 add_executable(functional functional.cpp)
+add_executable(cpp_make_shared cpp_make_shared.cpp)
+add_executable(cpp_allocate_shared cpp_allocate_shared.cpp)
+add_executable(static_pointer_cast static_pointer_cast.cpp)
+add_executable(cpp_dynamic_pointer_cast cpp_dynamic_pointer_cast.cpp)

@@ -225,11 +225,11 @@ fruit = apples + oranges;   // Get the total fruit
 `C++` 注释以 `/*` 开头,以 `*/` 结尾。 例如-
 
 ```c++
-/* This is a comment */
+/* This is a comment*/
 
 /* C++ comments can also
 * span multiple lines
-  */
+ */
 ```
 
 注释也可以以 `//` 开头,延伸到该行的末尾。 例如-
@@ -778,7 +778,7 @@ C++语言支持以下逻辑运算符。
 |=|简单赋值运算符,将值从右侧操作数分配到左侧操作数。| C = A + B将A + B的值赋给C|
 | +=|添加AND赋值运算符,它将右操作数添加到左操作数,并将结果分配给左操作数。| C + = A等于C = C + A|
 | -=|减去AND赋值运算符,它从左操作数中减去右操作数,并将结果分配给左操作数。| C-= A等效于C = C-A|
-| *=|与AND赋值运算符相乘,它将右操作数与左操作数相乘并将结果分配给左操作数。| C * = A等于C = C * A|
+|*=|与AND赋值运算符相乘,它将右操作数与左操作数相乘并将结果分配给左操作数。| C* = A等于C = C* A|
 | /=|除以AND赋值运算符,它将左操作数除以右操作数,并将结果分配给左操作数。| C / = A等于C = C / A|
 | ％=|模AND赋值运算符,它使用两个操作数取模并将结果分配给左操作数。| C％= A等于C = C％A|
 | <<=|左移AND赋值运算符。| C << = 2与C = C << 2相同|
@@ -798,7 +798,7 @@ C++语言支持以下逻辑运算符。
 | `.` (点) , `->` (瘦箭头) | 成员运算符用于引用类,结构和联合的单个成员。 |
 | Cast | 强制转换运算符将一种数据类型转换为另一种数据类型。例如,int(2.2000)将返回2。 |
 | `&` | 指针运算符 `＆` 返回变量的地址。例如`＆a;`将给出变量的实际地址。 |
-|` * `| 指针运算符`*`是指向变量的指针。例如`* var;`将指针指向变量`var`。 |
+|`* `| 指针运算符`*`是指向变量的指针。例如`* var;`将指针指向变量`var`。 |
 
 
 #### 运算符优先级
@@ -818,7 +818,7 @@ C++语言支持以下逻辑运算符。
 |  逻辑AND |&&  | 从左到右|
 |  逻辑或  | 	&brvbar;	&brvbar; | 左到右|
 |  条件 | ?:  |从右到左|
-|  分配   | = + =-= * = / =％= >> = << =＆= ^ = 	&brvbar; =  	| 从右到左|
+|  分配   | = + =-=* = / =％= >> = << =＆= ^ = 	&brvbar; =  	| 从右到左|
 |  逗号  | , | 从左到右|
 
 ### C++ 循环类型
@@ -1170,9 +1170,9 @@ type arrayName [ x ][ y ];
 
 ```c++
 int a[3][4] = {  
-   {0, 1, 2, 3} ,   /*  initializers for row indexed by 0 */
-   {4, 5, 6, 7} ,   /*  initializers for row indexed by 1 */
-   {8, 9, 10, 11}   /*  initializers for row indexed by 2 */
+   {0, 1, 2, 3} ,   /*  initializers for row indexed by 0*/
+   {4, 5, 6, 7} ,   /*  initializers for row indexed by 1*/
+   {8, 9, 10, 11}   /*  initializers for row indexed by 2*/
 };
 ```
 指示所需行的嵌套括号是可选的。
@@ -1207,7 +1207,7 @@ double balance[50];
 因此,以下程序片段为 `p` 分配了 `balance` 的第一个元素的地址-
 
 ```c++
-double *p;
+double*p;
 double balance[10];
 
 p = balance;
@@ -1235,7 +1235,7 @@ p = balance;
 形式参数作为指针如下：
 
 ```c++
-void myFunction(int *param) {
+void myFunction(int*param) {
    .
    .
    .
@@ -1279,7 +1279,7 @@ void myFunction(int param[]) {
 如果要从函数返回一维数组,则必须声明一个返回指针的函数,如以下示例所示：
 
 ```c++
-int * myFunction() {
+int* myFunction() {
    .
    .
    .
@@ -1354,7 +1354,7 @@ char greeting[] = "Hello";
 指针变量声明的一般形式是-
 
 ```c++
-type *var-name;
+type*var-name;
 ```
 在这里,`type` 是指针的基本类型。
 它必须是有效的`C++`类型,并且 `var-name` 是指针变量的名称。
@@ -1363,10 +1363,10 @@ type *var-name;
 以下是有效的指针声明-
 
 ```c++
-int    *ip;    // pointer to an integer
-double *dp;    // pointer to a double
-float  *fp;    // pointer to a float
-char   *ch     // pointer to character
+int   *ip;    // pointer to an integer
+double*dp;    // pointer to a double
+float *fp;    // pointer to a float
+char  *ch     // pointer to character
 ```
 所有指针的值的实际数据类型(无论是整数,浮点数,字符还是其他形式)都是相同的,即表示内存地址的十六进制数字。
 不同数据类型的指针之间的唯一区别是指针指向的变量或常量的数据类型。
@@ -1501,7 +1501,7 @@ ptr++
 例如,以下是声明指向 `int` 类型的指针的指针的声明-
 
 ```c++
-int **var;
+int**var;
 ```
 
 当指向指针的指针间接指向目标值时,访问该值需要两次应用星号运算符,如下面的示例所示-
@@ -1528,7 +1528,7 @@ int **var;
 为此,您必须声明一个返回指针的函数,如以下示例所示：
 
 ```c++
-int * myFunction() {
+int* myFunction() {
    .
    .
    .
@@ -1636,13 +1636,13 @@ struct tm {
 
 |函数|描述|
 |------------|------------|
-|time_t time(time_t *time);|这将返回自1970年1月1日以来经过的秒数的系统当前日历时间。如果系统没有时间,则返回.1。|
-|char * ctime(const time_t * time);|这将返回一个指针,其格式为日月年年小时：分钟：秒年\n\0|
-|struct tm * localtime(const time_t * time);|这将返回一个指向本地时间的tm结构的指针。|
+|time_t time(time_t*time);|这将返回自1970年1月1日以来经过的秒数的系统当前日历时间。如果系统没有时间,则返回.1。|
+|char* ctime(const time_t* time);|这将返回一个指针,其格式为日月年年小时：分钟：秒年\n\0|
+|struct tm* localtime(const time_t* time);|这将返回一个指向本地时间的tm结构的指针。|
 |clock_t clock(void);|这将返回一个近似于调用程序已运行时间的值。如果时间不可用,则返回值.1。|
-|char * asctime ( const struct tm * time );|这将返回一个指向字符串的指针,该字符串包含存储在时间指向的结构中的信息,该信息转换为以下格式：日月日期小时：分钟：秒年\n\0|
-|struct tm *gmtime(const time_t *time);|这将以`tm`结构的形式返回指向时间的指针。时间以协调世界时(UTC)表示,本质上是格林威治标准时间(GMT)。|
-|time_t mktime(struct tm *time);|这将返回与时间所指向的结构中找到的时间等效的日历时间。|
+|char* asctime ( const struct tm* time );|这将返回一个指向字符串的指针,该字符串包含存储在时间指向的结构中的信息,该信息转换为以下格式：日月日期小时：分钟：秒年\n\0|
+|struct tm*gmtime(const time_t*time);|这将以`tm`结构的形式返回指向时间的指针。时间以协调世界时(UTC)表示,本质上是格林威治标准时间(GMT)。|
+|time_t mktime(struct tm*time);|这将返回与时间所指向的结构中找到的时间等效的日历时间。|
 |double difftime ( time_t time2, time_t time1 );|此函数以秒为单位计算`time1`和`time2`之间的时差。|
 |size_t strftime();|此函数可用于以特定格式格式化日期和时间。|
 
@@ -1789,7 +1789,7 @@ struct Books {
 您可以按照与定义任何其他变量的指针非常相似的方式定义指向结构的指针,如下所示
 
 ```c++
-struct Books *struct_pointer;
+struct Books*struct_pointer;
 ```
 现在,您可以将结构变量的地址存储在上面定义的指针变量中。
 要找到结构变量的地址,请将`&`运算符放在结构名称之前,如下所示：
@@ -1829,7 +1829,7 @@ Books Book1, Book2;
 您可以对非结构使用`typedef`关键字,如下所示：
 
 ```c++
-typedef long int *pint32;
+typedef long int*pint32;
  
 pint32 x, y, z;
 ```
@@ -1916,7 +1916,7 @@ class Box {
       double height;      // Height of a box
    
       double getVolume(void) {
-         return length * breadth * height;
+         return length* breadth* height;
       }
 };
 ```
@@ -1924,7 +1924,7 @@ class Box {
 
 ```c++
 double Box::getVolume(void) {
-   return length * breadth * height;
+   return length* breadth* height;
 }
 ```
 
@@ -2378,7 +2378,7 @@ C++能够使用流提取运算符`>>`和流插入运算符`<<`输入和输出内
 ```c++
 class Ptr {
    //...
-   X * operator->();
+   X* operator->();
 };
 ```
 
@@ -2544,7 +2544,7 @@ int main() {
 class Box {
    public:
       double getVolume(void) {
-         return length * breadth * height;
+         return length* breadth* height;
       }
 
    private:
@@ -2637,7 +2637,7 @@ class Box {
 以下是`open()`函数的标准语法,该函数是 `fstream`,`ifstream` 和 `ofstream` 对象的成员。
 
 ```c++
-void open(const char *filename, ios::openmode mode);
+void open(const char*filename, ios::openmode mode);
 ```
 
 在这里,第一个参数指定要打开的文件的名称和位置,而open() 成员函数的第二个参数定义打开文件的模式。
@@ -2776,7 +2776,7 @@ try {
 
 [cpp_exceptions_handling_a](advance/cpp_exceptions_handling_a.cpp)
 
-由于我们引发了`const char *`类型的异常,因此在捕获此异常时,我们必须在catch块中使用`const char *`。如果我们编译并运行以上代码,这将产生以下结果-
+由于我们引发了`const char*`类型的异常,因此在捕获此异常时,我们必须在catch块中使用`const char*`。如果我们编译并运行以上代码,这将产生以下结果-
 
 #### C++标准异常
 C++提供了在中定义的标准异常列表,我们可以在程序中使用它们。这些按以下所示的父子类层次结构排列-
@@ -3659,23 +3659,23 @@ limits.h标头确定各种变量类型的各种属性。
 
 |函数|描述|
 |------------|------------|
-|char *setlocale(int category, const char *locale)|设置或读取位置相关信息。|
-|struct lconv *localeconv(void)|设置或读取位置相关信息。|
+|char*setlocale(int category, const char*locale)|设置或读取位置相关信息。|
+|struct lconv*localeconv(void)|设置或读取位置相关信息。|
 
 ##### 库结构
 
 ```c++
 typedef struct {
-   char *decimal_point;
-   char *thousands_sep;
-   char *grouping;	
-   char *int_curr_symbol;
-   char *currency_symbol;
-   char *mon_decimal_point;
-   char *mon_thousands_sep;
-   char *mon_grouping;
-   char *positive_sign;
-   char *negative_sign;
+   char*decimal_point;
+   char*thousands_sep;
+   char*grouping;	
+   char*int_curr_symbol;
+   char*currency_symbol;
+   char*mon_decimal_point;
+   char*mon_thousands_sep;
+   char*mon_grouping;
+   char*positive_sign;
+   char*negative_sign;
    char int_frac_digits;
    char frac_digits;
    char p_cs_precedes;
@@ -3802,7 +3802,7 @@ math.h标头定义了各种数学函数和一个宏。
 10 double exp(double x)返回e的值乘以x的幂。
 [c_function_exp](c_standard_library/c_function_exp.cpp)
 
-11 double frexp(double x,int * exponent)返回值是尾数,指数所指向的整数是指数。结果值为x =尾数* 2 ^指数。
+11 double frexp(double x,int* exponent)返回值是尾数,指数所指向的整数是指数。结果值为x =尾数* 2 ^指数。
 [c_function_frexp](c_standard_library/c_function_frexp.cpp)
 
 12 double ldexp(double x,int exponent)返回x乘以2的乘幂。
@@ -3814,7 +3814,7 @@ math.h标头定义了各种数学函数和一个宏。
 14 double log10(double x)返回x的公共对数(以10为底的对数)。
 [c_function_log10](c_standard_library/c_function_log10.cpp)
 
-15 double modf(double x,double * integer)返回值是小数部分(小数点后的部分),并将整数设置为整​​数部分。
+15 double modf(double x,double* integer)返回值是小数部分(小数点后的部分),并将整数设置为整​​数部分。
 [c_function_modf](c_standard_library/c_function_modf.cpp)
 
 16 double pow(double x,double y)返回x乘以y的幂。
@@ -3967,7 +3967,7 @@ stddef.h标头定义了各种变量类型和宏。
 
 NULL 是空指针常量的值。
 
-根据编译器供应商的不同,它可以定义为((void *)0),0或0L。
+根据编译器供应商的不同,它可以定义为((void*)0),0或0L。
 
 [c_macro_null](c_standard_library/c_macro_null.cpp)
 
@@ -4021,97 +4021,97 @@ stdio.h标头定义了三种变量类型,几个宏以及用于执行输入和输
 #### 库函数
 以下是头文件stdio.h中定义的函数-
 
-1 int fclose(FILE * stream)关闭流。 所有缓冲区均被刷新。
+1 int fclose(FILE* stream)关闭流。 所有缓冲区均被刷新。
 
-2 void clearerr(FILE * stream)清除给定流的文件结尾和错误指示符。
+2 void clearerr(FILE* stream)清除给定流的文件结尾和错误指示符。
 
-3 int feof(FILE * stream)测试给定流的文件结束指示符。
+3 int feof(FILE* stream)测试给定流的文件结束指示符。
 
-4 int ferror(FILE * stream)测试给定流的错误指示符。
+4 int ferror(FILE* stream)测试给定流的错误指示符。
 
-5 int fflush(FILE * stream)刷新流的输出缓冲区。
+5 int fflush(FILE* stream)刷新流的输出缓冲区。
 
-6 int fgetpos(FILE * stream,fpos_t * pos)获取流的当前文件位置并将其写入pos。
+6 int fgetpos(FILE* stream,fpos_t* pos)获取流的当前文件位置并将其写入pos。
 
-7 FILE * fopen(const char * filename,const char * mode)使用给定模式打开filename指向的文件名。
+7 FILE* fopen(const char* filename,const char* mode)使用给定模式打开filename指向的文件名。
 
-8 size_t fread(void * ptr,size_t size,size_t nmemb,FILE * stream)将数据从给定流读取到ptr指向的数组中。
+8 size_t fread(void* ptr,size_t size,size_t nmemb,FILE* stream)将数据从给定流读取到ptr指向的数组中。
 
-9 FILE * freopen(const char *文件名,const char * mode,FILE * stream)将新文件名与给定的打开流关联,同时关闭流中的旧文件。
+9 FILE* freopen(const char*文件名,const char* mode,FILE* stream)将新文件名与给定的打开流关联,同时关闭流中的旧文件。
 
-10 int fseek(FILE * stream,long int offset,int whence)将流的文件位置设置为给定的偏移量。
+10 int fseek(FILE* stream,long int offset,int whence)将流的文件位置设置为给定的偏移量。
 
 参数offset表示要从给定的位置搜索的字节数。
 
-11 int fsetpos(FILE * stream,const fpos_t * pos)将给定流的文件位置设置为给定位置。
+11 int fsetpos(FILE* stream,const fpos_t* pos)将给定流的文件位置设置为给定位置。
 
 参数pos是函数fgetpos给出的位置。
 
-12 long int ftell(FILE * stream)返回给定流的当前文件位置。
+12 long int ftell(FILE* stream)返回给定流的当前文件位置。
 
-13 size_t fwrite(const void * ptr,size_t size,size_t nmemb,FILE * stream)将数据从ptr指向的数组写入给定流。
+13 size_t fwrite(const void* ptr,size_t size,size_t nmemb,FILE* stream)将数据从ptr指向的数组写入给定流。
 
-14 int remove(const char * filename)删除给定的文件名,使其不再可访问。
+14 int remove(const char* filename)删除给定的文件名,使其不再可访问。
 
-15 int rename(const char * old_filename,const char * new_filename)使由old_filename引用的文件名更改为new_filename。
+15 int rename(const char* old_filename,const char* new_filename)使由old_filename引用的文件名更改为new_filename。
 
-16 void rewind(FILE * stream)将文件位置设置为给定流的文件的开头。
+16 void rewind(FILE* stream)将文件位置设置为给定流的文件的开头。
 
-17 void setbuf(FILE * stream,char * buffer)定义应如何缓冲流。
+17 void setbuf(FILE* stream,char* buffer)定义应如何缓冲流。
 
-18 int setvbuf(FILE * stream,char * buffer,int模式,size_t大小)另一个函数,用于定义应如何缓冲流。
+18 int setvbuf(FILE* stream,char* buffer,int模式,size_t大小)另一个函数,用于定义应如何缓冲流。
 
-19 FILE * tmpfile(void)以二进制更新模式(wb +)创建一个临时文件。
+19 FILE* tmpfile(void)以二进制更新模式(wb +)创建一个临时文件。
 
-20 char * tmpnam(char * str)生成并返回一个不存在的有效临时文件名。
+20 char* tmpnam(char* str)生成并返回一个不存在的有效临时文件名。
 
-21 int fprintf(FILE * stream,const char * format,...)将格式化的输出发送到流。
+21 int fprintf(FILE* stream,const char* format,...)将格式化的输出发送到流。
 
-22 int printf(const char * format,...)将格式化的输出发送到stdout。
+22 int printf(const char* format,...)将格式化的输出发送到stdout。
 
-23 int sprintf(char * str,const char * format,...)将格式化的输出发送到字符串。
+23 int sprintf(char* str,const char* format,...)将格式化的输出发送到字符串。
 
-24 int vfprintf(FILE * stream,const char * format,va_list arg)使用参数列表将格式化的输出发送到流。
+24 int vfprintf(FILE* stream,const char* format,va_list arg)使用参数列表将格式化的输出发送到流。
 
-25 int vprintf(const char * format,va_list arg)使用参数列表将格式化的输出发送到stdout。
+25 int vprintf(const char* format,va_list arg)使用参数列表将格式化的输出发送到stdout。
 
-26 int vsprintf(char * str,const char * format,va_list arg)使用参数列表将格式化的输出发送到字符串。
+26 int vsprintf(char* str,const char* format,va_list arg)使用参数列表将格式化的输出发送到字符串。
 
-27 int fscanf(FILE * stream,const char * format,...)从流中读取格式化的输入。
+27 int fscanf(FILE* stream,const char* format,...)从流中读取格式化的输入。
 
-28 int scanf(const char * format,...)从stdin读取格式化的输入。
+28 int scanf(const char* format,...)从stdin读取格式化的输入。
 
-29 int sscanf(const char * str,const char * format,...)从字符串读取格式化的输入。
+29 int sscanf(const char* str,const char* format,...)从字符串读取格式化的输入。
 
-30 int fgetc(FILE * stream)从指定的流中获取下一个字符(无符号字符),并使该流的位置指示符前进。
+30 int fgetc(FILE* stream)从指定的流中获取下一个字符(无符号字符),并使该流的位置指示符前进。
 
-31 char * fgets(char * str,int n,FILE * stream)从指定的流中读取一行并将其存储到str指向的字符串中。
+31 char* fgets(char* str,int n,FILE* stream)从指定的流中读取一行并将其存储到str指向的字符串中。
 
 当读取(n-1)个字符,读取换行符或到达文件末尾(以先到者为准)时,它将停止。
 
-32 int fputc(int char,FILE * stream)将参数char指定的字符(无符号字符)写入指定的流,并使该流的位置指示符前进。
+32 int fputc(int char,FILE* stream)将参数char指定的字符(无符号字符)写入指定的流,并使该流的位置指示符前进。
 
-33 int fputs(const char * str,FILE * stream)将字符串写入指定的流,直到但不包括空字符。
+33 int fputs(const char* str,FILE* stream)将字符串写入指定的流,直到但不包括空字符。
 
-34 int getc(FILE * stream)从指定的流中获取下一个字符(无符号字符),并使该流的位置指示符前进。
+34 int getc(FILE* stream)从指定的流中获取下一个字符(无符号字符),并使该流的位置指示符前进。
 
 35 int getchar(void)从标准输入中获取一个字符(无符号字符)。
 
-36 char * gets(char * str)从stdin读取一行并将其存储到str指向的字符串中。
+36 char* gets(char* str)从stdin读取一行并将其存储到str指向的字符串中。
 
 当读取换行符或到达文件结尾时(以先到者为准),它将停止。
 
-37 int putc(int char,FILE * stream)将参数char指定的字符(无符号char)写入指定的流,并使该流的位置指示符前进。
+37 int putc(int char,FILE* stream)将参数char指定的字符(无符号char)写入指定的流,并使该流的位置指示符前进。
 
 38 int putchar(int char)将参数char指定的字符(无符号char)写入stdout。
 
-39 int puts(const char * str)将一个字符串写入stdout,直到但不包括空字符。
+39 int puts(const char* str)将一个字符串写入stdout,直到但不包括空字符。
 
 换行符附加到输出。
 
-40 int ungetc(int char,FILE * stream)将字符char(无符号字符)压入指定的流,以便读取下一个字符。
+40 int ungetc(int char,FILE* stream)将字符char(无符号字符)压入指定的流,以便读取下一个字符。
 
-41 void perror(const char * str)将描述性错误消息打印到stderr。
+41 void perror(const char* str)将描述性错误消息打印到stderr。
 
 首先打印字符串 `str` ,然后打印冒号和空格。
 
@@ -4145,35 +4145,35 @@ stdlib.h标头定义了四个变量类型,几个宏和用于执行常规功能�
 #### 库函数
 以下是标头stdlib.h中定义的函数-
 
-1 double atof(const char * str)将参数str指向的字符串转换为浮点数(double类型)。
+1 double atof(const char* str)将参数str指向的字符串转换为浮点数(double类型)。
 [c_function_atof](c_standard_library/c_function_atof.cpp)
 
-2 int atoi(const char * str)将参数str指向的字符串转换为整数(int类型)。
+2 int atoi(const char* str)将参数str指向的字符串转换为整数(int类型)。
 
 [c_function_atof](c_standard_library/c_function_atof.cpp)
 
 
-3 long int atol(const char * str)将参数str指向的字符串转换为long整数(类型long int)。
+3 long int atol(const char* str)将参数str指向的字符串转换为long整数(类型long int)。
 
-4 double strtod(const char * str,char ** endptr)将参数str指向的字符串转换为浮点数(类型为double)。
+4 double strtod(const char* str,char** endptr)将参数str指向的字符串转换为浮点数(类型为double)。
 
-5 long int strtol(const char * str,char ** endptr,int base)将参数str指向的字符串转换为长整数(类型为long int)。
+5 long int strtol(const char* str,char** endptr,int base)将参数str指向的字符串转换为长整数(类型为long int)。
 
-6 unsigned long int strtoul(const char * str,char ** endptr,int base)将参数str指向的字符串转换为unsigned long整数(类型为unsigned long int)。
+6 unsigned long int strtoul(const char* str,char** endptr,int base)将参数str指向的字符串转换为unsigned long整数(类型为unsigned long int)。
 
-7 void * calloc(size_t nitems,size_t size)分配所请求的内存并返回指向它的指针。
+7 void* calloc(size_t nitems,size_t size)分配所请求的内存并返回指向它的指针。
 
-8 void free(void * ptr取消分配先前由对calloc,malloc或realloc的调用分配的内存。9 void * malloc(size_t size)分配所请求的内存并返回指向它的指针。10 void * realloc(void * ptr
+8 void free(void* ptr取消分配先前由对calloc,malloc或realloc的调用分配的内存。9 void* malloc(size_t size)分配所请求的内存并返回指向它的指针。10 void* realloc(void* ptr
 
 int atexit(void(* func)(void),size_t size)尝试调整ptr指向的内存块的大小,该内存块先前是通过调用malloc或calloc分配的。11 void abort(void)导致程序异常终止。
 
-)导致程序正常终止时调用指定的函数func 13 void exit(int status)导致程序正常终止14 char * getenv(const char * name)搜索由name指向的环境字符串并返回
+)导致程序正常终止时调用指定的函数func 13 void exit(int status)导致程序正常终止14 char* getenv(const char* name)搜索由name指向的环境字符串并返回
 
-15 int system(const char * string)字符串指定的命令传递到主机环境,由命令处理器执行
+15 int system(const char* string)字符串指定的命令传递到主机环境,由命令处理器执行
 
-16 void * bsearch(const void * key,const void * base, size_t个下标,size_t大小,int(* compar)(const void *,const void *))执行二分搜索。
+16 void* bsearch(const void* key,const void* base, size_t个下标,size_t大小,int(* compar)(const void*,const void*))执行二分搜索。
 
-17 void qsort(void * base,size_t nitems,size_t size,int(* compar)(const void *,const void *))对数组进行排序。
+17 void qsort(void* base,size_t nitems,size_t size,int(* compar)(const void*,const void*))对数组进行排序。
 
 18 int abs(int x)返回x的绝对值。
 
@@ -4187,15 +4187,15 @@ int atexit(void(* func)(void),size_t size)尝试调整ptr指向的内存块的�
 
 23 void srand(无符号int种子)此函数为rand函数使用的随机数生成器播种。
 
-24 int mblen(const char * str,size_t n)返回参数str指向的多字节字符的长度。
+24 int mblen(const char* str,size_t n)返回参数str指向的多字节字符的长度。
 
-25 size_t mbstowcs(schar_t * pwcs,const char * str,size_t n)将参数str指向的多字节字符字符串转换为pwcs指向的数组。
+25 size_t mbstowcs(schar_t* pwcs,const char* str,size_t n)将参数str指向的多字节字符字符串转换为pwcs指向的数组。
 
-26 int mbtowc(whcar_t * pwc,const char * str,size_t n)检查参数str指向的多字节字符。
+26 int mbtowc(whcar_t* pwc,const char* str,size_t n)检查参数str指向的多字节字符。
 
-27 size_t wcstombs(char * str,const wchar_t * pwcs,size_t n)将存储在数组pwcs中的代码转换为多字节字符,并将其存储在字符串str中。
+27 size_t wcstombs(char* str,const wchar_t* pwcs,size_t n)将存储在数组pwcs中的代码转换为多字节字符,并将其存储在字符串str中。
 
-28 int wctomb(char * str,wchar_t wchar)检查与参数wchar给定的多字节字符对应的代码。
+28 int wctomb(char* str,wchar_t wchar)检查与参数wchar给定的多字节字符对应的代码。
 
 
 ### C++ 标准库
@@ -4286,7 +4286,31 @@ class function<R(Args...)>
 
 17 `plus` 它是一个加法函数对象类
 
+#### memory
 
+##### make_shared
+
+它构造一个将 `args` 传递给其构造函数的`T`类型的对象,
+并返回一个拥有并存储指向它的指针的`shared_ptr`类型的对象。
+
+[cpp_make_shared](c++_standard_library/cpp_make_shared.cpp)
+
+
+##### allocate_shared
+它使用 `alloc` 为`T`类型的对象分配内存,并通过将`args`传递给其构造函数进行构造。
+该函数返回一个`shared_ptr`类型的对象,该对象拥有并存储指向该构造对象的指针。
+
+[cpp_allocate_shared](c++_standard_library/cpp_allocate_shared.cpp)
+
+##### static_pointer_cast
+
+它返回正确类型的`sp`的副本,其存储的指针从`U*`静态转换为`T*`。
+
+[static_pointer_cast](c++_standard_library/static_pointer_cast.cpp)
+
+##### dynamic_pointer_cast
+
+它返回正确类型的sp的副本,其存储的指针从U*动态转换为T*。
 
 
 
