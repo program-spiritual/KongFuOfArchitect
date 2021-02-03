@@ -9,8 +9,11 @@ let replaceFile = function(filePath){
     let str4 = str3.replace(/图形/g, '字符')
     let str5 = str4.replace(/签名/g,'有符号')
     let str6 = str5.replace(/，/g,',')
+    let str7 = str6.replace(/ :: /g,'::')
+    let str8  = str7.replace(/！=/g,'!=')
+    let str9 = str8.replace(/ == /g,'==')
     console.log('done!')
-    FS.writeFileSync(filePath, str6)
+    FS.writeFileSync(filePath, str9)
 }
 
 replaceFile('README.md')

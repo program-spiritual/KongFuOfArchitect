@@ -729,8 +729,8 @@ C++语言支持以下关系运算符
 
 |运算符 | 描述 | 示例|
 | ------------ | ------------ | ------------ |
-|==|检查两个操作数的值是否相等,如果是,则条件为 `true`。 |(A == B)不正确。|
-|！|=检查两个操作数的值是否相等,如果值不相等,则条件为 `true`。 |(A！= B)为真。|
+|==|检查两个操作数的值是否相等,如果是,则条件为 `true`。 |(A==B)不正确。|
+|！|=检查两个操作数的值是否相等,如果值不相等,则条件为 `true`。 |(A!= B)为真。|
 |&gt;|检查左操作数的值是否大于右操作数的值,如果是,则条件为 `true`。| (A> B)不正确。|
 |&#60;|检查左操作数的值是否小于右操作数的值,如果是,则条件为 `true`。 |(A > =检查左操作数的值是否大于或等于右操作数的值,如果是,则条件为true。 (A> = B)不正确。|
 |<= | 检查左操作数的值是否小于或等于右操作数的值,如果是,则条件为 `true`。 |(A <= B)是正确的。|
@@ -811,7 +811,7 @@ C++语言支持以下逻辑运算符。
 |加法     |  +-      |         从左到右|
 | 移动 |从左向右  |<< >>|
 |  关系  |   <<=>> =|从左到右|
-|  平等==！=  | 从左到右|
+|  平等==!=  | 从左到右|
 |  按位与 |  `&` |  从左到右|
 |  按位XOR |`^` | 从左到右|
 |  按位或 | 	&brvbar; | 左到右|
@@ -2644,11 +2644,11 @@ void open(const char *filename, ios::openmode mode);
 
 |模式标记|说明|
 |------------|------------|
-|ios :: app|追加模式。该文件的所有输出都将附加到末尾。|
-|ios :: ate|打开文件以输出,并将读/写控件移到文件末尾。|
-|ios :: in|打开文件进行读取。|
-|ios :: out|打开文件进行写入。|
-|ios :: trunc|如果文件已经存在,则在打开文件之前其内容将被截断。|
+|ios::app|追加模式。该文件的所有输出都将附加到末尾。|
+|ios::ate|打开文件以输出,并将读/写控件移到文件末尾。|
+|ios::in|打开文件进行读取。|
+|ios::out|打开文件进行写入。|
+|ios::trunc|如果文件已经存在,则在打开文件之前其内容将被截断。|
 
 您可以通过对它们进行或运算来组合两个或多个这些值。例如,如果您想以写入模式打开文件并在已经存在的情况下要截断它,则语法如下-
 
@@ -2744,7 +2744,7 @@ try {
 
 ```c++
 double division(int a, int b) {
-   if( b == 0 ) {
+   if( b==0 ) {
       throw "Division by zero condition!";
    }
    return (a/b);
@@ -3837,7 +3837,7 @@ math.h标头定义了各种数学函数和一个宏。
 
 #### setjmp.h
 
-setjmp.h标头定义了宏setjmp（），一个函数longjmp（）和一个变量类型jmp_buf，用于绕过常规函数调用和返回规则。
+setjmp.h标头定义了宏setjmp(),一个函数longjmp()和一个变量类型jmp_buf,用于绕过常规函数调用和返回规则。
 
 ##### setjmp()
 
@@ -3845,17 +3845,17 @@ setjmp.h标头定义了宏setjmp（），一个函数longjmp（）和一个变�
 
 #### signal.h
 
-signal.h标头定义了一个变量类型sig_atomic_t，两个函数调用以及几个宏，以处理程序执行期间报告的不同信号。
+signal.h标头定义了一个变量类型sig_atomic_t,两个函数调用以及几个宏,以处理程序执行期间报告的不同信号。
 
 ##### 库变量
 
 |变量|描述|
 |------------|------------|
-| `sig_atomic_t` |这是int类型，用作信号处理程序中的变量。这是对象的一种整体类型，即使存在异步信号也可以作为原子实体进行访问。|
+| `sig_atomic_t` |这是int类型,用作信号处理程序中的变量。这是对象的一种整体类型,即使存在异步信号也可以作为原子实体进行访问。|
 
 ##### 库宏
 
-以下是标头signal.h中定义的宏，这些宏将在下面列出的两个函数中使用。
+以下是标头signal.h中定义的宏,这些宏将在下面列出的两个函数中使用。
 
 SIG_ 宏与信号功能一起使用以定义信号功能。
 
@@ -3870,10 +3870,10 @@ SIG宏用于在以下情况下表示信号编号：
 |宏|描述|
 |------------|------------|
 |SIGABRT|程序异常终止。|
-|SIGFPE|浮点错误，例如被零除。|
+|SIGFPE|浮点错误,例如被零除。|
 |SIGILL|非法操作。|
-|SIGINT|中断信号，例如ctrl-C。|
-|SIGSEGV|对存储的无效访问（例如段违规）。|
+|SIGINT|中断信号,例如ctrl-C。|
+|SIGSEGV|对存储的无效访问(例如段违规)。|
 |SIGTERM|终止请求。|
 
 
@@ -3882,8 +3882,411 @@ SIG宏用于在以下情况下表示信号编号：
 
 |函数|描述|
 |------------|------------|
-|void (*signal(int sig, void (*func)(int)))(int)|该函数设置用于处理信号的函数，即信号处理程序。|
+|void (*signal(int sig, void (*func)(int)))(int)|该函数设置用于处理信号的函数,即信号处理程序。|
 |int raise(int sig)|此功能导致生成信号sig。sig参数与SIG宏兼容。|
 
 [c_function_signal](c_standard_library/c_function_signal.cpp)
+[c_function_raise](c_standard_library/c_function_raise.cpp)
+
+#### <stdarg.h>
+
+stdarg.h标头定义了一个变量类型va_list和三个宏,当未知数量的参数(即可变数量的参数)时,可用于获取函数中的参数。
+
+变量参数的函数在参数列表的末尾用省略号(,...)定义。
+
+##### 库变量
+
+以下是标头 stdarg.h 中定义的变量类型-
+
+|变量|描述|
+|------------|------------|
+|va_list|这种类型适合于保存三个宏va_start(),va_arg()和va_end()所需的信息。|
+
+
+##### 库宏
+
+以下是标头stdarg.h中定义的宏-
+
+|宏|描述|
+|------------|------------|
+|void va_start(va_list ap, last_arg)|该宏初始化ap变量,以与va_arg和va_end宏一起使用。last_arg是传递给函数的最后一个已知固定参数,即省略号之前的参数。|
+|type va_arg(va_list ap, type)|此宏检索类型为type的函数的参数列表中的下一个参数。|
+|void va_end(va_list ap)|此宏允许使用带有可变参数的函数,该函数使用va_start宏返回。如果从函数返回之前未调用va_end,则结果不确定。|
+
+###### va_start()
+
+C库宏`void va_start(va_list ap,last_arg)`初始化`ap`变量,以便与`va_arg`和`va_end`宏一起使用。
+
+`last_arg` 是传递给函数的最后一个已知固定参数,即省略号之前的参数。
+
+在使用va_arg和va_end之前,必须先调用此宏。
+
+[c_macro_va_start](c_standard_library/c_macro_va_start.cpp)
+
+###### va_start()
+
+C库宏类型va_arg(va_list ap,type)检索类型为函数的参数列表中的下一个参数。
+
+这不能确定检索到的参数是否是传递给函数的最后一个参数。
+
+[c_macro_va_arg](c_standard_library/c_macro_va_arg.cpp)
+
+
+###### va_end()
+
+C库宏void va_end(va_list ap)允许具有可变参数的函数使用va_start宏返回。
+
+如果从函数返回之前未调用va_end,则结果不确定
+
+[c_macro_va_end](c_standard_library/c_macro_va_end.cpp)
+
+### <stddef.h>
+
+stddef.h标头定义了各种变量类型和宏。
+
+其中许多定义也出现在其他标题中。
+
+#### 库变量
+以下是标头 `stddef.h` 中定义的变量类型-
+
+|变量|描述|
+|------------|------------|
+|ptrdiff_t|这是有符号整数类型,是两个指针相减的结果。|
+|size_t|这是无符号整数类型,是sizeof关键字的结果。|
+|wchar_t|这是宽字符常量大小的整数类型。|
+
+#### 库宏
+以下是标头stddef.h中定义的宏-
+
+|宏|描述|
+|------------|------------|
+|NULL|此宏是空指针常量的值。|
+|offsetof(type, member-designator)|这将导致一个恒定大小为 `size_t` 的整数,该整数是结构成员从结构开头开始的偏移量(以字节为单位)。成员由成员标识符指定,结构的名称由类型指定。|
+
+##### NULL
+
+NULL 是空指针常量的值。
+
+根据编译器供应商的不同,它可以定义为((void *)0),0或0L。
+
+[c_macro_null](c_standard_library/c_macro_null.cpp)
+
+#####  offsetof()
+
+C库宏offsetof(type,member-designator)宏产生一个size_t类型的常量整数,它是结构成员从结构开始处的字节偏移量。
+
+成员由成员标识符指定,结构的名称由类型指定。
+
+
+#### <stdio.h>
+
+stdio.h标头定义了三种变量类型,几个宏以及用于执行输入和输出的各种功能。
+
+库变量以下是在头stdio.h中定义的变量类型-
+
+|变量|描述|
+|------------|------------|
+|size_t|这是无符号整数类型,是sizeof关键字的结果。|
+|FILE|这是一种适合于存储文件流信息的对象类型。|
+|fpos_t|这是一种适用于在文件中存储任何位置的对象类型。|
+
+#### 库宏
+以下是标头stdio.h中定义的宏-
+
+1 `NULL` 此宏是空指针常量的值。
+
+
+
+2 `_IOFBF`,`_IOLBF`和`_IONBF`这些宏扩展为具有不同值的整数常量表达式,适合用作setvbuf函数的第三个参数。
+
+3 `BUFSIZ` 该宏是整数,代表setbuf函数使用的缓冲区的大小。
+
+4 `EOF` 该宏是一个负整数,表示已到达文件末尾。
+
+5 `FOPEN_MAX` 该宏是整数,代表系统可以保证同时打开的最大文件数。
+
+6 `FILENAME_MAX` 该宏是一个整数,表示适合于保留可能的最长文件名的char数组的最长长度。
+
+如果实施不施加限制,则该值应为建议的最大值。
+
+7 `L_tmpnam` 该宏是一个整数,表示适合于保存由tmpnam函数创建的可能的最长临时文件名的char数组的最长长度。
+
+8 `SEEK_CUR` ,`SEEK_END` 和 `SEEK_SET` 这些宏在fseek函数中用于定位文件中的不同位置。
+
+9 `TMP_MAX` 此宏是tmpnam函数可以生成的唯一文件名的最大数量。
+
+10 `stderr`,`stdin` 和 `stdout` 这些宏是指向与标准错误,标准输入和标准输出流相对应的 `FILE` 类型的指针。
+
+
+#### 库函数
+以下是头文件stdio.h中定义的函数-
+
+1 int fclose(FILE * stream)关闭流。 所有缓冲区均被刷新。
+
+2 void clearerr(FILE * stream)清除给定流的文件结尾和错误指示符。
+
+3 int feof(FILE * stream)测试给定流的文件结束指示符。
+
+4 int ferror(FILE * stream)测试给定流的错误指示符。
+
+5 int fflush(FILE * stream)刷新流的输出缓冲区。
+
+6 int fgetpos(FILE * stream,fpos_t * pos)获取流的当前文件位置并将其写入pos。
+
+7 FILE * fopen(const char * filename,const char * mode)使用给定模式打开filename指向的文件名。
+
+8 size_t fread(void * ptr,size_t size,size_t nmemb,FILE * stream)将数据从给定流读取到ptr指向的数组中。
+
+9 FILE * freopen(const char *文件名,const char * mode,FILE * stream)将新文件名与给定的打开流关联,同时关闭流中的旧文件。
+
+10 int fseek(FILE * stream,long int offset,int whence)将流的文件位置设置为给定的偏移量。
+
+参数offset表示要从给定的位置搜索的字节数。
+
+11 int fsetpos(FILE * stream,const fpos_t * pos)将给定流的文件位置设置为给定位置。
+
+参数pos是函数fgetpos给出的位置。
+
+12 long int ftell(FILE * stream)返回给定流的当前文件位置。
+
+13 size_t fwrite(const void * ptr,size_t size,size_t nmemb,FILE * stream)将数据从ptr指向的数组写入给定流。
+
+14 int remove(const char * filename)删除给定的文件名,使其不再可访问。
+
+15 int rename(const char * old_filename,const char * new_filename)使由old_filename引用的文件名更改为new_filename。
+
+16 void rewind(FILE * stream)将文件位置设置为给定流的文件的开头。
+
+17 void setbuf(FILE * stream,char * buffer)定义应如何缓冲流。
+
+18 int setvbuf(FILE * stream,char * buffer,int模式,size_t大小)另一个函数,用于定义应如何缓冲流。
+
+19 FILE * tmpfile(void)以二进制更新模式(wb +)创建一个临时文件。
+
+20 char * tmpnam(char * str)生成并返回一个不存在的有效临时文件名。
+
+21 int fprintf(FILE * stream,const char * format,...)将格式化的输出发送到流。
+
+22 int printf(const char * format,...)将格式化的输出发送到stdout。
+
+23 int sprintf(char * str,const char * format,...)将格式化的输出发送到字符串。
+
+24 int vfprintf(FILE * stream,const char * format,va_list arg)使用参数列表将格式化的输出发送到流。
+
+25 int vprintf(const char * format,va_list arg)使用参数列表将格式化的输出发送到stdout。
+
+26 int vsprintf(char * str,const char * format,va_list arg)使用参数列表将格式化的输出发送到字符串。
+
+27 int fscanf(FILE * stream,const char * format,...)从流中读取格式化的输入。
+
+28 int scanf(const char * format,...)从stdin读取格式化的输入。
+
+29 int sscanf(const char * str,const char * format,...)从字符串读取格式化的输入。
+
+30 int fgetc(FILE * stream)从指定的流中获取下一个字符(无符号字符),并使该流的位置指示符前进。
+
+31 char * fgets(char * str,int n,FILE * stream)从指定的流中读取一行并将其存储到str指向的字符串中。
+
+当读取(n-1)个字符,读取换行符或到达文件末尾(以先到者为准)时,它将停止。
+
+32 int fputc(int char,FILE * stream)将参数char指定的字符(无符号字符)写入指定的流,并使该流的位置指示符前进。
+
+33 int fputs(const char * str,FILE * stream)将字符串写入指定的流,直到但不包括空字符。
+
+34 int getc(FILE * stream)从指定的流中获取下一个字符(无符号字符),并使该流的位置指示符前进。
+
+35 int getchar(void)从标准输入中获取一个字符(无符号字符)。
+
+36 char * gets(char * str)从stdin读取一行并将其存储到str指向的字符串中。
+
+当读取换行符或到达文件结尾时(以先到者为准),它将停止。
+
+37 int putc(int char,FILE * stream)将参数char指定的字符(无符号char)写入指定的流,并使该流的位置指示符前进。
+
+38 int putchar(int char)将参数char指定的字符(无符号char)写入stdout。
+
+39 int puts(const char * str)将一个字符串写入stdout,直到但不包括空字符。
+
+换行符附加到输出。
+
+40 int ungetc(int char,FILE * stream)将字符char(无符号字符)压入指定的流,以便读取下一个字符。
+
+41 void perror(const char * str)将描述性错误消息打印到stderr。
+
+首先打印字符串 `str` ,然后打印冒号和空格。
+
+### <stdlib.h>
+
+stdlib.h标头定义了四个变量类型,几个宏和用于执行常规功能的各种功能。
+
+#### 库变量
+
+|变量|描述|
+|------------|------------|
+|size_t|这是无符号整数类型,是sizeof关键字的结果。|
+|wchar_t|这是一个宽字符常量大小的整数类型。|
+|div_t|这是一个宽字符常量大小的整数类型。|
+|ldiv_t|这是ldiv函数返回的结构。|
+
+#### 库宏
+
+库宏以下是标头stdlib.h中定义的宏-
+
+1 `NULL` 此宏是空指针常量的值。
+
+2 `EXIT_FAILURE` 这是在失败时要返回的退出函数的值。
+
+3 `EXIT_SUCCESS` 这是在成功的情况下返回函数的值。
+
+4 `RAND_MAX` 该宏是rand函数返回的最大值。
+
+5 `MB_CUR_MAX` 此宏是多字节字符集中最大字节数,不能大于 `MB_LEN_MAX`。
+
+#### 库函数
+以下是标头stdlib.h中定义的函数-
+
+1 double atof(const char * str)将参数str指向的字符串转换为浮点数(double类型)。
+[c_function_atof](c_standard_library/c_function_atof.cpp)
+
+2 int atoi(const char * str)将参数str指向的字符串转换为整数(int类型)。
+
+[c_function_atof](c_standard_library/c_function_atof.cpp)
+
+
+3 long int atol(const char * str)将参数str指向的字符串转换为long整数(类型long int)。
+
+4 double strtod(const char * str,char ** endptr)将参数str指向的字符串转换为浮点数(类型为double)。
+
+5 long int strtol(const char * str,char ** endptr,int base)将参数str指向的字符串转换为长整数(类型为long int)。
+
+6 unsigned long int strtoul(const char * str,char ** endptr,int base)将参数str指向的字符串转换为unsigned long整数(类型为unsigned long int)。
+
+7 void * calloc(size_t nitems,size_t size)分配所请求的内存并返回指向它的指针。
+
+8 void free(void * ptr取消分配先前由对calloc,malloc或realloc的调用分配的内存。9 void * malloc(size_t size)分配所请求的内存并返回指向它的指针。10 void * realloc(void * ptr
+
+int atexit(void(* func)(void),size_t size)尝试调整ptr指向的内存块的大小,该内存块先前是通过调用malloc或calloc分配的。11 void abort(void)导致程序异常终止。
+
+)导致程序正常终止时调用指定的函数func 13 void exit(int status)导致程序正常终止14 char * getenv(const char * name)搜索由name指向的环境字符串并返回
+
+15 int system(const char * string)字符串指定的命令传递到主机环境,由命令处理器执行
+
+16 void * bsearch(const void * key,const void * base, size_t个下标,size_t大小,int(* compar)(const void *,const void *))执行二分搜索。
+
+17 void qsort(void * base,size_t nitems,size_t size,int(* compar)(const void *,const void *))对数组进行排序。
+
+18 int abs(int x)返回x的绝对值。
+
+19 div_t div(int numer,int denom)用分子(分母)除以分子(分子)。
+
+20 long int labs(long int x)返回x的绝对值。
+
+21 ldiv_t ldiv(long int numer,long int denom)用分子(分母)除以分子(分母)。
+
+22 int rand(void)返回一个伪随机数,范围为0到RAND_MAX。
+
+23 void srand(无符号int种子)此函数为rand函数使用的随机数生成器播种。
+
+24 int mblen(const char * str,size_t n)返回参数str指向的多字节字符的长度。
+
+25 size_t mbstowcs(schar_t * pwcs,const char * str,size_t n)将参数str指向的多字节字符字符串转换为pwcs指向的数组。
+
+26 int mbtowc(whcar_t * pwc,const char * str,size_t n)检查参数str指向的多字节字符。
+
+27 size_t wcstombs(char * str,const wchar_t * pwcs,size_t n)将存储在数组pwcs中的代码转换为多字节字符,并将其存储在字符串str中。
+
+28 int wctomb(char * str,wchar_t wchar)检查与参数wchar给定的多字节字符对应的代码。
+
+
+### C++ 标准库
+
+> 以下仅介绍比较重要的标准库
+
+####  <functional>
+
+函数对象是专门设计用于与函数语法相似的语法的对象。
+
+std::function的实例可以存储,复制和调用任何Callable目标-函数,lambda表达式,绑定表达式或其他函数对象,以及指向成员函数的指针和指向数据成员的指针。
+
+##### 声明
+
+以下是std::function的声明。
+
+```c++
+template<class >
+class function; 
+```
+
+C++ 11
+
+```c++
+template< class R, class... Args >
+class function<R(Args...)>
+```
+
+##### 参数
+
+- R 返回的结果
+- argument_type 如果sizeof ...(Args)== 1并且T是Args中的第一个也是唯一的类型,则为T。
+
+##### 示例
+
+[functional](c++_standard_library/functional.cpp)
+
+##### 成员函数
+
+|成员函数|定义|
+|------------|------------|
+|(constructor)	|它用于构造一个新的std::function实例|
+|(destructor)|它用于销毁std::function实例|
+|operator=|	用于分配新目标|
+|swap|	用于交换内容|
+|assign	|用于分配新目标|
+|operator|`bool`用于检查是否包含有效目标|
+|operator()|用于调用目标|
+
+##### 非成员函数
+
+|成员函数|定义|
+|------------|------------|
+|`std::swap`|它专门研究`std::swap`算法2 |
+|`operator== operator!=`|它将`std::function`与`nullptr`进行比较|
+
+1 `bit_and` 是按位 `AND` 功能对象类别
+
+2 `bit_or` 是按位 `OR` 功能对象类别
+
+3 `bit_xor` 是按位 `XOR` 功能对象类别3划分是是划分功能对象类别
+
+4 `equal_to` 是用于相等比较的函数对象类别
+
+5 `greater` 是大于等于比较的功能对象类
+
+6 `greater_equal` 是大于等于比较的功能对象类
+
+7 `less` 是小于等于比较的功能对象类
+
+8 `less_equal` 是用于小于或等于比较的函数对象类
+
+9 `logical_and` 是逻辑 `AND` 函数对象类
+
+10 `logic_not` 是逻辑 `NOT` 函数对象类
+
+11 `logical_or` 是逻辑 `OR` 函数对象类
+
+12 `minus` 是减法函数对象类别
+
+13 `modulus` 是模函数对象类别
+
+14 `multiplies` 以是乘法函数对象类别
+
+15 `negate` 是负函数对象类别
+
+16 `not_equal_to` 是 一个用于非相等比较的函数对象类
+
+17 `plus` 它是一个加法函数对象类
+
+
+
+
 
