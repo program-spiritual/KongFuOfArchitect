@@ -1,0 +1,2 @@
+- [windows 流畅开发准备工作](https://ai.nodejs7.com/2020/01/14/118.html)
+- [在windows 7| 8| 10 .etc 中使用 `vim` 作为 `ide` 的配置方法](https://github.com/xiaomiwujiecao/use_vim_in_winX)
