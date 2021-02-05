@@ -20,9 +20,10 @@ let replaceFile = function(filePath){
     let str15 = str14.replace(/ \/ /g,'/')
     let str16 = str15.replace(/跑过/g,'运行')
     let str17 = str16.replace(/包括/g,'包含')
-    let str18 = str17.replace(/ \/ /g,'/')
+    let str18 = str17.replace(/ \/ /g,'/').replace(/地图/g,'映射').replace(/尺寸/g,'长度').replace(/二进制/g,'二叉').replace(/大小/g,'长度')
     console.log('done!')
     FS.writeFileSync(filePath, str18)
 }
 
 replaceFile('README.md')
+replaceFile('./standard_template_library/cpp_deque_assign_range.cpp')
