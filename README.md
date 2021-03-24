@@ -114,3 +114,6 @@
 [更改记录](change_log.md)
 
 
+## 博客缩略图/点击即达
+
+[![小新开源](img/ai_nodejs7.png)](https://ai.nodejs7.com)
