@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>prepare</title>
+</head>
+<body onload="OnDOMLoaded()">
+<canvas id="glcanvas" class="box">
+  你的浏览器似乎不支持或者禁用了HTML5 <code>&lt;canvas&gt;</code> 元素.
+</canvas>
+</body>
+<script>
+  const vsSource = `
+    attribute vec4 aVertexPosition;
+
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    void main() {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+    }
+  `;
+
+  const fsSource = `
+    void main() {
+      gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+  `;
+
+
+  function OnDOMLoaded() {
+    const CANVAS = document.getElementById('glcanvas')
+    const GL_CONTEXT = CANVAS.getContext('webgl')
+    if (!GL_CONTEXT) {
+      alert('无法初始化WEBGL，你的浏览器或OS不支持')
+      return
+    }
+
+    // 使用不透明全黑抹掉一切
+    GL_CONTEXT.clearColor(0, 0, 0, 1)
+    // 清除缓冲区
+    GL_CONTEXT.clear(GL_CONTEXT.COLOR_BUFFER_BIT)
+
+    // 调用代码
+    const shaderProgram = initShaderProgram(GL_CONTEXT, vsSource, fsSource);
+    // 将它们存储在一起以使它们易于传递
+    const programInfo = {
+      program: shaderProgram,
+      attribLocations: {
+        vertexPosition: GL_CONTEXT.getAttribLocation(shaderProgram, 'aVertexPosition'),
+      },
+      uniformLocations: {
+        projectionMatrix: GL_CONTEXT.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+        modelViewMatrix: GL_CONTEXT.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+      },
+    }
+  }
+
+  // 创建指定类型的着色器，上传 source 源码并编译
+  function loadShader(glContext, type, source) {
+    // 创建着色器
+    const shader = glContext.createShader(type);
+    // 将源发送到着色器对象
+    glContext.shaderSource(shader, source);
+    // 编译着色器程序
+    glContext.compileShader(shader);
+    // 查看是否成功编译
+    if (!glContext.getShaderParameter(shader, glContext.COMPILE_STATUS)) {
+      alert('编译着色器时发生错误: ' + glContext.getShaderInfoLog(shader));
+      glContext.deleteShader(shader);
+      return null;
+    }
+    return shader;
+  }
+
+  // 初始化着色器程序，让WebGL知道如何绘制我们的数据
+  function initShaderProgram(glContext, vsSource, fsSource) {
+    const vertexShader = loadShader(glContext, glContext.VERTEX_SHADER, vsSource);
+    const fragmentShader = loadShader(glContext, glContext.FRAGMENT_SHADER, fsSource);
+    // 创建着色器程序
+    const shaderProgram = glContext.createProgram();
+    glContext.attachShader(shaderProgram, vertexShader);
+    glContext.attachShader(shaderProgram, fragmentShader);
+    glContext.linkProgram(shaderProgram);
+    // 如果创建失败，那么提示
+    if (!glContext.getProgramParameter(shaderProgram, glContext.LINK_STATUS)) {
+      alert('无法初始化着色器程序: ' + glContext.getProgramInfoLog(shaderProgram));
+      return null;
+    }
+    return shaderProgram;
+  }
+
+
+</script>
+</html>

@@ -1,0 +1,59 @@
+<p>{{appName}}</p>
+<h2>Event binding</h2>
+<button (click)="showData($event)">按钮</button>
+<input type="text" [value]="userName">
+<p [class]="myCSSClass">This paragraph class comes from *myClass* property </p>
+<p [class.blue]="applyCSSClass">This paragraph class does not apply</p>
+<p [style.color]="myStyle">Text color is styled using style binding</p>
+<input type="text" [(ngModel)]="userName">
+<p>Two way binding! Hello {{ userName }}!</p>
+<p>ngIfElse example!</p>
+<div *ngIf="isLogIn; else isLogOut">
+  Hello you are logged in
+</div>
+<ng-template #isLogOut>
+  You're logged out..
+</ng-template>
+<h2>ngFor directive</h2>
+<ul>
+  <li *ngFor="let l of list">
+    {{l}}
+  </li>
+</ul>
+<ul>
+  <li *ngFor="let std of students; trackBy: trackByData">
+    {{std.name}}
+  </li>
+</ul>
+<h2>ngSwitch directive</h2>
+<ul [ngSwitch]="logInName">
+  <li *ngSwitchCase="'user'">
+    <p>User is logged in..</p>
+  </li>
+  <li *ngSwitchCase="'admin'">
+    <p>admin is logged in</p>
+  </li>
+  <li *ngSwitchDefault>
+    <p>Please choose login name</p>
+  </li>
+</ul>
+<p [ngStyle]="{'color':'blue','font-size':'14px'}"> paragraph style is applied using ngStyle </p>
+<br>
+
+<div *ngFor="let user of users" [ngClass]="{'highlight':user.userName==='User1'}">
+  {{user.userName}}
+</div>
+<p appCustomstyle>font size 24px!!!!</p>
+<h3>ng-template</h3>
+<ng-template>ng-template tag is a virtual element</ng-template>
+<ng-template [ngIf]=true>
+  <div><h2>ng-template works!</h2></div>
+</ng-template>
+<div>
+  <ng-template ngFor let-item [ngForOf]="Fruits" let-i="index">
+    <p>{{i}}</p>
+    <p>{{item}}</p>
+  </ng-template>
+</div>
+<h1>Test component</h1>
+<app-child [userName]="name"></app-child>

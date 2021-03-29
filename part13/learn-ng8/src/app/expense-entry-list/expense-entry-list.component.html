@@ -1,0 +1,39 @@
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center" style="padding-top: 20px;">
+      <div class="container" style="padding-left: 0px; padding-right: 0px;">
+        <div class="row">
+          <div class="col-sm" style="text-align: left;">
+            {{ title }}
+          </div>
+          <div class="col-sm" style="text-align: right;">
+            <button type="button" class="btn btn-primary">Edit</button>
+          </div>
+        </div>
+      </div>
+      <div class="container box" style="margin-top: 10px;">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Item</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Spent On</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let entry of expenseEntries">
+            <th scope="row">{{ entry.item }}</th>
+            <th>{{ entry.amount }}</th>
+            <td>{{ entry.category }}</td>
+            <td>{{ entry.location }}</td>
+            <td>{{ entry.spendOn | date: 'short' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

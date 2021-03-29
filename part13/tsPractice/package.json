@@ -1,0 +1,15 @@
+{
+  "name": "tspractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve":"tsc  --target ES5 --experimentalDecorators --module commonjs --noImplicitThis --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
