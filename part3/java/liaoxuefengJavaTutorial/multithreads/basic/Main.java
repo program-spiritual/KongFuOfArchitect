@@ -1,4 +1,5 @@
 package multithreads.basic;
+
 /**
  * 进程和线程的关系就是：一个进程可以包含一个或多个线程，但至少会有一个线程。
  *
@@ -73,5 +74,4 @@ package multithreads.basic;
  * 多线程模型是Java程序最基本的并发模型；
  * 后续读写网络、数据库、Web开发等都依赖Java多线程模型。
  * */
-public class Main {
-}
+public class Main {}

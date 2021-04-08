@@ -1,7 +1,5 @@
 package com.apple.computers;
 
-public class Dell {
-}
+public class Dell {}
 
-class Ups {
-}
+class Ups {}

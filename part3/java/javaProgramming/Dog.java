@@ -1,14 +1,12 @@
 public class Dog {
-    String breed;
-    int age;
-    String color;
 
-    void barking() {
-    }
+  String breed;
+  int age;
+  String color;
 
-    void hungry() {
-    }
+  void barking() {}
 
-    void sleeping() {
-    }
+  void hungry() {}
+
+  void sleeping() {}
 }

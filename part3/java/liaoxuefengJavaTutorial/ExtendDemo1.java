@@ -1,8 +1,8 @@
 public class ExtendDemo1 {
-    public static void main(String[] args) {
 
-    }
+  public static void main(String[] args) {}
 }
+
 //继承是面向对象编程中非常强大的一种机制，它首先可以复用代码。当我们让Student从Person继承时，Student就获得了Person的所有功能，我们只需要为Student编写新增的功能。
 //
 //Java使用extends关键字来实现继承：
@@ -43,6 +43,4 @@ public class ExtendDemo1 {
 //┌───────────┐ ┌───────────┐
 //│  Student  │ │  Teacher  │
 //└───────────┘ └───────────┘
-class Person9 extends Object {
-
-}
+class Person9 extends Object {}

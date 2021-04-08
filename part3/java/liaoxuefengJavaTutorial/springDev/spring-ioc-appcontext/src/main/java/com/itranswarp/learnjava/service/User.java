@@ -1,47 +1,48 @@
 package com.itranswarp.learnjava.service;
 
 public class User {
-    int id;
-    String email;
-    String password;
-    String name;
 
-    public User(int id, String email, String password, String name) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-    }
+  int id;
+  String email;
+  String password;
+  String name;
 
-    public int getId() {
-        return id;
-    }
+  public User(int id, String email, String password, String name) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+    this.name = name;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setPasswd(String passwd) {
-        this.password = passwd;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setPasswd(String passwd) {
+    this.password = passwd;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }

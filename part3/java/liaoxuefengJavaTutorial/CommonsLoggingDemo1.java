@@ -1,6 +1,6 @@
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 //因为Commons Logging是一个第三方提供的库，所以，必须先把它下载下来。下
 //载后，解压，找到commons-logging-1.2.jar这个文件，
 //再把Java源码Main.java放到一个目录下，例如work目录：
@@ -41,16 +41,16 @@ import org.apache.commons.logging.LogFactory;
  * 使用Commons Logging时，如果在静态方法中引用Log，通常直接定义一个静态类型变量：
  * */
 public class CommonsLoggingDemo1 {
-    static final Log log = LogFactory.getLog(CommonsLoggingDemo1.class);
 
-    public static void main(String[] args) {
-        Log log = LogFactory.getLog(CommonsLoggingDemo1.class);
-        log.info("start...");
-        log.warn("end.");
-    }
+  static final Log log = LogFactory.getLog(CommonsLoggingDemo1.class);
 
+  public static void main(String[] args) {
+    Log log = LogFactory.getLog(CommonsLoggingDemo1.class);
+    log.info("start...");
+    log.warn("end.");
+  }
 
-    static void foo() {
-        log.info("foo");
-    }
+  static void foo() {
+    log.info("foo");
+  }
 }

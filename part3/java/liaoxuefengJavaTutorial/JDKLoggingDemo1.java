@@ -1,16 +1,16 @@
 import java.util.logging.Logger;
 
 public class JDKLoggingDemo1 {
-    public static void main(String[] args) {
-//        因为Java标准库内置了日志包java.util.logging，我们可以直接用。先看一个简单的例子：
-        Logger logger = Logger.getGlobal();
-        logger.info("start process...");
-        logger.warning("memory is running out...");
-        logger.fine("ignored.");
-        logger.severe("process will be terminated...");
-    }
-}
 
+  public static void main(String[] args) {
+    //        因为Java标准库内置了日志包java.util.logging，我们可以直接用。先看一个简单的例子：
+    Logger logger = Logger.getGlobal();
+    logger.info("start process...");
+    logger.warning("memory is running out...");
+    logger.fine("ignored.");
+    logger.severe("process will be terminated...");
+  }
+}
 /**
  * 对比可见，使用日志最大的好处是，它自动打印了时间、调用类、调用方法等很多有用的信息。
  *

@@ -1,32 +1,33 @@
 package GenericsAndReflections;
 
+import java.lang.reflect.Array;
 import superWildcard.Pair;
 
-import java.lang.reflect.Array;
-
 public class Main {
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException {
-//        Java的部分反射API也是泛型。例如：Class<T>就是泛型：
 
-// compile warning:
-        Class clazz = String.class;
-        String str = (String) clazz.newInstance();
+  public static void main(String[] args)
+    throws IllegalAccessException, InstantiationException {
+    //        Java的部分反射API也是泛型。例如：Class<T>就是泛型：
 
-// no warning:
-        Class<String> clazz2 = String.class;
-        String str2 = clazz2.newInstance();
+    // compile warning:
+    Class clazz = String.class;
+    String str = (String) clazz.newInstance();
 
-        Pair[] arr = new Pair[2];
-        Pair<String>[] ps = (Pair<String>[]) arr;
+    // no warning:
+    Class<String> clazz2 = String.class;
+    String str2 = clazz2.newInstance();
 
-        System.out.println(ps.getClass() == Pair[].class); // true
+    Pair[] arr = new Pair[2];
+    Pair<String>[] ps = (Pair<String>[]) arr;
 
-        String s1 = (String) arr[0].getFirst();
-        String s2 = ps[0].getFirst();
-    }
+    System.out.println(ps.getClass() == Pair[].class); // true
 
-    //    必须借助Class<T>来创建泛型数组：
-    <T> T[] createArray(Class<T> cls) {
-        return (T[]) Array.newInstance(cls, 5);
-    }
+    String s1 = (String) arr[0].getFirst();
+    String s2 = ps[0].getFirst();
+  }
+
+  //    必须借助Class<T>来创建泛型数组：
+  <T> T[] createArray(Class<T> cls) {
+    return (T[]) Array.newInstance(cls, 5);
+  }
 }

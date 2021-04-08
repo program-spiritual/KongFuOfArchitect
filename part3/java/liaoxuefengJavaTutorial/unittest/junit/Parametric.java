@@ -1,4 +1,3 @@
 package unittest.junit;
 
-public class Parametric {
-}
+public class Parametric {}

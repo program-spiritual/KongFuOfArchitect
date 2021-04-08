@@ -7,17 +7,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
+    ApplicationContext context = new ClassPathXmlApplicationContext(
+      "application.xml"
+    );
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+    //      获取Bean:
 
-//      获取Bean:
+    UserService userService = context.getBean(UserService.class);
 
-        UserService userService = context.getBean(UserService.class);
+    //        // 正常调用:
+    User user = userService.login("bob@example.com", "password");
 
-//        // 正常调用:
-        User user = userService.login("bob@example.com", "password");
-
-        System.out.println(user.getName());
-    }
+    System.out.println(user.getName());
+  }
 }

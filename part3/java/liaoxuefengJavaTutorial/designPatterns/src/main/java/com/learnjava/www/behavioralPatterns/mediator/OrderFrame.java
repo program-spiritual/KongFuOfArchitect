@@ -1,69 +1,65 @@
 package com.learnjava.www.behavioralPatterns.mediator;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 public class OrderFrame extends JFrame {
 
-    public OrderFrame(String... names) {
+  public OrderFrame(String... names) {
+    setTitle("订单");
 
-        setTitle("订单");
+    setSize(460, 200);
 
-        setSize(460, 200);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    Container c = getContentPane();
 
-        Container c = getContentPane();
+    c.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
 
-        c.setLayout(new FlowLayout(FlowLayout.LEADING, 20, 20));
+    c.add(new JLabel("使用中介模式"));
 
-        c.add(new JLabel("使用中介模式"));
+    List<JCheckBox> checkboxList = addCheckBox(names);
 
-        List<JCheckBox> checkboxList = addCheckBox(names);
+    JButton selectAll = addButton("全选");
 
-        JButton selectAll = addButton("全选");
+    JButton selectNone = addButton("清空");
 
-        JButton selectNone = addButton("清空");
+    selectNone.setEnabled(false);
 
-        selectNone.setEnabled(false);
+    JButton selectInverse = addButton("反选");
 
-        JButton selectInverse = addButton("反选");
+    new Mediator(checkboxList, selectAll, selectNone, selectInverse);
 
-        new Mediator(checkboxList, selectAll, selectNone, selectInverse);
+    setVisible(true);
+  }
 
-        setVisible(true);
+  private List<JCheckBox> addCheckBox(String... names) {
+    JPanel panel = new JPanel();
+
+    panel.add(new JLabel("菜单:"));
+
+    List<JCheckBox> list = new ArrayList<>();
+
+    for (String name : names) {
+      JCheckBox checkbox = new JCheckBox(name);
+
+      list.add(checkbox);
+
+      panel.add(checkbox);
     }
 
-    private List<JCheckBox> addCheckBox(String... names) {
+    getContentPane().add(panel);
 
-        JPanel panel = new JPanel();
+    return list;
+  }
 
-        panel.add(new JLabel("菜单:"));
+  private JButton addButton(String label) {
+    JButton button = new JButton(label);
 
-        List<JCheckBox> list = new ArrayList<>();
+    getContentPane().add(button);
 
-        for (String name : names) {
-
-            JCheckBox checkbox = new JCheckBox(name);
-
-            list.add(checkbox);
-
-            panel.add(checkbox);
-        }
-
-        getContentPane().add(panel);
-
-        return list;
-    }
-
-    private JButton addButton(String label) {
-
-        JButton button = new JButton(label);
-
-        getContentPane().add(button);
-
-        return button;
-    }
+    return button;
+  }
 }

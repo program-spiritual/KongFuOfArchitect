@@ -1,9 +1,9 @@
 package com.learnjava.www.behavioralPatterns.command;
 
 public interface Command {
-    void execute();
+  void execute();
 
-    void undo();
+  void undo();
 
-    void redo();
+  void redo();
 }

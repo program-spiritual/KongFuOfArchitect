@@ -5,17 +5,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SmtpConfig {
-    @Value("${smtp.host}")
-    private String host;
 
-    @Value("${smtp.port:25}")
-    private int port;
+  @Value("${smtp.host}")
+  private String host;
 
-    public String getHost() {
-        return host;
-    }
+  @Value("${smtp.port:25}")
+  private int port;
 
-    public int getPort() {
-        return port;
-    }
+  public String getHost() {
+    return host;
+  }
+
+  public int getPort() {
+    return port;
+  }
 }

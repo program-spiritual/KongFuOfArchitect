@@ -2,22 +2,24 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class JavaExceptionDemo2 {
-    public static void main(String[] args) {
-//        Java内置了一套异常处理机制，总是使用异常来表示错误。
-//
-//异常是一种class，因此它本身带有类型信息。异常可以在任何地方抛出，但只需要在上层捕获，这样就和方法调用分离了：
-        try {
-            int s = processFile("C:\\\\test.txt");
-            // ok:
-        } catch (SecurityException e) {
-            // no read permission:
-        } catch (Exception e) {
-            // other error:
-        }
+
+  public static void main(String[] args) {
+    //        Java内置了一套异常处理机制，总是使用异常来表示错误。
+    //
+    //异常是一种class，因此它本身带有类型信息。异常可以在任何地方抛出，但只需要在上层捕获，这样就和方法调用分离了：
+    try {
+      int s = processFile("C:\\\\test.txt");
+      // ok:
+    } catch (SecurityException e) {
+      // no read permission:
+    } catch (Exception e) {
+      // other error:
     }
-    private static int processFile(String s) {
-        return 0;
-    }
+  }
+
+  private static int processFile(String s) {
+    return 0;
+  }
 }
 /**
  * 因为Java的异常是class，它的继承关系如下：

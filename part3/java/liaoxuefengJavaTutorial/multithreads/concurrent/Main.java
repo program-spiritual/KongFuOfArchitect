@@ -16,8 +16,9 @@ import java.util.Map;
  *
  * */
 public class Main {
-    public static void main(String[] args) {
-        Map unsafeMap = new HashMap();
-        Map threadSafeMap = Collections.synchronizedMap(unsafeMap);
-    }
+
+  public static void main(String[] args) {
+    Map unsafeMap = new HashMap();
+    Map threadSafeMap = Collections.synchronizedMap(unsafeMap);
+  }
 }

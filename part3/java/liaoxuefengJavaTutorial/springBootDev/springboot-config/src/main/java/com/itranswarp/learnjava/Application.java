@@ -11,19 +11,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Application.class, args);
-	}
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(Application.class, args);
+  }
 
-	// -- Mvc configuration ---------------------------------------------------
+  // -- Mvc configuration ---------------------------------------------------
 
-	@Bean
-	WebMvcConfigurer createWebMvcConfigurer(@Autowired HandlerInterceptor[] interceptors) {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addResourceHandlers(ResourceHandlerRegistry registry) {
-				registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-			}
-		};
-	}
+  @Bean
+  WebMvcConfigurer createWebMvcConfigurer(
+    @Autowired HandlerInterceptor[] interceptors
+  ) {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+          .addResourceHandler("/static/**")
+          .addResourceLocations("classpath:/static/");
+      }
+    };
+  }
 }

@@ -1,8 +1,8 @@
 public class JavaBeanDemo1 {
-    public static void main(String[] args) {
 
-    }
+  public static void main(String[] args) {}
 }
+
 /**
  * 在Java中，有很多class的定义都符合这样的规范：
  *
@@ -11,41 +11,41 @@ public class JavaBeanDemo1 {
  * 例如：
  * */
 
-class Person25  {
-    private String name;
-    private int age;
-    private boolean child;
+class Person25 {
 
-    public boolean isChild() {
-        return child;
-    }
+  private String name;
+  private int age;
+  private boolean child;
 
-    public void setChild(boolean child) {
-        this.child = child;
-    }
+  public boolean isChild() {
+    return child;
+  }
 
-    public Person25(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+  public void setChild(boolean child) {
+    this.child = child;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public Person25(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public int getAge() {
-        return age;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+  public int getAge() {
+    return age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
 }
-
 /**
  * 如果读写方法符合以下这种命名规范：
  *
@@ -93,5 +93,3 @@ class Person25  {
  * }
  * 可以看出，getter和setter也是一种数据封装的方法。
  * */
-
-

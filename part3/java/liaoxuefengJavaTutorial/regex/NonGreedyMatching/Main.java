@@ -2,6 +2,7 @@ package regex.NonGreedyMatching;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
  * 因此，给定一个匹配规则，加上?后就变成了非贪婪匹配。
  *
@@ -12,20 +13,21 @@ import java.util.regex.Pattern;
  * 小结
  * */
 public class Main {
-    public static void main(String[] args) {
-//        Pattern pattern = Pattern.compile("(\\d+)(0*)");
-        Pattern pattern = Pattern.compile("(\\d+?)(0*)");
-        Matcher matcher = pattern.matcher("1230000");
-        if (matcher.matches()) {
-            System.out.println("group1=" + matcher.group(1)); // "1230000"
-            System.out.println("group2=" + matcher.group(2)); // ""
-        }
 
-        Pattern p2  = Pattern.compile("(\\d??)(9*)");
-        Matcher matcher2 = p2.matcher("9999");
-        if (matcher2.matches()) {
-            System.out.println("group1=" + matcher2.group(1));
-            System.out.println("group2=" + matcher2.group(2));
-        }
+  public static void main(String[] args) {
+    //        Pattern pattern = Pattern.compile("(\\d+)(0*)");
+    Pattern pattern = Pattern.compile("(\\d+?)(0*)");
+    Matcher matcher = pattern.matcher("1230000");
+    if (matcher.matches()) {
+      System.out.println("group1=" + matcher.group(1)); // "1230000"
+      System.out.println("group2=" + matcher.group(2)); // ""
     }
+
+    Pattern p2 = Pattern.compile("(\\d??)(9*)");
+    Matcher matcher2 = p2.matcher("9999");
+    if (matcher2.matches()) {
+      System.out.println("group1=" + matcher2.group(1));
+      System.out.println("group2=" + matcher2.group(2));
+    }
+  }
 }

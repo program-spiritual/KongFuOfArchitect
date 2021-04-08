@@ -1,16 +1,16 @@
 import java.io.*;
-public class InsufficientFundsException extends Exception{
-    public static void main(String[] args) {
 
-    }
+public class InsufficientFundsException extends Exception {
 
-    private double amount;
+  public static void main(String[] args) {}
 
-    public InsufficientFundsException(double amount) {
-        this.amount = amount;
-    }
+  private double amount;
 
-    public double getAmount() {
-        return amount;
-    }
+  public InsufficientFundsException(double amount) {
+    this.amount = amount;
+  }
+
+  public double getAmount() {
+    return amount;
+  }
 }

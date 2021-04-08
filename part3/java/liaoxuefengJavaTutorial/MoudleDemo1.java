@@ -1,2 +1,1 @@
-public class MoudleDemo1 {
-}
+public class MoudleDemo1 {}

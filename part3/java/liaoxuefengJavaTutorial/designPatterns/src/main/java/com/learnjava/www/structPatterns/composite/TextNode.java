@@ -2,25 +2,26 @@ package com.learnjava.www.structPatterns.composite;
 
 import java.util.List;
 
-public class TextNode implements Node{
-    private String text;
+public class TextNode implements Node {
 
-    public TextNode(String text) {
-        this.text = text;
-    }
+  private String text;
 
-    @Override
-    public Node add(Node node) {
-        throw new UnsupportedOperationException();
-    }
+  public TextNode(String text) {
+    this.text = text;
+  }
 
-    @Override
-    public List<Node> children() {
-        return List.of();
-    }
+  @Override
+  public Node add(Node node) {
+    throw new UnsupportedOperationException();
+  }
 
-    @Override
-    public String toXml() {
-        return text;
-    }
+  @Override
+  public List<Node> children() {
+    return List.of();
+  }
+
+  @Override
+  public String toXml() {
+    return text;
+  }
 }

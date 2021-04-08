@@ -1,8 +1,9 @@
 public class IntefaceDemo5 {
-    public static void main(String[] args) {
-        Person20 p = new Student10("Xiao Ming");
-        p.run();
-    }
+
+  public static void main(String[] args) {
+    Person20 p = new Student10("Xiao Ming");
+    p.run();
+  }
 }
 
 //在接口中，可以定义default方法。例如，把Person接口的run()方法改为default方法：
@@ -11,20 +12,22 @@ public class IntefaceDemo5 {
 //
 //default方法和抽象类的普通方法是有所不同的。因为interface没有字段，default方法无法访问字段，而抽象类的普通方法可以访问实例字段。
 interface Person20 {
-    String getName();
-    default void run() {
-        System.out.println(getName() + " run");
-    }
+  String getName();
+
+  default void run() {
+    System.out.println(getName() + " run");
+  }
 }
 
 class Student10 implements Person20 {
-    private String name;
 
-    public Student10(String name) {
-        this.name = name;
-    }
+  private String name;
 
-    public String getName() {
-        return this.name;
-    }
+  public Student10(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
+  }
 }

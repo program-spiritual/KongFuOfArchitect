@@ -1,4 +1,3 @@
 package multithreads.condition;
 
-public class Main {
-}
+public class Main {}

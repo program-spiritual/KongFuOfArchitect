@@ -1,2 +1,1 @@
-public class ClassPathAndJar2 {
-}
+public class ClassPathAndJar2 {}

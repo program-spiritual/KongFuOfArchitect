@@ -1,12 +1,12 @@
 package encryptionAndSecurity.Hmac;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
 
 /**
  * HmacMD5可以看作带有一个安全的key的MD5。使用HmacMD5而不是用MD5加salt，有如下好处：
@@ -31,38 +31,39 @@ import java.security.NoSuchAlgorithmException;
  tim	f27a973dfdc0...6003	af57651c3a8a73303515804d4af43790
  * */
 public class Main {
-    public static void main(String[] args) {
-/**
- * 为了保证安全，我们不会自己指定key，而是通过Java标准库的KeyGenerator生成一个安全的随机的key。下面是使用HmacMD5的代码
- *
- * */
-        KeyGenerator keyGen = null;
-        try {
-            keyGen = KeyGenerator.getInstance("HmacMD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        SecretKey key = keyGen.generateKey();
-        // 打印随机生成的key:
-        byte[] skey = key.getEncoded();
-        System.out.println(new BigInteger(1, skey).toString(16));
-        Mac mac = null;
-        try {
-            mac = Mac.getInstance("HmacMD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        try {
-            mac.init(key);
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        }
-        try {
-            mac.update("HelloWorld".getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        byte[] result = mac.doFinal();
-        System.out.println(new BigInteger(1, result).toString(16));
+
+  public static void main(String[] args) {
+    /**
+     * 为了保证安全，我们不会自己指定key，而是通过Java标准库的KeyGenerator生成一个安全的随机的key。下面是使用HmacMD5的代码
+     *
+     * */
+    KeyGenerator keyGen = null;
+    try {
+      keyGen = KeyGenerator.getInstance("HmacMD5");
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
     }
+    SecretKey key = keyGen.generateKey();
+    // 打印随机生成的key:
+    byte[] skey = key.getEncoded();
+    System.out.println(new BigInteger(1, skey).toString(16));
+    Mac mac = null;
+    try {
+      mac = Mac.getInstance("HmacMD5");
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+    try {
+      mac.init(key);
+    } catch (InvalidKeyException e) {
+      e.printStackTrace();
+    }
+    try {
+      mac.update("HelloWorld".getBytes("UTF-8"));
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+    byte[] result = mac.doFinal();
+    System.out.println(new BigInteger(1, result).toString(16));
+  }
 }

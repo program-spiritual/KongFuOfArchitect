@@ -1,4 +1,5 @@
 package multithreads.create;
+
 /**
  * 直接调用run()方法，相当于调用了一个普通的Java方法，当前线程并没有任何改变，也不会启动新线程。
  * 上述代码实际上是在main()方法内部又调用了run()方法，
@@ -10,13 +11,16 @@ package multithreads.create;
  *
  * */
 public class ThreadDemo6 {
-    public static void main(String[] args) {
-        Thread t = new MyThread2();
-        t.run();
-    }
+
+  public static void main(String[] args) {
+    Thread t = new MyThread2();
+    t.run();
+  }
 }
+
 class MyThread2 extends Thread {
-    public void run() {
-        System.out.println("hello");
-    }
+
+  public void run() {
+    System.out.println("hello");
+  }
 }

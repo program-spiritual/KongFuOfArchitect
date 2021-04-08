@@ -1,7 +1,8 @@
 public class noParamConstructDemo {
-    int num;
 
-    public noParamConstructDemo() {
-        num = 100;
-    }
+  int num;
+
+  public noParamConstructDemo() {
+    num = 100;
+  }
 }

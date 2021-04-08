@@ -1,22 +1,20 @@
 public class PackageDemo1 {
-    /**
-     * 在前面的代码中，我们把类和接口命名为Person、Student、Hello等简单名字。
-     *
-     * 在现实中，如果小明写了一个Person类，小红也写了一个Person类，现在，小白既想用小明的Person，也想用小红的Person，怎么办？
-     *
-     * 如果小军写了一个Arrays类，恰好JDK也自带了一个Arrays类，如何解决类名冲突？
-     *
-     * 在Java中，我们使用package来解决名字冲突。
-     *
-     * Java定义了一种名字空间，称之为包：package。一个类总是属于某个包，类名（比如Person）只是一个简写，真正的完整类名是包名.类名。
-     *
-     * 例如：
-     * */
-    public static void main(String[] args) {
 
-    }
+  /**
+   * 在前面的代码中，我们把类和接口命名为Person、Student、Hello等简单名字。
+   *
+   * 在现实中，如果小明写了一个Person类，小红也写了一个Person类，现在，小白既想用小明的Person，也想用小红的Person，怎么办？
+   *
+   * 如果小军写了一个Arrays类，恰好JDK也自带了一个Arrays类，如何解决类名冲突？
+   *
+   * 在Java中，我们使用package来解决名字冲突。
+   *
+   * Java定义了一种名字空间，称之为包：package。一个类总是属于某个包，类名（比如Person）只是一个简写，真正的完整类名是包名.类名。
+   *
+   * 例如：
+   * */
+  public static void main(String[] args) {}
 }
-
 /**
  * 例如：
  *
@@ -76,4 +74,3 @@ public class PackageDemo1 {
  *
  * 在IDE中，会自动根据包结构编译所有Java源码，所以不必担心使用命令行编译的复杂命令。
  * */
-

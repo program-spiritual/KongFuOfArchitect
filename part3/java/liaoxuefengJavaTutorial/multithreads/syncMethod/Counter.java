@@ -1,27 +1,26 @@
 package multithreads.syncMethod;
 
 public class Counter {
-    private int count = 0;
 
-    public void add(int n) {
-        synchronized(this) {
-            count += n;
-        }
-    }
+  private int count = 0;
 
-    public void dec(int n) {
-        synchronized(this) {
-            count -= n;
-        }
+  public void add(int n) {
+    synchronized (this) {
+      count += n;
     }
+  }
 
-    public int get() {
-        return count;
+  public void dec(int n) {
+    synchronized (this) {
+      count -= n;
     }
+  }
 
-    public void add() {
-    }
+  public int get() {
+    return count;
+  }
 
-    public void dec() {
-    }
+  public void add() {}
+
+  public void dec() {}
 }

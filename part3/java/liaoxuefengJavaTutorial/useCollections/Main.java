@@ -12,8 +12,9 @@ import java.util.List;
  * 创建空Set：Set<T> emptySet()
  * */
 public class Main {
-    public static void main(String[] args) {
-        List<String> list1 = List.of();
-        List<String> list2 = Collections.emptyList();
-    }
+
+  public static void main(String[] args) {
+    List<String> list1 = List.of();
+    List<String> list2 = Collections.emptyList();
+  }
 }

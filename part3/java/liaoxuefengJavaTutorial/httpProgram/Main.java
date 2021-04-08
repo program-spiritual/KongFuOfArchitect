@@ -23,69 +23,78 @@ import java.util.Map;
  */
 public class Main {
 
-    static HttpClient httpClient = HttpClient.newBuilder().build();
+  static HttpClient httpClient = HttpClient.newBuilder().build();
 
-    public static void main(String[] args) {
-        getMethod();
-        postMethod();
-    }
+  public static void main(String[] args) {
+    getMethod();
+    postMethod();
+  }
 
-    static void getMethod() {
-        String url = "https://www.sina.com.cn/";
-        HttpRequest request = null;
-        try {
-            request = HttpRequest.newBuilder(new URI(url))
-                    // 设置Header:
-                    .header("User-Agent", "Java HttpClient").header("Accept", "*/*")
-                    // 设置超时:
-                    .timeout(Duration.ofSeconds(5))
-                    // 设置版本:
-                    .version(HttpClient.Version.HTTP_2).build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        HttpResponse<String> response = null;
-        try {
-            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // HTTP允许重复的Header，因此一个Header可对应多个Value:
-        Map<String, List<String>> headers = response.headers().map();
-        for (Object header : ((Map) headers).keySet()) {
-            System.out.println(header + ": " + headers.get(header).get(0));
-        }
-        System.out.println(response.body().substring(0, 1024) + "...");
+  static void getMethod() {
+    String url = "https://www.sina.com.cn/";
+    HttpRequest request = null;
+    try {
+      request =
+        HttpRequest
+          .newBuilder(new URI(url))
+          // 设置Header:
+          .header("User-Agent", "Java HttpClient")
+          .header("Accept", "*/*")
+          // 设置超时:
+          .timeout(Duration.ofSeconds(5))
+          // 设置版本:
+          .version(HttpClient.Version.HTTP_2)
+          .build();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
     }
+    HttpResponse<String> response = null;
+    try {
+      response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    // HTTP允许重复的Header，因此一个Header可对应多个Value:
+    Map<String, List<String>> headers = response.headers().map();
+    for (Object header : ((Map) headers).keySet()) {
+      System.out.println(header + ": " + headers.get(header).get(0));
+    }
+    System.out.println(response.body().substring(0, 1024) + "...");
+  }
 
-    static void postMethod() {
-        String url = "http://www.example.com/login";
-        String body = "username=bob&password=123456";
-        HttpRequest request = null;
-        try {
-            request = HttpRequest.newBuilder(new URI(url))
-                    // 设置Header:
-                    .header("Accept", "*/*")
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    // 设置超时:
-                    .timeout(Duration.ofSeconds(5))
-                    // 设置版本:
-                    .version(HttpClient.Version.HTTP_2)
-                    // 使用POST并设置Body:
-                    .POST(HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8)).build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        HttpResponse<String> response = null;
-        try {
-            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String s = response.body();
+  static void postMethod() {
+    String url = "http://www.example.com/login";
+    String body = "username=bob&password=123456";
+    HttpRequest request = null;
+    try {
+      request =
+        HttpRequest
+          .newBuilder(new URI(url))
+          // 设置Header:
+          .header("Accept", "*/*")
+          .header("Content-Type", "application/x-www-form-urlencoded")
+          // 设置超时:
+          .timeout(Duration.ofSeconds(5))
+          // 设置版本:
+          .version(HttpClient.Version.HTTP_2)
+          // 使用POST并设置Body:
+          .POST(
+            HttpRequest.BodyPublishers.ofString(body, StandardCharsets.UTF_8)
+          )
+          .build();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
     }
+    HttpResponse<String> response = null;
+    try {
+      response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    String s = response.body();
+  }
 }

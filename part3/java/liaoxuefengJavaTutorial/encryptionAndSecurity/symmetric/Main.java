@@ -1,4 +1,5 @@
 package encryptionAndSecurity.symmetric;
+
 /**
  * 从程序的角度看，所谓加密，就是这样一个函数，它接收密码和明文，然后输出密文：
  *
@@ -16,7 +17,6 @@ package encryptionAndSecurity.symmetric;
  *
  * */
 public class Main {
-    public static void main(String[] args) {
 
-    }
+  public static void main(String[] args) {}
 }

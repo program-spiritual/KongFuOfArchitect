@@ -1,47 +1,47 @@
 package com.itranswarp.learnjava.bean;
 
+import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 @Configuration
 @ConfigurationProperties("storage.local")
 public class StorageConfiguration {
-    private String rootDir;
-    private int maxSize;
-    private boolean allowEmpty;
-    private List<String> allowTypes;
 
-    public String getRootDir() {
-        return rootDir;
-    }
+  private String rootDir;
+  private int maxSize;
+  private boolean allowEmpty;
+  private List<String> allowTypes;
 
-    public void setRootDir(String rootDir) {
-        this.rootDir = rootDir;
-    }
+  public String getRootDir() {
+    return rootDir;
+  }
 
-    public int getMaxSize() {
-        return maxSize;
-    }
+  public void setRootDir(String rootDir) {
+    this.rootDir = rootDir;
+  }
 
-    public void setMaxSize(int maxSize) {
-        this.maxSize = maxSize;
-    }
+  public int getMaxSize() {
+    return maxSize;
+  }
 
-    public boolean isAllowEmpty() {
-        return allowEmpty;
-    }
+  public void setMaxSize(int maxSize) {
+    this.maxSize = maxSize;
+  }
 
-    public void setAllowEmpty(boolean allowEmpty) {
-        this.allowEmpty = allowEmpty;
-    }
+  public boolean isAllowEmpty() {
+    return allowEmpty;
+  }
 
-    public List<String> getAllowTypes() {
-        return allowTypes;
-    }
+  public void setAllowEmpty(boolean allowEmpty) {
+    this.allowEmpty = allowEmpty;
+  }
 
-    public void setAllowTypes(List<String> allowTypes) {
-        this.allowTypes = allowTypes;
-    }
+  public List<String> getAllowTypes() {
+    return allowTypes;
+  }
+
+  public void setAllowTypes(List<String> allowTypes) {
+    this.allowTypes = allowTypes;
+  }
 }

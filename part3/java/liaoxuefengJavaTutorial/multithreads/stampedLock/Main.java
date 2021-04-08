@@ -1,4 +1,5 @@
 package multithreads.stampedLock;
+
 /**
  * StampedLock和ReadWriteLock相比，改进之处在于：
  *
@@ -11,6 +12,4 @@ package multithreads.stampedLock;
  * 但一旦有小概率的写入导致读取的数据不一致，需要能检测出来，再读一遍就行。
  *
  * */
-public class Main {
-
-}
+public class Main {}

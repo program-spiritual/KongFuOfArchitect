@@ -1,4 +1,3 @@
 package mr.jun;
 
-public class Arrays {
-}
+public class Arrays {}

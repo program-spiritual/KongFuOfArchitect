@@ -16,14 +16,15 @@ import java.util.concurrent.Executors;
  * SingleThreadExecutor：仅单线程执行的线程池。
  */
 public class Main {
-    public static void main(String[] args) {
-// 创建固定大小的线程池:
-        ExecutorService executor = Executors.newFixedThreadPool(3);
-// 提交任务:
-//        executor.submit(task1);
-//        executor.submit(task2);
-//        executor.submit(task3);
-//        executor.submit(task4);
-//        executor.submit(task5);
-    }
+
+  public static void main(String[] args) {
+    // 创建固定大小的线程池:
+    ExecutorService executor = Executors.newFixedThreadPool(3);
+    // 提交任务:
+    //        executor.submit(task1);
+    //        executor.submit(task2);
+    //        executor.submit(task3);
+    //        executor.submit(task4);
+    //        executor.submit(task5);
+  }
 }

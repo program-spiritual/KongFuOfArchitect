@@ -1,12 +1,11 @@
 package encryptionAndSecurity.bouncyCastle;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * BouncyCastle就是一个提供了很多哈希算法和加密算法的第三方库。
@@ -18,22 +17,23 @@ import java.security.Security;
  * 注册只需要在启动时进行一次，后续就可以使用BouncyCastle提供的所有哈希算法和加密算法
  * */
 public class Main {
-    public static void main(String[] args) {
-        // 注册BouncyCastle:
-        Security.addProvider(new BouncyCastleProvider());
-        // 按名称正常调用:
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("RipeMD160");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        try {
-            md.update("HelloWorld".getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        byte[] result = md.digest();
-        System.out.println(new BigInteger(1, result).toString(16));
+
+  public static void main(String[] args) {
+    // 注册BouncyCastle:
+    Security.addProvider(new BouncyCastleProvider());
+    // 按名称正常调用:
+    MessageDigest md = null;
+    try {
+      md = MessageDigest.getInstance("RipeMD160");
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
     }
+    try {
+      md.update("HelloWorld".getBytes("UTF-8"));
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+    byte[] result = md.digest();
+    System.out.println(new BigInteger(1, result).toString(16));
+  }
 }

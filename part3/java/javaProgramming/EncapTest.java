@@ -1,29 +1,30 @@
 public class EncapTest {
-    private String name;
-    private String idNum;
-    private int age;
 
-    public int getAge() {
-        return age;
-    }
+  private String name;
+  private String idNum;
+  private int age;
 
-    public String getName() {
-        return name;
-    }
+  public int getAge() {
+    return age;
+  }
 
-    public String getIdNum() {
-        return idNum;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setAge( int newAge) {
-        age = newAge;
-    }
+  public String getIdNum() {
+    return idNum;
+  }
 
-    public void setName(String newName) {
-        name = newName;
-    }
+  public void setAge(int newAge) {
+    age = newAge;
+  }
 
-    public void setIdNum( String newId) {
-        idNum = newId;
-    }
+  public void setName(String newName) {
+    name = newName;
+  }
+
+  public void setIdNum(String newId) {
+    idNum = newId;
+  }
 }

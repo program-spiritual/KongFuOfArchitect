@@ -1,96 +1,93 @@
 package com.learnjava.www.behavioralPatterns.mediator;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 
 public class Mediator {
 
-    // 引用UI组件:
+  // 引用UI组件:
 
-    private List<JCheckBox> checkBoxList;
+  private List<JCheckBox> checkBoxList;
 
-    private JButton selectAll;
+  private JButton selectAll;
 
-    private JButton selectNone;
+  private JButton selectNone;
 
-    private JButton selectInverse;
+  private JButton selectInverse;
 
+  public Mediator(
+    List<JCheckBox> checkBoxList,
+    JButton selectAll,
+    JButton selectNone,
+    JButton selectInverse
+  ) {
+    this.checkBoxList = checkBoxList;
 
-    public Mediator(List<JCheckBox> checkBoxList, JButton selectAll, JButton selectNone, JButton selectInverse) {
+    this.selectAll = selectAll;
 
-        this.checkBoxList = checkBoxList;
+    this.selectNone = selectNone;
 
-        this.selectAll = selectAll;
+    this.selectInverse = selectInverse;
 
-        this.selectNone = selectNone;
-
-        this.selectInverse = selectInverse;
-
-        // 绑定事件:
-        this.checkBoxList.forEach(checkBox -> {
-
-            checkBox.addChangeListener(this::onCheckBoxChanged);
-
-        });
-
-        this.selectAll.addActionListener(this::onSelectAllClicked);
-
-        this.selectNone.addActionListener(this::onSelectNoneClicked);
-
-        this.selectInverse.addActionListener(this::onSelectInverseClicked);
-    }
-
-    // 当checkbox有变化时:
-    public void onCheckBoxChanged(ChangeEvent event) {
-
-        boolean allChecked = true;
-
-        boolean allUnchecked = true;
-
-        for (var checkBox : checkBoxList) {
-
-            if (checkBox.isSelected()) {
-
-                allUnchecked = false;
-
-            } else {
-
-                allChecked = false;
-            }
+    // 绑定事件:
+    this.checkBoxList.forEach(
+        checkBox -> {
+          checkBox.addChangeListener(this::onCheckBoxChanged);
         }
+      );
 
-        selectAll.setEnabled(!allChecked);
+    this.selectAll.addActionListener(this::onSelectAllClicked);
 
-        selectNone.setEnabled(!allUnchecked);
+    this.selectNone.addActionListener(this::onSelectNoneClicked);
+
+    this.selectInverse.addActionListener(this::onSelectInverseClicked);
+  }
+
+  // 当checkbox有变化时:
+  public void onCheckBoxChanged(ChangeEvent event) {
+    boolean allChecked = true;
+
+    boolean allUnchecked = true;
+
+    for (var checkBox : checkBoxList) {
+      if (checkBox.isSelected()) {
+        allUnchecked = false;
+      } else {
+        allChecked = false;
+      }
     }
 
-    // 当点击select all:
-    public void onSelectAllClicked(ActionEvent event) {
+    selectAll.setEnabled(!allChecked);
 
-        checkBoxList.forEach(checkBox -> checkBox.setSelected(true));
+    selectNone.setEnabled(!allUnchecked);
+  }
 
-        selectAll.setEnabled(false);
+  // 当点击select all:
+  public void onSelectAllClicked(ActionEvent event) {
+    checkBoxList.forEach(checkBox -> checkBox.setSelected(true));
 
-        selectNone.setEnabled(true);
-    }
+    selectAll.setEnabled(false);
 
-    // 当点击select none:
-    public void onSelectNoneClicked(ActionEvent event) {
+    selectNone.setEnabled(true);
+  }
 
-        checkBoxList.forEach(checkBox -> checkBox.setSelected(false));
+  // 当点击select none:
+  public void onSelectNoneClicked(ActionEvent event) {
+    checkBoxList.forEach(checkBox -> checkBox.setSelected(false));
 
-        selectAll.setEnabled(true);
+    selectAll.setEnabled(true);
 
-        selectNone.setEnabled(false);
-    }
+    selectNone.setEnabled(false);
+  }
 
-    // 当点击select inverse:
-    public void onSelectInverseClicked(ActionEvent event) {
+  // 当点击select inverse:
+  public void onSelectInverseClicked(ActionEvent event) {
+    checkBoxList.forEach(
+      checkBox -> checkBox.setSelected(!checkBox.isSelected())
+    );
 
-        checkBoxList.forEach(checkBox -> checkBox.setSelected(!checkBox.isSelected()));
-
-        onCheckBoxChanged(null);
-    }
+    onCheckBoxChanged(null);
+  }
 }

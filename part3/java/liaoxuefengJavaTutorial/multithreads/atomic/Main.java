@@ -1,4 +1,5 @@
 package multithreads.atomic;
+
 /*******************************************************************************************
  *
  * 我们以AtomicInteger为例，它提供的主要操作有：
@@ -12,8 +13,9 @@ package multithreads.atomic;
  *
  ******************************************************************************************/
 public class Main {
-    public static void main(String[] args) {
-//利用AtomicLong可以编写一个多线程安全的全局唯一ID生成器：
 
-    }
+  public static void main(String[] args) {
+    //利用AtomicLong可以编写一个多线程安全的全局唯一ID生成器：
+
+  }
 }

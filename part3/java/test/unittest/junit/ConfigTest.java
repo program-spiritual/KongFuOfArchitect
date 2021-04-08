@@ -5,47 +5,53 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.*;
 
 public class ConfigTest {
-    @Test
-    @EnabledOnOs(OS.WINDOWS)
-    void testWindows() {
-        Config config = new Config();
-        Assertions.assertEquals("C:\\test.ini", config.getConfigFile("test.ini"));
-    }
 
-    @Test
-    @EnabledOnOs({ OS.LINUX, OS.MAC })
-    void testLinuxAndMac() {
-        Config config = new Config();
-        Assertions.assertEquals("/usr/local/test.cfg", config.getConfigFile("test.cfg"));
-    }
+  @Test
+  @EnabledOnOs(OS.WINDOWS)
+  void testWindows() {
+    Config config = new Config();
+    Assertions.assertEquals("C:\\test.ini", config.getConfigFile("test.ini"));
+  }
 
-    @Test
-    @DisabledOnOs(OS.WINDOWS)
-    void testOnNonWindowsOs() {
-        // TODO: this test is disabled on windows
-    }
+  @Test
+  @EnabledOnOs({ OS.LINUX, OS.MAC })
+  void testLinuxAndMac() {
+    Config config = new Config();
+    Assertions.assertEquals(
+      "/usr/local/test.cfg",
+      config.getConfigFile("test.cfg")
+    );
+  }
 
-    @Test
-    @DisabledOnJre(JRE.JAVA_8)
-    void testOnJava9OrAbove() {
-        // TODO: this test is disabled on java 8
-    }
+  @Test
+  @DisabledOnOs(OS.WINDOWS)
+  void testOnNonWindowsOs() {
+    // TODO: this test is disabled on windows
+  }
 
-    @Test
-    @EnabledIfSystemProperty(named = "os.arch", matches = ".*64.*")
-    void testOnlyOn64bitSystem() {
-        // TODO: this test is only run on 64 bit system
-    }
+  @Test
+  @DisabledOnJre(JRE.JAVA_8)
+  void testOnJava9OrAbove() {
+    // TODO: this test is disabled on java 8
+  }
 
-    @Test
-    @EnabledIfEnvironmentVariable(named = "DEBUG", matches = "true")
-    void testOnlyOnDebugMode() {
-        // TODO: this test is only run on DEBUG=true
-    }
+  @Test
+  @EnabledIfSystemProperty(named = "os.arch", matches = ".*64.*")
+  void testOnlyOn64bitSystem() {
+    // TODO: this test is only run on 64 bit system
+  }
 
-    @Test
-    @EnabledIf("java.time.LocalDate.now().getDayOfWeek()==java.time.DayOfWeek.SUNDAY")
-    void testOnlyOnSunday() {
-        // TODO: this test is only run on Sunday
-    }
+  @Test
+  @EnabledIfEnvironmentVariable(named = "DEBUG", matches = "true")
+  void testOnlyOnDebugMode() {
+    // TODO: this test is only run on DEBUG=true
+  }
+
+  @Test
+  @EnabledIf(
+    "java.time.LocalDate.now().getDayOfWeek()==java.time.DayOfWeek.SUNDAY"
+  )
+  void testOnlyOnSunday() {
+    // TODO: this test is only run on Sunday
+  }
 }

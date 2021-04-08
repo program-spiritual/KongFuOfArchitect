@@ -1,12 +1,13 @@
 package multithreads.interruptThread;
 
 public class InterruptDemo2 {
-    public static void main(String[] args) throws InterruptedException {
-        TagThread t = new TagThread();
-        t.start();
-        Thread.sleep(100);
-        t.running = false; // 标志位置为false
-    }
+
+  public static void main(String[] args) throws InterruptedException {
+    TagThread t = new TagThread();
+    t.start();
+    Thread.sleep(100);
+    t.running = false; // 标志位置为false
+  }
 }
 
 /**
@@ -34,15 +35,16 @@ public class InterruptDemo2 {
  * JVM回写主内存的速度非常快，但是，换成ARM的架构，就会有显著的延迟。
  *
  * */
-class TagThread extends Thread{
-    public volatile boolean running = true;
+class TagThread extends Thread {
 
-    public void run() {
-        int n = 0;
-        while (running) {
-            n ++;
-            System.out.println(n + " hello!");
-        }
-        System.out.println("end!");
+  public volatile boolean running = true;
+
+  public void run() {
+    int n = 0;
+    while (running) {
+      n++;
+      System.out.println(n + " hello!");
     }
+    System.out.println("end!");
+  }
 }

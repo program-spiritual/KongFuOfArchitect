@@ -1,4 +1,3 @@
 package com.learnjava.www.servlet;
 
-public class Main {
-}
+public class Main {}

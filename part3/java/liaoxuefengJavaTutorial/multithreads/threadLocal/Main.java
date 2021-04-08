@@ -1,4 +1,5 @@
 package multithreads.threadLocal;
+
 /**
  *
  * 这种在一个线程中，横跨若干方法调用，需要传递的对象，我们通常称之为上下文（Context），它是一种状态，可以是用户身份、任务信息等。
@@ -9,18 +10,25 @@ package multithreads.threadLocal;
  *
  * */
 public class Main {
-    public static void main(String[] args) throws Exception {
-        log("start main...");
-        new Thread(() -> {
-            log("run task...");
-        }).start();
-        new Thread(() -> {
-            log("print...");
-        }).start();
-        log("end main.");
-    }
 
-    static void log(String s) {
-        System.out.println(Thread.currentThread().getName() + ": " + s);
-    }
+  public static void main(String[] args) throws Exception {
+    log("start main...");
+    new Thread(
+      () -> {
+        log("run task...");
+      }
+    )
+      .start();
+    new Thread(
+      () -> {
+        log("print...");
+      }
+    )
+      .start();
+    log("end main.");
+  }
+
+  static void log(String s) {
+    System.out.println(Thread.currentThread().getName() + ": " + s);
+  }
 }

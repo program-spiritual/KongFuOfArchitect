@@ -1,6 +1,5 @@
 package com.learnjava.www;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,75 +35,83 @@ import java.util.stream.Stream;
  */
 public class OtherOperation {
 
-    public static void main(String[] args) {
-        sort();
-        userDefinedSort();
-    }
+  public static void main(String[] args) {
+    sort();
+    userDefinedSort();
+  }
 
-    //    默认排序
-    static void sort() {
-        List<String> list = List.of("Orange", "apple", "Banana")
-                .stream()
-                .sorted()
-                .collect(Collectors.toList());
-        System.out.println(list);
-    }
+  //    默认排序
+  static void sort() {
+    List<String> list = List
+      .of("Orange", "apple", "Banana")
+      .stream()
+      .sorted()
+      .collect(Collectors.toList());
+    System.out.println(list);
+  }
 
-    //  自定义排序
-    static void userDefinedSort() {
-        List<String> list = List.of("Orange", "apple", "Banana")
-                .stream()
-                .sorted(String::compareToIgnoreCase)
-                .collect(Collectors.toList());
-        System.out.println(list);
-    }
+  //  自定义排序
+  static void userDefinedSort() {
+    List<String> list = List
+      .of("Orange", "apple", "Banana")
+      .stream()
+      .sorted(String::compareToIgnoreCase)
+      .collect(Collectors.toList());
+    System.out.println(list);
+  }
 
-    //  去重
-    static void distinct() {
-        List.of("A", "B", "A", "C", "B", "D")
-                .stream()
-                .distinct()
-                .collect(Collectors.toList()); // [A, B, C, D]
-    }
+  //  去重
+  static void distinct() {
+    List
+      .of("A", "B", "A", "C", "B", "D")
+      .stream()
+      .distinct()
+      .collect(Collectors.toList()); // [A, B, C, D]
+  }
 
-    //  截取
-    static void skip() {
-        List.of("A", "B", "C", "D", "E", "F")
-                .stream()
-                .skip(2) // 跳过A, B
-                .limit(3) // 截取C, D, E
-                .collect(Collectors.toList()); // [C, D, E]
-    }
+  //  截取
+  static void skip() {
+    List
+      .of("A", "B", "C", "D", "E", "F")
+      .stream()
+      .skip(2) // 跳过A, B
+      .limit(3) // 截取C, D, E
+      .collect(Collectors.toList()); // [C, D, E]
+  }
 
-    //    合并
-    static void concat() {
-        Stream<String> s1 = List.of("A", "B", "C").stream();
-        Stream<String> s2 = List.of("D", "E").stream();
-        // 合并:
-        Stream<String> s = Stream.concat(s1, s2);
-        System.out.println(s.collect(Collectors.toList())); // [A, B, C, D, E]
-    }
+  //    合并
+  static void concat() {
+    Stream<String> s1 = List.of("A", "B", "C").stream();
+    Stream<String> s2 = List.of("D", "E").stream();
+    // 合并:
+    Stream<String> s = Stream.concat(s1, s2);
+    System.out.println(s.collect(Collectors.toList())); // [A, B, C, D, E]
+  }
 
-    // flatMap
-    static void flatMap() {
-        Stream<List<Integer>> s = Stream.of(
-                Arrays.asList(1, 2, 3),
-                Arrays.asList(4, 5, 6),
-                Arrays.asList(7, 8, 9));
-    }
+  // flatMap
+  static void flatMap() {
+    Stream<List<Integer>> s = Stream.of(
+      Arrays.asList(1, 2, 3),
+      Arrays.asList(4, 5, 6),
+      Arrays.asList(7, 8, 9)
+    );
+  }
 
-    //    parallel
-    static void parallel() {
-        Stream<String> s = List.of("A", "B", "C").stream();
-        String[] result = s.parallel() // 变成一个可以并行处理的Stream
-                .sorted() // 可以进行并行排序
-                .toArray(String[]::new);
-    }
+  //    parallel
+  static void parallel() {
+    Stream<String> s = List.of("A", "B", "C").stream();
+    String[] result = s
+      .parallel() // 变成一个可以并行处理的Stream
+      .sorted() // 可以进行并行排序
+      .toArray(String[]::new);
+  }
 
-    static void forEach() {
-        Stream<String> s = List.of("A", "B", "C").stream();
-        s.forEach(str -> {
-            System.out.println("Hello, " + str);
-        });
-    }
+  static void forEach() {
+    Stream<String> s = List.of("A", "B", "C").stream();
+    s.forEach(
+      str -> {
+        System.out.println("Hello, " + str);
+      }
+    );
+  }
 }

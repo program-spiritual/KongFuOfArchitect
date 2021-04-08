@@ -1,38 +1,39 @@
 package com.itranswarp.learnjava.bean;
 
 public class User {
-    public long id;
-    public String name;
 
-    public User(long id, String name, School school) {
-        this.id = id;
-        this.name = name;
-        this.school = school;
-    }
+  public long id;
+  public String name;
 
-    public School school;
+  public User(long id, String name, School school) {
+    this.id = id;
+    this.name = name;
+    this.school = school;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public School school;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public School getSchool() {
-        return school;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setSchool(School school) {
-        this.school = school;
-    }
+  public School getSchool() {
+    return school;
+  }
+
+  public void setSchool(School school) {
+    this.school = school;
+  }
 }

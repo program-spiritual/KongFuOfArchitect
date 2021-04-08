@@ -3,18 +3,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-public class UseAnnotationDemo3 {
-}
+public class UseAnnotationDemo3 {}
 
 //第一步，用@interface定义注解：
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @interface Report2 {
-    int type() default 0;
-    String level() default "info";
-    String value() default "";
-}
+  int type() default 0;
 
+  String level() default "info";
+
+  String value() default "";
+}
 //第二步，添加参数、默认值：
 //第三步，用元注解配置注解：
 //其中，必须设置@Target和@Retention，@Retention一般设置为RUNTIME，

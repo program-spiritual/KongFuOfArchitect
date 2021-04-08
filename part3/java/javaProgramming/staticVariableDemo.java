@@ -1,15 +1,15 @@
 public class staticVariableDemo {
-    private static double salary;
-    public static final String DEPARTMENT = "DEV";
 
-    public static double getSalary() {
-        return salary;
-    }
+  private static double salary;
+  public static final String DEPARTMENT = "DEV";
 
-    public static void setSalary(double salary) {
-        staticVariableDemo.salary = salary;
-    }
+  public static double getSalary() {
+    return salary;
+  }
 
-    public staticVariableDemo() {
-    }
+  public static void setSalary(double salary) {
+    staticVariableDemo.salary = salary;
+  }
+
+  public staticVariableDemo() {}
 }

@@ -1,4 +1,3 @@
 package com.itranswarp.learnjava.service;
 
-public interface Uploader {
-}
+public interface Uploader {}

@@ -12,24 +12,25 @@ import java.util.concurrent.locks.ReentrantLock;
  * 没有写入时，多个线程允许同时读（提高性能）。
  */
 public class Counter {
-    private final Lock lock = new ReentrantLock();
-    private int[] counts = new int[10];
 
-    public void inc(int index) {
-        lock.lock();
-        try {
-            counts[index] += 1;
-        } finally {
-            lock.unlock();
-        }
-    }
+  private final Lock lock = new ReentrantLock();
+  private int[] counts = new int[10];
 
-    public int[] get() {
-        lock.lock();
-        try {
-            return Arrays.copyOf(counts, counts.length);
-        } finally {
-            lock.unlock();
-        }
+  public void inc(int index) {
+    lock.lock();
+    try {
+      counts[index] += 1;
+    } finally {
+      lock.unlock();
     }
+  }
+
+  public int[] get() {
+    lock.lock();
+    try {
+      return Arrays.copyOf(counts, counts.length);
+    } finally {
+      lock.unlock();
+    }
+  }
 }

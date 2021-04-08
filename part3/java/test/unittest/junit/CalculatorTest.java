@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 //Fixture的套路如下：
 //
 //对于实例变量，在@BeforeEach中初始化，在@AfterEach中清理，它们在各个@Test方法中互不影响，因为是不同的实例；
@@ -14,29 +15,30 @@ import org.junit.jupiter.api.Test;
 //
 //最后，注意到每次运行一个@Test方法前，JUnit首先创建一个XxxTest实例，因此，每个@Test方法内部的成员变量都是独立的，不能也无法把成员变量的状态从一个@Test方法带到另一个@Test方法。
 public class CalculatorTest {
-    Calculator calculator;
 
-    @BeforeEach
-    public void setUp() {
-        this.calculator = new Calculator();
-    }
+  Calculator calculator;
 
-    @AfterEach
-    public void tearDown() {
-        this.calculator = null;
-    }
+  @BeforeEach
+  public void setUp() {
+    this.calculator = new Calculator();
+  }
 
-    @Test
-    void testAdd() {
-        Assertions.assertEquals(100, this.calculator.add(100));
-        Assertions.assertEquals(150, this.calculator.add(50));
-        Assertions.assertEquals(130, this.calculator.add(-20));
-    }
+  @AfterEach
+  public void tearDown() {
+    this.calculator = null;
+  }
 
-    @Test
-    void testSub() {
-        Assertions.assertEquals(-100, this.calculator.sub(100));
-        Assertions.assertEquals(-150, this.calculator.sub(50));
-        Assertions.assertEquals(-130, this.calculator.sub(-20));
-    }
+  @Test
+  void testAdd() {
+    Assertions.assertEquals(100, this.calculator.add(100));
+    Assertions.assertEquals(150, this.calculator.add(50));
+    Assertions.assertEquals(130, this.calculator.add(-20));
+  }
+
+  @Test
+  void testSub() {
+    Assertions.assertEquals(-100, this.calculator.sub(100));
+    Assertions.assertEquals(-150, this.calculator.sub(50));
+    Assertions.assertEquals(-130, this.calculator.sub(-20));
+  }
 }

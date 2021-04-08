@@ -1,4 +1,5 @@
 package encryptionAndSecurity.digest;
+
 /*****************************************************************************************************
  * 哈希算法最重要的特点就是：
  *
@@ -11,16 +12,17 @@ package encryptionAndSecurity.digest;
  *
  * ****************************************************************************************************/
 public class Main {
-    public static void main(String[] args) {
-        "hello".hashCode(); // 0x5e918d2
-        "hello, java".hashCode(); // 0x7a9d88e8
-        "hello, bob".hashCode(); // 0xa0dbae2f
-/**
- *
- * 两个相同的字符串永远会计算出相同的hashCode，否则基于hashCode定位的HashMap就无法正常工作。
- * 这也是为什么当我们自定义一个class时，覆写equals()方法时我们必须正确覆写hashCode()方法。
- *
- * */
 
-    }
+  public static void main(String[] args) {
+    "hello".hashCode(); // 0x5e918d2
+    "hello, java".hashCode(); // 0x7a9d88e8
+    "hello, bob".hashCode(); // 0xa0dbae2f
+    /**
+     *
+     * 两个相同的字符串永远会计算出相同的hashCode，否则基于hashCode定位的HashMap就无法正常工作。
+     * 这也是为什么当我们自定义一个class时，覆写equals()方法时我们必须正确覆写hashCode()方法。
+     *
+     * */
+
+  }
 }

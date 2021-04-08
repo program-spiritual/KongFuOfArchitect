@@ -1,4 +1,5 @@
 package multithreads.threadstat;
+
 /*********************************************************************************************
  * main线程在启动t线程后，可以通过t.join()等待t线程结束后再继续运行
  *
@@ -14,17 +15,20 @@ package multithreads.threadstat;
  *
  *********************************************************************************************/
 public class WaitOtherThread {
-    public static void main(String[] args) {
-        Thread t = new Thread(() -> {
-            System.out.println("hello");
-        });
-        System.out.println("start");
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("end");
+
+  public static void main(String[] args) {
+    Thread t = new Thread(
+      () -> {
+        System.out.println("hello");
+      }
+    );
+    System.out.println("start");
+    t.start();
+    try {
+      t.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
+    System.out.println("end");
+  }
 }

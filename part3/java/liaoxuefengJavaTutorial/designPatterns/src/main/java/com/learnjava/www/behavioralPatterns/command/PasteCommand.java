@@ -1,24 +1,20 @@
 package com.learnjava.www.behavioralPatterns.command;
 
-public class PasteCommand implements Command{
+public class PasteCommand implements Command {
 
-    private TextEditor receiver;
+  private TextEditor receiver;
 
-    public PasteCommand(TextEditor receiver) {
-        this.receiver = receiver;
-    }
+  public PasteCommand(TextEditor receiver) {
+    this.receiver = receiver;
+  }
 
-    public void execute() {
-        receiver.paste();
-    }
+  public void execute() {
+    receiver.paste();
+  }
 
-    @Override
-    public void undo() {
+  @Override
+  public void undo() {}
 
-    }
-
-    @Override
-    public void redo() {
-
-    }
+  @Override
+  public void redo() {}
 }

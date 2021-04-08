@@ -5,6 +5,7 @@ import java.util.Queue;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * 使用Condition时，引用的Condition对象必须从Lock实例的newCondition()返回，这样才能获得一个绑定了Lock实例的Condition实例。
  *
@@ -19,33 +20,34 @@ import java.util.concurrent.locks.ReentrantLock;
  * 唤醒线程从await()返回后需要重新获得锁。
  * */
 public class TaskQueue {
-    private final Lock lock = new ReentrantLock();
-    private final Condition condition = lock.newCondition();
-    private Queue<String> queue = new LinkedList<>();
 
-    public void addTask(String s) {
-        lock.lock();
-        try {
-            queue.add(s);
-            condition.signalAll();
-        } finally {
-            lock.unlock();
-        }
-    }
+  private final Lock lock = new ReentrantLock();
+  private final Condition condition = lock.newCondition();
+  private Queue<String> queue = new LinkedList<>();
 
-    public String getTask() {
-        lock.lock();
-        try {
-            while (queue.isEmpty()) {
-                try {
-                    condition.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return queue.remove();
-        } finally {
-            lock.unlock();
-        }
+  public void addTask(String s) {
+    lock.lock();
+    try {
+      queue.add(s);
+      condition.signalAll();
+    } finally {
+      lock.unlock();
     }
+  }
+
+  public String getTask() {
+    lock.lock();
+    try {
+      while (queue.isEmpty()) {
+        try {
+          condition.await();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+      return queue.remove();
+    } finally {
+      lock.unlock();
+    }
+  }
 }

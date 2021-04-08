@@ -1,4 +1,3 @@
 package encryptionAndSecurity.signature;
 
-public class DSADemo {
-}
+public class DSADemo {}

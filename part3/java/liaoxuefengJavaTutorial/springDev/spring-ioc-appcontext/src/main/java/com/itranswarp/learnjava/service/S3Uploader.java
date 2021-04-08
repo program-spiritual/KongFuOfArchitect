@@ -5,5 +5,4 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConditionalOnProperty(name = "app.storage", havingValue = "s3")
-public class S3Uploader implements Uploader{
-}
+public class S3Uploader implements Uploader {}

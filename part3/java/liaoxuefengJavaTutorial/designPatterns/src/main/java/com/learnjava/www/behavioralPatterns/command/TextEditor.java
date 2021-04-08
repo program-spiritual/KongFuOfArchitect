@@ -1,31 +1,31 @@
 package com.learnjava.www.behavioralPatterns.command;
 
 public class TextEditor {
-    private StringBuilder buffer = new StringBuilder();
-    public void copy() {
 
-    }
+  private StringBuilder buffer = new StringBuilder();
 
-    public void paste() {
-        String text = getFromClipBoard();
-        add(text);
-    }
+  public void copy() {}
 
-    public void add(String text) {
-        buffer.append(text);
-    }
+  public void paste() {
+    String text = getFromClipBoard();
+    add(text);
+  }
 
-    private String getFromClipBoard() {
-        return "content from clipboard";
-    }
+  public void add(String text) {
+    buffer.append(text);
+  }
 
-    public void delete() {
-        if (buffer.length() > 0) {
-            buffer.deleteCharAt(buffer.length() - 1);
-        }
-    }
+  private String getFromClipBoard() {
+    return "content from clipboard";
+  }
 
-    public boolean getState() {
-        return false;
+  public void delete() {
+    if (buffer.length() > 0) {
+      buffer.deleteCharAt(buffer.length() - 1);
     }
+  }
+
+  public boolean getState() {
+    return false;
+  }
 }
