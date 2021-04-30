@@ -61,6 +61,7 @@
 - [part10 | 编译原理--->点击进入](part10/README.md)
 - [part11 | 安全与渗透--->暂未更新](part11/README.md)
     - [汇编基础--->点击进入](https://github.com/xiaomiwujiecao/GAB)
+    - [汇编游记--->点击进入](part11/assembly/README.md)
     - [ios庖丁解牛--->点击进入](https://github.com/xiaomiwujiecao/iosKnife)
 - [part12 | Shell脚本 --->点击进入](https://github.com/xiaomiwujiecao/cleverShell)
 - [part13 | 大前端](./part13/README.md)
