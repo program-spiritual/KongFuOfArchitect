@@ -4,7 +4,7 @@
 
 - 汇编游记已在博客更新中：
 
-https://ai.nodejs7.com/category/Binary/
+[《汇编游记》 - 小新开源（原：疯狂的AI）](https://ai.nodejs7.com/507.html)
 
 - windows dosbox 环境和 相关的工具在
 
