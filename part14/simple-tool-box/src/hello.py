@@ -7,9 +7,12 @@ def window():
    w = QWidget()
    b = QLabel(w)
    b.setText("Hello World!")
-   w.setGeometry(100,100,200,50)
-   b.move(50,20)
-   w.setWindowTitle("PyQt5")
+   # x y width height
+   w.setGeometry(100, 100, 280, 80) 
+   w.move(60, 15)
+   w.setWindowTitle("PyQt5 App")
+   helloMsg = QLabel('<h1>Hello World!</h1>', parent=w)
+   helloMsg.move(60, 15)
    w.show()
    sys.exit(app.exec_())
 if __name__ == '__main__':
