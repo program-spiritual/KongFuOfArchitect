@@ -18,7 +18,7 @@ from PyQt5.QtWidgets import QWidget
 
 __version__ = '0.1'
 __author__ = 'Leodanis Pozo Ramos'
-
+ERROR_MSG = 'ERROR'
 # 创建 QMainWindow 的子类来设置计算器的 GUI
 class PyCalcUi(QMainWindow):
     """PyCalc's View (GUI)."""
@@ -99,24 +99,41 @@ class PyCalcUi(QMainWindow):
 
 class PyCalcCtrl:
     """PyCalc Controller class."""
-    def __init__(self, view):
+    def __init__(self, model,view):
         """Controller initializer."""
         self._view = view
-        # Connect signals and slots
+        self._evaluate = model
+        # Connect   signals and slots
         self._connectSignals()
-
+    def _calcResult(self):
+      """Evaluate expressions."""
+      result = self._evaluate(expression=self._view.displayText())
+      self._view.setDisplayText(result)
     def _buildExpression(self, sub_exp):
         """Build expression."""
+        if self._view.displayText() == ERROR_MSG:
+          self._view.clearDisplay()
         expression = self._view.displayText() + sub_exp
         self._view.setDisplayText(expression)
-
     def _connectSignals(self):
         """Connect signals and slots."""
         for btnText, btn in self._view.buttons.items():
             if btnText not in {'=', 'C'}:
                 btn.clicked.connect(partial(self._buildExpression, btnText))
-
+        self._view.buttons['='].clicked.connect(self._calcResult)
+        self._view.display.returnPressed.connect(self._calcResult)
         self._view.buttons['C'].clicked.connect(self._view.clearDisplay)
+
+
+# Create a Model to handle the calculator's operation
+def evaluateExpression(expression):
+    """Evaluate an expression."""
+    try:
+        result = str(eval(expression, {}, {}))
+    except Exception:
+        result = ERROR_MSG
+
+    return result
 
 # Client code
 def main():
@@ -128,7 +145,9 @@ def main():
     view.show()
 
     # Create instances of the model and the controller
-    PyCalcCtrl(view=view)
+    model = evaluateExpression
+    PyCalcCtrl(model=model, view=view)
+    # PyCalcCtrl(view=view)
     # 执行计算器的主循环
     sys.exit(pycalc.exec_())
 

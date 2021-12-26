@@ -309,3 +309,101 @@ def main():
 现在，您可以通过单击按钮来构建数学表达。
 请注意，等号符号 （ `+` ） 尚未起作用。
 要解决这个问题，您需要实现计算器的模型。
+
+#### 实现模型
+
+模型是处理业务逻辑的代码层。
+在这种情况下，业务逻辑完全是关于基本的数学计算。您的模型将评估用户引入的数学表达式。由于模型需要处理错误，您将定义以下全局常量：
+
+```text
+ERROR_MSG = 'ERROR'
+```
+
+这是用户在引入无效数学表达式时将看到的消息。您的模型将是单个函数：
+
+```python
+# Create a Model to handle the calculator's operation
+def evaluateExpression(expression):
+    """Evaluate an expression."""
+    try:
+        result = str(eval(expression, {}, {}))
+    except Exception:
+        result = ERROR_MSG
+
+    return result
+```
+
+在这里，您使用 `eval()` 将字符串计算为表达式。如果成功，那么您将返回结果。否则，返回错误消息。请注意，此功能并不完美。它有几个重要的问题：
+
+- `try...except` 块不会捕获任何特定的异常，这不是 `Python` 中的最佳实践。
+- 该函数基于 `eval()` 的使用，这可能会导致一些严重的安全问题。一般建议是仅对受信任的输入使用 `eval()`。
+
+您可以自由地重新设计该函数，使其更加可靠和安全。在本教程中，您将按原样使用该函数。
+
+
+#### 完成控制器
+
+一旦你完成了计算器的模型，你就可以完成控制器。 `PyCalcCtrl` 的最终版本将包含处理计算并确保等号 (`=`) 正常工作的逻辑：
+
+```python
+# Create a Controller class to connect the GUI and the model
+class PyCalcCtrl:
+    """PyCalc's Controller."""
+    def __init__(self, model, view):
+        """Controller initializer."""
+        self._evaluate = model
+        self._view = view
+        # Connect signals and slots
+        self._connectSignals()
+
+    def _calculateResult(self):
+        """Evaluate expressions."""
+        result = self._evaluate(expression=self._view.displayText())
+        self._view.setDisplayText(result)
+
+    def _buildExpression(self, sub_exp):
+        """Build expression."""
+        if self._view.displayText() == ERROR_MSG:
+            self._view.clearDisplay()
+
+        expression = self._view.displayText() + sub_exp
+        self._view.setDisplayText(expression)
+
+    def _connectSignals(self):
+        """Connect signals and slots."""
+        for btnText, btn in self._view.buttons.items():
+            if btnText not in {'=', 'C'}:
+                btn.clicked.connect(partial(self._buildExpression, btnText))
+
+        self._view.buttons['='].clicked.connect(self._calculateResult)
+        self._view.display.returnPressed.connect(self._calculateResult)
+        self._view.buttons['C'].clicked.connect(self._view.clearDisplay)
+```
+
+首先，向 `init` 函数添加一个新参数。现在该类从模型和视图中接收实例。然后在 `._calculateResult()` 中，您获取显示内容，将其作为数学表达式计算，最后在显示中显示结果。
+
+您还将 `if` 语句添加到 `._buildExpression()` 以检查是否发生错误。如果是这样，那么您清除显示并重新开始一个新的表达式。
+最后，在 `._connectSignals()` 中再添加两个连接。
+第一个启用等号 (`=`)。第二个确保当用户点击 `Enter`↩ 时，计算器将按预期处理表达式。
+
+要使所有这些代码正常工作，您需要更新 main()：
+
+```python
+# Client code
+def main():
+    """Main function."""
+    # Create an instance of `QApplication`
+    pycalc = QApplication(sys.argv)
+    # Show the calculator's GUI
+    view = PyCalcUi()
+    view.show()
+    # Create instances of the model and the controller
+    model = evaluateExpression
+    PyCalcCtrl(model=model, view=view)
+    # Execute calculator's main loop
+    sys.exit(pycalc.exec_())
+```
+
+在这里，您的模型包含对 `evaluateExpression()` 的引用。此外， `PyCalcCtrl()` 现在接收两个参数：模型和视图。
+
+
