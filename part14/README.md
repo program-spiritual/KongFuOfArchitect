@@ -732,15 +732,15 @@ qt_resource_data = b"\
 import qrc_resources
 ```
 
-导入包含资源的模块后，可以在应用程序的 `GUI` 中使用这些资源。
+导入包含资源的模块后,可以在应用程序的 `GUI` 中使用这些资源。
 
-> 注意：Linters、编辑器和 IDE 可能会将上述 import 语句标记为未使用，因为您的代码不会显式使用它。某些 IDE 可能会走得更远，并自动删除该行。在这些情况下，必须重写 linter、编辑器或 IDE 的建议，并将该导入保留在代码中。否则，应用程序将无法显示资源。要使用资源系统创建图标，`您需要实例化QIcon`，将别名或路径传递给类构造函数：Python
+> 注意:Linters、编辑器和 IDE 可能会将上述 import 语句标记为未使用,因为您的代码不会显式使用它。某些 IDE 可能会走得更远,并自动删除该行。在这些情况下,必须重写 linter、编辑器或 IDE 的建议,并将该导入保留在代码中。否则,应用程序将无法显示资源。要使用资源系统创建图标,`您依赖实例化QIcon`,将别名或路径传递给类构造函数:Python
 
 ```python
 newIcon = QIcon(":file-new.svg")
 ```
 
-在此示例中，您将使用资源模块中的 file file-new.svg 创建一个 `QIcon` 对象。这提供了一种在整个 `GUI` 应用程序中使用图标和资源的便捷方式。现在返回到示例应用程序并更新._createMenuBar（）:P ython 的最后一行
+在此示例中,您将使用资源模块中的 file file-new.svg 创建一个 `QIcon` 对象。这提供了一种在整个 `GUI` 应用程序中使用图标和资源的便捷方式。现在返回到示例应用程序并更新._createMenuBar():P ython 的最后一行
 
 ```python
 from PyQt5.QtGui import QIcon
@@ -761,8 +761,270 @@ class Window(QMainWindow):
         helpMenu = menuBar.addMenu(QIcon(":help-content.svg"), "&Help")
 ```
 
-要使此代码正常工作，首先需要从 `PyQt5.QtGui` 导入 `QIcon`。您还需要导入 `qrc_resources`。在最后突出显示的行中，使用资源模块中的帮助内容.svg向 helpMenu 添加一个图标。如果使用此更新运行示例应用程序，则将得到以下输出：
+要使此代码正常工作,首先依赖从 `PyQt5.QtGui` 导入 `QIcon`。您还依赖导入 `qrc_resources`。在最后突出显示的行中,使用资源模块中的帮助内容.svg向 helpMenu 添加一个图标。如果使用此更新运行示例应用程序,则将得到以下输出:
 
 ![icon](./assets/README-1641304246058.png)
 
-应用程序的主窗口现在在其"帮助"菜单上显示一个图标。单击该图标时，菜单将显示文本"帮助"。在菜单栏中使用图标不是一种常见的做法，但 `PyQt` 允许你这样做。
+应用程序的主窗口现在在其"帮助"菜单上显示一个图标。单击该图标时,菜单将显示文本"帮助"。在菜单栏中使用图标不是一种常见的做法,但 `PyQt` 允许你这样做。
+
+
+### 在 `PyQtPyQt` 中为 `Python` 创建操作 菜单和工具栏 
+
+操作是表示应用程序中给定命令、操作或操作的对象。当您依赖为不同的 `GUI` 组件(如菜单选项、工具栏按钮和键盘快捷键)提供相同的函数时,它们非常有用。您可以通过实例化 `QAction` 来创建操作。创建操作后,依赖将其添加到小部件中才能在实践中使用它。您还依赖将操作连接到某些函数。
+
+换句话说,您依赖将它们连接到要在触发操作时运行的函数或方法。这将允许您的应用程序执行操作以响应 GUI 中的用户操作。
+动作是相当多才多艺的。它们允许您在菜单选项、工具栏按钮和键盘快捷键之间重复使用并保持同步相同的函数。这在整个应用程序中提供了一致的行为。例如,用户可能希望应用程序在单击"打开..."时执行相同的操作。菜单选项,单击"打开工具栏"按钮,或按键盘上的 ⌃Ctrl+O。
+
+`QAction` 提供了一个抽象,允许您跟踪以下元素:
+
+• 菜单上的文本选项
+
+• 工具栏按钮上的文本
+
+• 工具栏上的帮助提示(工具提示)
+
+• 这是什么帮助提示
+
+• 状态栏上的帮助提示(状态提示)
+
+• 与选项关联的键盘快捷键
+
+• 与菜单和工具栏选项关联的图标
+
+• 操作的启用或禁用状态
+
+• 操作处于打开或关闭状态
+
+创建操作, 您依赖实例化 `QAction`。至少有三种一般方法可以做到这一点:
+
+
+
+1.QAction(parent)
+
+2.QAction(text,parent)
+
+3.QAction(icon, text, parent)
+
+在所有三种情况下,父项都表示拥有操作所有权的对象。
+此参数可以是任何 `QObject`。最佳做法是将操作创建为要在其中使用它们的窗口的子级。
+
+在第二个和第三个构造函数中,文本保存操作将显示在菜单选项或工具栏按钮上的文本。操作文本在菜单选项和工具栏按钮上的显示方式不同。例如,文本和打开...显示为打开...,并作为在工具栏按钮中打开。
+
+在第三个构造函数中,`icon` 是保存操作图标的 `QIcon` 对象。此图标将显示在菜单选项的文本左侧。图标在工具栏按钮中的位置取决于工具栏的 `.toolButtonStyle` 属性,该属性可以采用下列值之一:
+
+
+|样式 | 按钮显示                                                 |
+|----|------------------------------------------------------|
+|Qt.ToolButtonIconOnly	| 只有图标                                                 |
+|Qt.ToolButtonTextOnly	| 只有文本                                                 |
+|Qt.ToolButtonTextBesideIcon	| 图标旁边的文本                                |
+|Qt.ToolButtonTextUnderIcon	| 图标下的文本                                 |
+|Qt.ToolButtonFollowStyle	| 遵循底层平台的一般风格|
+
+您还可以使用各自的 setter 方法 .setText() 和 .setIcon() 来设置操作的文本和图标。
+> 注意:有关 `QAction` 属性的完整列表,您可以查看文档。
+
+
+下面介绍了如何使用 `QAction` 的不同构造函数为示例应用程序创建一些操作:
+
+```python
+from PyQt5.QtWidgets import QAction
+# Snip...
+
+class Window(QMainWindow):
+    # Snip...
+    def _createActions(self):
+        # Creating action using the first constructor
+        self.newAction = QAction(self)
+        self.newAction.setText("&New")
+        # Creating actions using the second constructor
+        self.openAction = QAction("&Open...", self)
+        self.saveAction = QAction("&Save", self)
+        self.exitAction = QAction("&Exit", self)
+        self.copyAction = QAction("&Copy", self)
+        self.pasteAction = QAction("&Paste", self)
+        self.cutAction = QAction("C&ut", self)
+        self.helpContentAction = QAction("&Help Content", self)
+        self.aboutAction = QAction("&About", self)
+```
+
+在 ._createActions() 中,为示例应用程序创建一些操作。这些操作将允许您向应用程序的菜单和工具栏添加选项。请注意,您正在将操作创建为实例属性,因此您可以使用 self 从外部访问它们 ._createActions()。这样,您就可以在菜单和工具栏上使用这些操作。
+
+>注意:在 ._createActions() 中,您不使用 QAction 的第三个构造函数,因为如果您还看不到操作,则使用图标是没有意义的。您将了解如何向操作添加图标,请参阅使用操作填充工具栏部分。
+
+下一步是调用._createActions()作为Window:Python的初始值设定项
+
+```python
+class Window(QMainWindow):
+    """Main Window."""
+    def __init__(self, parent=None):
+        # Snip...
+        self._createActions()
+        self._createMenuBar()
+        self._createToolBars()
+```
+
+如果现在运行应用程序,则不会在 GUI 上看到任何更改。这是因为在将操作添加到菜单或工具栏之前,不会显示这些操作。请注意,在调用 ._createMenuBar() 和 ._createToolBars() 之前,请先调用 ._createActions(),因为您将在菜单和工具栏上使用这些操作。如果将操作添加到菜单中,则该操作将成为菜单选项。如果将操作添加到工具栏,则该操作将成为工具栏按钮。这是接下来几个部分的主题。
+
+### 在 PyQt 中将选项添加到 Python 菜单
+
+如果要将选项列表添加到 PyQt 中的给定菜单,则依赖使用操作。到目前为止,您已经学习了如何使用 QAction 的不同构造函数创建操作。操作是创建菜单的关键组件 PyQt.In 本节中,您将学习如何使用操作来填充菜单选项。使用操作填充菜单若要使用菜单选项填充菜单,您将使用操作。在菜单中,操作表示为至少具有描述性文本(如"新建"、"打开"、"保存"等)的水平选项。菜单选项还可以在其左侧显示一个图标,在其右侧显示快捷键序列,例如 ⌃Ctrl+S。您可以使用 .addAction() 向 QMenu 对象添加操作。此方法有多种变体。它们中的大多数被认为可以在百忙中创建操作。但是,在本教程中,您将使用 QMenu 从 QWidget 继承的 .addAction() 变体。以下是此变体的有符号:
+
+```python
+QWidget.addAction(action)
+```
+
+参数操作表示要添加到给定 `QWidget` 对象的 `QAction` 对象。
+使用 `.addAction()` 的这种变体,您可以事先创建操作,然后根据依赖将它们添加到菜单中。
+
+> 注意:`QWidget` 还提供 `.addActions()`。此方法获取操作列表,并将其追加到当前小组件对象。
+
+使用此工具,您可以开始向示例应用程序的菜单添加操作。为此,您依赖更新 `._createMenuBar()` P ython
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createMenuBar(self):
+        menuBar = self.menuBar()
+        # File menu
+        fileMenu = QMenu("&File", self)
+        menuBar.addMenu(fileMenu)
+        fileMenu.addAction(self.newAction)
+        fileMenu.addAction(self.openAction)
+        fileMenu.addAction(self.saveAction)
+        fileMenu.addAction(self.exitAction)
+        # Edit menu
+        editMenu = menuBar.addMenu("&Edit")
+        editMenu.addAction(self.copyAction)
+        editMenu.addAction(self.pasteAction)
+        editMenu.addAction(self.cutAction)
+        # Help menu
+        helpMenu = menuBar.addMenu(QIcon(":help-content.svg"), "&Help")
+        helpMenu.addAction(self.helpContentAction)
+        helpMenu.addAction(self.aboutAction)
+```
+
+通过此更新._createMenuBar(),您可以向示例应用程序的三个菜单添加许多选项。现在"文件"菜单有四个选项:
+
+- 1。用于创建新文件的新增函数
+
+- 2。打开。。。用于打开现有文件
+
+- 3。保存以保存对文件所做的更改
+
+4。退出以关闭应用程序"编辑"菜单有三个选项:
+
+  - 1。复制内容以应付到系统剪贴板
+
+  - 2。粘贴以粘贴系统剪贴板中的内容
+
+  - 3。剪切以将内容剪切到系统剪贴板
+
+"帮助"菜单有两个选项:
+- 1。用于启动应用程序帮助手册的帮助内容
+
+- 2。关于显示"关于"对话框选项在菜单中从上到下的显示顺序与在代码中添加选项的顺序相对应。
+
+如果运行该应用程序,则会在屏幕上看到以下窗口:
+
+![](./assets/README-1641306577170.png)
+
+
+如果单击菜单,则应用程序将显示一个下拉列表,其中包含您之前看到的选项。
+
+### 创建 `Python` 子菜单
+
+有时您依赖在 GUI 应用程序中使用子菜单。子菜单是一个嵌套菜单,当您将光标移到给定的菜单选项上时,它会显示出来。若要向应用程序添加子菜单,依赖在容器菜单对象上调用 .addMenu()。假设您依赖在示例应用程序的"编辑"菜单中添加一个子菜单。您的子菜单将包含用于查找和替换内容的选项,因此您将其称为"查找和替换"。此子菜单将有两个选项:
+
+1。找到。。。用于查找某些内容
+
+2。取代。。。用于查找旧内容并将其替换为新内容
+
+以下是将此子菜单添加到示例应用程序的方法:
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createMenuBar(self):
+        # Snip...
+        editMenu.addAction(self.cutAction)
+        # Find and Replace submenu in the Edit menu
+        findMenu = editMenu.addMenu("Find and Replace")
+        findMenu.addAction("Find...")
+        findMenu.addAction("Replace...")
+        # Snip...
+```
+
+在第一个突出显示的行中,使用 editMenu 上的 .addMenu() 将文本为"查找和替换"的 QMenu 对象添加到"编辑"菜单中。下一步是使用操作填充子菜单,就像到目前为止所做的那样。如果再次运行示例应用程序,则会在"编辑"菜单下看到一个新菜单选项:
+
+![](./assets/README-1641307545346.png)
+
+
+"编辑"菜单现在有一个名为"查找和替换"的新条目。当您将鼠标悬停在此新菜单选项上时,将出现一个子菜单,为您提供两个新选项"查找..."和替换....就是这样！您已经创建了一个子菜单。
+
+### 在 PyQt Toolbars中添加选项
+
+使用Python和PyQt构建GUI应用程序时非常有用的组件。您可以使用工具栏向用户展示一种快速访问应用程序中最常用选项的方法。您还可以将微件框和组合框等小部件添加到工具栏,以允许用户直接修改应用程序 GUI.In 以下几个部分中的某些属性和变量,您将学习如何使用操作向工具栏添加选项或按钮,以及如何使用 .addWidget() 将小部件添加到工具栏。
+
+
+使用操作填充工具栏若要向工具栏添加选项或按钮,依赖调用 .addAction()。在本节中,您将依赖于 `QToolBar` 从 `QWidget` 继承的 .addAction() 变体。因此,您将调用 .addAction(),并将操作作为参数。这将允许您在菜单和工具栏之间共享操作。创建工具栏时,您通常会遇到决定向其添加哪些选项的问题。通常,您只依赖将最常用的操作添加到工具栏。如果返回到示例应用程序,则会记得您添加了三个工具栏:
+
+- 1。文件
+- 2.编辑
+
+3.帮助在"文件"工具栏中,可以添加如下选项:
+- • 新建
+- • 打开
+- • 保存
+
+在"编辑"工具栏中,可以添加以下选项:
+- • 复制
+- • 粘贴
+- • 剪切
+
+通常,如果要将按钮添加到工具栏,请先选择要在每个按钮上使用的图标。这不是强制性的,但这是最佳实践。选择图标后,您依赖将它们添加到其相应的操作中。下面介绍了如何向示例应用程序的操作添加图标:
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createActions(self):
+        # File actions
+        self.newAction = QAction(self)
+        self.newAction.setText("&New")
+        self.newAction.setIcon(QIcon(":file-new.svg"))
+        self.openAction = QAction(QIcon(":file-open.svg"), "&Open...", self)
+        self.saveAction = QAction(QIcon(":file-save.svg"), "&Save", self)
+        self.exitAction = QAction("&Exit", self)
+        # Edit actions
+        self.copyAction = QAction(QIcon(":edit-copy.svg"), "&Copy", self)
+        self.pasteAction = QAction(QIcon(":edit-paste.svg"), "&Paste", self)
+        self.cutAction = QAction(QIcon(":edit-cut.svg"), "C&ut", self)
+        # Snip...
+```
+
+要向操作添加图标,请更新突出显示的行。对于 `newAction`,请使用 .setIcon()。在其余操作中,使用带有图标、标题和父对象的构造函数作为参数。一旦您选择的操作具有图标,您可以通过在工具栏对象:Python 上调用 .addAction() 将这些操作添加到其相应的工具栏
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createToolBars(self):
+        # File toolbar
+        fileToolBar = self.addToolBar("File")
+        fileToolBar.addAction(self.newAction)
+        fileToolBar.addAction(self.openAction)
+        fileToolBar.addAction(self.saveAction)
+        # Edit toolbar
+        editToolBar = QToolBar("Edit", self)
+        self.addToolBar(editToolBar)
+        editToolBar.addAction(self.copyAction)
+        editToolBar.addAction(self.pasteAction)
+        editToolBar.addAction(self.cutAction)
+```
+
+通过此更新 ._createToolBars(),您可以将"新建"、"打开"和"保存"选项的按钮添加到"文件"工具栏。您还可以将"复制"、"粘贴"和"剪切"选项的按钮添加到"编辑"工具栏。
+
+如果现在运行示例应用程序,则屏幕上将显示以下窗口:
+
+![](./assets/README-1641308172808.png)
+
+示例应用程序现在显示两个工具栏,每个工具栏有几个按钮。您的用户可以单击这些按钮以快速访问应用程序最常用的选项。注意:当您第一次在创建工具栏部分中写回._createToolBars()时,您创建了一个帮助工具栏。此工具栏旨在展示如何使用 .addToolBar() 的不同变体添加工具栏。在上面的 ._createToolBars() 更新中,您删除了"帮助"工具栏,只是为了使示例保持简短明了。请注意,由于您在菜单和工具栏之间共享相同的操作,因此菜单选项还将在其左侧显示图标,这在生产力和资源使用方面是一个很大的胜利。这是使用 PyQt 操作通过 Python 创建菜单和工具栏的优势之一。
