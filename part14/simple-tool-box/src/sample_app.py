@@ -1,4 +1,5 @@
 import sys
+from functools import partial
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QMenuBar,QMenu,QToolBar,QAction
@@ -19,6 +20,8 @@ class Window(QMainWindow):
     self._createActions()
     self._createMenuBar()
     self._createToolBars()
+    # self._createContextMenu()
+    self._connectActions()
 
   def _createToolBars(self):
     # Using a title
@@ -42,13 +45,20 @@ class Window(QMainWindow):
     menuBar.addMenu(fileMenu)
     fileMenu.addAction(self.newAction)
     fileMenu.addAction(self.openAction)
+    # Adding an Open Recent submenu
+    self.openRecentMenu = fileMenu.addMenu("Open Recent")
     fileMenu.addAction(self.saveAction)
+    # Adding a separator
+    fileMenu.addSeparator()
     fileMenu.addAction(self.exitAction)
+
     # Creating menus using a title
     editMenu = menuBar.addMenu("&Edit")
     editMenu.addAction(self.copyAction)
     editMenu.addAction(self.pasteAction)
     editMenu.addAction(self.cutAction)
+    # Adding a separator
+    fileMenu.addSeparator()
     findMenu = editMenu.addMenu("Find and Replace")
     findMenu.addAction("Find...")
     findMenu.addAction("Replace...")
@@ -72,6 +82,99 @@ class Window(QMainWindow):
     self.cutAction = QAction(QIcon(":edit-cut.svg"), "C&ut", self)
     self.helpContentAction = QAction("&Help Content", self)
     self.aboutAction = QAction("&About", self)
+
+  def _createContextMenu(self):
+    # Setting contextMenuPolicy
+    self.centralWidget.setContextMenuPolicy(Qt.ActionsContextMenu)
+    # Populating the widget with actions
+    self.centralWidget.addAction(self.newAction)
+    self.centralWidget.addAction(self.openAction)
+    self.centralWidget.addAction(self.saveAction)
+    self.centralWidget.addAction(self.copyAction)
+    self.centralWidget.addAction(self.pasteAction)
+    self.centralWidget.addAction(self.cutAction)
+
+  def contextMenuEvent(self, event):
+    # Creating a menu object with the central widget as parent
+    menu = QMenu(self.centralWidget)
+    # Populating the menu with actions
+    menu.addAction(self.newAction)
+    menu.addAction(self.openAction)
+    menu.addAction(self.saveAction)
+    # Creating a separator action
+    separator = QAction(self)
+    separator.setSeparator(True)
+    # Adding the separator to the menu
+    menu.addAction(separator)
+    menu.addAction(self.copyAction)
+    menu.addAction(self.pasteAction)
+    menu.addAction(self.cutAction)
+    # Launching the menu
+    menu.exec(event.globalPos())
+
+  def _connectActions(self):
+    # Connect File actions
+    self.newAction.triggered.connect(self.newFile)
+    self.openAction.triggered.connect(self.openFile)
+    self.saveAction.triggered.connect(self.saveFile)
+    self.exitAction.triggered.connect(self.close)
+    # Connect Edit actions
+    self.copyAction.triggered.connect(self.copyContent)
+    self.pasteAction.triggered.connect(self.pasteContent)
+    self.cutAction.triggered.connect(self.cutContent)
+    # Connect Help actions
+    self.helpContentAction.triggered.connect(self.helpContent)
+    self.aboutAction.triggered.connect(self.about)
+    # Connect Open Recent to dynamically populate it
+    self.openRecentMenu.aboutToShow.connect(self.populateOpenRecent)
+
+  def openRecentFile(self, filename):
+    # Logic for opening a recent file goes here...
+    self.centralWidget.setText(f"<b>{filename}</b> opened")
+  def newFile(self):
+    # Logic for creating a new file goes here...
+    self.centralWidget.setText("<b>File > New</b> clicked")
+
+  def openFile(self):
+    # Logic for opening an existing file goes here...
+    self.centralWidget.setText("<b>File > Open...</b> clicked")
+
+  def saveFile(self):
+    # Logic for saving a file goes here...
+    self.centralWidget.setText("<b>File > Save</b> clicked")
+
+  def copyContent(self):
+    # Logic for copying content goes here...
+    self.centralWidget.setText("<b>Edit > Copy</b> clicked")
+
+  def pasteContent(self):
+    # Logic for pasting content goes here...
+    self.centralWidget.setText("<b>Edit > Paste</b> clicked")
+
+  def cutContent(self):
+    # Logic for cutting content goes here...
+    self.centralWidget.setText("<b>Edit > Cut</b> clicked")
+
+  def helpContent(self):
+    # Logic for launching help goes here...
+    self.centralWidget.setText("<b>Help > Help Content...</b> clicked")
+
+  def about(self):
+    # Logic for showing an about dialog content goes here...
+    self.centralWidget.setText("<b>Help > About...</b> clicked")
+
+  def populateOpenRecent(self):
+    # Step 1. Remove the old options from the menu
+    self.openRecentMenu.clear()
+    # Step 2. Dynamically create the actions
+    actions = []
+    filenames = [f"File-{n}" for n in range(5)]
+    for filename in filenames:
+      action = QAction(filename, self)
+      action.triggered.connect(partial(self.openRecentFile, filename))
+      actions.append(action)
+    # Step 3. Add the actions to the menu
+    self.openRecentMenu.addActions(actions)
 if __name__ == "__main__":
   app = QApplication(sys.argv)
   win = Window()

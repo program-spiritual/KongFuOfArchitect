@@ -1028,3 +1028,336 @@ class Window(QMainWindow):
 ![](./assets/README-1641308172808.png)
 
 示例应用程序现在显示两个工具栏,每个工具栏有几个按钮。您的用户可以单击这些按钮以快速访问应用程序最常用的选项。注意:当您第一次在创建工具栏部分中写回._createToolBars()时,您创建了一个帮助工具栏。此工具栏旨在展示如何使用 .addToolBar() 的不同变体添加工具栏。在上面的 ._createToolBars() 更新中,您删除了"帮助"工具栏,只是为了使示例保持简短明了。请注意,由于您在菜单和工具栏之间共享相同的操作,因此菜单选项还将在其左侧显示图标,这在生产力和资源使用方面是一个很大的胜利。这是使用 PyQt 操作通过 Python 创建菜单和工具栏的优势之一。
+
+### 组织菜单和工具栏选项
+
+为了提高 GUI 应用程序中的清晰度并改善用户体验,可以使用分隔符来组织菜单选项和工具栏按钮。分隔符呈现为分隔或分隔菜单选项的水平线,或呈现为分隔工具栏按钮的垂直线。若要向菜单、子菜单或工具栏对象插入或添加分隔符,可以对这些对象中的任何一个调用 .addSeparator()。例如,可以使用分隔符将"文件"菜单上的"退出"选项与其余选项分开,以明确"退出"与菜单上的其他选项在逻辑上不相关。您还可以使用分隔符将"编辑"菜单上的"查找和替换"选项与遵循相同规则的其余选项分开。转到示例应用程序并更新._createMenuBar(),如下面的代码所示:
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createMenuBar(self):
+        # File menu
+        # Snip...
+        fileMenu.addAction(self.saveAction)
+        # Adding a separator
+        fileMenu.addSeparator()
+        fileMenu.addAction(self.exitAction)
+        # Edit menu
+        # Snip...
+        editMenu.addAction(self.cutAction)
+        # Adding a separator
+        editMenu.addSeparator()
+        # Find and Replace submenu in the Edit menu
+        findMenu = editMenu.addMenu("Find and Replace")
+        # Snip...
+```
+
+在第一行突出显示的行中,在"文件"菜单中的"保存"和"退出"选项之间添加分隔符。在第二行突出显示的行中,添加一个分隔符,用于将"查找和替换"选项与"编辑"菜单中的其余选项分开。以下是这些新增函数的工作原理:
+
+![separator](./assets/README-1641391645427.png)
+
+"文件"菜单现在显示一条水平线,将"编辑"选项与菜单中的其他选项分隔开来。"编辑"菜单还在选项下拉列表的末尾显示一个分隔符。分离器的连贯使用可以巧妙地提高菜单和工具栏的清晰度,使您的GUI应用程序更加用户友好。作为练习,您可以转到 ._createToolBars() 的定义,并添加一个分隔符,将 QSpinBox 对象与工具栏上的其他选项分开。
+
+### 在 `PyQt` 中构建上下文或弹出式菜单
+
+上下文菜单(也称为弹出菜单)是一种特殊类型的菜单,用于响应某些用户操作(如右键单击给定的小部件或窗口)。而显示。这些菜单提供了一小部分选项,这些选项在您正在使用的操作系统或应用程序的给定上下文中可用。例如,如果右键单击 Windows 计算机的桌面,则将得到一个菜单,其中包含与操作系统的特定上下文或空间相对应的选项。如果右键单击文本编辑器的工作区,则将获得一个完全不同的上下文菜单,该菜单将取决于您正在使用的编辑器。在 PyQt 中,您有几个用于创建上下文菜单的选项。在本教程中,您将了解其中两个选项:
+
+- 将特定小部件上的 `contextMenuPolicy` 属性设置为 `Qt.ActionsContextMenu`
+- 2。通过 contextMenuEvent() 处理应用程序窗口上的上下文菜单事件
+
+第一个选项是两者中最常见且用户友好的,因此您将首先了解它。
+
+ 第二个选项稍微复杂一些,依赖于处理用户事件。在 GUI 编程中,事件是应用程序上的任何用户操作,如单击按钮或菜单、从组合框中选择项、输入或更新文本字段中的文本、按键盘上的某个键等。
+ 
+#### 通过上下文菜单策略创建上下文菜单
+
+从 QWidget 派生的所有 PyQt 字符组件或小部件都继承了一个名为 contextMenuPolicy 的属性。此属性控制小组件显示上下文菜单的方式。此属性最常用的值之一是 Qt.ActionsContextMenu。这将使小组件将其内部操作列表显示为上下文菜单。要使小组件根据其内部操作显示上下文菜单,您依赖运行两个步骤:
+
+- 使用 QWidget.addAction(). 向小部件添加一些操作。
+
+- 使用 .setContextMenuPolicy() 在 widget 上将 contextMenuPolicy 设置为 Qt.ActionsContextMenu。
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createContextMenu(self):
+        # Setting contextMenuPolicy
+        self.centralWidget.setContextMenuPolicy(Qt.ActionsContextMenu)
+        # Populating the widget with actions
+        self.centralWidget.addAction(self.newAction)
+        self.centralWidget.addAction(self.openAction)
+        self.centralWidget.addAction(self.saveAction)
+        self.centralWidget.addAction(self.copyAction)
+        self.centralWidget.addAction(self.pasteAction)
+        self.centralWidget.addAction(self.cutAction)
+```
+
+在 ._createContextMenu()方法里,您首先使用 setter 方法 .setContextMenuPolicy() 将 contextMenuPolicy 设置为 Qt.ActionsContextMenu。然后,像往常一样使用 .addAction() 向小组件添加操作。最后一步是从 Window 的初始值设定项调用 ._createContextMenu():
+
+```python
+class Window(QMainWindow):
+    """Main Window."""
+    def __init__(self, parent=None):
+        # Snip...
+        self._createToolBars()
+        self._createContextMenu()
+```
+
+如果您在添加这些内容后运行示例应用程序,则当您右键单击该应用程序的中心小部件时,您将看到该应用程序的中央小组件显示一个上下文菜单:
+
+![context-menu](./assets/README-1641392392131.png)
+
+现在,您的示例应用程序具有一个上下文菜单,每当您右键单击应用程序的中央小部件时,都会弹出该菜单。中央微件会拉伸以占据窗口中的所有可用空间,因此您不仅限于右键单击标签文本以查看上下文菜单。最后,由于您在整个应用程序中使用相同的操作,因此上下文菜单上的选项将显示相同的图标集。
+
+#### 通过事件处理创建上下文菜单
+
+在 PyQt 中创建上下文菜单的另一种方法是处理应用程序主窗口的上下文菜单事件。为此,您依赖运行以下步骤:
+
+- 重写 QMainWindow 对象上的事件处理程序方法 .contextMenuEvent()。
+
+- 创建一个 QMenu 对象,将小部件(上下文小部件)作为其父级。
+
+- 使用操作填充菜单对象。
+
+- 使用 QMenu.exec() 启动菜单对象,并将事件的 .globalPos() 作为参数。
+
+这种管理上下文菜单的方式有点复杂。但是,它使您可以很好地控制调用上下文菜单时发生的情况。例如,您可以根据应用程序的状态等启用或禁用菜单选项。
+
+> 注意:在本节中进一步讨论之前,您依赖禁用在上一节中编写的代码。为此,只需转到 Window 的初始值设定项,然后注释掉调用 `self._createContextMenu().` 的行。
+> 
+下面介绍了如何重新实现示例应用程序的上下文菜单,并重写主窗口对象上的事件处理程序方法:
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def contextMenuEvent(self, event):
+        # Creating a menu object with the central widget as parent
+        menu = QMenu(self.centralWidget)
+        # Populating the menu with actions
+        menu.addAction(self.newAction)
+        menu.addAction(self.openAction)
+        menu.addAction(self.saveAction)
+        menu.addAction(self.copyAction)
+        menu.addAction(self.pasteAction)
+        menu.addAction(self.cutAction)
+        # Launching the menu
+        menu.exec(event.globalPos())
+```
+
+在 contextMenuEvent() 中,首先创建一个 QMenu 对象(菜单),其中 centralWidget 作为其父小部件。接下来,使用 .addAction 使用操作填充菜单。最后,在 QMenu 对象上调用 .exec() 以在屏幕上显示它。.contextMenuEvent() 的第二个参数表示该方法捕获的事件。在这种情况下,事件将是右键单击应用程序的中央小部件。在对 .exec() 的调用中,使用 event.globalPos() 作为参数。此方法返回用户单击 PyQt 窗口或小部件时鼠标指针的全局位置。鼠标位置将告诉 .exec() 在窗口中的位置显示上下文菜单。如果使用这些新更改运行示例应用程序,则将获得与上一节中相同的结果。
+
+#### 组织上下文菜单选项
+
+与在菜单和工具栏中一样,在上下文菜单中,您不能使用 .addSeparator() 添加分隔符,也不能根据菜单选项之间的关系在视觉上分隔菜单选项。在组织上下文菜单时,您依赖创建一个分隔符操作:
+
+```python
+separator = QAction(parent)
+separator.setSeparator(True)
+```
+
+对操作对象的 .setSeparator(True) 调用会将该操作转换为分隔符。完成分隔符操作后,依赖使用 QMenu.addAction() 将其插入上下文菜单中的正确位置。
+
+如果回顾示例应用程序,则可能依赖 直观地将"文件"菜单中的选项与"编辑"菜单中的选项分开。为此,您可以更新 .contextMenuEvent()
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def contextMenuEvent(self, event):
+        # Snip...
+        menu.addAction(self.saveAction)
+        # Creating a separator action
+        separator = QAction(self)
+        separator.setSeparator(True)
+        # Adding the separator to the menu
+        menu.addAction(separator)
+        menu.addAction(self.copyAction)
+        # Snip...
+```
+
+在前两行突出显示的行中,创建分隔符操作。在第三行突出显示的行中,使用 .addAction() 将分隔符操作添加到菜单中。这将在"文件"选项和"编辑"选项之间添加一条水平线。以下是添加此内容后上下文菜单的外观:
+
+![](./assets/README-1641393289334.png)
+
+现在,您的上下文菜单包含一条水平线,该水平线在视觉上将来自"文件"的选项与来自"编辑"的选项分开。这样,您就提高了菜单的视觉质量,并提供了更好的用户体验。
+
+### 连接菜单和工具栏中的信号和插槽
+
+在 `PyQt` 中,您可以使用信号和插槽为 `GUI` 应用程序提供函数。`PyQt` 小部件每次发生鼠标单击、按键或窗口调整长度时都会发出信号。
+插槽是一个Python可调用的,您可以连接到小部件的信号以执行一些操作以响应用户事件。如果连接了信号和插槽,则每次发出信号时都会自动调用插槽。如果给定的信号未连接到插槽,则在发出信号时不会发生任何事情。要使菜单选项和工具栏按钮在用户单击时启动某些操作,您依赖将基础操作的信号与一些自定义或内置插槽连接起来。`QAction` 对象可以发出各种信号。但是,菜单和工具栏中最常用的信号是 .triggered()。每次用户单击菜单选项或工具栏按钮时都会发出此信号。要将 .triggered() 与插槽连接,可以使用以下语法:
+
+
+```python
+action = QAction("Action Text", parent)
+# Connect action's triggered() with a slot
+action.triggered.connect(slot)
+```
+
+在此示例中,槽是 `Python` 可调用的。换句话说,`slot` 可以是函数、方法、类或实现 `.__call__()` 的类的实例。示例应用程序中已有一组操作。现在,您依赖对每次用户单击菜单选项或工具栏按钮时调用的插槽进行编码。转到 Window 的定义并添加以下方法:Python
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def newFile(self):
+        # Logic for creating a new file goes here...
+        self.centralWidget.setText("<b>File > New</b> clicked")
+
+    def openFile(self):
+        # Logic for opening an existing file goes here...
+        self.centralWidget.setText("<b>File > Open...</b> clicked")
+
+    def saveFile(self):
+        # Logic for saving a file goes here...
+        self.centralWidget.setText("<b>File > Save</b> clicked")
+
+    def copyContent(self):
+        # Logic for copying content goes here...
+        self.centralWidget.setText("<b>Edit > Copy</b> clicked")
+
+    def pasteContent(self):
+        # Logic for pasting content goes here...
+        self.centralWidget.setText("<b>Edit > Paste</b> clicked")
+
+    def cutContent(self):
+        # Logic for cutting content goes here...
+        self.centralWidget.setText("<b>Edit > Cut</b> clicked")
+
+    def helpContent(self):
+        # Logic for launching help goes here...
+        self.centralWidget.setText("<b>Help > Help Content...</b> clicked")
+
+    def about(self):
+        # Logic for showing an about dialog content goes here...
+        self.centralWidget.setText("<b>Help > About...</b> clicked")
+```
+
+这些方法将扮演示例应用程序的`槽`的角色。每次用户单击相应的菜单选项或工具栏按钮时,都会调用它们。一旦有了提供该函数的插槽,您依赖将它们与操作的.triggered()信号连接起来。这样,应用程序将执行操作以响应用户事件。若要建立这些连接,请转到示例应用程序,并将以下方法添加到 Window:
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _connectActions(self):
+        # Connect File actions
+        self.newAction.triggered.connect(self.newFile)
+        self.openAction.triggered.connect(self.openFile)
+        self.saveAction.triggered.connect(self.saveFile)
+        self.exitAction.triggered.connect(self.close)
+        # Connect Edit actions
+        self.copyAction.triggered.connect(self.copyContent)
+        self.pasteAction.triggered.connect(self.pasteContent)
+        self.cutAction.triggered.connect(self.cutContent)
+        # Connect Help actions
+        self.helpContentAction.triggered.connect(self.helpContent)
+        self.aboutAction.triggered.connect(self.about)
+```
+
+此方法会将所有操作的 `.triggered()` 信号与其各自的插槽或回调连接起来。通过此更新,您的示例应用程序将在您设置为中心小组件的 QLabel 对象上显示一条消息,告诉您单击了哪个菜单选项或工具栏按钮。在 exitAction 的情况下,将其`triggered()`信号与内置插槽 `QMainWindow.close()` 连接。这样,如果选择"文件"→"退出",则应用程序将关闭。最后,转到 Window 的初始值设定项,并添加对 ._connectActions() 的调用:
+
+```python
+class Window(QMainWindow):
+    """Main Window."""
+    def __init__(self, parent=None):
+        # Snip...
+        # self._createContextMenu()
+        self._connectActions()
+```
+
+通过此最终更新,您可以再次运行该应用程序。以下是所有这些更改的工作原理:
+
+![](./assets/README-1641394565612.png)
+
+如果单击菜单选项、工具栏按钮或上下文菜单选项,则应用程序窗口中心的标签将显示一条消息,指示已执行的操作。此函数在学习上下文之外不是很有用,但它可以让您了解如何在用户与 GUI 交互时使应用程序执行实际操作。最后,当您选择"文件"→"退出"时,应用程序将关闭,因为 exitAction 的 .triggered() 信号连接到内置插槽 QMainWindow.close()。作为练习,您可以尝试为"查找..."创建自定义槽。并替换..."查找和替换"子菜单中的选项,然后将其 .triggered() 信号连接到这些插槽以使其生效。您还可以尝试使用在本节中编码的插槽,并尝试使用它们执行新操作。
+
+### 动态填充 `Python` 菜单
+
+为应用程序创建菜单时,有时依赖使用在创建应用程序 GUI 时未知的选项填充这些菜单。例如,文本编辑器中的"打开最近打开的"菜单显示最近打开的文档的列表。在创建应用程序的 `GUI` 时,您无法填充此菜单,因为每个用户都将打开不同的文档,并且无法提前知道此信息。在这种情况下,您依赖动态填充菜单以响应用户操作或应用程序的状态。`QMenu` 有一个名为 `.aboutToShow()` 的信号,你可以连接到自定义插槽,在菜单对象显示在屏幕上之前动态填充它。若要继续开发示例应用程序,假设您依赖在"文件"下创建"打开最近打开的"子菜单,并使用最近打开的文件或文档动态填充它。为此,您依赖运行以下步骤:
+
+
+- 在"文件"下创建"打开最近使用"子菜单。
+- 编写一个自定义槽,用于动态生成用于填充菜单的操作。
+- 将菜单的 `.aboutToShow() `信号与自定义插槽连接。
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createMenuBar(self):
+        # Snip...
+        fileMenu.addAction(self.openAction)
+        # Adding an Open Recent submenu
+        self.openRecentMenu = fileMenu.addMenu("Open Recent")
+        fileMenu.addAction(self.saveAction)
+        # Snip...
+```
+
+在突出显示的行中,在"文件"菜单下添加一个标题为"打开最近打开"的子菜单。此子菜单尚没有菜单选项。您依赖动态创建操作来填充它。为此,您可以编写一个方法,以动态创建操作并将其添加到子菜单中。下面是一个示例,显示了您可以使用的一般逻辑:Python
+
+```python
+from functools import partial
+# Snip...
+
+class Window(QMainWindow):
+    # Snip...
+    def populateOpenRecent(self):
+        # Step 1. Remove the old options from the menu
+        self.openRecentMenu.clear()
+        # Step 2. Dynamically create the actions
+        actions = []
+        filenames = [f"File-{n}" for n in range(5)]
+        for filename in filenames:
+            action = QAction(filename, self)
+            action.triggered.connect(partial(self.openRecentFile, filename))
+            actions.append(action)
+        # Step 3. Add the actions to the menu
+        self.openRecentMenu.addActions(actions)
+```
+
+在 `.populateOpenRecent() `中,首先使用 .clear() 从菜单中删除旧选项(如果有)。然后添加用于动态创建和连接操作的逻辑。最后,使用 .addActions() 将操作添加到菜单中。在 for 循环中,使用 functools.partial() 将 .triggered() 信号与 .openRecentFile() 连接起来,因为您希望将文件名作为参数传递给 `.openRecentFile()`。在将信号与依赖额外参数的插槽连接时,这是一种非常有用的技术。要使其正常工作,您依赖从 functools 导入 partial()。
+
+> 注意:此示例的第二步中的逻辑不会真正加载最近打开的文件的列表。它只是创建一个包含五个假设文件的列表,其唯一目的是展示实现此技术的方法。
+
+下一步是将 .openRecentMenu 的 .aboutToShow() 信号连接到 .populateOpenRecent()。为此,请在 ._connectActions() 的末尾添加以下行:
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _connectActions(self):
+        # Snip...
+        self.aboutAction.triggered.connect(self.about)
+        # Connect Open Recent to dynamically populate it
+        self.openRecentMenu.aboutToShow.connect(self.populateOpenRecent)
+```
+
+在突出显示的行中,将 .aboutToShow 信号与 .populateOpenRecent() 连接。这可以确保您的菜单在显示之前立即填充。现在你依赖编写.openRecentFile()。这是您的应用程序在用户单击任何动态创建的操作时将调用的方法:Python
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def openRecentFile(self, filename):
+        # Logic for opening a recent file goes here...
+        self.centralWidget.setText(f"<b>{filename}</b> opened")
+```
+
+下面是动态创建的子菜单在实践中的工作原理:
+
+![](./assets/README-1641395464294.png)
+
+当鼠标指针悬停在"打开最近打开"菜单上时,菜单会发出 .aboutToShow() 信号。这会导致调用 .populateOpenRecent(),这将创建并连接操作。如果单击文件名,则会看到中央标签相应地更改以显示消息。
+
+### 定义菜单和工具栏选项的键盘快捷键
+
+键盘快捷键是 GUI 应用程序中的一项重要功能。键盘快捷键是一种组合键，您可以在键盘中按下它以快速访问应用程序中的一些最常用选项。以下是键盘快捷键的一些示例：
+
+• ⌃Ctrl+C 将某些内容复制到剪贴板。
+
+• ⌃Ctrl+V 粘贴剪贴板中的内容。
+
+• ⌃Ctrl+Z 撤消最后一个操作。
+
+• ⌃Ctrl+O 打开文件。
+
+• ⌃Ctrl+S 保存文件。
+
+在下面的部分中，您将学习如何向应用程序添加键盘快捷方式，以提高用户的工作效率和体验。
+
+在下面的部分中，您将学习如何向应用程序添加键盘快捷方式，以提高用户的工作效率和体验。
+
