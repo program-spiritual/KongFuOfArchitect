@@ -2,10 +2,9 @@ import sys
 from functools import partial
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QMenuBar,QMenu,QToolBar,QAction
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QMenuBar,QMenu,QToolBar,QAction,QStatusBar
+from PyQt5.QtGui import QIcon,QKeySequence
 import qrc_resources
-
 class Window(QMainWindow):
   """Main Window."""
 
@@ -22,7 +21,7 @@ class Window(QMainWindow):
     self._createToolBars()
     # self._createContextMenu()
     self._connectActions()
-
+    self._createStatusBar()
   def _createToolBars(self):
     # Using a title
     fileToolBar = self.addToolBar("File")
@@ -82,7 +81,18 @@ class Window(QMainWindow):
     self.cutAction = QAction(QIcon(":edit-cut.svg"), "C&ut", self)
     self.helpContentAction = QAction("&Help Content", self)
     self.aboutAction = QAction("&About", self)
-
+    # Using string-based key sequences
+    self.newAction.setShortcut("Ctrl+N")
+    self.openAction.setShortcut("Ctrl+O")
+    self.saveAction.setShortcut("Ctrl+S")
+    # Adding help tips
+    newTip = "Create a new file"
+    self.newAction.setStatusTip(newTip)
+    self.newAction.setToolTip(newTip)
+    # Using standard keys
+    self.copyAction.setShortcut(QKeySequence.Copy)
+    self.pasteAction.setShortcut(QKeySequence.Paste)
+    self.cutAction.setShortcut(QKeySequence.Cut)
   def _createContextMenu(self):
     # Setting contextMenuPolicy
     self.centralWidget.setContextMenuPolicy(Qt.ActionsContextMenu)
@@ -93,6 +103,17 @@ class Window(QMainWindow):
     self.centralWidget.addAction(self.copyAction)
     self.centralWidget.addAction(self.pasteAction)
     self.centralWidget.addAction(self.cutAction)
+
+  def getWordCount(self):
+    # Logic for computing the word count goes here...
+    return 42
+  def _createStatusBar(self):
+    self.statusbar = self.statusBar()
+    # Adding a temporary message
+    self.statusbar.showMessage("Ready", 3000)
+    # Adding a permanent message
+    self.wcLabel = QLabel(f"{self.getWordCount()} Words")
+    self.statusbar.addPermanentWidget(self.wcLabel)
 
   def contextMenuEvent(self, event):
     # Creating a menu object with the central widget as parent

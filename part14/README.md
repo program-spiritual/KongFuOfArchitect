@@ -1345,7 +1345,7 @@ class Window(QMainWindow):
 
 ### 定义菜单和工具栏选项的键盘快捷键
 
-键盘快捷键是 GUI 应用程序中的一项重要功能。键盘快捷键是一种组合键，您可以在键盘中按下它以快速访问应用程序中的一些最常用选项。以下是键盘快捷键的一些示例：
+键盘快捷键是 GUI 应用程序中的一项重要函数。键盘快捷键是一种组合键,您可以在键盘中按下它以快速访问应用程序中的一些最常用选项。以下是键盘快捷键的一些示例:
 
 • ⌃Ctrl+C 将某些内容复制到剪贴板。
 
@@ -1357,7 +1357,934 @@ class Window(QMainWindow):
 
 • ⌃Ctrl+S 保存文件。
 
-在下面的部分中，您将学习如何向应用程序添加键盘快捷方式，以提高用户的工作效率和体验。
+在下面的部分中,您将学习如何向应用程序添加键盘快捷方式,以提高用户的工作效率和体验。
 
-在下面的部分中，您将学习如何向应用程序添加键盘快捷方式，以提高用户的工作效率和体验。
+在下面的部分中,您将学习如何向应用程序添加键盘快捷方式,以提高用户的工作效率和体验。
 
+#### 使用键序列
+
+到目前为止,您已经了解到 `QAction` 是一个用于填充菜单和工具栏的多函数类。`QAction` 还提供了一种用户友好的方式来定义菜单选项和工具栏按钮的键盘快捷键。
+
+`QAction` 实现了 .setShortcut()。此方法以 `QKeySequence` 对象作为参数,并返回键盘快捷键。
+
+`QKeySequence` 提供了几个构造函数。在本教程中,您将了解其中的两个:
+
+- QKeySequence(ks,format)将基于字符串的键序列(ks)和格式(format)作为参数,并创建一个 QKeySequence 对象。
+
+- QKeySequence(key) 将 StandardKey 常量作为参数,并创建一个与底层平台上的键序列匹配的 QKeySequence 对象。
+
+第一个构造函数识别以下字符串:
+
+"Ctrl"
+"Shift"
+"Alt"
+"Meta"
+
+
+通过将这些字符串与字母、标点符号、数字、命名键(向上、向下、主页)和函数键("Ctrl+S"、"Ctrl+5"、"Alt+Home"、"Alt+F4")组合在一起,可以创建基于字符串的键序列。在逗号分隔的列表中,最多可以传递四个基于字符串的键序列。
+
+> 注意:有关不同平台上的标准快捷方式的完整参考,请参阅 QKeySequence 文档的"标准快捷方式"部分。
+
+如果您正在开发多平台应用程序并希望坚持使用每个平台的标准键盘快捷键,则第二个构造函数非常方便。例如,QKeySequence.Copy 将返回平台的标准键盘快捷方式,用于将对象复制到剪贴板。
+
+> 注意:有关 PyQt 提供的标准密钥的完整参考,请参阅 QKeySequence.StandardKey 文档。
+
+通过有关如何在 `PyQt` 中为操作定义键盘快捷键的一般背景知识,您可以返回到示例应用程序并添加一些快捷键。为此,您依赖更新._createActions():
+
+```python
+from PyQt5.QtGui import QKeySequence
+# Snip...
+
+class Window(QMainWindow):
+    # Snip...
+    def _createActions(self):
+        # File actions
+        # Snip...
+        # Using string-based key sequences
+        self.newAction.setShortcut("Ctrl+N")
+        self.openAction.setShortcut("Ctrl+O")
+        self.saveAction.setShortcut("Ctrl+S")
+        # Edit actions
+        # Snip...
+        # Using standard keys
+        self.copyAction.setShortcut(QKeySequence.Copy)
+        self.pasteAction.setShortcut(QKeySequence.Paste)
+        self.cutAction.setShortcut(QKeySequence.Cut)
+        # Snip...
+```
+
+首先依赖导入QKeySequence。在 ._createActions() 中,突出显示的前三行使用基于字符串的键序列创建键盘快捷键。这是向操作添加键盘快捷键的快速方法。在突出显示的第二三行中,您可以使用 QKeySequence 提供标准键盘快捷键。如果运行包含这些附加项的示例应用程序,则菜单将如下所示:
+
+![](./assets/README-1641644021989.png)
+
+
+
+您的菜单选项现在在其右侧显示键盘快捷键。如果按这些组合键中的任何一个,则将执行相应的操作。
+
+#### 使用键盘快捷键
+
+还有另一种替代方法,可用于将键盘快捷键或键盘快捷键添加到应用程序的菜单选项中。您可能已经注意到,当您为菜单或菜单选项设置文本时,通常会在文本中插入 `&` 符号 (`&`)。您可以这样做,以便在菜单或菜单选项的文本中显示时,紧跟在 `&` 符号后面的字母将带有下划线。例如,如果在"文件"菜单("&File")的标题中的字母 F 之前放置了一个 & 符号,则在显示菜单标题时 F 将带有下划线。
+
+注: 如果依赖在菜单的文本上显示与号符号,则依赖使用双 & 符号 (&) 来转义此符号的默认函数。
+
+对于菜单栏,使用 `&` 符号允许您通过按 `Alt` 键和菜单标题中带下划线的字母来调用任何菜单。启动菜单后,您可以通过按选项文本中带下划线的字母来访问任何菜单选项。例如,在"文件"中,可以通过按字母 E.
+
+> 注意 来访问"退出"选项:当您使用 `&` 符号提供键盘快捷键时,请记住,在同一菜单下不能有两个共享相同访问字母的选项。如果将 `C` 设置为"复制"选项的访问号,则无法将 `C` 设置为"剪切"选项的访问号。
+> 换句话说,在给定的菜单下,访问字母必须是唯一的。此函数将允许您为喜欢使用键盘使用应用程序的用户提供快速键盘快捷键。
+
+此技术对于不提供显式键盘快捷键的选项特别有用。
+
+#### 创建菜单和工具栏:
+
+最佳实践和提示使用 Python 和 PyQt 创建菜单和工具栏时,应遵循一些通常被认为是 GUI 编程最佳实践的标准。下面是一个快速列表:
+
+- 按照普遍接受的顺序排列菜单。例如,如果您有一个"文件"菜单,那么它应该是从左到右的第一个菜单。如果您有一个"编辑"菜单,那么它应该是第二个。帮助应该是最右边的菜单,依此类推。
+
+- 使用您正在开发的应用程序类型的常用选项填充菜单。例如,在文本编辑器中,"文件"菜单通常包含"新建"、"打开"、"保存"和"退出"等选项。编辑菜单通常包含"复制"、"粘贴"、"剪切"、"撤消"等选项。
+
+- 对常用选项使用标准键盘快捷键。例如,使用 `⌃Ctrl+C` 进行复制,使用 `⌃Ctrl+V` 进行粘贴,使用 `⌃Ctrl+X` 进行剪切,依此类推。
+- 使用分隔符分隔不相关的选项。这些视觉提示将使应用程序更易于切换。
+- 将省略号 (...) 添加到启动其他对话框的选项的标题中。例如,使用另存为...而不是另存为,关于 ... 而不是 `About`,依此类推。
+- 在菜单选项中使用与号 (`&`) 以提供方便的键盘快捷键。例如,"&Open"而不是"Open","&Exit"而不是"Exit"。
+
+如果遵循这些准则,则 `GUI` 应用程序将为用户提供熟悉且引人入胜的体验。
+
+
+#### 在 PyQt 状态栏中构建 Python 状态栏
+
+一个水平面板,通常放置在 `GUI` 应用程序中主窗口的底部。其主要目的是显示有关应用程序当前状态的信息。状态栏还可以分为几个部分,以显示每个部分的不同信息。
+
+根据 `Qt` 文档,有三种类型的状态指示器:
+
+- 临时指示器在短时间内几乎占据了整个状态栏,以显示工具提示文本、菜单项和其他时间敏感的信息。
+- 普通指示器占据状态栏的一部分,并显示用户可能希望定期引用的信息,如字处理器中的字数统计。这些可能被临时指标短暂隐藏。
+- 永久指示器始终显示在状态栏中,即使激活了临时指示器也是如此。它们用于显示有关应用程序当前模式的重要信息,例如按下大写锁定键的时间。
+
+您可以使用以下选项之一将状态栏添加到主窗口样式应用程序中:
+
+• 在 QMainWindow 对象上调用 .statusBar()。.statusBar() 为主窗口创建并返回一个空状态栏。
+
+• 创建一个 QStatusBar 对象,然后在主窗口上调用 .setStatusBar()并将状态栏对象作为参数。这样,.setStatusBar() 会将状态栏对象设置为主窗口的状态栏。在这里,您有两种替代实现,用于向示例应用程序添加状态栏:
+
+```python
+# 1. Using .statusBar()
+def _createStatusBar(self):
+    self.statusbar = self.statusBar()
+
+# 2. Using .setStatusBar()
+def _createStatusBar(self):
+    self.statusbar = QStatusBar()
+    self.setStatusBar(self.statusbar)
+```
+
+这两种实现产生相同的结果。但是,大多数情况下,您将使用第一个实现来创建状态栏。请注意,要使第二个实现正常工作,您依赖从 `PyQt5.QtWidgets`.将上述实现之一添加到应用程序的窗口中,然后在类初始值设定项中调用 `._createStatusBar()` 。通过这些添加,当您再次运行应用程序时,您将看到一个如下窗口:
+
+![](./assets/README-1641644905127.png)
+
+现在,应用程序的主窗口底部有一个状态栏。状态栏几乎不可见,但如果您仔细观察,您会注意到窗口右下角有一个小虚线三角形。
+
+#### 显示临时状态消息
+
+状态栏的主要用途是向应用程序的用户显示状态信息。要在状态栏中显示临时状态消息,您依赖使用 QStatusBar.showMessage()。此方法采用以下两个参数:
+
+- 消息将状态指示器消息保存为字符串。
+- 超时保存消息将在状态栏上显示的毫秒数。
+
+如果超时为 0(这是其默认值),则消息将保留在状态栏上,直到您在状态栏上调用 .clearMessage() 或 .showMessage()。如果状态栏上有一条活动消息,并且您使用新消息调用 .showMessage(),则新消息将遮盖或替换旧消息。转到示例应用程序,并将以下行添加到._createStatusBar():P ython
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createStatusBar(self):
+        self.statusbar = self.statusBar()
+        # Adding a temporary message
+        self.statusbar.showMessage("Ready", 3000)
+```
+
+._createStatusBar() 中的最后一行将使应用程序在应用程序的状态栏上显示 3000 毫秒的就绪消息:
+
+![](./assets/README-1641645430931.png)
+
+运行应用程序时,状态栏将显示消息"就绪"。`3000` 毫秒后,消息将消失,状态栏将清除并准备好显示新的状态消息。
+
+#### 在状态栏中显示永久消息
+
+您还可以在应用程序的状态栏上显示永久消息。永久消息使用户随时了解应用程序的某种常规状态。例如,在文本编辑器中,您可能希望显示一条永久消息,其中包含有关当前打开的文件的文本编码的信息。
+
+要将永久消息添加到状态栏,请使用 QLabel 对象来保存消息。然后,通过调用 .addPermanentWidget() 将标签添加到状态栏。此方法将给定的小组件永久添加到当前状态栏中。小组件的父级设置为状态栏。
+
+.addPermanentWidget() 采用以下两个参数:
+
+1。小部件包含要添加到状态栏中的小部件对象。此角色上一些常用的小部件是 QLabel、QToolButton 和 QProgressBar.
+
+2。拉伸用于计算小部件在状态栏增大和缩小时的合适长度。它默认为 0,这意味着小部件将占用最小数量的空间。
+
+请记住,永久小部件不会被临时消息遮挡或替换。.addPermanentWidget() 将小部件定位在状态栏的右侧。
+
+> 注意:您可以使用 .addPermanentWidget() 不仅可以在状态栏上显示永久消息,还可以向用户显示进度条,以监视给定操作的持续时间。您还可以在状态栏上提供按钮,以允许用户更改属性,例如文本编辑器上的文件编码。当您在状态栏上使用这些类型的小部件时,请尝试坚持使用您正在开发的应用程序类型最常用的小部件。这样,您的用户就会感到宾至如归。
+> 
+
+假设您要将示例应用程序转换为文本编辑器,并且要向状态栏添加一条消息,以显示有关当前文件字数统计的信息。为此,您可以创建一个名为 .getWordCount() 的方法,然后使用 .addPermanentWidget() 和 QLabel 对象:Python 添加永久消息。
+
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def getWordCount(self):
+        # Logic for computing the word count goes here...
+        return 42
+```
+
+此方法添加用于计算当前打开的文档中的字数计数的逻辑。现在,您可以将此信息显示为永久消息:Python
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createStatusBar(self):
+        self.statusbar = self.statusBar()
+        # Adding a temporary message
+        self.statusbar.showMessage("Ready", 3000)
+        # Adding a permanent message
+        self.wcLabel = QLabel(f"{self.getWordCount()} Words")
+        self.statusbar.addPermanentWidget(self.wcLabel)
+```
+
+在最后两行中,首先创建一个 QLabel 对象 (wcLabel) 来保存有关字数统计的消息。若要创建消息,请使用 f 字符串,在其中插入对 .getWordCount() 的调用以获取字数统计信息。然后使用 .addPermanentWidget() 将标签添加到状态栏。在这种情况下,您将 QLabel 对象创建为实例属性,因为依赖根据用户对当前文件所做的更改来更新字数统计。如果您使用此更新运行应用程序,则您将在状态栏的右侧看到字数统计消息:
+
+![](./assets/README-1641645832644.png)
+
+状态栏显示一条消息,通知用户假设的当前文件中的字数统计。在状态栏中向用户显示永久信息或其他选项的函数非常有用,可以帮助您大大改善应用程序的用户体验。
+
+#### 向操作添加帮助提示
+
+在创建 `GUI` 应用程序时,向用户提供有关应用程序界面上特定函数的帮助提示非常重要。帮助提示是简短的消息,可向用户提供有关应用程序提供的某些选项的快速指南。`PyQt` 操作允许您定义以下类型的帮助提示:
+
+•状态提示是当用户将鼠标指针悬停在菜单选项或工具栏按钮上时应用程序在状态栏上显示的帮助提示。默认情况下,状态提示包含一个空字符串。
+
+• 工具提示是帮助提示,当用户将鼠标指针悬停在工具栏按钮或小组件上时,应用程序会将其显示为浮动消息。默认情况下,工具提示包含标识手头操作的文本。
+
+> 注意:PyQt 还提供了"这是什么"帮助提示,您可以在小部件和操作中使用该提示,以显示小部件或操作提供的函数的更丰富的描述。但是,本主题超出了本教程的范围。
+
+若要了解帮助提示的工作原理,可以向示例应用程序添加一些状态提示和工具提示。转到 ._createActions() 并添加以下代码行:Python
+
+```python
+class Window(QMainWindow):
+    # Snip...
+    def _createActions(self):
+        # File actions
+        # Snip...
+        self.saveAction.setShortcut("Ctrl+S")
+        # Adding help tips
+        newTip = "Create a new file"
+        self.newAction.setStatusTip(newTip)
+        self.newAction.setToolTip(newTip)
+        # Edit actions
+        self.copyAction = QAction(QIcon(":edit-copy.svg"), "&Copy", self)
+        # Snip...
+```
+
+突出显示的三行将消息"创建新文件"设置为"新建"选项的状态和工具提示。如果现在运行该应用程序,则会看到"新建"选项向用户显示简短但描述性的帮助提示:
+
+![](./assets/README-1641646300068.png)
+
+单击"文件"菜单并将鼠标指针保持在"新建"上时,可以看到状态栏左侧显示的帮助提示消息。另一方面,如果将鼠标指针移到"新建"工具栏按钮上,则可以在状态栏上看到该消息,也可以将其作为鼠标指针旁边的小浮动框。通常,向 Python 菜单和工具栏添加帮助提示被认为是一种最佳做法。它将使您的 GUI 应用程序更易于用户切换和学习。作为最后一项练习,您可以继续向示例应用程序的其余操作添加帮助提示,并查看完成后的外观。
+
+### 结论
+
+菜单、工具栏和状态栏是大多数 GUI 应用程序的常见且重要的字符组件。您可以使用它们为用户提供访问应用程序选项和函数的快速方法。它们还使您的应用程序看起来精美而专业,并为您的用户提供出色的体验。在本教程中,您学习了如何: 
+
+• 以编程方式创建菜单、工具栏和状态栏
+
+• 使用 PyQt 操作填充菜单和工具栏
+
+• 使用状态栏提供状态信息
+
+顺便说一句,您已经学习了一些在 `GUI` 应用程序中添加和使用菜单、工具栏和状态栏时值得考虑的最佳编程实践。
+
+### PyQt 布局:创建外观专业的 GUI 应用程序
+
+PyQt的布局管理器提供了一种用户友好且高效的方式,可以在GUI上排列字符组件或小部件。正确布置小部件将使您的GUI应用程序看起来精美而专业。学习高效和有效地做到这一点是你使用Python和PyQt启动和运行GUI应用程序开发的基本技能。
+
+在本教程中,您将学习:
+
+• 使用 PyQt 的布局管理器有什么好处• 如何使用 PyQt 的布局管理器以编程方式在 GUI 上布置小部件
+
+• 如何为您的 GUI 应用程序选择正确的布局管理器
+
+• 如何在基于窗口和基于对话框的主应用程序中布置小部件有了这些知识和技能集,您将能够使用 Python 和 PyQt 创建具有专业外观的 GUI 应用程序。
+
+为了更好地了解如何使用布局管理器,以前关于如何创建PyQt GUI应用程序以及如何使用PyQt小部件的一些知识将会有所帮助。
+
+#### 在 GUI 上布置字符元素
+
+创建字符用户界面 (GUI) 应用程序时,一个常见的问题是如何在窗体和窗口上连贯地布置字符组件(按钮、菜单、工具栏、标签等)
+
+。此过程称为 GUI 布局,是创建 GUI 应用程序的重要步骤。过去,如果要在窗口中布置字符组件或小部件,则应遵循以下方法之一:
+
+- 确定并手动设置窗口中每个微件的静态长度和位置。
+
+- 动态计算和设置每个微件的长度和位置。
+
+第一种方法相当直接,但它至少具有以下缺点:
+
+• 您的窗口将不可调整长度,这可能会导致在不同屏幕分辨率上显示它们时出现问题。
+
+• 您的标签可能不支持正确本地化,因为给定文本的长度在语言之间会发生变化。
+
+• 您的小部件将在不同的平台上以不同的方式显示,这使得编写外观良好的多平台应用程序变得困难。
+
+第二种方法更灵活。但是,它也有缺点:
+
+• 您必须进行大量手动计算以确定每个小部件的正确长度和位置。
+
+• 您必须执行一些额外的计算才能正确响应窗口长度调整。
+
+
+即使您仍然可以使用这两种方法中的任何一种来布置 `GUI`,但大多数情况下,您希望使用由大多数现代 `GUI` 框架或工具包实现的第三种更方便的方法:布局管理器。
+
+
+> 注: 在某些 `GUI` 框架(如 `Tkinter`)中,布局管理器也称为几何字符管理器。
+
+布局管理器可根据您的特定需求自动在 `GUI` 上排列小部件。它们避免了第一种方法的兼容性缺点以及第二种方法的烦人和复杂的计算。在以下各节中,您将了解 `PyQt` 的内置布局管理器,以及如何使用它们来有效地布置 `GUI` 应用程序的字符组件。
+
+#### 获得 `PyQt` 布局库
+
+
+在 `PyQt` 中,小部件是用作 `GUI` 应用程序的构建块的字符组件。当您在窗口上放置一堆小部件以创建GUI时,您依赖给它们一些顺序。您依赖在窗口中设置微件的长度和位置,并且还依赖定义用户调整基础窗口长度时它们的行为。
+
+> 注意:不幸的是,`PyQt5` 的官方文档有一些不完整的部分。要解决此问题,您可以查看 `PyQt4` 文档、`Qt for Python` 文档或原始 `Qt` 文档。在本教程中,您会发现大多数链接都会将您带到原始Qt文档,在大多数情况下,这是更好的信息来源。
+
+要在 `PyQt` 中的窗口或窗体上排列小部件,可以使用以下技术:
+
+
+• 在小部件上使用 .resize() 和 .move() 来提供绝对长度和位置。
+
+• 重新实现 .resizeEvent() 并动态计算小部件的长度和位置。
+
+• 使用布局管理器,让他们为您完成所有计算和艰苦工作。
+
+这些技术通常对应于您在上一节中看到的用于布置 GUI 的三种不同方法。同样,动态计算长度和位置可能是一个好方法,但大多数时候,您最好使用布局管理器。
+
+在 PyQt 中,布局管理器是提供依赖函数的类,用于自动管理布局中微件的长度、位置和调整长度行为。
+
+使用布局管理器,您可以在任何父构件或容器微件中自动排列子微件。使用布局管理器将确保您充分利用 GUI 上的可用空间,并确保应用程序在用户调整窗口长度时保持可用。
+
+布局管理器用作微件和其他布局的容器。要将微件添加到布局管理器,请在手头的布局上调用 .addWidget()。要将布局添加到另一个布局,请在手头的布局上调用 .addLayout()。
+
+您将在嵌套布局以构建复杂 GUI 部分中更深入地了解嵌套布局。将所有必需的小部件添加到布局管理器后,可以使用 .setLayout() 在给定小部件上设置布局管理器。您可以在 QWidget 的任何子类(包含窗口或窗体)上设置布局管理器。
+
+> 注意:QMainWindow 是一个 PyQt 类,可用于创建主窗口样式的应用程序。此类具有自己的内置布局管理器。因此,如果您使用的是 QMainWindow,那么通常不依赖在主窗口对象上设置布局管理器。
+
+布局中的所有微件都将自动设置为安装布局的小部件的子级,而不是布局本身的子级。
+
+这是因为小部件只能有其他小部件,而不是布局,作为它们的父级。`PyQt` 的布局管理器提供了一些很酷的函数,在创建美观的 `GUI` 应用程序时,使您的生活变得更加轻松:
+
+•无需任何计算即可处理小部件的长度和位置
+
+•在用户调整基础窗口长度时处理小部件的长度调整和重新定位
+
+•调整标签长度以更好地支持国际化
+
+•为多平台应用程序提供本机窗口布局
+
+
+从长远来看,使用布局管理器还将大大提高您的工作效率,并提高代码的可维护性。`PyQt` 提供了四个通用布局管理器类:
+
+- `QHBoxLayout` 将小部件排列在水平框中。
+
+- `QVBoxLayout` 将小部件排列在垂直框中。
+
+- `QGridLayout` 在网格中排列小部件。
+
+- `QFormLayout` 将小部件排列在两列中。
+
+在接下来的几节中,您将学习如何使用这些常规用途布局管理器的基础知识。
+
+
+#### 使用通用布局管理器
+
+使用 `PyQt` 创建 `GUI` 应用程序时,您通常会使用在上一节末尾看到的四种常规用途布局中的一种或多种来在窗口和窗体上布置小部件。在接下来的几节中,您将学习如何借助一些示例创建和使用四个通用布局管理器。
+
+
+##### 构建水平布局:
+
+`QHBoxLayoutBox` 布局管理器会占用从父布局或小部件中获得的空间,将其划分为多个框或单元格,并使布局中的每个小部件填充一个框。
+
+`QHBoxLayout` 是 `PyQt` 中两个可用的盒子布局之一。此布局管理器允许您水平排列微件,一个挨着另一个。微件将从左到右添加到布局中。这意味着您在代码中首先添加的小部件将是布局中最左边的小部件。要将微件添加到 QHBoxLayout 对象,请在布局对象上调用 `.addWidget(widget, stretch, alignment) `。此方法采用一个必需参数和两个可选参数:
+
+- `widget` 是一个必需的参数,用于保存要添加到布局中的特定窗口小部件。
+- `stretch` 是一个可选参数,它包含一个整数,表示要应用于小部件的拉伸因子。具有较高拉伸因子的微件在窗口长度调整时会增长更多。它默认为 0,这意味着小组件未分配拉伸因子。
+- `alignment` 是保存水平和垂直标志的可选参数。您可以组合这些标志以在其包含单元格内生成小部件的依赖对齐方式。它默认为 0,这意味着小组件将填充整个单元格。
+
+下面是一个小应用程序,演示如何使用 `QHBoxLayout` 创建水平布局。在此示例中,您将使用 `QPushButton` 对象,根据您将小部件添加到代码中的顺序,更好地可视化每个小部件在布局中的放置位置:Python 1
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QHBoxLayout,
+    QPushButton,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QHBoxLayout Example")
+        # Create a QHBoxLayout instance
+        layout = QHBoxLayout()
+        # Add widgets to the layout
+        layout.addWidget(QPushButton("Left-Most"))
+        layout.addWidget(QPushButton("Center"), 1)
+        layout.addWidget(QPushButton("Right-Most"), 2)
+        # Set the layout on the application's window
+        self.setLayout(layout)
+        print(self.children())
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+```
+
+在第 15 行,创建一个名为 `layout` 的 `QHBoxLayout` 对象。在第 17 行到第 19 行,使用 `.addWidget()` 向布局中添加三个按钮。请注意,将 1 和 2 分别传递给"居中"和"最右"按钮中的拉伸参数。在第 21 行,使用 .setLayout() 将布局设置为窗口的顶级布局。
+
+
+如果您运行此应用程序,那么您将在屏幕上看到以下窗口:
+
+![](./assets/README-1641649233686.png)
+
+此窗口包含三个以水平方式排列的按钮。请注意,"最左"按钮对应于您在代码中添加的第一个按钮。因此,按钮的显示顺序(从左到右)与在代码中添加按钮的顺序相同(从上到下)。"居中"和"最右"按钮具有不同的拉伸系数,因此当您调整窗口长度时,它们会根据这些因素的比例展开。此外,布局中的所有按钮和布局本身都设置为 Window 的子级。这是由布局对象自动完成的,布局对象在每个小部件上内部调用 .setParent()。第 22 行对 print() 的调用会在终端上打印 Window 的子级列表,作为此行为的证据。
+
+##### 构建垂直布局:QVBoxLayout
+
+QVBoxLayout垂直排列小部件,一个在另一个下方。您可以使用此类创建垂直布局,并从上到下排列微件。由于 QVBoxLayout 是另一个框布局,其 .addWidget() 方法的工作方式与 QHBoxLayout 中的相同。这是一个 PyQt 应用程序,它展示了如何创建和使用 QVBoxLayout 对象来创建 GUI 中小部件的垂直排列:Python 
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QVBoxLayout Example")
+        self.resize(270, 110)
+        # Create a QVBoxLayout instance
+        layout = QVBoxLayout()
+        # Add widgets to the layout
+        layout.addWidget(QPushButton("Top"))
+        layout.addWidget(QPushButton("Center"))
+        layout.addWidget(QPushButton("Bottom"))
+        # Set the layout on the application's window
+        self.setLayout(layout)
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+```
+
+在第 16 行,创建 `QVBoxLayout` 的实例。在第 18 行到第 20 行上,向布局中添加三个按钮。最后,将布局设置为窗口的顶级布局。如果运行此应用程序,则将出现以下窗口:
+
+![](./assets/README-1641649438303.png)
+
+窗口以垂直排列方式显示三个按钮,一个在另一个按钮的下方。这些按钮的显示顺序(从上到下)与在代码中添加按钮的顺序相同(从上到下)。
+
+##### 在网格中排列小部件:QGridLayout
+
+您可以使用 `QGridLayout` 在行和列的网格中排列小部件。每个微件在网格中都有一个相对位置。要定义构件的位置或网格中的单元格,请使用表单的一对坐标(行、列)。这些坐标应为从零开始的整数。QGridLayout 占用其父级的可用空间,将其划分为行和列,并将每个小部件放入其自己的单元格或框中。QGridLayout会自动计算出最终布局将有多少行和列,具体取决于小部件的数量及其坐标。如果您不将小部件添加到给定单元格,则 QGridLayout 会将该单元格留空。要将微件添加到网格布局,请在布局上调用 .addWidget()。此方法有两种不同的重载实现:
+
+- `addWidget(widget, row, column, alignment)`将小部件添加到单元格中(行,列)
+
+- `addWidget(widget, fromRow, fromColumn, rowSpan, columnSpan, alignment)` 将 `widget` 添加到单元格中,跨越多行、多列或两者兼而有之。
+
+
+第一个实现采用以下参数:
+
+- `widget` 是一个必需的参数,其中包含您依赖添加到布局中的特定小部件。
+
+- `row` 是一个必需的参数,它包含一个整数,该整数表示网格中某行的坐标。
+
+- `column` 是一个必需的参数,它包含一个整数,该整数表示网格中列的坐标。
+
+- `alignment` 是一个可选参数,用于将小部件的对齐方式保存在其包含单元格内。它默认为 0,这意味着小组件将填充整个单元格。以下是如何使用 `QGridLayout` 创建小部件网格的示例:Python 
+
+在第 15 行,创建 `QGridLayout` 对象。然后,在第 17 行到第 25 行,使用 .addWidget() 将小部件添加到布局中。要查看网格布局如何在没有指定微件的情况下管理单元格,请注释掉其中一行或多行,然后再次运行应用程序。如果从命令行运行此代码,则将出现如下窗口:
+
+![](./assets/README-1641649801024.png)
+
+`QGridLayout` 对象中的每个小部件都占用由您在 .addWidget() 中提供的坐标对定义的单元格。每个按钮上的文本都反映了这些坐标。坐标从零开始,因此第一个单元格位于 (0, 0)。在 .addWidget() 的第二个实现中,参数小部件和对齐方式保持不变,并且您有四个额外的参数允许您将小部件放置在几行或几列之间:
+
+
+
+- `fromRow` 采用一个整数,表示小部件将在其中开始的行。
+
+- `fromColumn` 采用一个整数,表示小部件将在其中开始的列。
+
+- `rowSpan` 采用一个整数,表示小部件将在网格中占用的行数。
+
+- `columnSpan` 采用一个整数,该整数表示小部件将在网格中占据的列数。
+
+````python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QGridLayout,
+    QPushButton,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QGridLayout Example")
+        # Create a QGridLayout instance
+        layout = QGridLayout()
+        # Add widgets to the layout
+        layout.addWidget(QPushButton("Button at (0, 0)"), 0, 0)
+        layout.addWidget(QPushButton("Button at (0, 1)"), 0, 1)
+        layout.addWidget(QPushButton("Button Spans two Cols"), 1, 0, 1, 2)
+        # Set the layout on the application's window
+        self.setLayout(layout)
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+````
+
+在第 19 行,使用 .addWidget() 的第二个实现来添加一个在网格中占据两列的按钮。该按钮从第二行 (fromRow=1) 和第一列 (fromColumn=0) 开始。最后,该按钮占用一行(rowSpan=1)和两列(columnSpan=2)。
+
+以下是运行此应用程序时将在屏幕上看到的窗口:
+
+![](./assets/README-1641650167082.png)
+
+在这种布局中,您可以使小部件占用多个单元格,就像使用"按钮跨越两个 Cols"按钮一样。
+
+##### 快速创建表单:QFormLayout
+
+如果您不断创建表单来执行诸如将数据输入数据库之类的操作,那么 QFormLayout 适合您。此类以两列布局排列微件。第一列通常显示描述预期输入的标签,第二列通常包含允许用户输入或编辑数据的输入小部件,`如QLineEdit`,`QComboBox` 或 `QSpinBox` 。若要将构件添加到窗体布局,请使用 .addRow()。此方法有多种变体,但大多数情况下,您将从以下两个选项中进行选择:
+
+
+
+- `.addRow(label, field)`将新行添加到表单布局的底部。该行应包含 QLabel 对象(标签)和输入小部件(字段)。
+
+- `.addRow(labelText, field)` 会自动创建并添加一个新的 `QLabel` 对象,并将 `labelText` 作为其文本。字段包含输入微件。
+
+下面是一个使用 `QFormLayout` 对象来排列小部件的示例应用程序:Python 1
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QFormLayout,
+    QLabel,
+    QLineEdit,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QFormLayout Example")
+        self.resize(270, 110)
+        # Create a QFormLayout instance
+        layout = QFormLayout()
+        # Add widgets to the layout
+        layout.addRow("Name:", QLineEdit())
+        layout.addRow("Job:", QLineEdit())
+        emailLabel = QLabel("Email:")
+        layout.addRow(emailLabel, QLineEdit())
+        # Set the layout on the application's window
+        self.setLayout(layout)
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+```
+
+
+在第 17 行,创建一个 `QFormLayout` 对象。然后,在第 19 到 22 行上,向布局中添加一些行。请注意,在第 19 行和第 20 行,使用方法的第二个变体,在第 22 行,使用第一个变体,将 `QLabel` 对象作为第一个参数传递给 .addRow()。如果运行此代码,则会在屏幕上看到以下窗口:
+
+![](./assets/README-1641650517330.png)
+
+使用 `QFormLayout`,您可以按两列排列方式组织小部件。第一列包含依赖用户提供某些信息的标签。第二列显示允许用户输入或编辑该信息的小组件。
+
+##### 嵌套布局以构建复杂的 GUI
+
+您可以使用嵌套布局来创建复杂的 `GUI`,这些 `GUI` 很难使用通用 `PyQt` 的布局管理器之一进行创建。为此,您依赖在外部布局上调用 .addLayout()。这样,内部布局就成为外部布局的子级。假设您依赖创建一个对话框,在表单布局中显示标签和行编辑,并且在这些构件下方,您希望在垂直布局中放置多个复选框。下面是对话框应呈现的外观的模型:
+
+![](./assets/README-1641650576282.png)
+
+蓝色矩形表示您的外部布局。绿色矩形是将保存标签和线条编辑的表单布局。红色矩形是用于保存选项复选框的垂直布局。绿色布局和红色布局都嵌套到蓝色布局中,这是垂直布局。下面是如何使用 PyQt:Python 1 构建此布局的示例
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QFormLayout,
+    QLineEdit,
+    QVBoxLayout,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Nested Layouts Example")
+        # Create an outer layout
+        outerLayout = QVBoxLayout()
+        # Create a form layout for the label and line edit
+        topLayout = QFormLayout()
+        # Add a label and a line edit to the form layout
+        topLayout.addRow("Some Text:", QLineEdit())
+        # Create a layout for the checkboxes
+        optionsLayout = QVBoxLayout()
+        # Add some checkboxes to the layout
+        optionsLayout.addWidget(QCheckBox("Option one"))
+        optionsLayout.addWidget(QCheckBox("Option two"))
+        optionsLayout.addWidget(QCheckBox("Option three"))
+        # Nest the inner layouts into the outer layout
+        outerLayout.addLayout(topLayout)
+        outerLayout.addLayout(optionsLayout)
+        # Set the window's main layout
+        self.setLayout(outerLayout)
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+```
+
+以下是您在此代码中执行的操作:
+
+• 在第 17 行,创建外部或顶层布局,您将将其用作父布局和窗口的主布局。在这种情况下,您可以使用 `QVBoxLayout`,因为您希望小部件在窗体上垂直排列。在模型中,这是蓝色布局。
+
+• 在第 19 行,创建一个表单布局来保存标签和行编辑。
+
+• 在第 21 行,将依赖的微件添加到布局中。这等效于绿色布局。
+
+• 在第 23 行,创建垂直布局以按住复选框。• 在第 25 到 27 行,添加依赖的复选框。这是您的红色布局。
+
+• 在第 29 行和第 30 行上,您将 `topLayout` 和 `optionsLayout` 嵌套在 `outerLayout` 下。就是这样！如果运行该应用程序,您将看到一个如下所示的窗口:
+
+![](./assets/README-1641650808110.png)
+
+在此应用程序中,将两个不同的布局嵌套在外部布局下,以便为窗口创建常规布局。在窗口顶部,使用水平布局来放置标签和线条编辑。然后,使用垂直布局在其下方放置一些复选框。
+
+##### 使用多页布局和微件
+
+到目前为止,您已经了解了如何使用传统或通用布局管理器在应用程序的窗口中排列小部件。这些布局管理器将在单页布局上排列微件。换句话说,您的 GUI 将始终向用户显示同一组小部件。有时,您依赖创建一个布局,以显示一组不同的小部件,以响应 GUI 上的某些用户操作。例如,如果要为给定应用程序创建首选项对话框,则可能依赖向用户显示基于选项卡或多页的布局,其中每个选项卡或页面都包含一组不同的密切相关的选项。
+
+每次用户单击选项卡或页面时,应用程序都会显示一组不同的小部件。PyQt提供了一个名为 `QStackedLayout` 的 内置布局和一些方便的小部件,如 `QTabWidget` ,允许您创建这种多页布局。接下来的几节将引导您完成其中一些工具。
+
+###### 创建 `WidgetsQStackedLayout`
+
+堆栈提供了一个布局管理器,允许您将小部件排列在堆栈上,一个在另一个堆栈之上。在这种布局中,在给定时间只有一个小部件可见。要使用微件填充堆叠布局,您依赖在布局对象上调用 .addWidget()。这会将每个微件添加到布局内部微件列表的末尾。您还可以分别使用 .insertWidget(index) 或 .removeWidget(widget) 在小部件列表中的给定位置插入或删除小部件。小部件列表中的每个小组件都显示为一个独立的页面。如果要在页面上显示多个小部件,请为每个页面使用 `QWidget` 对象,并为页面小部件设置适当的小部件布局。如果您依赖获取布局中的小部件(页面)总数,则可以调用 .count()。使用 `QStackedLayout` 对象时要记住的一个重要点是,您依赖显式提供一种在页面之间切换的机制。否则,您的布局将始终向用户显示相同的页面。若要在页面之间切换,依赖在布局对象上调用 .setCurrentIndex()。以下示例演示如何使用带有组合框的堆叠布局在页面之间切换:
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QComboBox,
+    QFormLayout,
+    QLineEdit,
+    QStackedLayout,
+    QVBoxLayout,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QStackedLayout Example")
+        # Create a top-level layout
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        # Create and connect the combo box to switch between pages
+        self.pageCombo = QComboBox()
+        self.pageCombo.addItems(["Page 1", "Page 2"])
+        self.pageCombo.activated.connect(self.switchPage)
+        # Create the stacked layout
+        self.stackedLayout = QStackedLayout()
+        # Create the first page
+        self.page1 = QWidget()
+        self.page1Layout = QFormLayout()
+        self.page1Layout.addRow("Name:", QLineEdit())
+        self.page1Layout.addRow("Address:", QLineEdit())
+        self.page1.setLayout(self.page1Layout)
+        self.stackedLayout.addWidget(self.page1)
+        # Create the second page
+        self.page2 = QWidget()
+        self.page2Layout = QFormLayout()
+        self.page2Layout.addRow("Job:", QLineEdit())
+        self.page2Layout.addRow("Department:", QLineEdit())
+        self.page2.setLayout(self.page2Layout)
+        self.stackedLayout.addWidget(self.page2)
+        # Add the combo box and the stacked layout to the top-level layout
+        layout.addWidget(self.pageCombo)
+        layout.addLayout(self.stackedLayout)
+
+    def switchPage(self):
+        self.stackedLayout.setCurrentIndex(self.pageCombo.currentIndex())
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+```
+
+
+在第 21 行到第 23 行,创建一个 `QComboBox` 对象,该对象将允许您在布局中的页面之间切换。然后,将两个选项添加到列表中的组合框中,并将其连接到 .switchPage(),后者用于处理页面切换。在 .switchPage() 中,在布局对象上调用 .setCurrentIndex(),将组合框的当前索引作为参数传递。这样,当用户更改组合框中的选项时,堆叠布局上的页面将相应地更改。在第 25 行中,创建 `QStackedLayout` 对象。在第 27 到 32 行,将第一页添加到布局中,在第 34 到 39 行,将第二页添加到布局中。每个页面都由一个 `QWidget` 对象表示,该对象以方便的布局包含多个小部件。使所有内容正常工作的最后一步是将组合框和布局添加到应用程序的主布局中。以下是应用程序现在的行为方式:
+
+![](./assets/README-1641651127955.png)
+
+在这种情况下,应用程序的布局中有两个页面。每个页面都由一个 `QWidget` 对象表示。在窗口顶部的组合框中选择新页面时,布局将更改为显示所选页面。注意:`PyQt` 提供了一个名为 `QStackedWidget` 的便捷类,`它建立在QStackedLayout` 之上。还可以使用此类创建多页布局。此类提供了一组小部件,其中一次只能看到一个小部件。就像堆叠布局一样,`QStackedWidget` 不提供在页面之间切换的固有机制。除了堆叠布局和堆叠小部件,您还可以使用 `QTabWidget` 创建多页用户界面。您将在下一节中了解如何操作。
+
+###### 使用 PyQt 的选项卡小部件
+
+在 `PyQt` 中创建多页排列的另一种流行方法是使用名为 `QTabWidget` 的类。此类提供选项卡栏和页面区域。您可以使用选项卡栏在页面和页面区域之间切换,以显示与所选选项卡关联的页面。默认情况下,选项卡栏位于页面区域的顶部。但是,您可以使用 .setTabPosition() 和以下四个可能的选项卡位置之一来更改此行为:
+
+|Tab Position	| Tab Bar Location     |
+|----|----------------------|
+|QTabWidget.North	| Top of the pages     |
+|QTabWidget.South| 	Bottom of the pages |
+|QTabWidget.West	| Left of the pages    |
+|QTabWidget.East	| Right of the pages   |
+
+
+要将选项卡添加到选项卡构件,请使用 .addTab()。此方法有两种变体或重载实现:
+
+1。`.addTab(page, label)`
+
+2.`.addTab(page, icon, label)`在这两种情况下,该方法都会添加一个新选项卡,并将标签作为选项卡的标题。
+
+`page` 依赖是表示与手头选项卡关联的页面的小部件。在该方法的第二个变体中,icon 必须是 `QIcon` 对象。如果将图标传递给 .addTab(),则该图标将显示在选项卡标题的左侧。
+
+创建选项卡小部件时的常见做法是为每个页面使用 `QWidget` 对象。这样,您就可以使用包含依赖微件的布局向页面添加额外的微件。
+
+大多数情况下,您将使用选项卡小部件为 GUI 应用程序创建对话框。这种布局允许您在相对较小的空间中向用户显示多个选项。
+
+您还可以利用选项卡系统根据某些分类标准来组织选项。下面是一个示例应用程序,它显示了如何创建和使用 `QTabWidget` 对象的基础知识:
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QTabWidget Example")
+        self.resize(270, 110)
+        # Create a top-level layout
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        # Create the tab widget with two tabs
+        tabs = QTabWidget()
+        tabs.addTab(self.generalTabUI(), "General")
+        tabs.addTab(self.networkTabUI(), "Network")
+        layout.addWidget(tabs)
+
+    def generalTabUI(self):
+        """Create the General page UI."""
+        generalTab = QWidget()
+        layout = QVBoxLayout()
+        layout.addWidget(QCheckBox("General Option 1"))
+        layout.addWidget(QCheckBox("General Option 2"))
+        generalTab.setLayout(layout)
+        return generalTab
+
+    def networkTabUI(self):
+        """Create the Network page UI."""
+        networkTab = QWidget()
+        layout = QVBoxLayout()
+        layout.addWidget(QCheckBox("Network Option 1"))
+        layout.addWidget(QCheckBox("Network Option 2"))
+        networkTab.setLayout(layout)
+        return networkTab
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+```
+
+![](./assets/README-1641651626713.png)
+
+
+就是这样！您有一个函数齐全的基于选项卡的 `GUI`。请注意,要在页面之间切换,您只需单击相应的选项卡即可。
+
+##### 布置应用程序的主窗口
+
+如果您使用 `PyQt` 创建 `GUI` 应用程序,则大多数情况下,您将使用 `QMainWindow` 在其上创建 `GUI`。此类允许您创建主窗口样式的应用程序。`QMainWindow` 附带自己的预定义布局。此布局将允许您将以下字符组件添加到主窗口: 
+
+- • 窗口顶部的菜单栏
+- • 窗口四边任一个或多个工具栏
+- • 窗口底部的状态栏
+- • 窗口四边任一方的一个或多个停靠小部件(但不占用工具栏区域)
+- • 位于窗口最中心的中央微件窗口对于大多数应用程序,所有这些字符组件都是可选的,除了中心小部件,这是使应用程序工作所必需的。
+
+> 注意:如果您使用 QMainWindow 创建 GUI 应用程序,则必须具有一个中央小部件,即使它只是一个占位符。
+
+一些应用程序使用独特且函数齐全的小部件作为其中心小部件。例如,如果您正在编写文本编辑器,则可能会使用 `QTextEdit` 对象作为编辑器的中心小部件。其他类型的 `GUI` 应用程序可能依赖更精细的中央小部件。在这种情况下,您可以使用 `QWidget` 对象作为中心小部件,然后创建一个布局,其中包含应用程序 `GUI` 依赖的特定小部件排列。最后一步是将该布局设置为中心小部件的布局。大多数情况下,`QMainWindow` 提供的布局足以创建任何类型的 `GUI` 应用程序。此布局将有效地管理窗口小部件的行为,因此您不必担心这一点。
+
+##### 设置应用程序对话框的布局
+
+`GUI` 应用程序通常使用主窗口和一个或多个对话框构建。对话框是允许您与用户通信的小窗口。`PyQt` 提供 `QDialog` 来处理对话框的创建。与 `QMainWindow` 不同,`QDialog` 没有预定义或默认的顶级布局。这是因为对话框可以非常多样化,并且包含各种小部件排列和组合。将所有微件放置在对话框的 `GUI` 上后,依赖在该对话框上设置顶级布局。为此,您必须在对话框对象上调用 .setLayout(),就像使用任何其他小部件一样。下面是一个对话框样式的应用程序,演示如何将顶级布局设置为 `QDialog` 对象:Python 1
+
+```python
+import sys
+
+from PyQt5.QtWidgets import (
+    QApplication,
+    QDialog,
+    QDialogButtonBox,
+    QFormLayout,
+    QLineEdit,
+    QVBoxLayout,
+)
+
+class Dialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QDialog's Top-Level Layout Example")
+        dlgLayout = QVBoxLayout()
+        # Create a form layout and add widgets
+        formLayout = QFormLayout()
+        formLayout.addRow("Name:", QLineEdit())
+        formLayout.addRow("Job:", QLineEdit())
+        formLayout.addRow("Email:", QLineEdit())
+        # Add a button box
+        btnBox = QDialogButtonBox()
+        btnBox.setStandardButtons(
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        )
+        # Set the layout on the dialog
+        dlgLayout.addLayout(formLayout)
+        dlgLayout.addWidget(btnBox)
+        self.setLayout(dlgLayout)
+
+if __name__=="__main__":
+    app = QApplication(sys.argv)
+    dlg = Dialog()
+    dlg.show()
+    sys.exit(app.exec_())
+```
+
+在这种情况下,应用程序的窗口继承自 `QDialog`,因此您有一个对话框样式的应用程序。在第 16 行,创建将用作对话框顶层布局的布局。在第 18 行到第 21 行上,创建表单布局以排列表单中的某些小部件。在第 24 行,添加 `QDialogButtonBox` 对象。您经常使用 `QDialogButtonBox` 来处理对话框中的按钮。在此示例中,您将使用两个按钮,一个"确定"按钮和一个"取消"按钮。这些按钮没有任何函数,它们只是为了使对话框更逼真。准备好所有微件和布局后,可以将它们添加到顶级布局中。这就是你在第28行和第29行所做的。最后一步(在第 30 行)是使用 .setLayout() 将顶级布局设置为对话框的布局。如果您运行此应用程序,那么您将在屏幕上看到以下窗口:
+
+![](./assets/README-1641652065736.png)
+
+最佳做法是为所有对话框设置顶级布局。这可确保当用户调整基础窗口长度时,对话框的 GUI 将协调一致地运行。否则,您的对话框在用户眼中可能会显得杂乱无章和未经修饰。
+
+##### 在 PyQt 布局中管理空间
+
+在使用PyQt的布局管理器在窗口或表单上排列小部件时,管理空间(空白空间,小部件之间的空间等)是一个常见问题。能够管理这个空间是一项重要的技能。在内部,布局使用以下一些微件属性来管理窗口上的可用空间:•
+
+- `.sizeHint()` 包含小部件的建议长度
+
+- •` .minimumSizeHint()` 包含小部件在保持可用状态时可以具有的最小长度
+
+- • `.sizePolicy()` 在布局中保存小部件的默认行为
+
+
+布局使用这些属性自动定位微件并调整其长度,并根据可用空间为每个微件分配给定的空间量。这可确保小部件的排列一致并保持可用。在接下来的三节中,您将了解不同类型的布局如何管理 `PyQt` 中的空间。
+
+
+##### 管理框布局中的空间
+
+在小部件之间分配可用空间时,框布局做得很好。但是,有时它们的默认行为是不够的,您依赖手动处理可用空间。为了在这种情况下帮助你,PyQt提供了QSpacerItem。此类允许您向框布局中添加空格(或空框)。通常,您不依赖直接使用QSpacerItem。相反,您可以在框布局对象上调用以下一些方法:
+
+- • `.addSpacing(i)` 将固定长度 i 的不可拉伸空间(或空框)添加到布局中。i 必须是表示以像素为单位的空间长度的整数。
+
+- • `.addStretch(i)` 将最小长度为 0 且拉伸因子 i 的可拉伸空间添加到框布局中。i 必须是整数。
+
+- • `.insertSpacing(index, size)` 在位置索引处插入一个不可拉伸的空间,其长度为长度时。如果索引为负,则在框布局的末尾添加空格。
+
+- •` insertStretch(index, stretch)`在位置索引处插入一个可拉伸的空间,最小长度为 0,拉伸的拉伸系数为拉伸系数。如果索引为负数,则在框布局的末尾添加空格。
+
+当用户调整基础窗口长度时,可拉伸垫片将展开或收缩以填充空白空间。无论底层窗口的长度如何变化,不可拉伸的垫片都将保持不变。返回到如何使用垂直布局并再次运行该应用程序的示例。如果向下拉窗口边框,则会注意到按钮之间显示的空间越大,向下拉越远:
+
+![](./assets/README-1641652306962.png)
+
+
+发生这种情况是因为布局通过自动展开其框来处理新的可用空间。您可以通过将可伸缩的 `QSpacerItem` 对象添加到布局的末尾来更改此行为。在示例的代码中,更新 `Window` 的初始值设定项,如下所示:Python
+
+```python
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QVBoxLayout Example")
+        self.resize(270, 110)
+        # Create a QVBoxLayout instance
+        layout = QVBoxLayout()
+        # Add widgets to the layout
+        layout.addWidget(QPushButton("Top"))
+        layout.addWidget(QPushButton("Center"))
+        layout.addWidget(QPushButton("Bottom"))
+        layout.addStretch()
+        # Set the layout on the application's window
+        self.setLayout(layout)
+```
+
+在突出显示的行中,通过在布局上调用 .addStretch() 将可拉伸的 `QSpacerItem` 对象添加到布局的末尾。如果再次运行该应用程序,则会出现以下行为:
+
+![](./assets/README-1641652391191.png)
+
+##### 管理网格和窗体布局中的空间
+
+网格和窗体布局以不同的方式处理可用空间。在这些类型的布局中,您只能处理微件之间的垂直和水平空间。这些布局提供了三种管理这些空间的方法:
+- `setSpacing(spacing)`  将小部件之间的垂直和水平间距设置为间距。
+
+- `setVerticalSpacing(spacing)` 仅将布局中小部件之间的垂直间距设置为 `sspaceing` 。
+
+- `setHorizontalSpacing(spacing)` 仅将布局中小部件之间的水平间距设置为间距。
+
+在所有情况下,间距都是表示像素的整数。现在回到如何创建表单布局并更新窗口初始值设定项的示例,如下所示:Python
+
+```python
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("QFormLayout Example")
+        self.resize(270, 110)
+        # Create a QHBoxLayout instance
+        layout = QFormLayout()
+        # Add widgets to the layout
+        layout.setVerticalSpacing(30)
+        layout.addRow("Name:", QLineEdit())
+        layout.addRow("Job:", QLineEdit())
+        emailLabel = QLabel("Email:")
+        layout.addRow(emailLabel, QLineEdit())
+        # Set the layout on the application's window
+        self.setLayout(layout)
+```
+
+现在，小部件行之间有更多的空间。您还可以尝试通过添加一些垂直或水平空间来修改如何使用网格布局的示例，以查看所有这些间距机制的工作原理。
