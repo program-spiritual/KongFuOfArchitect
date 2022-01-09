@@ -9,11 +9,121 @@
 #### 基础布局
 
 - [hello](./simple-tool-box/src/hello.py)
+```python
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+def window():
+   app = QApplication(sys.argv)
+   w = QWidget()
+   b = QLabel(w)
+   b.setText("Hello World!")
+   # x y width height
+   w.setGeometry(100, 100, 280, 80) 
+   w.move(60, 15)
+   w.setWindowTitle("PyQt5 App")
+   helloMsg = QLabel('<h1>Hello World!</h1>', parent=w)
+   helloMsg.move(60, 15)
+   w.show()
+   sys.exit(app.exec_())
+if __name__ == '__main__':
+   window()
+```
 - [hello-oop](./simple-tool-box/src/hello.py)
 - [水平布局](./simple-tool-box/src/h_layout.py)
+```python
+"""Horizontal layout example."""
+import sys
+
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QWidget
+
+app = QApplication(sys.argv)
+window = QWidget()
+window.setWindowTitle('QHBoxLayout')
+
+layout = QHBoxLayout()
+layout.addWidget(QPushButton('Left'))
+layout.addWidget(QPushButton('Center'))
+layout.addWidget(QPushButton('Right'))
+window.setLayout(layout)
+
+window.show()
+sys.exit(app.exec_())
+```
 - [垂直布局](./simple-tool-box/src/v_layout.py)
+```python
+# Filename: v_layout.py
+
+"""Vertical layout example."""
+
+import sys
+
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QWidget
+
+app = QApplication(sys.argv)
+window = QWidget()
+window.setWindowTitle('QVBoxLayout')
+layout = QVBoxLayout()
+layout.addWidget(QPushButton('Top'))
+layout.addWidget(QPushButton('Center'))
+layout.addWidget(QPushButton('Bottom'))
+window.setLayout(layout)
+window.show()
+sys.exit(app.exec_())
+```
 - [宫格布局](./simple-tool-box/src/g_layout.py)
+```python
+"""Grid layout example."""
+import sys
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QGridLayout
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QWidget
+
+app = QApplication(sys.argv)
+window = QWidget()
+window.setWindowTitle('QGridLayout')
+layout = QGridLayout()
+layout.addWidget(QPushButton('Button (0, 0)'), 0, 0)
+layout.addWidget(QPushButton('Button (0, 1)'), 0, 1)
+layout.addWidget(QPushButton('Button (0, 2)'), 0, 2)
+layout.addWidget(QPushButton('Button (1, 0)'), 1, 0)
+layout.addWidget(QPushButton('Button (1, 1)'), 1, 1)
+layout.addWidget(QPushButton('Button (1, 2)'), 1, 2)
+layout.addWidget(QPushButton('Button (2, 0)'), 2, 0)
+layout.addWidget(QPushButton('Button (2, 1) + 2 Columns Span'), 2, 1, 1, 2)
+window.setLayout(layout)
+window.show()
+sys.exit(app.exec_())
+```
 - [表单布局](./simple-tool-box/src/f_layout.py)
+```python
+"""Form layout example."""
+import sys
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QFormLayout
+from PyQt5.QtWidgets import QLineEdit
+from PyQt5.QtWidgets import QWidget
+
+app = QApplication(sys.argv)
+window = QWidget()
+window.setWindowTitle('QFormLayout')
+layout = QFormLayout()
+layout.addRow('Name:', QLineEdit())
+layout.addRow('Age:', QLineEdit())
+layout.addRow('Job:', QLineEdit())
+layout.addRow('Hobbies:', QLineEdit())
+window.setLayout(layout)
+window.show()
+sys.exit(app.exec_())
+```
 
 #### 弹框
 
@@ -26,7 +136,7 @@
 > 注意:当您以自己的方法实现不同的 GUI 组件时,您正在使代码更具可读性和可维护性。但是,这不是一个依赖,因此您可以自由地以您最喜欢的方式组织代码。
 
 
-到目前为止,您已经领略了 PyQt5 系列小部件中一些更重要的字符组件。在接下来的两个部分中,您将领略与 PyQt GUI 应用程序相关的其他重要概念。
+到目前为止,您已经领略了 `PyQt5` 系列小部件中一些更重要的字符组件。在接下来的两个部分中,您将领略与 `PyQt GUI` 应用程序相关的其他重要概念。
 
 #### Applications
 
