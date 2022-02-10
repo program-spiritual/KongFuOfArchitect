@@ -8,7 +8,7 @@
     "@types/webpack-env": "^1.16.0",
     "core-js": "^3.6.5",
     "lodash": "^4.17.21",
-    "node-sass": "^4.9.2",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.1.0",
     "snabbdom": "^2.1.0",
     "vue": "^2.6.11",
