@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">App1</string>
+    <string name="action_settings">Settings</string>
+	<string name = "HelloXamarin">Hello World, I am Xamarin!</string>
+	<string name = "ApplicationName">helloWorld</string>
+	<string name = "ButtonClick">Click Me!</string>
+	<string name = "Hello">Hello</string>
+</resources>
