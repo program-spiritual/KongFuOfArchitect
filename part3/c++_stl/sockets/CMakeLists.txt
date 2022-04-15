@@ -1,7 +1,0 @@
-add_executable( a a.cpp)
-add_executable( b b.cpp)
-add_library(sockets a.cpp b.cpp a.h b.h)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
-install(TARGETS sockets DESTINATION bin)
-install(FILES a.cpp b.cpp a.h b.h  DESTINATION include)
-link_libraries(ws2_32 wsock32)

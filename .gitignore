@@ -4,3 +4,13 @@
 /log
 out/
 target/
+cmake-build-debug
+test
+Makefile
+*.log
+*.txt
+*.lst
+*.ninja
+*.cfg
+*.MF
+*.json

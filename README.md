@@ -41,6 +41,7 @@
   - [第六章 `yaml` 数据序列化 --->点击进入 ](./part3/yaml/README.md)
   - [第六章 `Erlang` 函数式编程 --->点击进入 ](./part3/erlang/README.md)
   - [第七章 `C++` 与 `标准库` --->点击进入 ](./part3/c++_stl/README.md)
+  - [第⑧章 `C++` 函数式编程 --->点击进入 ](./part3/functionalProgramming/README.md)
 - [part4 | 高效成长 --->点击进入](./part4/README.md)
     - [**JAVA** 并发编程](./part4/java_concurrency/README.md)
     
