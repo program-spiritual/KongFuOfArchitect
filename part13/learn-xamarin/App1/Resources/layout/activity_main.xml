@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android" 
+   android:orientation = "vertical" 
+   android:background = "#d3d3d3" 
+   android:layout_width = "fill_parent" 
+   android:layout_height = "fill_parent"> 
+<TextView 
+    android:text = "@string/HelloXamarin" 
+    android:textAppearance = "?android:attr/textAppearanceLarge" 
+    android:layout_width = "match_parent" 
+    android:layout_height = "wrap_content" 
+    android:id = "@+id/textView2" 
+    android:textColor = "@android:color/black" /> 
+<TextView 
+android:text = "嗨，我是一个文本组件" 
+android:layout_width = "match_parent" 
+android:layout_height = "wrap_content" 
+android:id = "@+id/textview1" /> 
+<Button 
+android:id = "@+id/MyButton" 
+android:layout_width = "fill_parent" 
+android:layout_height = "wrap_content" 
+android:text = "@string/ButtonClick" /> 
+<Button 
+android:id = "@+id/MyButton2" 
+android:layout_width = "fill_parent" 
+android:layout_height = "wrap_content" 
+android:text = "@string/Hello" />
+<TextView 
+android:text = "你最喜欢的车是什么" 
+android:layout_width = "match_parent" 
+android:layout_height = "wrap_content" 
+android:id = "@+id/textView1" 
+android:textColor = "@android:color/black" /> 
+<RadioGroup 
+    android:layout_width = "match_parent" 
+    android:layout_height = "wrap_content" 
+    android:id = "@+id/radioGroup1" 
+    android:backgroundTint = "#a52a2aff" 
+    android:background = "@android:color/holo_green_dark"> 
+   <RadioButton 
+      android:layout_width = "wrap_content" 
+      android:layout_height = "wrap_content" 
+      android:text = "法拉利" 
+      android:id = "@+id/radioFerrari" /> 
+   <RadioButton 
+      android:layout_width = "wrap_content" 
+      android:layout_height = "wrap_content" 
+      android:text = "奔驰" 
+      android:id = "@+id/radioMercedes" /> 
+   <RadioButton 
+      android:layout_width = "wrap_content" 
+      android:layout_height = "wrap_content" 
+      android:text = "兰博基尼" 
+      android:id = "@+id/radioLamborghini" />
+   <RadioButton 
+      android:text = "奥迪" 
+      android:layout_width = "match_parent" 
+      android:layout_height = "wrap_content" 
+      android:id = "@+id/radioAudi" /> 
+</RadioGroup> 
+<ToggleButton 
+      android:id = "@+id/togglebutton" 
+      android:layout_width = "wrap_content" 
+      android:layout_height = "wrap_content" 
+      android:textOn = "开" 
+      android:textOff = "关" 
+      android:textColor = "@android:color/black" /> 
+<RatingBar 
+android:layout_width = "wrap_content" 
+android:layout_height = "wrap_content" 
+android:id = "@+id/ratingBar1" 
+android:numStars = "3" 
+android:stepSize = "1.0" /> 
+
+<!--文本输入框-->
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="国家" />
+<!--自动完成文本-->
+ <AutoCompleteTextView android:id="@+id/autocomplete_country"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"/>
+<Button 
+    android:text = "提交" 
+    android:layout_width = "fill_parent" 
+    android:layout_height = "wrap_content" 
+    android:id = "@+id/btn_Submit" 
+    android:background="@android:color/holo_green_dark" /> 
+</LinearLayout>
