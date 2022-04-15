@@ -14,3 +14,4 @@ Makefile
 *.cfg
 *.MF
 *.json
+/cmake-build-debug/**/*
