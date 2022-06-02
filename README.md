@@ -66,7 +66,11 @@
     - [ios庖丁解牛--->点击进入](https://github.com/xiaomiwujiecao/iosKnife)
 - [part12 | Shell脚本 --->点击进入](https://github.com/xiaomiwujiecao/cleverShell)
 - [part13 | 大前端](./part13/README.md)
-- [part14 | 案例实战](./part14/README.md)
+  - [part14 | 案例实战](./part14/README.md)
+    - 第一章 [pyQT 客户端](./part14/pyqt5/README.md)
+    - 第一章 [pyQT 客户端-在线文档版本-点我](/part14/pyqt5/README.md)
+    - 第二章 [.netCore 篇](./part14/dotNetCore/README.md)
+    - 第二章 [.netCore 篇-在线文档版本-点我](/part14/dotNetCore/README.md)
 ## 大纲描述
 
 [大纲](./framework.md)
@@ -104,7 +108,8 @@
 
 ## 项目维护周期
 
-本项目长期维护 `LTS`
+本项目长期维护 `LTS` 从 2019 年 至今
+> this tutorial project will be long-term maintained , that maintained since 2019.
 
 
 ## 遵循协议
@@ -117,6 +122,6 @@
 [更改记录](change_log.md)
 
 
-## 博客缩略图/点击即达
+## My Blog
 
 [![小新开源](img/ai_nodejs7.png)](https://tftp.top/)
