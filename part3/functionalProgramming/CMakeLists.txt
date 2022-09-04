@@ -1,0 +1,12 @@
+
+add_executable(str_len str_len.cpp)
+add_executable(user_defined user_defined.cpp)
+add_executable(func_with_arg_no_return func_with_arg_no_return.cpp)
+add_executable(func_with_arg_return_val func_with_arg_return_val.cpp)
+add_executable(call_by_ref call_by_ref.cpp)
+add_executable(function_overloading function_overloading.cpp)
+add_executable(function_overriding function_overriding.cpp)
+add_executable(recursion recursion.cpp)
+add_library(sectionFunctionalProgramming add_num.cpp func_with_arg_no_return.cpp func_with_arg_return_val.cpp call_by_value.cpp call_by_ref.cpp function_overloading.cpp function_overriding.cpp recursion.cpp)
+install (TARGETS sectionFunctionalProgramming DESTINATION bin)
+install (FILES add_num.cpp str_len.cpp DESTINATION include)
