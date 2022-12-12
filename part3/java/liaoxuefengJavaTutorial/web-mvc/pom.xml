@@ -15,7 +15,7 @@
 		<maven.compiler.target>14</maven.compiler.target>
 		<java.version>14</java.version>
 
-		<jackson.version>2.12.6.1</jackson.version>
+		<jackson.version>2.13.4.1</jackson.version>
 		<pebble.version>3.1.2</pebble.version>
 		<tomcat.version>10.0.4</tomcat.version>
 	</properties>
