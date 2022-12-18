@@ -10,7 +10,7 @@ add_executable(function_overriding function_overriding.cpp)
 add_executable(recursion recursion.cpp)
 add_executable(polymorphism polymorphism.cpp)
 add_executable(create_record.cpp create_record.cpp)
-add_library(sectionFunctionalProgramming  add_num.cpp func_with_arg_no_return.cpp func_with_arg_return_val.cpp call_by_value.cpp call_by_ref.cpp function_overloading.cpp function_overriding.cpp recursion.cpp polymorphism.cpp create_record.cpp write_to_file.cpp)
+add_library(sectionFunctionalProgramming  add_num.cpp func_with_arg_no_return.cpp func_with_arg_return_val.cpp call_by_value.cpp call_by_ref.cpp function_overloading.cpp function_overriding.cpp recursion.cpp polymorphism.cpp create_record.cpp write_to_file.cpp read_from_file.cpp remove_file_.cpp determining_file_size.cpp)
 install (TARGETS sectionFunctionalProgramming DESTINATION bin)
 install (FILES add_num.cpp str_len.cpp DESTINATION include)
 
