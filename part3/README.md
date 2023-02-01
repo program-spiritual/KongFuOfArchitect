@@ -6,3 +6,7 @@
 - [第五章 `Erlang` 编程](erlang/README.md)
 - [第六章 `Prolog` 编程](prolog/README.md)
 - [第七章 `Yaml` 教程](yaml/README.md)
+
+### python
+
+- [构建自己的 package （包）](python/README.md)
