@@ -71,9 +71,9 @@
 - [part13 | H5](/part13/README.md)
   - [part14 | Case combat](/part14/README.md)
     - Chapter One [pyQT client](/part14/pyqt5/README.md)
-    - Chapter One [pyQT client-Online documentation version本-点我](/part14/pyqt5/README.md)
+    - Chapter One [pyQT client-Online documentation version click me](/part14/pyqt5/README.md)
     - Chapter two [.netCore articles](/part14/dotNetCore/README.md)
-    - Chapter two [.netCore articles-Online documentation version本-点我](/part14/dotNetCore/README.md)
+    - Chapter two [.netCore articles-Online documentation version click me](/part14/dotNetCore/README.md)
     - 
 ## outline description
 
@@ -108,7 +108,7 @@ Please move to: https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/
 
 Thanks to ![](img/jetbrains11.png)  [JetBrains Support](https://www.jetbrains.com/?from=KongFuOfArchitect) ， Let me not be limited by development tools and improve writing efficiency.
 
-## Project maintenance cycle
+## Project maintenance term
 
 > this tutorial project will be long-term maintained , that maintained since 2019.
 
