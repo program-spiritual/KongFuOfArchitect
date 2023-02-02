@@ -1,5 +1,13 @@
 # 《 架构师的功夫》
 
+## 版本 2.2.3
+
+![2.1-snap](img/snap.png)
+
+## [完整在线文档](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
+
+[Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
+
 >  Reading the english(EN) Version Document, Please [click Me](/README-en.md)
 
 ![架构师的功夫](/img/icon.svg)
@@ -96,13 +104,7 @@
 请阁下移步：https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/
 
 
-## 版本 2.2.3
 
-![2.1-snap](img/snap.png)
-
-## [完整在线文档](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
-
-[Full Documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
 
 ## 致谢
 

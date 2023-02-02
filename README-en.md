@@ -1,6 +1,13 @@
 
 # 《KongFuOfArchitect》
 
+## V 2.2.3
+
+![2.1-snap](img/snap.png)
+
+## [Complete online documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
+
+
 >  查看中文文档请[点我](/README.md) 
 
 ![KongFuOfArchitect](/img/icon.svg)
@@ -98,11 +105,6 @@ If you have any suggestions and bug feedback, such as finding a typo, please poi
 Please move to: https://github.com/xiaomiwujiecao/KongFuOfArchitect/issues/
 
 
-## V 2.2.3
-
-![2.1-snap](img/snap.png)
-
-## [Complete online documentation](https://xiaomiwujiecao.github.io/KongFuOfArchitect/)
 
 ## express one's thanks
 
