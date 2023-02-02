@@ -9,4 +9,5 @@
 
 ### python
 
-- [构建自己的 package （包）](python/README.md)
+- [构建自己的 package （包）](build_python_package/README.md)
+[如何打包并上传包？](./build_upload/README.md)
