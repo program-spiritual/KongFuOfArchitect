@@ -50,13 +50,13 @@
     
     - [**JAVA** concurrent programming-Online documentation version](/part4/java_concurrency/README.md)
     
-    - [**JAVA** `Class` 与 `JVM`](/part4/java_class_jvm/README.md)
+    - [**JAVA** `Class` AND `JVM`](/part4/java_class_jvm/README.md)
     
-    - [**JAVA** `Class` 与 `JVM` -Online documentation version](/part4/java_class_jvm/README.md)
+    - [**JAVA** `Class` AND `JVM` -Online documentation version](/part4/java_class_jvm/README.md)
     
-    - [**JAVA** Design Patterns--笔记-- ](/part4/java_designPattern/README.md)
+    - [**JAVA** Design Patterns--notes-- ](/part4/java_designPattern/README.md)
     
-    - [**JAVA** 设计模式--notes-- -Online documentation version](/part4/java_designPattern/README.md)
+    - [**JAVA** Design Patterns--notes-- -Online documentation version](/part4/java_designPattern/README.md)
 - [part5 | Resource summary --->click to enter](/part5/README.md)
 - [part6 | Avenue to Jane--->Not updated yet](/part6/README.md)
 - [part7 | AI and Blockchain--->Not updated yet](/part7/README.md)
