@@ -76,7 +76,7 @@
     - [ios庖丁解牛--->点击进入](https://github.com/xiaomiwujiecao/iosKnife)
 - [part12 | Shell脚本 --->点击进入](https://github.com/xiaomiwujiecao/cleverShell)
 - [part13 | 大前端](/part13/README.md)
-  - [part14 | 案例实战](/part14/README.md)
+- [part14 | 案例实战](/part14/README.md)
     - 第一章 [pyQT 客户端](/part14/pyqt5/README.md)
     - 第一章 [pyQT 客户端-在线文档版本-点我](/part14/pyqt5/README.md)
     - 第二章 [.netCore 篇](/part14/dotNetCore/README.md)

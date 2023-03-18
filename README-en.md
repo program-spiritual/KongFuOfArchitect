@@ -76,12 +76,12 @@
     - [ios Paoding Jie Niu--->click to enter](https://github.com/xiaomiwujiecao/iosKnife)
 - [part12 | Shell script --->click to enter](https://github.com/xiaomiwujiecao/cleverShell)
 - [part13 | H5](/part13/README.md)
-  - [part14 | Case combat](/part14/README.md)
-    - Chapter One [pyQT client](/part14/pyqt5/README.md)
-    - Chapter One [pyQT client-Online documentation version click me](/part14/pyqt5/README.md)
-    - Chapter two [.netCore articles](/part14/dotNetCore/README.md)
-    - Chapter two [.netCore articles-Online documentation version click me](/part14/dotNetCore/README.md)
-    - 
+- [part14 | Case combat](/part14/README.md)
+  - Chapter One [pyQT client](/part14/pyqt5/README.md)
+  - Chapter One [pyQT client-Online documentation version click me](/part14/pyqt5/README.md)
+  - Chapter two [.netCore articles](/part14/dotNetCore/README.md)
+  - Chapter two [.netCore articles-Online documentation version click me](/part14/dotNetCore/README.md)
+  - 
 ## outline description
 
 [framework](/framework.md)
