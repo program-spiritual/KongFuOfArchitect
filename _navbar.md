@@ -1,4 +1,4 @@
 <!-- _navbar.md -->
 
-* [中文](/)
-* [En](/en)
+* [:cn: 中文](/)
+* [:gb: En](/README-en)
