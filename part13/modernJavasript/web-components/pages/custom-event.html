@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>custom-event</title>
+</head>
+<body>
+<div id="outer"></div>
+
+<script>
+  outer.attachShadow({mode: 'open'});
+
+  let inner = document.createElement('div','123123');
+  outer.shadowRoot.append(inner);
+
+  /*
+  div(id=outer)
+    #shadow-dom
+      div(id=inner)
+  */
+
+  document.addEventListener('test', event => console.log(event.detail));
+
+  inner.dispatchEvent(new CustomEvent('test', {
+    bubbles: true,
+    composed: true,
+    detail: "composed"
+  }));
+
+  inner.dispatchEvent(new CustomEvent('test', {
+    bubbles: true,
+    composed: false,
+    detail: "not composed"
+  }));
+</script>
+</body>
+</html>

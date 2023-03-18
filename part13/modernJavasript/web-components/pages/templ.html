@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>templ</title>
+</head>
+<body>
+<template id="tmpl">
+  <script>
+    console.log("Hello");
+  </script>
+  <div class="message">Hello, world!</div>
+</template>
+<template id="tmpl2">
+  <style> p { font-weight: bold; } </style>
+  <p id="message2"></p>
+</template>
+</body>
+<script >
+  let elem = document.createElement('div');
+
+  // Clone the template content to reuse it multiple times
+  elem.append(tmpl.content.cloneNode(true));
+
+  document.body.append(elem);
+  // Now the script from <template> runs
+</script>
+<div id="elem2">Click me</div>
+
+<script>
+  elem2.onclick = function() {
+    elem2.attachShadow({mode: 'open'});
+
+    elem2.shadowRoot.append(tmpl2.content.cloneNode(true)); // (*)
+
+    elem2.shadowRoot.getElementById('message2').innerHTML = "Hello from the shadows!";
+  };
+</script>
+</html>

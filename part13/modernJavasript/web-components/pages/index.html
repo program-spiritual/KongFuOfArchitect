@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>index</title>
+</head>
+<body>
+<time></time>
+<time-formatted id="elem" datetime="2019-12-01"
+                year="numeric" month="long" day="numeric"
+                hour="numeric" minute="numeric" second="numeric"
+                time-zone-name="short"
+></time-formatted>
+<!--<user-info id="outer">-->
+<!--  <user-info id="inner"></user-info>-->
+<!--</user-info>-->
+<button is="hello-button">Click me</button>
+
+<button is="hello-button" disabled>Disabled</button>
+<input type="range">
+<show-hello name="james"></show-hello>
+</body>
+<style>
+    /* 让滑块轨道变红 */
+    input::-webkit-slider-runnable-track {
+        background: red;
+    }
+</style>
+<script src="../scripts/components/my-element.js"></script>
+<script src="../scripts/components/time-formatted.js"></script>
+<script src="../scripts/components/hello-button.js"></script>
+<script src="../scripts/components/show-hello.js"></script>
+<script >
+  const elem = document.getElementById('elem');
+  setInterval(() => elem.setAttribute('datetime', new Date()), 1000); // (5)
+
+</script>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>named slots</title>
+</head>
+<body>
+<user-card>
+  <span slot="username">John Smith</span>
+  <span slot="birthday">01.01.2001</span>
+</user-card>
+<user-card>
+  <span slot="username">John</span>
+  <span slot="username">Smith</span>
+</user-card>
+<user-card>
+  <div>I like to swim.</div>
+  <span slot="username">John Smith</span>
+  <span slot="birthday">01.01.2001</span>
+  <div>...And play volleyball too!</div>
+</user-card>
+</body>
+<script src="../scripts/components/user-card.js"></script>
+</html>

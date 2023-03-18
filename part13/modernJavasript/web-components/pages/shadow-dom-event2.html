@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>event2</title>
+</head>
+<body>
+<user-card id="userCard">
+  <span slot="username">John Smith</span>
+</user-card>
+
+<script>
+  customElements.define('user-card', class extends HTMLElement {
+    connectedCallback() {
+      this.attachShadow({mode: 'open'});
+      this.shadowRoot.innerHTML = `<div>
+      <b>Name:</b> <slot name="username"></slot>
+    </div>`;
+
+      this.shadowRoot.firstElementChild.onclick =
+        e => console.log("Inner target: " + e.target.tagName);
+    }
+  });
+
+  userCard.onclick = e => console.log(`Outer target: ${e.target.tagName}`);
+</script>
+</body>
+</html>
