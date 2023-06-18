@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version> <!-- or 23.5-android for the Android flavor -->
+            <version>32.0.0-jre</version> <!-- or 23.5-android for the Android flavor -->
         </dependency>
     </dependencies>
 
