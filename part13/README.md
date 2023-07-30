@@ -14,3 +14,4 @@
 - [学习 & 练习 ng8 -- angular 8,当然这个版本不是最新的版本，如果你使用过其他框架，可以比对一下不同框架的架构思想](https://github.com/xiaomiwujiecao/learn-ng8)
 - [学习 &  练习 VNode Render (渲染器) ，学习优秀的渲染器技术 ](https://github.com/xiaomiwujiecao/VNodePractise)
 - [TS 练习项目--方便练习](https://github.com/xiaomiwujiecao/tsPractice)
+- [有用的JS代码碎片](./snippets/README.md)
