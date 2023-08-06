@@ -18,3 +18,12 @@ Makefile
 venv
 /part13/asp.net.core/001/startup001/startup001/bin/
 /part13/asp.net.core/001/startup001/startup001/obj/
+/part3/functionalProgramming/determining_file_size
+/part3/functionalProgramming/er_functional/erl_crash.dump
+/part3/functionalProgramming/read_from_file.dSYM/Contents/Info.plist
+/part3/functionalProgramming/read_from_file.dSYM/Contents/Resources/DWARF/read_from_file
+/part3/functionalProgramming/read_from_file
+/part3/functionalProgramming/rebar
+/part3/functionalProgramming/rebar3
+/part3/functionalProgramming/remove_file_
+/part3/functionalProgramming/write_to_file
