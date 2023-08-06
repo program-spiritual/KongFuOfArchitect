@@ -27,3 +27,5 @@ venv
 /part3/functionalProgramming/rebar3
 /part3/functionalProgramming/remove_file_
 /part3/functionalProgramming/write_to_file
+bin
+obj
