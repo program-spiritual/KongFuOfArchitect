@@ -16,3 +16,5 @@ Makefile
 *.json
 /cmake-build-debug/**/*
 venv
+/part13/asp.net.core/001/startup001/startup001/bin/
+/part13/asp.net.core/001/startup001/startup001/obj/
