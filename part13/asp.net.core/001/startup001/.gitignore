@@ -1,0 +1,8 @@
+.idea
+.vs
+.idea
+.vs
+# 忽略目录
+bin
+obj
+
