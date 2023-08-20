@@ -1,0 +1,27 @@
+<!-- 这段CSS代码的作用是为一个输入框设置了边框、圆角、尺寸和光标颜色等样式，同时定义了输入框的占位文本样式。输入框内的文本将显示为浅黄色，占位文本将显示为深灰色。 -->
+
+<style>
+  .caret-color {
+  width: 300px;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: solid 1px #ffd476;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  color: #ffd476;
+  font-size: 14px;
+  caret-color: #ffd476;
+}
+
+.caret-color::-webkit-input-placeholder {
+  color: #4f4c5f;
+  font-size: 14px;
+}
+</style>
+
+
+<input type="text" class="caret-color" placeholder="Enter your text">
+
+
