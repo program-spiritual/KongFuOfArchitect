@@ -1,0 +1,36 @@
+<!-- 去掉type=”number”末尾的箭头
+默认情况下，type="number"的输入类型末尾会出现一个小箭头，但有时需要将其去掉，可以使用以下样式： -->
+<div class="container">
+  <div class="main">main</div>
+  <div class="footer">button</div>
+</div>
+
+<style>
+  .container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  flex: 1;
+  background-image: linear-gradient(
+    45deg,
+    #ff9a9e 0%,
+    #fad0c4 99%,
+    #fad0c4 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.footer {
+  padding: 15px 0;
+  text-align: center;
+  color: #ff9a9e;
+  font-size: 14px;
+}
+</style>

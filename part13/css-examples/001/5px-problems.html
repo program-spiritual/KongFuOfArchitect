@@ -1,0 +1,56 @@
+
+
+<!-- 解决图片5px间距问题
+您是否经常遇到图片底部多出5px空间的问题？别担心，有4种方法可以解决。
+
+方案一：设置其父元素的font-size:0px
+
+方案二：在 img 的样式中添加display:block
+
+方案三：在 img 的样式中添加vertical-align:bottom
+
+方案四：将父元素的样式增加为line-height:5px -->
+
+
+<!-- 1 -->
+<style>
+  .parent {
+    font-size: 0px;
+  }
+</style>
+
+<div class="parent">
+  <img src="image.jpg" alt="Image">
+</div>
+
+<!-- 2 -->
+<style>
+  img {
+    display: block;
+  }
+</style>
+
+<img src="image.jpg" alt="Image">
+
+<!-- 3 -->
+
+<style>
+  img {
+    vertical-align: bottom;
+  }
+</style>
+
+<img src="image.jpg" alt="Image">
+
+
+<!-- 4 -->
+
+<style>
+  .parent {
+    line-height: 5px;
+  }
+</style>
+
+<div class="parent">
+  <img src="image.jpg" alt="Image">
+</div>
