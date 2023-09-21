@@ -18,7 +18,7 @@
 >
 > ## My Blog -- 个人博客--重写
 
-[![小新开源](img/ai_nodejs7.png)](https://nodejs7.com/)
+[博客](https://nodejs7.com/)
 
 
 ## 前言
