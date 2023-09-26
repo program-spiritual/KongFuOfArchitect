@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>memory</title>
+</head>
+<body>
+<script type="module">
+    const memory = new WebAssembly.Memory({ initial: 10, maximum: 100 });
+    new Uint32Array(memory.buffer)[0] = 42;
+    console.log("-> return memory value 0:", new Uint32Array(memory.buffer)[0]);
+</script>
+    </body>
+</html>
