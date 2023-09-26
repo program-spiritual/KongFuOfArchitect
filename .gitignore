@@ -29,3 +29,4 @@ venv
 /part3/functionalProgramming/write_to_file
 bin
 obj
+/part3/build_python_package/capitalize.egg-info/PKG-INFO
