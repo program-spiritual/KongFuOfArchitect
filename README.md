@@ -15,6 +15,11 @@
 > 补充一句： 所有教程均为 `md` 与 实际代码的方式，因为代码量较大，且很多项目目录较深，请使用 `IDE` 打开 或者找到项目目录按照单个项目打开
 > 
 > 再补充一句: "不积跬步无以至千里"
+>
+> ## My Blog -- 个人博客--重写
+
+[博客](https://nodejs7.com/)
+
 
 ## 前言
 
@@ -52,6 +57,7 @@
   - [第六章 `Erlang` 函数式编程 --->点击进入 ](/part3/erlang/README.md)
   - [第七章 `C++` 与 `标准库` --->点击进入 ](/part3/c++_stl/README.md)
   - [第⑧章 `C++` 函数式编程 --->点击进入 ](/part3/functionalProgramming/README.md)
+  - [第九章 vlang && demos](/part3/vlang_demos/README.md)
 - [part4 | 高效成长 --->点击进入](/part4/README.md)
     - [**JAVA** 并发编程](/part4/java_concurrency/README.md)
     - [**JAVA** 并发编程-在线文档版](/part4/java_concurrency/README.md)
@@ -121,6 +127,3 @@
 [更改记录](change_log.md)
 
 
-## My Blog
-
-[![小新开源](img/ai_nodejs7.png)](https://tftp.top/)

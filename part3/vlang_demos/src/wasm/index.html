@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="module">
+    const importObject = {
+        imports: { imported_func: (arg) => console.log('args:'+arg) },
+    };
+    WebAssembly.instantiateStreaming(fetch("add.wasm"),importObject).then(
+        (obj) => {
+            const result =obj.instance.exports.add(1,2)
+            console.log("-> result", result);
+        },
+    );
+
+</script>
+</body>
+</html>

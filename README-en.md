@@ -126,4 +126,4 @@ Thanks to ![](img/jetbrains11.png)  [JetBrains Support](https://www.jetbrains.co
 
 ## My Blog
 
-[![nodejs open source](img/ai_nodejs7.png)](https://tftp.top/)
+nodejs7.com

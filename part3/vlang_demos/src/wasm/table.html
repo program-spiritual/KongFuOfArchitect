@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>Simple template</title>
+</head>
+<body>
+
+</body>
+<script type="module">
+    WebAssembly.instantiateStreaming(fetch("table.wasm")).then((results) => {
+        // add code here
+        const tbl = results.instance.exports.tbl;
+        console.log(tbl.get(0)()); // 13
+        console.log(tbl.get(1)()); // 42
+    });
+</script>
+</html>
