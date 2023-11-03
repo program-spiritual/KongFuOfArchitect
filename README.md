@@ -58,6 +58,7 @@
   - [第七章 `C++` 与 `标准库` --->点击进入 ](/part3/c++_stl/README.md)
   - [第⑧章 `C++` 函数式编程 --->点击进入 ](/part3/functionalProgramming/README.md)
   - [第九章 vlang && demos](/part3/vlang_demos/README.md)
+  - [第10章 zig demos](/part3/zig_demos/README.md)
 - [part4 | 高效成长 --->点击进入](/part4/README.md)
     - [**JAVA** 并发编程](/part4/java_concurrency/README.md)
     - [**JAVA** 并发编程-在线文档版](/part4/java_concurrency/README.md)
