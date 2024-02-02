@@ -27,7 +27,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
 
-        <spring.version>5.2.3.RELEASE</spring.version>
+        <spring.version>5.2.22.RELEASE</spring.version>
     </properties>
 
     <dependencies>
