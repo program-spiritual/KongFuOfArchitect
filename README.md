@@ -67,6 +67,7 @@
     - [**JAVA** `Class` 与 `JVM` -在线文档版](/part4/java_class_jvm/README.md)
     - [**JAVA** 设计模式--笔记-- ](/part4/java_designPattern/README.md)
     - [**JAVA** 设计模式--笔记-- -在线文档版](/part4/java_designPattern/README.md)
+    - [**JAVA** 设计模式--笔记-- -在线文档版](/part4/spring-tutorial/README.md)
 - [part5 | 资源汇总 --->点击进入](/part5/README.md)
 - [part6 | 大道至简--->暂未更新](/part6/README.md)
 - [part7 | AI与区块链--->暂未更新](/part7/README.md)
